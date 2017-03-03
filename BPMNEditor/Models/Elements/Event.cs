@@ -8,7 +8,7 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
 {
-    [ElementViewModel(typeof(EventViewModel))]
+    [ElementViewModel(typeof(EventViewModel),EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class Event : IBaseElement
     {
 

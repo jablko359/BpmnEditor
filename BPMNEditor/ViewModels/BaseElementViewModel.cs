@@ -69,8 +69,8 @@ namespace BPMNEditor.ViewModels
             BaseElementViewModel viewModel =
                 (BaseElementViewModel)Activator.CreateInstance(viewModelType);
             viewModel.BaseElement = viewModel.CreateElement();
-            viewModel.Height = 50;
-            viewModel.Width = 50;
+            viewModel.Height = attribute.InitialSize.Height;
+            viewModel.Width = attribute.InitialSize.Width;
             return viewModel;
         }
 

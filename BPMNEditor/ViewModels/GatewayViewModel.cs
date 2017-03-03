@@ -10,6 +10,9 @@ namespace BPMNEditor.ViewModels
 {
     public class GatewayViewModel : BaseElementViewModel
     {
+        public const double InitialWidth = 80;
+        public const double InitialHeight = 80;
+
         private Gateway _gateway;
 
         protected override IBaseElement CreateElement()

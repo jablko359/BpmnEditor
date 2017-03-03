@@ -8,7 +8,7 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
 {
-    [ElementViewModel(typeof(GatewayViewModel))]
+    [ElementViewModel(typeof(GatewayViewModel), GatewayViewModel.InitialWidth, GatewayViewModel.InitialHeight)]
     public class Gateway : IBaseElement
     {
     }

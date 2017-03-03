@@ -15,7 +15,7 @@ namespace BPMNEditor.ViewModels
     public class DocumentViewModel : PropertyChangedBase, IDropable
     {
         #region Private members
-        
+
         private double _trackerCenterX;
         private double _trackerCenterY;
 
@@ -50,7 +50,7 @@ namespace BPMNEditor.ViewModels
             {
                 throw new ArgumentException("Incorrect document drag over argument. Expected ITypeProvider");
             }
-            PlaceElement(provider,x,y);
+            PlaceElement(provider, x, y);
         }
 
         public void DragOver(double x, double y, object dragItem)
@@ -77,8 +77,8 @@ namespace BPMNEditor.ViewModels
 
         public void OnTrackerSizeChanged(Size newSize)
         {
-            _trackerCenterX = newSize.Width/2;
-            _trackerCenterY = newSize.Height/2;
+            _trackerCenterX = newSize.Width / 2;
+            _trackerCenterY = newSize.Height / 2;
         }
 
         #endregion
@@ -88,8 +88,8 @@ namespace BPMNEditor.ViewModels
         private void PlaceElement(ITypeProvider provider, double x, double y)
         {
             BaseElementViewModel viewModel = BaseElementViewModel.GetViewModel(provider.ElementType);
-            viewModel.Left = x;
-            viewModel.Top = y;
+            viewModel.Left = x - _trackerCenterX;
+            viewModel.Top = y - _trackerCenterY;
             BaseElements.Add(viewModel);
         }
 

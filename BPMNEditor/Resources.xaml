@@ -3,6 +3,7 @@
                     xmlns:converters="clr-namespace:BPMNEditor.ViewModels.Converters"
                     xmlns:local="clr-namespace:BPMNEditor"
                     xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
+                    xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>
@@ -92,7 +93,7 @@
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
-                            <Ellipse  Height="25" Width="25" StrokeThickness="1" Stroke="{StaticResource DragTemplateColor}" >
+                            <Ellipse  Height="{x:Static vm:EventViewModel.InitialHeight}" Width="{x:Static vm:EventViewModel.InitialWidth}" StrokeThickness="1" Stroke="{StaticResource DragTemplateColor}" >
                             </Ellipse>
                         </DataTemplate>
                     </Setter.Value>
@@ -102,7 +103,7 @@
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
-                            <Border Width="40" Height="25" BorderBrush="{StaticResource DragTemplateColor}" BorderThickness="1" CornerRadius="3" ></Border>
+                            <Border Width="{x:Static vm:TaskViewModel.InitialWidth}" Height="{x:Static vm:TaskViewModel.InitialHeight}" BorderBrush="{StaticResource DragTemplateColor}" BorderThickness="1" CornerRadius="3" ></Border>
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
@@ -111,7 +112,7 @@
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
-                            <Rectangle Width="25" Height="25" Stroke="{StaticResource DragTemplateColor}" >
+                            <Rectangle Width="{x:Static vm:GatewayViewModel.InitialWidth}" Height="{x:Static vm:GatewayViewModel.InitialHeight}" Stroke="{StaticResource DragTemplateColor}" >
                                 <Rectangle.LayoutTransform>
                                     <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
                                 </Rectangle.LayoutTransform>
