@@ -1,0 +1,127 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:BPMNEditor.ViewModels.Converters"
+                    xmlns:local="clr-namespace:BPMNEditor"
+                    xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:Boolean x:Key="True">True</system:Boolean>
+    <system:Boolean x:Key="False">False</system:Boolean>
+    
+    <!--Converters-->
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converters:NegativeBooleanToVisibilityConverter x:Key="NegativeBooleanToVisibilityConverter"/>
+    <converters:WidthToVisibilityConverter x:Key="WidthToVisibilityConverter"/>
+    <converters:PositionToMarginConverter x:Key="PositionToMarginConverter"></converters:PositionToMarginConverter>
+    
+    <!--Colors-->
+    <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"></SolidColorBrush>
+
+
+    <Style x:Key="ButtonTransparent" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+    <Style x:Key="IconCloseLight" TargetType="Image">
+        <Setter Property="Source" Value="Icons/light/appbar.close.png"/>
+    </Style>
+
+    <Style x:Key="ElementPickerTextBlock" TargetType="{x:Type TextBlock}">
+        <Style.Setters>
+            <Setter Property="Visibility" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Converter={StaticResource WidthToVisibilityConverter}, ConverterParameter=150}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="{Binding Name}"/>
+            <Setter Property="Padding" Value="2 0"></Setter>
+        </Style.Setters>
+    </Style>
+
+    <!--Toolbox elemens-->
+    <Style x:Key="ElementPickerContentControl" TargetType="{x:Type ContentControl}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Event}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Canvas Width="25" Height="25">
+                                    <Ellipse Canvas.Right="0" Canvas.Top="0" Height="25" Width="25" StrokeThickness="1" Stroke="Green" >
+                                    </Ellipse>
+                                </Canvas>
+                                <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Task}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" >
+                                <Border Width="40" Height="25" BorderBrush="DodgerBlue" BorderThickness="1" CornerRadius="3" ></Border>
+                                <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Gateway}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" >
+                                <Border Width="25" Height="25" BorderBrush="Goldenrod" BorderThickness="1" >
+                                    <Border.LayoutTransform>
+                                        <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
+                                    </Border.LayoutTransform>
+                                </Border>
+                                <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Dnd Trackers-->
+    <Style x:Key="TrackerContentControl" TargetType="{x:Type ContentControl}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Event}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Ellipse  Height="25" Width="25" StrokeThickness="1" Stroke="{StaticResource DragTemplateColor}" >
+                            </Ellipse>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Task}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Border Width="40" Height="25" BorderBrush="{StaticResource DragTemplateColor}" BorderThickness="1" CornerRadius="3" ></Border>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Gateway}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Rectangle Width="25" Height="25" Stroke="{StaticResource DragTemplateColor}" >
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+        
+        
+    </Style>
+</ResourceDictionary>

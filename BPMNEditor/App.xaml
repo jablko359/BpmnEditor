@@ -1,0 +1,17 @@
+﻿<Application x:Class="BPMNEditor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views/MainView.xaml"
+             xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
+             xmlns:local="clr-namespace:BPMNEditor">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <vm:MainViewModel x:Key="MainViewModel"></vm:MainViewModel>
+                </ResourceDictionary>
+                <ResourceDictionary  Source="Resources.xaml" ></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="BPMNEditor.Views.DocumentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BPMNEditor.Views"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:dnd="clr-namespace:BPMNEditor.Tools.DragAndDrop"
+             xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
+             xmlns:tools="clr-namespace:BPMNEditor.Tools"
+             mc:Ignorable="d" Loaded="DocumentView_OnLoaded"
+             d:DataContext="{d:DesignInstance Type=viewModels:DocumentViewModel, IsDesignTimeCreatable=True }"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding BaseElements}">
+            <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:TrackerViewModel}">
+                    <ContentControl x:Name="Tracker" SizeChanged="Tracker_OnSizeChanged" Visibility="{Binding IsTrackerVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                         Style="{StaticResource TrackerContentControl}">
+                    </ContentControl>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:EventViewModel}" >
+                    <Ellipse Height="{Binding Height}" Width="{Binding Width}" StrokeThickness="1" Stroke="Green" >
+                    </Ellipse>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:TaskViewModel}" >
+                    <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="DodgerBlue" BorderThickness="1" CornerRadius="3" ></Border>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:GatewayViewModel}" >
+                    <Border  Height="{Binding Height}" Width="{Binding Width}" BorderBrush="Goldenrod" BorderThickness="1" >
+                        <Border.LayoutTransform>
+                            <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
+                        </Border.LayoutTransform>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.Resources>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Margin">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource PositionToMarginConverter}">
+                                <Binding Path="Left"/>
+                                <Binding Path="Top"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+
+
+        <i:Interaction.Behaviors>
+            <dnd:ElementDropBehavior></dnd:ElementDropBehavior>
+        </i:Interaction.Behaviors>
+    </ScrollViewer>
+        
+   
+   
+</UserControl>
