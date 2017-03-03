@@ -69,6 +69,7 @@
     <Compile Include="Models\Elements\IBaseElement.cs" />
     <Compile Include="Models\Elements\Task.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Tools\DragAndDrop\DragableUserControl.cs" />
     <Compile Include="ViewModels\BaseElementViewModel.cs" />
     <Compile Include="Tools\ClassReader.cs" />
     <Compile Include="Tools\DragAndDrop\ElementDragBehavior.cs" />
@@ -85,6 +86,9 @@
     <Compile Include="ViewModels\PropertyChangedBase.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\TrackerViewModel.cs" />
+    <Compile Include="Views\BaseElementView.xaml.cs">
+      <DependentUpon>BaseElementView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>
@@ -126,6 +130,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BaseElementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

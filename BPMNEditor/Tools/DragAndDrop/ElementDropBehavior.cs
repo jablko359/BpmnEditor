@@ -43,7 +43,11 @@ namespace BPMNEditor.Tools.DragAndDrop
 
         private void AssociatedObjectOnDragLeave(object sender, DragEventArgs dragEventArgs)
         {
-
+            if (_transferedType != null && dragEventArgs.Data.GetDataPresent(_transferedType))
+            {
+                IDropable dropable = AssociatedObject.DataContext as IDropable;
+                dropable?.DragLeave();
+            }
         }
 
         private void AssociatedObjectOnDragOver(object sender, DragEventArgs dragEventArgs)

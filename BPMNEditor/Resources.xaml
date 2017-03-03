@@ -7,13 +7,13 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>
-    
+
     <!--Converters-->
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <converters:NegativeBooleanToVisibilityConverter x:Key="NegativeBooleanToVisibilityConverter"/>
     <converters:WidthToVisibilityConverter x:Key="WidthToVisibilityConverter"/>
     <converters:PositionToMarginConverter x:Key="PositionToMarginConverter"></converters:PositionToMarginConverter>
-    
+
     <!--Colors-->
     <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"></SolidColorBrush>
 
@@ -122,7 +122,7 @@
                 </Setter>
             </DataTrigger>
         </Style.Triggers>
-        
-        
     </Style>
+
+    
 </ResourceDictionary>

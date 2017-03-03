@@ -10,8 +10,8 @@ namespace BPMNEditor.ViewModels
 {
     public class EventViewModel : BaseElementViewModel
     {
-        public const double InitialWidth = 80;
-        public const double InitialHeight = 80;
+        public const double InitialWidth = 40;
+        public const double InitialHeight = 40;
 
         private Event _event;
 
