@@ -70,6 +70,7 @@
     <Compile Include="Models\Elements\Task.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Tools\DragAndDrop\DragableUserControl.cs" />
+    <Compile Include="Tools\VisualHelper.cs" />
     <Compile Include="ViewModels\BaseElementViewModel.cs" />
     <Compile Include="Tools\ClassReader.cs" />
     <Compile Include="Tools\DragAndDrop\ElementDragBehavior.cs" />
@@ -99,6 +100,9 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\ResizeThumb.xaml.cs">
+      <DependentUpon>ResizeThumb.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -146,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResizeThumb.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

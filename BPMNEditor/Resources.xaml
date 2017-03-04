@@ -4,6 +4,7 @@
                     xmlns:local="clr-namespace:BPMNEditor"
                     xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
                     xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
+                    xmlns:views="clr-namespace:BPMNEditor.Views"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>
@@ -12,7 +13,8 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <converters:NegativeBooleanToVisibilityConverter x:Key="NegativeBooleanToVisibilityConverter"/>
     <converters:WidthToVisibilityConverter x:Key="WidthToVisibilityConverter"/>
-    <converters:PositionToMarginConverter x:Key="PositionToMarginConverter"></converters:PositionToMarginConverter>
+    <converters:PositionToMarginConverter x:Key="PositionToMarginConverter"/>
+    <converters:BooleanToHiddenVisibilityConverter x:Key="BooleanToHiddenVisibilityConverter"/>
 
     <!--Colors-->
     <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"></SolidColorBrush>
@@ -124,5 +126,25 @@
         </Style.Triggers>
     </Style>
 
-    
+    <!--Resize Thumb-->
+    <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="Control">
+        <Grid>
+            <views:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" 
+          VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <views:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0"
+          VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+            <views:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0"
+          VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+            <views:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4"
+          VerticalAlignment="Bottom"  HorizontalAlignment="Stretch"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0"
+          VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0"
+          VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6"
+          VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6"
+          VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        </Grid>
+    </ControlTemplate>
 </ResourceDictionary>

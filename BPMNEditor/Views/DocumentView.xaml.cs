@@ -45,5 +45,17 @@ namespace BPMNEditor.Views
                viewModel.OnTrackerSizeChanged(e.NewSize);
             }
         }
+
+        private void DocumentView_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //DocumentViewModel viewModel = DataContext as DocumentViewModel;
+            //Control sourceControl = e.OriginalSource as Control;
+            //if (sourceControl != null)
+            //{
+            //    viewModel?.GridClicked();
+            //}
+           
+
+        }
     }
 }

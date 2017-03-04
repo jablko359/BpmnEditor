@@ -1,16 +1,22 @@
 ﻿using System;
+using System.Windows.Input;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
+using BPMNEditor.Tools.DragAndDrop;
+using BPMNEditor.ViewModels.Command;
 
 
 namespace BPMNEditor.ViewModels
 {
-    public abstract class BaseElementViewModel : PropertyChangedBase
+    public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject, IMovable
     {
         private double _width;
         private double _top;
         private double _height;
         private double _left;
+        private bool _isSelected;
+
+        public ICommand SelectCommand { get; private set; }
 
         public double Width
         {
@@ -37,8 +43,12 @@ namespace BPMNEditor.ViewModels
             get { return _left; }
             set
             {
-                _left = value;
-                NotifyOfPropertyChange(nameof(Left));
+                if (value > 0)
+                {
+                    _left = value;
+                    NotifyOfPropertyChange(nameof(Left));
+                }
+                
             }
         }
 
@@ -47,15 +57,47 @@ namespace BPMNEditor.ViewModels
             get { return _top; }
             set
             {
-                _top = value;
-                NotifyOfPropertyChange(nameof(Top));
+                if (value > 0)
+                {
+                    _top = value;
+                    NotifyOfPropertyChange(nameof(Top));
+                }
+                
             }
         }
+
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                NotifyOfPropertyChange(nameof(IsSelected));
+            }
+        }
+
+
+        public double MinHeight { get; set; }
+        public double MinWidth { get; set; }
 
         public IBaseElement BaseElement { get; private set; }
 
         protected abstract IBaseElement CreateElement();
 
+        public BaseElementViewModel()
+        {
+            SelectCommand = new RelayCommand(item => Select());
+        }
+
+        public void Select()
+        {
+            IsSelected = true;
+        }
+
+        public void Deselect()
+        {
+            IsSelected = false;
+        }
 
         public static BaseElementViewModel GetViewModel(Type elementType)
         {
@@ -73,6 +115,17 @@ namespace BPMNEditor.ViewModels
             viewModel.Width = attribute.InitialSize.Width;
             return viewModel;
         }
+
+
+        #region IMovable
+
+        public void Move(double x, double y)
+        {
+            Left = x;
+            Top = y;
+        }
+
+        #endregion
 
 
     }

@@ -33,5 +33,11 @@ namespace BPMNEditor.Views
             viewModel.Left = x - ActualWidth/2;
             viewModel.Top = y - ActualHeight/2;
         }
+
+        private void BaseElementView_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
+            viewModel.IsSelected = true;
+        }
     }
 }

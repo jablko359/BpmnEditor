@@ -9,6 +9,9 @@ using System.Windows.Data;
 
 namespace BPMNEditor.ViewModels.Converters
 {
+
+    #region  Visibility
+
     public class NegativeBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -36,11 +39,11 @@ namespace BPMNEditor.ViewModels.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string stringParameter = (string) parameter;
+            string stringParameter = (string)parameter;
             double minWidth;
             if (Double.TryParse(stringParameter, out minWidth))
             {
-                double actualWidth = (double) value;
+                double actualWidth = (double)value;
                 Visibility result = Visibility.Visible;
                 if (actualWidth < minWidth)
                 {
@@ -59,4 +62,21 @@ namespace BPMNEditor.ViewModels.Converters
             throw new NotImplementedException();
         }
     }
+
+    public class BooleanToHiddenVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool isVisible = (bool) value;
+            return isVisible ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    #endregion
+
 }

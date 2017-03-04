@@ -5,10 +5,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BPMNEditor.Views"
+             xmlns:views="clr-namespace:BPMNEditor.Views" PreviewMouseDown="BaseElementView_OnPreviewMouseDown"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewModels:BaseElementViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ContentControl Content="{Binding}">
+    <ContentControl>
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewModels:EventViewModel}" >
                 <Ellipse Height="{Binding Height}" Width="{Binding Width}" StrokeThickness="1" Stroke="Green" Fill="LawnGreen" >
@@ -25,5 +27,12 @@
                 </Border>
             </DataTemplate>
         </ContentControl.Resources>
+        <ContentControl>
+            <Grid>
+                <ContentPresenter  Content="{Binding}" />
+                <Control Visibility="{Binding IsSelected , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ResizeDecoratorTemplate}"/>
+            </Grid>
+
+        </ContentControl>
     </ContentControl>
 </dnd:DragableUserControl>

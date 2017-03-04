@@ -7,14 +7,14 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:dnd="clr-namespace:BPMNEditor.Tools.DragAndDrop"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
-             xmlns:views="clr-namespace:BPMNEditor.Views"
-             xmlns:tools="clr-namespace:BPMNEditor.Tools"
+             xmlns:views="clr-namespace:BPMNEditor.Views" 
+             xmlns:tools="clr-namespace:BPMNEditor.Tools" Background="White"
              mc:Ignorable="d" Loaded="DocumentView_OnLoaded"
              d:DataContext="{d:DesignInstance Type=viewModels:DocumentViewModel, IsDesignTimeCreatable=True }"
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
         <ItemsControl ItemsSource="{Binding BaseElements}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}" >
@@ -53,6 +53,8 @@
         </i:Interaction.Behaviors>
     </ScrollViewer>
 
-
+    <UserControl.InputBindings>
+        <MouseBinding MouseAction="LeftClick" Command="{Binding GridClickedCommand}" ></MouseBinding>
+    </UserControl.InputBindings>
 
 </UserControl>

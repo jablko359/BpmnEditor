@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
+using BPMNEditor.ViewModels.Command;
 
 
 namespace BPMNEditor.ViewModels
@@ -26,7 +28,7 @@ namespace BPMNEditor.ViewModels
 
         public TrackerViewModel Tracker { get; }
 
-
+        
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
 
         #endregion
@@ -81,6 +83,13 @@ namespace BPMNEditor.ViewModels
             _trackerCenterY = newSize.Height / 2;
         }
 
+        public void GridClicked()
+        {
+            foreach (BaseElementViewModel baseElement in BaseElements)
+            {
+                baseElement.Deselect();
+            }
+        }
         #endregion
 
         #region PrivateMethods
@@ -92,6 +101,8 @@ namespace BPMNEditor.ViewModels
             viewModel.Top = y - _trackerCenterY;
             BaseElements.Add(viewModel);
         }
+
+        
 
         #endregion
     }

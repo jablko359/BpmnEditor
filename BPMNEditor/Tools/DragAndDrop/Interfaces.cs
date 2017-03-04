@@ -39,6 +39,23 @@ namespace BPMNEditor.Tools.DragAndDrop
         void DragLeave();
     }
 
+    public interface IResizableObject
+    {
+        double Width { get; set; }
+        double Height { get; set; }
+        double Left { get; set; }
+        double Top { get; set; }
+        double MinHeight { get; set; }
+        double MinWidth { get; set; }
+    }
+
+    public interface IMovable
+    {
+        void Move(double x, double y);
+        double Left { get; }
+        double Top { get; }
+    }
+
     public interface ITypeProvider
     {
         Type ElementType { get; }
