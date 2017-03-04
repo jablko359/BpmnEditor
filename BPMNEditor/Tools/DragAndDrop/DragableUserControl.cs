@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace BPMNEditor.Tools.DragAndDrop
@@ -22,12 +23,12 @@ namespace BPMNEditor.Tools.DragAndDrop
             Loaded += DragableUserControl_Loaded;
         }
 
-        private void DragableUserControl_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void DragableUserControl_MouseLeave(object sender, MouseEventArgs e)
         {
             _isMouseDown = false;
         }
 
-        private void DragableUserControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void DragableUserControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (_isMouseDown)
             {
@@ -39,7 +40,7 @@ namespace BPMNEditor.Tools.DragAndDrop
 
         private void DragableUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _parentPanel = FindParent<Grid>(this);
+            _parentPanel = VisualHelper.FindParent<Grid>(this);
              MouseMove += DragableUserControl_MouseMove;
         }
         
@@ -58,20 +59,6 @@ namespace BPMNEditor.Tools.DragAndDrop
 
         protected abstract void DoDrag(double x, double y);
 
-        public static T FindParent<T>(DependencyObject child) where T : DependencyObject
-        {
-            //get parent item
-            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
-
-            //we've reached the end of the tree
-            if (parentObject == null) return null;
-
-            //check if the parent matches the type we're looking for
-            T parent = parentObject as T;
-            if (parent != null)
-                return parent;
-            else
-                return FindParent<T>(parentObject);
-        }
+        
     }
 }

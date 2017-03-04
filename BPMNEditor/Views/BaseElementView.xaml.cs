@@ -37,7 +37,16 @@ namespace BPMNEditor.Views
         private void BaseElementView_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
-            viewModel.Select();
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                viewModel.IsSelected = !viewModel.IsSelected;
+            }
+            else
+            {
+                viewModel.Select();
+            }
+            
+            
         }
     }
 }
