@@ -8,7 +8,7 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject, IMovable
+    public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject
     {
         private double _width;
         private double _top;
@@ -84,7 +84,9 @@ namespace BPMNEditor.ViewModels
 
         protected abstract IBaseElement CreateElement();
 
-        public BaseElementViewModel()
+        public event EventHandler<EventArgs> ItemSelectedEvent;
+
+        protected BaseElementViewModel()
         {
             SelectCommand = new RelayCommand(item => Select());
         }
@@ -92,6 +94,7 @@ namespace BPMNEditor.ViewModels
         public void Select()
         {
             IsSelected = true;
+            ItemSelectedEvent?.Invoke(this, new EventArgs());
         }
 
         public void Deselect()
@@ -115,18 +118,5 @@ namespace BPMNEditor.ViewModels
             viewModel.Width = attribute.InitialSize.Width;
             return viewModel;
         }
-
-
-        #region IMovable
-
-        public void Move(double x, double y)
-        {
-            Left = x;
-            Top = y;
-        }
-
-        #endregion
-
-
     }
 }

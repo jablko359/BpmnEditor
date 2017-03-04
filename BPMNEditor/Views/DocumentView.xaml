@@ -14,11 +14,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" PreviewMouseDown="DocumentView_OnMouseDown">
         <ItemsControl ItemsSource="{Binding BaseElements}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}" >
-                    <views:BaseElementView></views:BaseElementView>
+                    <views:BaseElementView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:TrackerViewModel}">
                     <ContentControl x:Name="Tracker" SizeChanged="Tracker_OnSizeChanged"
@@ -42,8 +42,8 @@
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Top"/>
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>

@@ -97,12 +97,24 @@ namespace BPMNEditor.ViewModels
         private void PlaceElement(ITypeProvider provider, double x, double y)
         {
             BaseElementViewModel viewModel = BaseElementViewModel.GetViewModel(provider.ElementType);
+            viewModel.ItemSelectedEvent += ViewModel_ItemSelectedEvent;
             viewModel.Left = x - _trackerCenterX;
             viewModel.Top = y - _trackerCenterY;
             BaseElements.Add(viewModel);
         }
 
-        
+        private void ViewModel_ItemSelectedEvent(object sender, EventArgs e)
+        {
+            foreach (BaseElementViewModel baseElement in BaseElements)
+            {
+                if (baseElement != sender)
+                {
+                    baseElement.IsSelected = false;
+                }
+            }
+        }
+
+
 
         #endregion
     }

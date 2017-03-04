@@ -33,7 +33,7 @@ namespace BPMNEditor.Tools.DragAndDrop
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="transferType"></param>
+        /// <param name="dragItem"></param>
         void DragOver(double x, double y, object dragItem);
 
         void DragLeave();

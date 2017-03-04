@@ -37,7 +37,7 @@ namespace BPMNEditor.Views
         private void BaseElementView_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
-            viewModel.IsSelected = true;
+            viewModel.Select();
         }
     }
 }
