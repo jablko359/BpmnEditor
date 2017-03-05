@@ -14,10 +14,17 @@ namespace BPMNEditor.ViewModels
 
         private Task _task;
 
+        public TaskViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
+        {
+            ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };
+        }
+
         protected override IBaseElement CreateElement()
         {
             _task = new Task();
             return _task;
         }
+
+        protected override HashSet<Type> ApplicableTypes { get; }
     }
 }

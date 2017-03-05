@@ -52,7 +52,7 @@ namespace BPMNEditor.Views
             Control sourceControl = e.OriginalSource as Control;
             if (sourceControl != null)
             {
-                viewModel?.GridClicked();
+                viewModel?.DeselectAll();
             }
         }
     }

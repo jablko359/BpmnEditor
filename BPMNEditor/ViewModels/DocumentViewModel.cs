@@ -37,7 +37,7 @@ namespace BPMNEditor.ViewModels
         public DocumentViewModel()
         {
             BaseElements = new ObservableCollection<BaseElementViewModel>();
-            Tracker = new TrackerViewModel();
+            Tracker = new TrackerViewModel(this);
             BaseElements.Add(Tracker);
         }
 
@@ -83,27 +83,15 @@ namespace BPMNEditor.ViewModels
             _trackerCenterY = newSize.Height / 2;
         }
 
-        public void GridClicked()
+        public void DeselectAll()
         {
             foreach (BaseElementViewModel baseElement in BaseElements)
             {
                 baseElement.Deselect();
             }
         }
-        #endregion
 
-        #region PrivateMethods
-
-        private void PlaceElement(ITypeProvider provider, double x, double y)
-        {
-            BaseElementViewModel viewModel = BaseElementViewModel.GetViewModel(provider.ElementType);
-            viewModel.ItemSelectedEvent += ViewModel_ItemSelectedEvent;
-            viewModel.Left = x - _trackerCenterX;
-            viewModel.Top = y - _trackerCenterY;
-            BaseElements.Add(viewModel);
-        }
-
-        private void ViewModel_ItemSelectedEvent(object sender, EventArgs e)
+        public void SelectSignleItem(BaseElementViewModel sender)
         {
             foreach (BaseElementViewModel baseElement in BaseElements)
             {
@@ -114,8 +102,47 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public void DeleteItem(BaseElementViewModel item)
+        {
+            BaseElements.Remove(item);
+        }
 
+        public void BringItemToFront(BaseElementViewModel item)
+        {
+            foreach (BaseElementViewModel baseElement in BaseElements)
+            {
+                if (baseElement == item)
+                {
+                    baseElement.ItemZIndex = 1;
+                }
+                else
+                {
+                    baseElement.ItemZIndex = 0;
+                }
+            }
+        }
 
+        public void NotifyConnectors(Type connectorType, BaseElementViewModel source)
+        {
+            foreach (BaseElementViewModel baseElement in BaseElements)
+            {
+                if (source != baseElement && baseElement.IsTypeApplicable(connectorType))
+                {
+                    baseElement.IsConnectorVisible = true;
+                }
+            }
+        }
+        #endregion
+
+        #region PrivateMethods
+
+        private void PlaceElement(ITypeProvider provider, double x, double y)
+        {
+            BaseElementViewModel viewModel = BaseElementViewModel.GetViewModel(provider.ElementType, this);
+            viewModel.Left = x - _trackerCenterX;
+            viewModel.Top = y - _trackerCenterY;
+            BaseElements.Add(viewModel);
+        }
         #endregion
     }
 }

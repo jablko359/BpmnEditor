@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
@@ -10,14 +11,25 @@ namespace BPMNEditor.ViewModels
 {
     public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject
     {
+        #region Private members
         private double _width;
         private double _top;
         private double _height;
         private double _left;
         private bool _isSelected;
+        private int _itemZIndex;
+        private bool _isConnectorVisible;
 
+        private readonly DocumentViewModel _document;
+        #endregion
+
+        #region Commands
         public ICommand SelectCommand { get; private set; }
+        public ICommand DeleteCommand { get; private set; }
+        public ICommand BringToFrontCommand { get; private set; }
+        #endregion
 
+        #region Properties
         public double Width
         {
             get { return _width; }
@@ -48,7 +60,7 @@ namespace BPMNEditor.ViewModels
                     _left = value;
                     NotifyOfPropertyChange(nameof(Left));
                 }
-                
+
             }
         }
 
@@ -62,7 +74,7 @@ namespace BPMNEditor.ViewModels
                     _top = value;
                     NotifyOfPropertyChange(nameof(Top));
                 }
-                
+
             }
         }
 
@@ -76,33 +88,91 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public int ItemZIndex
+        {
+            get { return _itemZIndex; }
+            set
+            {
+                _itemZIndex = value;
+                NotifyOfPropertyChange(nameof(ItemZIndex));
+            }
+        }
+
+        public bool IsConnectorVisible
+        {
+            get { return _isConnectorVisible; }
+            set
+            {
+                _isConnectorVisible = value;
+                NotifyOfPropertyChange(nameof(IsConnectorVisible));
+            }
+        }
+
 
         public double MinHeight { get; set; }
         public double MinWidth { get; set; }
+        protected abstract HashSet<Type> ApplicableTypes { get; }
+        #endregion
 
         public IBaseElement BaseElement { get; private set; }
 
         protected abstract IBaseElement CreateElement();
 
-        public event EventHandler<EventArgs> ItemSelectedEvent;
 
-        protected BaseElementViewModel()
+
+        protected BaseElementViewModel(DocumentViewModel documentViewModel)
         {
+            _itemZIndex = 0;
+            _document = documentViewModel;
             SelectCommand = new RelayCommand(item => Select());
+            DeleteCommand = new RelayCommand(item => Delete());
+            //Doesn't work
+            BringToFrontCommand = new RelayCommand(item => BringToFront());
         }
 
         public void Select()
         {
             IsSelected = true;
-            ItemSelectedEvent?.Invoke(this, new EventArgs());
+            IsConnectorVisible = true;
+            _document.SelectSignleItem(this);
         }
 
         public void Deselect()
         {
             IsSelected = false;
+            IsConnectorVisible = false;
         }
 
-        public static BaseElementViewModel GetViewModel(Type elementType)
+        public void Delete()
+        {
+            _document.DeleteItem(this);
+        }
+
+        public void BringToFront()
+        {
+            _document.BringItemToFront(this);
+        }
+
+        public void ConnectorStart()
+        {
+            _document.NotifyConnectors(BaseElement.GetType(), this);
+        }
+
+        /// <summary>
+        /// Checks if connecntio between items can be made
+        /// </summary>
+        /// <param name="objectType"></param>
+        /// <returns></returns>
+        public virtual bool IsTypeApplicable(Type objectType)
+        {
+            bool isApplicable = ApplicableTypes.Contains(objectType);
+            return isApplicable;
+        }
+
+
+        #region Factory
+
+        public static BaseElementViewModel GetViewModel(Type elementType, DocumentViewModel documentViewModel)
         {
             ElementViewModelAttribute attribute =
                 (ElementViewModelAttribute)Attribute.GetCustomAttribute(elementType, typeof(ElementViewModelAttribute));
@@ -112,11 +182,14 @@ namespace BPMNEditor.ViewModels
             }
             Type viewModelType = attribute.ViewModelType;
             BaseElementViewModel viewModel =
-                (BaseElementViewModel)Activator.CreateInstance(viewModelType);
+                (BaseElementViewModel)Activator.CreateInstance(viewModelType, documentViewModel);
             viewModel.BaseElement = viewModel.CreateElement();
             viewModel.Height = attribute.InitialSize.Height;
             viewModel.Width = attribute.InitialSize.Width;
             return viewModel;
         }
+
+        #endregion
+
     }
 }

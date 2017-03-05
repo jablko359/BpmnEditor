@@ -78,6 +78,7 @@
     <Compile Include="Tools\DragAndDrop\Interfaces.cs" />
     <Compile Include="Tools\ElementViewModelAttribute.cs" />
     <Compile Include="ViewModels\Command\RelayCommand.cs" />
+    <Compile Include="ViewModels\ConnectorViewModel.cs" />
     <Compile Include="ViewModels\Converters\Converters.cs" />
     <Compile Include="ViewModels\Converters\PositionToMarginConverter.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Views\BaseElementView.xaml.cs">
       <DependentUpon>BaseElementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\Connector.cs" />
     <Compile Include="Views\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
     </Compile>

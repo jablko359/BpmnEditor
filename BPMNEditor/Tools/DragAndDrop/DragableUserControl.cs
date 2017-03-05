@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using BPMNEditor.Views;
+using BPMNEditor.Views.Controls;
 
 namespace BPMNEditor.Tools.DragAndDrop
 {
@@ -18,7 +20,7 @@ namespace BPMNEditor.Tools.DragAndDrop
         protected DragableUserControl()
         {
             MouseLeave += DragableUserControl_MouseLeave;
-            MouseLeftButtonDown += DragableUserControl_MouseLeftButtonDown;
+            PreviewMouseLeftButtonDown += DragableUserControl_MouseLeftButtonDown;
             MouseLeftButtonUp += DragableUserControl_MouseLeftButtonUp;
             Loaded += DragableUserControl_Loaded;
         }
@@ -48,13 +50,29 @@ namespace BPMNEditor.Tools.DragAndDrop
         private void DragableUserControl_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _isMouseDown = false;
-            this.ReleaseMouseCapture();
+            ReleaseMouseCapture();
         }
 
         private void DragableUserControl_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _isMouseDown = true;
-            this.CaptureMouse();
+            if (!IsConnector(e.OriginalSource))
+            {
+                _isMouseDown = true;
+                CaptureMouse();
+            }
+            
+        }
+
+        private bool IsConnector(object orginalSource)
+        {
+            bool result = false;
+            FrameworkElement orginalSourceControl = orginalSource as FrameworkElement;
+            if (orginalSourceControl != null)
+            {
+                result = orginalSourceControl.TemplatedParent is Connector;
+                result |= orginalSourceControl.TemplatedParent is ResizeThumb;
+            }
+            return result;
         }
 
         protected abstract void DoDrag(double x, double y);

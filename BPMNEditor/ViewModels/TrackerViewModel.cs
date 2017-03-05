@@ -12,6 +12,11 @@ namespace BPMNEditor.ViewModels
         private bool _isTrackerVisibile;
         private Type _transferType;
 
+        public TrackerViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
+        {
+            ApplicableTypes = new HashSet<Type>();
+        }
+
         public bool IsTrackerVisible
         {
             get { return _isTrackerVisibile; }
@@ -36,5 +41,7 @@ namespace BPMNEditor.ViewModels
         {
             return null;
         }
+
+        protected override HashSet<Type> ApplicableTypes { get; }
     }
 }

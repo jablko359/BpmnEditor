@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 
@@ -15,10 +14,17 @@ namespace BPMNEditor.ViewModels
 
         private Gateway _gateway;
 
+        public GatewayViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
+        {
+            ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };
+        }
+
         protected override IBaseElement CreateElement()
         {
            _gateway = new Gateway();
             return _gateway;
         }
+
+        protected override HashSet<Type> ApplicableTypes { get; }
     }
 }

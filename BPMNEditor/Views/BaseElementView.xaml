@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:BPMNEditor.Views"
              xmlns:views="clr-namespace:BPMNEditor.Views" PreviewMouseDown="BaseElementView_OnPreviewMouseDown"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Cursor="SizeAll" Grid.ZIndex="{Binding ItemZIndex}"
              d:DataContext="{d:DesignInstance Type=viewModels:BaseElementViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <ContentControl>
@@ -30,9 +30,17 @@
         <ContentControl>
             <Grid>
                 <ContentPresenter  Content="{Binding}" />
+                <Control Visibility="{Binding IsConnectorVisible , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ConnectorDecoratorTemplate}"></Control>
                 <Control Visibility="{Binding IsSelected , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ResizeDecoratorTemplate}"/>
             </Grid>
 
         </ContentControl>
     </ContentControl>
+    <dnd:DragableUserControl.ContextMenu>
+        <ContextMenu>
+            <!--Doesn't work-->
+            <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>-->
+            <MenuItem Header="Usuń" Command="{Binding DeleteCommand}"/>
+        </ContextMenu>
+    </dnd:DragableUserControl.ContextMenu>
 </dnd:DragableUserControl>

@@ -30,8 +30,11 @@ namespace BPMNEditor.Views
         protected override void DoDrag(double x, double y)
         {
             BaseElementViewModel viewModel = (BaseElementViewModel) DataContext;
-            viewModel.Left = x - ActualWidth/2;
-            viewModel.Top = y - ActualHeight/2;
+            if (viewModel.IsSelected)
+            {
+                viewModel.Left = x - ActualWidth / 2;
+                viewModel.Top = y - ActualHeight / 2;
+            }
         }
 
         private void BaseElementView_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)

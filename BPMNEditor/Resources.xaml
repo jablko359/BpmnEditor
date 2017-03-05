@@ -5,7 +5,8 @@
                     xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
                     xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
                     xmlns:views="clr-namespace:BPMNEditor.Views"
-                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:controls="clr-namespace:BPMNEditor.Views.Controls">
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>
 
@@ -147,4 +148,32 @@
           VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         </Grid>
     </ControlTemplate>
+    
+    <!--ConnectorTeplate-->
+    <ControlTemplate x:Key="ConnectorDecoratorTemplate" TargetType="{x:Type Control}">
+        <Grid Margin="-15">
+            <controls:Connector VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <controls:Connector VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <controls:Connector VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <controls:Connector VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type controls:Connector}">
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="Height" Value="8"/>
+        <Setter Property="Cursor" Value="Cross"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:Connector}">
+                    <Grid>
+                        <!-- transparent extra space makes connector easier to hit -->
+                        <Rectangle Fill="Transparent" Margin="-2"/>
+                        <Rectangle Fill="Lavender" StrokeThickness="1" Stroke="#AA000080"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
