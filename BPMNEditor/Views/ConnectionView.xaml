@@ -5,17 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BPMNEditor.Views"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
+             xmlns:shapes="clr-namespace:BPMNEditor.Shapes"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ConnectionViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ContentControl>
+    <Grid>
         <Path Stroke="Black" StrokeThickness="1" >
             <Path.Data>
-                <GeometryGroup>
-                    <LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding FirtsBreakPoint}" />
+                <PathGeometry>
+                    <PathFigure StartPoint="{Binding StartPoint}">
+                        <LineSegment Point="{Binding FirtsBreakPoint}"/>
+                        <LineSegment Point="{Binding SecondBreakPoint}"/>
+                        <!--<LineSegment Point="{Binding EndPoint}"></LineSegment>-->
+                    </PathFigure>
+                </PathGeometry>
+                    <!--<LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding FirtsBreakPoint}" />
                     <LineGeometry StartPoint="{Binding FirtsBreakPoint}" EndPoint="{Binding SecondBreakPoint}"/>
-                    <LineGeometry StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}"/>
-                </GeometryGroup>
+                    <LineGeometry StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}"/>-->
             </Path.Data>
         </Path>
-    </ContentControl>
+        <shapes:Arrow StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}" ></shapes:Arrow>
+    </Grid>
 </UserControl>

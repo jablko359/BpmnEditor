@@ -69,6 +69,9 @@
     <Compile Include="Models\Elements\IBaseElement.cs" />
     <Compile Include="Models\Elements\Task.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Shapes\Arrow.xaml.cs">
+      <DependentUpon>Arrow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tools\DragAndDrop\DragableUserControl.cs" />
     <Compile Include="Tools\VisualHelper.cs" />
     <Compile Include="ViewModels\BaseElementViewModel.cs" />
@@ -140,6 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shapes\Arrow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
