@@ -12,7 +12,7 @@
         xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
         mc:Ignorable="d" DataContext="{StaticResource MainViewModel}"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True }"
-        Title="MainView" Height="500" Width="700">
+        Title="MainView" Height="700" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" ></ColumnDefinition>

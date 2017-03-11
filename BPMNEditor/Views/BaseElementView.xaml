@@ -26,6 +26,13 @@
                     </Border.LayoutTransform>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ConnectionViewModel}">
+                <Path Stroke="Black" StrokeThickness="1" >
+                    <Path.Data>
+                        <LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding EndPoint}" />
+                    </Path.Data>
+                </Path>
+            </DataTemplate>
         </ContentControl.Resources>
         <ContentControl>
             <Grid>

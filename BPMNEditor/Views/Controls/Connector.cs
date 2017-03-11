@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
@@ -12,6 +13,8 @@ namespace BPMNEditor.Views.Controls
 {
     public class Connector : Control
     {
+        private ConnectorViewModel _viewModel;
+
         public Connector()
         {
             Loaded += Connector_Loaded;
@@ -21,10 +24,10 @@ namespace BPMNEditor.Views.Controls
 
         private void Connector_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ((ConnectorViewModel)DataContext).ConnectorStart();
+            _viewModel.ConnectorStart();
         }
 
-        private void Connector_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void Connector_Loaded(object sender, RoutedEventArgs e)
         {
             var parentUserControl = VisualHelper.FindParent<DragableUserControl>(this);
             BaseElementViewModel viewModel = parentUserControl.DataContext as BaseElementViewModel;
@@ -32,12 +35,27 @@ namespace BPMNEditor.Views.Controls
             {
                 throw new ArgumentException("Incorrect Data Context. Failed to create Connector");
             }
-            DataContext = new ConnectorViewModel(viewModel);
+            _viewModel = new ConnectorViewModel(viewModel);
+            DataContext = _viewModel;
         }
 
         private void Connector_LayoutUpdated(object sender, EventArgs e)
         {
-            Console.WriteLine();
+            BaseElementView elementView = VisualHelper.FindParent<BaseElementView>(this);
+            if (elementView != null && _viewModel != null)
+            {
+                BaseElementViewModel parentViewModel = elementView.DataContext as BaseElementViewModel;
+                if (parentViewModel == null)
+                {
+                    return;
+                }
+                double left = parentViewModel.Left;
+                double top = parentViewModel.Top;
+                Point relative = this.TranslatePoint(new Point(0, 0), elementView);
+                left += relative.X + ActualWidth/2;
+                top += relative.Y + ActualHeight/2;
+                _viewModel.Position = new Point(left, top);
+            }
         }
     }
 }

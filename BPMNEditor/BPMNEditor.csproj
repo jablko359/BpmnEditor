@@ -78,6 +78,7 @@
     <Compile Include="Tools\DragAndDrop\Interfaces.cs" />
     <Compile Include="Tools\ElementViewModelAttribute.cs" />
     <Compile Include="ViewModels\Command\RelayCommand.cs" />
+    <Compile Include="ViewModels\ConnectionViewModel.cs" />
     <Compile Include="ViewModels\ConnectorViewModel.cs" />
     <Compile Include="ViewModels\Converters\Converters.cs" />
     <Compile Include="ViewModels\Converters\PositionToMarginConverter.cs" />

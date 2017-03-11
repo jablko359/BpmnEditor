@@ -21,6 +21,8 @@ namespace BPMNEditor.ViewModels
         private double _trackerCenterX;
         private double _trackerCenterY;
 
+        private ConnectorViewModel _currentConnetor;
+
         #endregion
 
         #region Properties
@@ -98,6 +100,7 @@ namespace BPMNEditor.ViewModels
                 if (baseElement != sender)
                 {
                     baseElement.IsSelected = false;
+                    baseElement.IsConnectorVisible = false;
                 }
             }
         }
@@ -122,15 +125,26 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        public void NotifyConnectors(Type connectorType, BaseElementViewModel source)
+        public void NotifyConnectors(Type connectorType, ConnectorViewModel connector, BaseElementViewModel source)
         {
-            foreach (BaseElementViewModel baseElement in BaseElements)
+            if (_currentConnetor == null)
             {
-                if (source != baseElement && baseElement.IsTypeApplicable(connectorType))
+                foreach (BaseElementViewModel baseElement in BaseElements)
                 {
-                    baseElement.IsConnectorVisible = true;
+                    if (source != baseElement && baseElement.IsTypeApplicable(connectorType))
+                    {
+                        baseElement.IsConnectorVisible = true;
+                    }
                 }
+                _currentConnetor = connector;
             }
+            else
+            {
+                ConnectionViewModel connection = new ConnectionViewModel(this, _currentConnetor, connector);
+                this.BaseElements.Add(connection);
+                _currentConnetor = null;
+            }
+            
         }
         #endregion
 

@@ -153,13 +153,13 @@ namespace BPMNEditor.ViewModels
             _document.BringItemToFront(this);
         }
 
-        public void ConnectorStart()
+        public void ConnectorStart(ConnectorViewModel connector)
         {
-            _document.NotifyConnectors(BaseElement.GetType(), this);
+            _document.NotifyConnectors(BaseElement.GetType(), connector, this);
         }
 
         /// <summary>
-        /// Checks if connecntio between items can be made
+        /// Checks if connectiom between items can be made
         /// </summary>
         /// <param name="objectType"></param>
         /// <returns></returns>

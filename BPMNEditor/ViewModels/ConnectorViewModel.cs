@@ -29,7 +29,7 @@ namespace BPMNEditor.ViewModels
 
         public void ConnectorStart()
         {
-            _parentViewModel.ConnectorStart();
+            _parentViewModel.ConnectorStart(this);
         }
 
     }
