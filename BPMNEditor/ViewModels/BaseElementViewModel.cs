@@ -21,6 +21,7 @@ namespace BPMNEditor.ViewModels
         private bool _isConnectorVisible;
 
         private readonly DocumentViewModel _document;
+        private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
         #endregion
 
         #region Commands
@@ -141,6 +142,7 @@ namespace BPMNEditor.ViewModels
         {
             IsSelected = false;
             IsConnectorVisible = false;
+            ShowAllConnectors();
         }
 
         public void Delete()
@@ -169,7 +171,33 @@ namespace BPMNEditor.ViewModels
             return isApplicable;
         }
 
+        public void AddConenctor(ConnectorViewModel connector)
+        {
+            _connectors.Add(connector);
+        }
 
+        /// <summary>
+        /// Hides all connectors expcept specified one
+        /// </summary>
+        /// <param name="connector"></param>
+        public void HideOtherConnectors(ConnectorViewModel connector)
+        {
+            foreach (ConnectorViewModel viewModel in _connectors)
+            {
+                if (viewModel != connector)
+                {
+                    viewModel.IsVisible = false;
+                }
+            }
+        }
+
+        public void ShowAllConnectors()
+        {
+            foreach (ConnectorViewModel viewModel in _connectors)
+            {
+                viewModel.IsVisible = true;
+            }
+        }
         #region Factory
 
         public static BaseElementViewModel GetViewModel(Type elementType, DocumentViewModel documentViewModel)

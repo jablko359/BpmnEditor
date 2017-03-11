@@ -67,7 +67,7 @@ namespace BPMNEditor.ViewModels.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isVisible = (bool) value;
+            bool isVisible = (bool)value;
             return isVisible ? Visibility.Visible : Visibility.Hidden;
         }
 
@@ -79,4 +79,5 @@ namespace BPMNEditor.ViewModels.Converters
 
     #endregion
 
+    
 }

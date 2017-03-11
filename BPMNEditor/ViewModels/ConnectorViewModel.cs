@@ -10,7 +10,20 @@ namespace BPMNEditor.ViewModels
     public class ConnectorViewModel : PropertyChangedBase
     {
         private Point _position;
-        private BaseElementViewModel _parentViewModel;
+        private readonly BaseElementViewModel _parentViewModel;
+
+        private bool _isVisible = true;
+
+        public bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                _isVisible = value;
+                NotifyOfPropertyChange(nameof(IsVisible));
+            }
+        }
+
 
         public Point Position
         {
@@ -22,9 +35,16 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        public ConnectorViewModel(BaseElementViewModel baseElementViewModel)
+        public Placemement Placemement
+        {
+            get; 
+        }
+
+        public ConnectorViewModel(BaseElementViewModel baseElementViewModel, Placemement placemement)
         {
             _parentViewModel = baseElementViewModel;
+            Placemement = placemement;
+            baseElementViewModel.AddConenctor(this);
         }
 
         public void ConnectorStart()
@@ -32,5 +52,10 @@ namespace BPMNEditor.ViewModels
             _parentViewModel.ConnectorStart(this);
         }
 
+    }
+
+    public enum Placemement
+    {
+        Left, Top, Right, Bottom
     }
 }

@@ -17,6 +17,9 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" PreviewMouseDown="DocumentView_OnMouseDown">
         <ItemsControl ItemsSource="{Binding BaseElements}">
             <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:ConnectionViewModel}">
+                    <views:ConnectionView></views:ConnectionView>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}" >
                     <views:BaseElementView/>
                 </DataTemplate>

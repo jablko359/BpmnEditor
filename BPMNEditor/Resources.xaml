@@ -152,10 +152,10 @@
     <!--ConnectorTeplate-->
     <ControlTemplate x:Key="ConnectorDecoratorTemplate" TargetType="{x:Type Control}">
         <Grid Margin="-15">
-            <controls:Connector VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <controls:Connector VerticalAlignment="Top" HorizontalAlignment="Center"/>
-            <controls:Connector VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <controls:Connector VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         </Grid>
     </ControlTemplate>
 

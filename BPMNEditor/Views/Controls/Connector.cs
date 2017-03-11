@@ -35,7 +35,7 @@ namespace BPMNEditor.Views.Controls
             {
                 throw new ArgumentException("Incorrect Data Context. Failed to create Connector");
             }
-            _viewModel = new ConnectorViewModel(viewModel);
+            _viewModel = new ConnectorViewModel(viewModel, GetPlacement());
             DataContext = _viewModel;
         }
 
@@ -52,10 +52,35 @@ namespace BPMNEditor.Views.Controls
                 double left = parentViewModel.Left;
                 double top = parentViewModel.Top;
                 Point relative = this.TranslatePoint(new Point(0, 0), elementView);
-                left += relative.X + ActualWidth/2;
-                top += relative.Y + ActualHeight/2;
+                left += relative.X + ActualWidth / 2;
+                top += relative.Y + ActualHeight / 2;
                 _viewModel.Position = new Point(left, top);
             }
+        }
+
+        private Placemement GetPlacement()
+        {
+            Placemement result = Placemement.Left;
+            switch (HorizontalAlignment)
+            {
+                case HorizontalAlignment.Left:
+                    result = Placemement.Left;
+                    break;
+                case HorizontalAlignment.Right:
+                    result = Placemement.Right;
+                    break;
+
+            }
+            switch (VerticalAlignment)
+            {
+                case VerticalAlignment.Bottom:
+                    result = Placemement.Bottom;
+                    break;
+                case VerticalAlignment.Top:
+                    result = Placemement.Top;
+                    break;
+            }
+            return result;
         }
     }
 }

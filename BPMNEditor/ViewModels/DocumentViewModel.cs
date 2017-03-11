@@ -129,6 +129,7 @@ namespace BPMNEditor.ViewModels
         {
             if (_currentConnetor == null)
             {
+                source.HideOtherConnectors(connector);
                 foreach (BaseElementViewModel baseElement in BaseElements)
                 {
                     if (source != baseElement && baseElement.IsTypeApplicable(connectorType))
@@ -140,6 +141,10 @@ namespace BPMNEditor.ViewModels
             }
             else
             {
+                foreach (BaseElementViewModel baseElement in BaseElements)
+                {
+                    baseElement.ShowAllConnectors();
+                }
                 ConnectionViewModel connection = new ConnectionViewModel(this, _currentConnetor, connector);
                 this.BaseElements.Add(connection);
                 _currentConnetor = null;

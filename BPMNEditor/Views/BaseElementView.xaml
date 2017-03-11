@@ -26,13 +26,6 @@
                     </Border.LayoutTransform>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:ConnectionViewModel}">
-                <Path Stroke="Black" StrokeThickness="1" >
-                    <Path.Data>
-                        <LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding EndPoint}" />
-                    </Path.Data>
-                </Path>
-            </DataTemplate>
         </ContentControl.Resources>
         <ContentControl>
             <Grid>
@@ -40,7 +33,6 @@
                 <Control Visibility="{Binding IsConnectorVisible , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ConnectorDecoratorTemplate}"></Control>
                 <Control Visibility="{Binding IsSelected , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ResizeDecoratorTemplate}"/>
             </Grid>
-
         </ContentControl>
     </ContentControl>
     <dnd:DragableUserControl.ContextMenu>
