@@ -12,6 +12,12 @@
                 <PathFigure StartPoint="{Binding StartPoint, ElementName=ArrowControl}">
                     <LineSegment Point="{Binding ElementName=ArrowControl, Path=EndPoint}"/>
                 </PathFigure>
+                <PathFigure StartPoint="{Binding EndPoint, ElementName=ArrowControl}">
+                    <LineSegment Point="{Binding ElementName=ArrowControl, Path=HeadPoint1}"/>
+                </PathFigure>
+                <PathFigure StartPoint="{Binding EndPoint, ElementName=ArrowControl}">
+                    <LineSegment Point="{Binding ElementName=ArrowControl, Path=HeadPoint2}"/>
+                </PathFigure>
             </PathGeometry>
         </Path.Data>
     </Path>

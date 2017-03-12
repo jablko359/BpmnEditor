@@ -15,14 +15,10 @@
                     <PathFigure StartPoint="{Binding StartPoint}">
                         <LineSegment Point="{Binding FirtsBreakPoint}"/>
                         <LineSegment Point="{Binding SecondBreakPoint}"/>
-                        <!--<LineSegment Point="{Binding EndPoint}"></LineSegment>-->
                     </PathFigure>
                 </PathGeometry>
-                    <!--<LineGeometry StartPoint="{Binding StartPoint}" EndPoint="{Binding FirtsBreakPoint}" />
-                    <LineGeometry StartPoint="{Binding FirtsBreakPoint}" EndPoint="{Binding SecondBreakPoint}"/>
-                    <LineGeometry StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}"/>-->
             </Path.Data>
         </Path>
-        <shapes:Arrow StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}" ></shapes:Arrow>
+        <shapes:Arrow StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></shapes:Arrow>
     </Grid>
 </UserControl>
