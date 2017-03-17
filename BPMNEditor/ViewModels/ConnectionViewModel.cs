@@ -68,6 +68,8 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+       
+
 
         #endregion
 
@@ -82,6 +84,7 @@ namespace BPMNEditor.ViewModels
             end.PropertyChanged += End_PropertyChanged;
             _startPlacement = start.Placemement;
             _endPlacemement = end.Placemement;
+            Hooks = new List<Hook>();
             CalculateBreakPoint();
         }
 
@@ -114,13 +117,14 @@ namespace BPMNEditor.ViewModels
 
         private void CalculateBreakPoint()
         {
-            IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement);
+            IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
             Points = new PointCollection(points);
             CalculateHooks(Points);
         }
 
         private void CalculateHooks(PointCollection points)
         {
+            List<Hook> userHooks = Hooks.Where(item => item.IsMoved).ToList();
             List<Hook> hooks = new List<Hook>();
             for (int i = 1; i < points.Count; i++)
             {
@@ -131,8 +135,14 @@ namespace BPMNEditor.ViewModels
                 //prevent adding hooks 
                 if (x != EndPoint.X && y != EndPoint.Y)
                 {
-
-                    hooks.Add(new Hook(startPoint, endPoint, this));
+                    Hook newHook = new Hook(startPoint, endPoint, this);
+                    hooks.Add(newHook);
+                    Hook oldHook = userHooks.FirstOrDefault(
+                        item => item.StartPoint.Equals(newHook.StartPoint) || item.EndPoint.Equals(newHook.EndPoint));
+                    if (oldHook != null && oldHook.Orientation == newHook.Orientation)
+                    {
+                        newHook.IsMoved = true;
+                    }
                 }
 
             }

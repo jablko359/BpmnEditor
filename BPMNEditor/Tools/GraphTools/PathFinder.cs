@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using BPMNEditor.ViewModels;
 
@@ -19,20 +20,58 @@ namespace BPMNEditor.Tools.GraphTools
             _documetData = documentData;
         }
 
-        public IEnumerable<Point> CalculatePath(Point startPoint, Point endPoint, Placemement startPlacemement, Placemement endPlacemement)
+        
+
+        public IEnumerable<Point> CalculatePath(Point startPoint, Point endPoint, Placemement startPlacemement, 
+            Placemement endPlacemement, List<Hook> hooks)
         {
             List<Point> points = new List<Point>();
-            
             Point arrowPoint = CalculateArrowPoint(endPoint, endPlacemement);
             Direction stepDirection = GetRequireDirection(startPlacemement);
             Point currentPoint = startPoint;
-            while (!currentPoint.Equals(arrowPoint))
+
+            int i = 0;
+            
+            Point pathEnd = hooks.Count > 0 ? hooks[0].HookPoint : arrowPoint;
+            do
             {
+                while (!currentPoint.Equals(pathEnd))
+                {
+
+                    currentPoint = CalculateNextPoint(currentPoint, pathEnd, stepDirection);
+                    stepDirection = GetOther(stepDirection);
+                    if (i < hooks.Count && currentPoint.Equals(hooks[i].HookPoint))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        points.Add(currentPoint);
+                    }
+                    
+                }
+                i++;
+                if (i < hooks.Count)
+                {
+                    pathEnd = hooks[i].HookPoint;
+                    stepDirection = hooks[i - 1].Orientation == Orientation.Horizontal
+                        ? Direction.Vertical
+                        : Direction.Horizontal;
+                }
+                else
+                {
+                    pathEnd = arrowPoint;
+                    Hook last = hooks.LastOrDefault();
+                    if (last != null)
+                    {
+                        stepDirection = last.Orientation == Orientation.Horizontal
+                        ? Direction.Vertical
+                        : Direction.Horizontal;
+                    }
+                }
                 
-                currentPoint = CalculateNextPoint(currentPoint, arrowPoint, stepDirection);
-                stepDirection = GetOther(stepDirection);
-                points.Add(currentPoint);
-            }
+            } while (i <= hooks.Count);
+            
             return points;
         }
 
@@ -133,6 +172,11 @@ namespace BPMNEditor.Tools.GraphTools
         private Direction GetOther(Direction direction)
         {
             return direction == Direction.Horizontal ? Direction.Vertical : Direction.Horizontal;
+        }
+
+        private Placemement GetPlacement(Orientation orientation)
+        {
+            return orientation == Orientation.Horizontal ? Placemement.Left : Placemement.Top;
         }
 
         private enum Direction

@@ -15,6 +15,9 @@ namespace BPMNEditor.Tools.GraphTools
         private Point _startPoint;
         private Point _endPoint;
 
+        public bool IsMoved { get; set; }
+         
+
         public Point StartPoint
         {
             get { return _startPoint; }
@@ -30,7 +33,7 @@ namespace BPMNEditor.Tools.GraphTools
         public Point OriginalStartPoint { get; private set; }
         public Point OriginalEndPoint { get; private set; }
 
-        private ConnectionViewModel _parent;
+        private readonly ConnectionViewModel _parent;
 
         public Point HookPoint { get; private set; }
         public Orientation Orientation { get; }
@@ -53,6 +56,7 @@ namespace BPMNEditor.Tools.GraphTools
 
         public void MoveHook(double horizontalChange, double verticalChange)
         {
+            IsMoved = true;
             Point newHook = new Point();
             switch (Orientation)
             {
