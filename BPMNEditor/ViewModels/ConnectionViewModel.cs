@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using BPMNEditor.Models.Elements;
+using BPMNEditor.Tools.GraphTools;
 
 namespace BPMNEditor.ViewModels
 {
@@ -12,9 +14,11 @@ namespace BPMNEditor.ViewModels
     {
         private Point _startPoint;
         private Point _endPoint;
-        private Point _firtsBreakPoint;
-        private Point _secondBreakPoint;
-        private ConnectionType _type;
+        private PointCollection _points;
+
+
+        private Placemement _startPlacement;
+        private Placemement _endPlacemement;
 
         #region Properties
 
@@ -32,30 +36,22 @@ namespace BPMNEditor.ViewModels
             get { return _endPoint; }
             set
             {
+
                 _endPoint = value;
                 NotifyOfPropertyChange(nameof(EndPoint));
             }
         }
 
-        public Point FirtsBreakPoint
+        public PointCollection Points
         {
-            get { return _firtsBreakPoint; }
+            get { return _points; }
             set
             {
-                _firtsBreakPoint = value;
-                NotifyOfPropertyChange(nameof(FirtsBreakPoint));
+                _points = value;
+                NotifyOfPropertyChange(nameof(Points));
             }
         }
 
-        public Point SecondBreakPoint
-        {
-            get { return _secondBreakPoint; }
-            set
-            {
-                _secondBreakPoint = value;
-                NotifyOfPropertyChange(nameof(SecondBreakPoint));
-            }
-        }
 
         #endregion
 
@@ -68,7 +64,9 @@ namespace BPMNEditor.ViewModels
             EndPoint = end.Position;
             start.PropertyChanged += Start_PropertyChanged;
             end.PropertyChanged += End_PropertyChanged;
-            _type = GetConnectionType(start.Placemement, end.Placemement);
+            _startPlacement = start.Placemement;
+            _endPlacemement = end.Placemement;
+            CalculateBreakPoint();
         }
 
         private void End_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -76,8 +74,11 @@ namespace BPMNEditor.ViewModels
             ConnectorViewModel end = sender as ConnectorViewModel;
             if (end != null && e.PropertyName == "Position")
             {
-                EndPoint = end.Position;
-                CalculateBreakPoint();
+                if (!EndPoint.Equals(end.Position))
+                {
+                    EndPoint = end.Position;
+                    CalculateBreakPoint();
+                }
             }
         }
 
@@ -86,8 +87,12 @@ namespace BPMNEditor.ViewModels
             ConnectorViewModel start = sender as ConnectorViewModel;
             if (start != null && e.PropertyName == "Position")
             {
-                StartPoint = start.Position;
-                CalculateBreakPoint();
+                if (!StartPoint.Equals(start.Position))
+                {
+                    StartPoint = start.Position;
+                    CalculateBreakPoint();
+                }
+
             }
         }
 
@@ -99,59 +104,14 @@ namespace BPMNEditor.ViewModels
 
         public void CalculateBreakPoint()
         {
-            double horizontalBreak = (StartPoint.X + EndPoint.X) / 2;
-            double verticalBreak = (StartPoint.Y + EndPoint.Y) / 2;
-            switch (_type)
-            {
-                case ConnectionType.Horizontal:
-                    _firtsBreakPoint.X = horizontalBreak;
-                    _firtsBreakPoint.Y = StartPoint.Y;
-                    _secondBreakPoint.X = horizontalBreak;
-                    _secondBreakPoint.Y = EndPoint.Y;
-                    break;
-                case ConnectionType.Vertical:
-                    _firtsBreakPoint.X = StartPoint.X;
-                    _firtsBreakPoint.Y = verticalBreak;
-                    _secondBreakPoint.X = EndPoint.X;
-                    _secondBreakPoint.Y = verticalBreak;
-                    break;
-                case ConnectionType.Mixed:
-                    _firtsBreakPoint.X = StartPoint.X;
-                    _firtsBreakPoint.Y = StartPoint.Y;
-                    _secondBreakPoint.X = StartPoint.X;
-                    _secondBreakPoint.Y = EndPoint.Y;
-                    break;
-            }
-            NotifyOfPropertyChange(nameof(FirtsBreakPoint));
-            NotifyOfPropertyChange(nameof(SecondBreakPoint));
+            IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement);
+            Points = new PointCollection(points);
         }
 
-        private static ConnectionType GetConnectionType(Placemement startPlacemement, Placemement endPlacemement)
-        {
-            ConnectionType result = ConnectionType.Horizontal;
-            if (GetPlacementSubType(startPlacemement) != GetPlacementSubType(endPlacemement))
-            {
-                result = ConnectionType.Mixed;
-            }
-            else if (startPlacemement == Placemement.Left || startPlacemement == Placemement.Right)
-            {
-                result = ConnectionType.Horizontal;
-            }
-            else
-            {
-                result = ConnectionType.Vertical;
-            }
-            return result;
-        }
+        
 
-        private static ConnectionType GetPlacementSubType(Placemement placement)
-        {
-            return (placement == Placemement.Left || placement == Placemement.Right) ? ConnectionType.Horizontal : ConnectionType.Vertical;
-        }
 
-        private enum ConnectionType
-        {
-            Horizontal, Vertical, Mixed
-        }
     }
+
+   
 }

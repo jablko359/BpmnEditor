@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="BPMNEditor.Shapes.Arrow"
+﻿<UserControl x:Class="BPMNEditor.Tools.GraphTools.Arrow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BPMNEditor.Shapes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" x:Name="ArrowControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <Path Stroke="Black" StrokeThickness="1" >

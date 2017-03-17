@@ -22,7 +22,7 @@ namespace BPMNEditor.ViewModels.Converters
                 Visibility result = itemVisibility ? Visibility.Collapsed : Visibility.Visible;
                 return result;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new IncorrectConverterValueException(value, targetType);
             }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BPMNEditor.Views"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
-             xmlns:shapes="clr-namespace:BPMNEditor.Shapes"
+             xmlns:graphTools="clr-namespace:BPMNEditor.Tools.GraphTools"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ConnectionViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -13,12 +13,12 @@
             <Path.Data>
                 <PathGeometry>
                     <PathFigure StartPoint="{Binding StartPoint}">
-                        <LineSegment Point="{Binding FirtsBreakPoint}"/>
-                        <LineSegment Point="{Binding SecondBreakPoint}"/>
+                        <PolyLineSegment Points="{Binding Points}"></PolyLineSegment>
                     </PathFigure>
                 </PathGeometry>
             </Path.Data>
         </Path>
-        <shapes:Arrow StartPoint="{Binding SecondBreakPoint}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></shapes:Arrow>
+        <graphTools:Arrow StartPoint="{Binding Points[1]}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
     </Grid>
 </UserControl>
+

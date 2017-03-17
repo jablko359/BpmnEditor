@@ -9,6 +9,7 @@ using System.Windows.Input;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
+using BPMNEditor.Tools.GraphTools;
 using BPMNEditor.ViewModels.Command;
 
 
@@ -27,6 +28,7 @@ namespace BPMNEditor.ViewModels
 
         #region Properties
 
+        public PathFinder PathFinder { get; }
 
         public TrackerViewModel Tracker { get; }
 
@@ -40,6 +42,7 @@ namespace BPMNEditor.ViewModels
         {
             BaseElements = new ObservableCollection<BaseElementViewModel>();
             Tracker = new TrackerViewModel(this);
+            PathFinder = new PathFinder(this);
             BaseElements.Add(Tracker);
         }
 
