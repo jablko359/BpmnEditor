@@ -25,12 +25,12 @@ namespace BPMNEditor.Tools.GraphTools
             
             Point arrowPoint = CalculateArrowPoint(endPoint, endPlacemement);
             Direction stepDirection = GetRequireDirection(startPlacemement);
-            Point currentPoint = CalculateNextPoint(startPoint, arrowPoint, stepDirection);
-            points.Add(currentPoint);
+            Point currentPoint = startPoint;
             while (!currentPoint.Equals(arrowPoint))
             {
-                stepDirection = GetOther(stepDirection);
+                
                 currentPoint = CalculateNextPoint(currentPoint, arrowPoint, stepDirection);
+                stepDirection = GetOther(stepDirection);
                 points.Add(currentPoint);
             }
             return points;

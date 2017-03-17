@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.GraphTools;
@@ -15,6 +17,7 @@ namespace BPMNEditor.ViewModels
         private Point _startPoint;
         private Point _endPoint;
         private PointCollection _points;
+        private List<Hook> _hooks;
 
 
         private readonly Placemement _startPlacement;
@@ -49,6 +52,19 @@ namespace BPMNEditor.ViewModels
             {
                 _points = value;
                 NotifyOfPropertyChange(nameof(Points));
+            }
+
+        }
+
+
+
+        public List<Hook> Hooks
+        {
+            get { return _hooks; }
+            set
+            {
+                _hooks = value;
+                NotifyOfPropertyChange(nameof(Hooks));
             }
         }
 
@@ -100,6 +116,28 @@ namespace BPMNEditor.ViewModels
         {
             IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement);
             Points = new PointCollection(points);
+            CalculateHooks(Points);
+        }
+
+        private void CalculateHooks(PointCollection points)
+        {
+            List<Hook> hooks = new List<Hook>();
+            for (int i = 1; i < points.Count; i++)
+            {
+                Point startPoint = points[i - 1];
+                Point endPoint = points[i];
+                double x = (startPoint.X + endPoint.X) / 2;
+                double y = (startPoint.Y + endPoint.Y) / 2;
+                //prevent adding hooks 
+                if (x != EndPoint.X && y != EndPoint.Y)
+                {
+                    Point hookPoint = new Point(x, y);
+                    Orientation hookOrientation = Hook.GetOrientation(startPoint, endPoint);
+                    hooks.Add(new Hook(hookPoint, hookOrientation));
+                }
+
+            }
+            Hooks = hooks;
         }
 
         #region BaseElementViewModel
@@ -113,9 +151,9 @@ namespace BPMNEditor.ViewModels
         #endregion
 
 
-        
+
 
     }
 
-   
+
 }

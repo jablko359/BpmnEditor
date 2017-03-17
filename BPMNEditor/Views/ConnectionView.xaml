@@ -13,11 +13,34 @@
             <Path.Data>
                 <PathGeometry>
                     <PathFigure StartPoint="{Binding StartPoint}">
-                        <PolyLineSegment Points="{Binding Points}"></PolyLineSegment>
+                        <PolyLineSegment Points="{Binding Points}"/>
                     </PathFigure>
                 </PathGeometry>
             </Path.Data>
         </Path>
+        <ItemsControl  ItemsSource="{Binding Hooks}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type graphTools:Hook}">
+                    <Path Fill="YellowGreen" Stroke="Black" StrokeThickness="1" >
+                        <Path.Style>
+                            <Style TargetType="Path">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Orientation}" Value="Vertical">
+                                        <Setter Property="Cursor" Value="SizeWE"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Orientation}" Value="Horizontal">
+                                        <Setter Property="Cursor" Value="SizeNS"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Path.Style>
+                        <Path.Data>
+                            <RectangleGeometry Rect="{Binding HookPoint, Converter={StaticResource PointToRectangleConverter}}" ></RectangleGeometry>
+                        </Path.Data>
+                    </Path>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         <graphTools:Arrow StartPoint="{Binding Points, Converter={StaticResource PointFromCollectionConverter}, ConverterParameter=Last}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
     </Grid>
 </UserControl>

@@ -73,6 +73,7 @@
       <DependentUpon>Arrow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\DragAndDrop\DragableUserControl.cs" />
+    <Compile Include="Tools\GraphTools\Hook.cs" />
     <Compile Include="Tools\GraphTools\PathFinder.cs" />
     <Compile Include="Tools\VisualHelper.cs" />
     <Compile Include="ViewModels\BaseElementViewModel.cs" />
