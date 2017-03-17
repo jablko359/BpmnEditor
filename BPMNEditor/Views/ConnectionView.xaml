@@ -20,15 +20,15 @@
         </Path>
         <ItemsControl  ItemsSource="{Binding Hooks}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type graphTools:Hook}">
-                    <Path Fill="YellowGreen" Stroke="Black" StrokeThickness="1" >
+                <DataTemplate DataType="{x:Type graphTools:Hook}" >
+                    <Path Fill="YellowGreen" Stroke="Black" StrokeThickness="1" MouseLeftButtonDown="HookOnMouseLeftButtonDown" MouseLeftButtonUp="HookOnMouseLeftButtonUp" MouseMove="HookOnMouseMove">
                         <Path.Style>
                             <Style TargetType="Path">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Orientation}" Value="Vertical">
+                                    <DataTrigger Binding="{Binding Orientation}" Value="Horizontal">
                                         <Setter Property="Cursor" Value="SizeWE"></Setter>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Orientation}" Value="Horizontal">
+                                    <DataTrigger Binding="{Binding Orientation}" Value="Vertical">
                                         <Setter Property="Cursor" Value="SizeNS"></Setter>
                                     </DataTrigger>
                                 </Style.Triggers>

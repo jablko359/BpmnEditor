@@ -37,16 +37,16 @@ namespace BPMNEditor.Tools.DragAndDrop
                 Point newPosition = e.GetPosition(_parentPanel);
                 DoDrag(newPosition.X, newPosition.Y);
             }
-            
+
         }
 
         private void DragableUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _parentPanel = VisualHelper.FindParent<Grid>(this);
-             MouseMove += DragableUserControl_MouseMove;
+            MouseMove += DragableUserControl_MouseMove;
         }
-        
-       
+
+
         private void DragableUserControl_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _isMouseDown = false;
@@ -60,7 +60,7 @@ namespace BPMNEditor.Tools.DragAndDrop
                 _isMouseDown = true;
                 CaptureMouse();
             }
-            
+
         }
 
         private bool IsConnector(object orginalSource)
@@ -77,6 +77,6 @@ namespace BPMNEditor.Tools.DragAndDrop
 
         protected abstract void DoDrag(double x, double y);
 
-        
+
     }
 }

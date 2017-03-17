@@ -131,13 +131,26 @@ namespace BPMNEditor.ViewModels
                 //prevent adding hooks 
                 if (x != EndPoint.X && y != EndPoint.Y)
                 {
-                    Point hookPoint = new Point(x, y);
-                    Orientation hookOrientation = Hook.GetOrientation(startPoint, endPoint);
-                    hooks.Add(new Hook(hookPoint, hookOrientation));
+
+                    hooks.Add(new Hook(startPoint, endPoint, this));
                 }
 
             }
             Hooks = hooks;
+        }
+
+        public void HookChange(Hook hook)
+        {
+            PointCollection temPoints = new PointCollection(Points);
+            int startIndex = temPoints.IndexOf(hook.OriginalStartPoint);
+            int endIndex = temPoints.IndexOf(hook.OriginalEndPoint);
+            if (startIndex != -1 && endIndex != -1)
+            {
+                temPoints[startIndex] = hook.StartPoint;
+                temPoints[endIndex] = hook.EndPoint;
+                hook.SetNewPoints();
+            }
+            Points = temPoints;
         }
 
         #region BaseElementViewModel
