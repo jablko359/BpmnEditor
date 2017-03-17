@@ -18,7 +18,7 @@
                 </PathGeometry>
             </Path.Data>
         </Path>
-        <graphTools:Arrow StartPoint="{Binding Points[1]}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
+        <graphTools:Arrow StartPoint="{Binding Points, Converter={StaticResource PointFromCollectionConverter}, ConverterParameter=Last}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
     </Grid>
 </UserControl>
 

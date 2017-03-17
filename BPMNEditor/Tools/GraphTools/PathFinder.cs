@@ -11,6 +11,7 @@ namespace BPMNEditor.Tools.GraphTools
 {
     public class PathFinder
     {
+        private const double ArrowMargin = 20;
         private DocumentViewModel _documetData;
 
         public PathFinder(DocumentViewModel documentData)
@@ -21,37 +22,73 @@ namespace BPMNEditor.Tools.GraphTools
         public IEnumerable<Point> CalculatePath(Point startPoint, Point endPoint, Placemement startPlacemement, Placemement endPlacemement)
         {
             List<Point> points = new List<Point>();
-            double horizontalBreak = (startPoint.X + endPoint.X) / 2;
-            double verticalBreak = (startPoint.Y + endPoint.Y) / 2;
-            Point firtsBreakPoint = new Point();
-            Point secondBreakPoint = new Point();
-            ConnectionType type = GetConnectionType(startPlacemement, endPlacemement);
-            switch (type)
+            
+            Point arrowPoint = CalculateArrowPoint(endPoint, endPlacemement);
+            Direction stepDirection = GetRequireDirection(startPlacemement);
+            Point currentPoint = CalculateNextPoint(startPoint, arrowPoint, stepDirection);
+            points.Add(currentPoint);
+            while (!currentPoint.Equals(arrowPoint))
             {
-                case ConnectionType.Horizontal:
-                    firtsBreakPoint.X = horizontalBreak;
-                    firtsBreakPoint.Y = startPoint.Y;
-                    secondBreakPoint.X = horizontalBreak;
-                    secondBreakPoint.Y = endPoint.Y;
-                    break;
-                case ConnectionType.Vertical:
-                    firtsBreakPoint.X = startPoint.X;
-                    firtsBreakPoint.Y = verticalBreak;
-                    secondBreakPoint.X = endPoint.X;
-                    secondBreakPoint.Y = verticalBreak;
-                    break;
-                case ConnectionType.Mixed:
-                    firtsBreakPoint.X = startPoint.X;
-                    firtsBreakPoint.Y = startPoint.Y;
-                    secondBreakPoint.X = startPoint.X;
-                    secondBreakPoint.Y = endPoint.Y;
-                    break;
+                stepDirection = GetOther(stepDirection);
+                currentPoint = CalculateNextPoint(currentPoint, arrowPoint, stepDirection);
+                points.Add(currentPoint);
             }
-            points.Add(firtsBreakPoint);
-            points.Add(secondBreakPoint);
             return points;
         }
 
+        private Point CalculateNextPoint(Point previousPoint, Point destinationPoint, Direction requiredDirection )
+        {
+            Point result = new Point();
+            switch (requiredDirection)
+            {
+                case Direction.Vertical:
+                    result.X = previousPoint.X;
+                    result.Y = destinationPoint.Y;
+                    break;
+                case Direction.Horizontal:
+                    result.X = destinationPoint.X;
+                    result.Y = previousPoint.Y;
+                    break;
+
+
+            }
+            return result;
+        }
+
+        public Point CalculateArrowPoint(Point endPoint, Placemement endPlacemement)
+        {
+            Point arrowPoint = new Point(endPoint.X, endPoint.Y);
+            switch (endPlacemement)
+            {
+                case Placemement.Left:
+                    arrowPoint.X -= ArrowMargin;
+                    break;
+                case Placemement.Bottom:
+                    arrowPoint.Y += ArrowMargin;
+                    break;
+                case Placemement.Right:
+                    arrowPoint.X += ArrowMargin;
+                    break;
+                case Placemement.Top:
+                    arrowPoint.Y -= ArrowMargin;
+                    break;
+            }
+            return arrowPoint;
+        }
+
+        //#region Path
+
+        //private class Path
+        //{
+        //    public const double ArrowMargin = 10;
+        //    public List<Point> Points { get; set; }
+        //    public Point StartArrowPoint { get; set; }
+        //}
+
+        //#endregion
+
+
+        #region ConnectionType
         private static ConnectionType GetConnectionType(Placemement startPlacemement, Placemement endPlacemement)
         {
             ConnectionType result = ConnectionType.Horizontal;
@@ -78,6 +115,29 @@ namespace BPMNEditor.Tools.GraphTools
         private enum ConnectionType
         {
             Horizontal, Vertical, Mixed
+        }
+        #endregion
+
+        private Direction GetRequireDirection(Placemement startPlacemement)
+        {
+            if (startPlacemement == Placemement.Left || startPlacemement == Placemement.Right)
+            {
+                return Direction.Horizontal;
+            }
+            else
+            {
+                return Direction.Vertical;
+            }
+        }
+
+        private Direction GetOther(Direction direction)
+        {
+            return direction == Direction.Horizontal ? Direction.Vertical : Direction.Horizontal;
+        }
+
+        private enum Direction
+        {
+            None, Horizontal, Vertical
         }
     }
 }

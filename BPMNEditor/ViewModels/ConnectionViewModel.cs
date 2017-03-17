@@ -17,8 +17,8 @@ namespace BPMNEditor.ViewModels
         private PointCollection _points;
 
 
-        private Placemement _startPlacement;
-        private Placemement _endPlacemement;
+        private readonly Placemement _startPlacement;
+        private readonly Placemement _endPlacemement;
 
         #region Properties
 
@@ -96,20 +96,24 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        private void CalculateBreakPoint()
+        {
+            IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement);
+            Points = new PointCollection(points);
+        }
+
+        #region BaseElementViewModel
+
         protected override HashSet<Type> ApplicableTypes { get { return _applicableSet; } }
         protected override IBaseElement CreateElement()
         {
             return null;
         }
 
-        public void CalculateBreakPoint()
-        {
-            IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement);
-            Points = new PointCollection(points);
-        }
+        #endregion
+
 
         
-
 
     }
 

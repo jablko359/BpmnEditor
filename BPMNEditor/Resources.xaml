@@ -16,6 +16,7 @@
     <converters:WidthToVisibilityConverter x:Key="WidthToVisibilityConverter"/>
     <converters:PositionToMarginConverter x:Key="PositionToMarginConverter"/>
     <converters:BooleanToHiddenVisibilityConverter x:Key="BooleanToHiddenVisibilityConverter"/>
+    <converters:PointFromCollectionConverter x:Key="PointFromCollectionConverter"/>
 
     <!--Colors-->
     <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"></SolidColorBrush>
