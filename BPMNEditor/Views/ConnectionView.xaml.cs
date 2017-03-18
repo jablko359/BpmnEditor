@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.GraphTools;
+using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Views
 {
@@ -80,5 +81,7 @@ namespace BPMNEditor.Views
                 itemHook?.MoveHook(newPosition.X, newPosition.Y);
             }
         }
+
+      
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BPMNEditor.Tools;
+using BPMNEditor.Tools.GraphTools;
 using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Views
@@ -42,7 +44,7 @@ namespace BPMNEditor.Views
             DocumentViewModel viewModel = DataContext as DocumentViewModel;
             if (viewModel != null)
             {
-               viewModel.OnTrackerSizeChanged(e.NewSize);
+                viewModel.OnTrackerSizeChanged(e.NewSize);
             }
         }
 
@@ -53,6 +55,44 @@ namespace BPMNEditor.Views
             if (sourceControl != null)
             {
                 viewModel?.DeselectAll();
+                SelectNearLine(e);
+            }
+        }
+        /// <summary>
+        /// Select nearby conenctions
+        /// </summary>
+        /// <param name="e"></param>
+        private void SelectNearLine(MouseButtonEventArgs e)
+        {
+           
+            var paths = VisualHelper.FindVisualChildren<Path>(this);
+            var mouseNeighbourhood = Helper.CreateCenteredRect(e.GetPosition(this), new Size(10, 10));
+            foreach (Path path in paths)
+            {
+                
+                if (path.Name == "ConnectionPath")
+                {
+                    ConnectionViewModel viewModel = path.DataContext as ConnectionViewModel;
+                    if (viewModel != null)
+                    {
+                        List<Rect> rects = Helper.GetPathRects(viewModel);
+                        foreach (Rect rect in rects)
+                        {
+                            if (mouseNeighbourhood.IntersectsWith(rect))
+                            {
+                                if (e.ChangedButton == MouseButton.Left)
+                                {
+                                    viewModel.Select();
+                                }
+                                else if(e.ChangedButton == MouseButton.Right)
+                                {
+                                    viewModel.IsContextMenuOpened = true;
+                                }
+                                return;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

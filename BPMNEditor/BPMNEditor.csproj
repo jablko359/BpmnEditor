@@ -69,12 +69,14 @@
     <Compile Include="Models\Elements\IBaseElement.cs" />
     <Compile Include="Models\Elements\Task.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Tools\BindingProxy.cs" />
     <Compile Include="Tools\GraphTools\Arrow.xaml.cs">
       <DependentUpon>Arrow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\DragAndDrop\DragableUserControl.cs" />
     <Compile Include="Tools\GraphTools\Hook.cs" />
     <Compile Include="Tools\GraphTools\PathFinder.cs" />
+    <Compile Include="Tools\GraphTools\Helper.cs" />
     <Compile Include="Tools\VisualHelper.cs" />
     <Compile Include="ViewModels\BaseElementViewModel.cs" />
     <Compile Include="Tools\ClassReader.cs" />

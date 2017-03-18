@@ -21,7 +21,7 @@
                     <views:ConnectionView></views:ConnectionView>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}" >
-                    <views:BaseElementView/>
+                    <views:BaseElementView Grid.ZIndex="0" />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:TrackerViewModel}">
                     <ContentControl x:Name="Tracker" SizeChanged="Tracker_OnSizeChanged"
@@ -37,6 +37,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
+                    <Style.Triggers>
+                        <DataTrigger ></DataTrigger>
+                    </Style.Triggers>
                     <Setter Property="Margin">
                         <Setter.Value>
                             <MultiBinding Converter="{StaticResource PositionToMarginConverter}">

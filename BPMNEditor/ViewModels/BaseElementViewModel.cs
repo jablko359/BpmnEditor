@@ -20,7 +20,7 @@ namespace BPMNEditor.ViewModels
         private int _itemZIndex;
         private bool _isConnectorVisible;
 
-        protected readonly DocumentViewModel Document;
+        private readonly DocumentViewModel _document;
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
         #endregion
 
@@ -125,7 +125,7 @@ namespace BPMNEditor.ViewModels
         protected BaseElementViewModel(DocumentViewModel documentViewModel)
         {
             _itemZIndex = 0;
-            Document = documentViewModel;
+            _document = documentViewModel;
             SelectCommand = new RelayCommand(item => Select());
             DeleteCommand = new RelayCommand(item => Delete());
             //Doesn't work
@@ -136,7 +136,7 @@ namespace BPMNEditor.ViewModels
         {
             IsSelected = true;
             IsConnectorVisible = true;
-            Document.SelectSignleItem(this);
+            _document.SelectSignleItem(this);
         }
 
         public void Deselect()
@@ -148,17 +148,17 @@ namespace BPMNEditor.ViewModels
 
         public void Delete()
         {
-            Document.DeleteItem(this);
+            _document.DeleteItem(this);
         }
 
         public void BringToFront()
         {
-            Document.BringItemToFront(this);
+            _document.BringItemToFront(this);
         }
 
         public void ConnectorStart(ConnectorViewModel connector)
         {
-            Document.NotifyConnectors(BaseElement.GetType(), connector, this);
+            _document.NotifyConnectors(BaseElement.GetType(), connector, this);
         }
 
         /// <summary>

@@ -35,9 +35,17 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        
+
+
         public Placemement Placemement
         {
             get; 
+        }
+
+        public BaseElementViewModel Parent
+        {
+            get { return _parentViewModel; }
         }
 
         public ConnectorViewModel(BaseElementViewModel baseElementViewModel, Placemement placemement)

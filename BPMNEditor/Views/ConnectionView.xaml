@@ -4,24 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BPMNEditor.Views"
+             xmlns:tools="clr-namespace:BPMNEditor.Tools"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              xmlns:graphTools="clr-namespace:BPMNEditor.Tools.GraphTools"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ConnectionViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Path Stroke="Black" StrokeThickness="1" >
+    <UserControl.Resources>
+        <tools:BindingProxy x:Key="Proxy" Data="{Binding}"></tools:BindingProxy>
+        <ContextMenu x:Key="Menu" IsOpen="{Binding Data.IsContextMenuOpened, Mode=TwoWay, Source={StaticResource Proxy}}" >
+            <MenuItem Header="Usuń" Command="{Binding Data.DeleteCommand, Source={StaticResource Proxy}}"></MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
+    <Grid >
+        <Path x:Name="ConnectionPath" Stroke="Black" StrokeThickness="1" ContextMenu="{StaticResource Menu}">
             <Path.Data>
                 <PathGeometry>
                     <PathFigure StartPoint="{Binding StartPoint}">
-                        <PolyLineSegment Points="{Binding Points}"/>
+                        <PolyLineSegment Points="{Binding Points}" IsSmoothJoin="True"/>
                     </PathFigure>
                 </PathGeometry>
             </Path.Data>
         </Path>
-        <ItemsControl  ItemsSource="{Binding Hooks}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <ItemsControl Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Hooks}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type graphTools:Hook}" >
-                    <Path Fill="YellowGreen" Stroke="Black" StrokeThickness="1" MouseLeftButtonDown="HookOnMouseLeftButtonDown" MouseLeftButtonUp="HookOnMouseLeftButtonUp" MouseMove="HookOnMouseMove">
+                    <Path  Fill="YellowGreen" Stroke="Black" StrokeThickness="1" MouseLeftButtonDown="HookOnMouseLeftButtonDown" MouseLeftButtonUp="HookOnMouseLeftButtonUp" MouseMove="HookOnMouseMove">
                         <Path.Style>
                             <Style TargetType="Path">
                                 <Style.Triggers>
@@ -43,5 +50,6 @@
         </ItemsControl>
         <graphTools:Arrow StartPoint="{Binding Points, Converter={StaticResource PointFromCollectionConverter}, ConverterParameter=Last}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
     </Grid>
+    
 </UserControl>
 

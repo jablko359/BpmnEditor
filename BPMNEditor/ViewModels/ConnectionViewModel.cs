@@ -18,13 +18,15 @@ namespace BPMNEditor.ViewModels
         private Point _endPoint;
         private PointCollection _points;
         private List<Hook> _hooks;
-
+        private PathFinder _pathFinder;
+        private bool _isContextMenuOpened;
 
         private readonly Placemement _startPlacement;
         private readonly Placemement _endPlacemement;
 
         #region Properties
 
+        
         public Point StartPoint
         {
             get { return _startPoint; }
@@ -68,7 +70,20 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-       
+        
+
+        public bool IsContextMenuOpened
+        {
+            get { return _isContextMenuOpened; }
+            set
+            {
+                _isContextMenuOpened = value;
+                NotifyOfPropertyChange(nameof(IsContextMenuOpened));
+            }
+        }
+
+
+
 
 
         #endregion
@@ -78,6 +93,7 @@ namespace BPMNEditor.ViewModels
 
         public ConnectionViewModel(DocumentViewModel documentViewModel, ConnectorViewModel start, ConnectorViewModel end) : base(documentViewModel)
         {
+            _pathFinder = new PathFinder(start.Parent, end.Parent);
             StartPoint = start.Position;
             EndPoint = end.Position;
             start.PropertyChanged += Start_PropertyChanged;
@@ -117,7 +133,7 @@ namespace BPMNEditor.ViewModels
 
         private void CalculateBreakPoint()
         {
-            IEnumerable<Point> points = Document.PathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
+            IEnumerable<Point> points = _pathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
             Points = new PointCollection(points);
             CalculateHooks(Points);
         }

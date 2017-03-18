@@ -42,7 +42,6 @@ namespace BPMNEditor.ViewModels
         {
             BaseElements = new ObservableCollection<BaseElementViewModel>();
             Tracker = new TrackerViewModel(this);
-            PathFinder = new PathFinder(this);
             BaseElements.Add(Tracker);
         }
 
