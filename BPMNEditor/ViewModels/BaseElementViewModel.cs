@@ -22,6 +22,7 @@ namespace BPMNEditor.ViewModels
 
         private readonly DocumentViewModel _document;
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
+        private readonly List<ConnectionViewModel> _activeConnections = new List<ConnectionViewModel>();
         #endregion
 
         #region Commands
@@ -30,6 +31,7 @@ namespace BPMNEditor.ViewModels
         public ICommand BringToFrontCommand { get; private set; }
         #endregion
 
+        
         #region Properties
 
         public double Width
@@ -114,13 +116,23 @@ namespace BPMNEditor.ViewModels
         public double MinHeight { get; set; }
         public double MinWidth { get; set; }
         protected abstract HashSet<Type> ApplicableTypes { get; }
+        public IBaseElement BaseElement { get; private set; }
         #endregion
 
-        public IBaseElement BaseElement { get; private set; }
 
+        #region Abstract
         protected abstract IBaseElement CreateElement();
+        #endregion
+
+        #region Events
+
+        public event EventHandler<EventArgs> ElementDeleted; 
+
+        #endregion
 
 
+
+        #region Constructor
 
         protected BaseElementViewModel(DocumentViewModel documentViewModel)
         {
@@ -131,6 +143,11 @@ namespace BPMNEditor.ViewModels
             //Doesn't work
             BringToFrontCommand = new RelayCommand(item => BringToFront());
         }
+
+
+        #endregion
+
+        #region Public methods
 
         public void Select()
         {
@@ -149,6 +166,7 @@ namespace BPMNEditor.ViewModels
         public void Delete()
         {
             _document.DeleteItem(this);
+            ElementDeleted?.Invoke(this, new EventArgs());
         }
 
         public void BringToFront()
@@ -159,6 +177,22 @@ namespace BPMNEditor.ViewModels
         public void ConnectorStart(ConnectorViewModel connector)
         {
             _document.NotifyConnectors(BaseElement.GetType(), connector, this);
+        }
+
+        public void SetConnection(ConnectionViewModel connection)
+        {
+            connection.ElementDeleted += Connection_ElementDeleted;
+            _activeConnections.Add(connection);
+        }
+
+        private void Connection_ElementDeleted(object sender, EventArgs e)
+        {
+            ConnectionViewModel senderConnectionViewModel = sender as ConnectionViewModel;
+            if (senderConnectionViewModel != null)
+            {
+                senderConnectionViewModel.ElementDeleted -= Connection_ElementDeleted;
+                RemoveConnection(senderConnectionViewModel);
+            }
         }
 
         /// <summary>
@@ -199,6 +233,14 @@ namespace BPMNEditor.ViewModels
                 viewModel.IsVisible = true;
             }
         }
+
+        #endregion
+
+        private void RemoveConnection(ConnectionViewModel connection)
+        {
+            _activeConnections.Remove(connection);
+        }
+
         #region Factory
 
         public static BaseElementViewModel GetViewModel(Type elementType, DocumentViewModel documentViewModel)

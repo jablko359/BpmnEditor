@@ -98,10 +98,19 @@ namespace BPMNEditor.ViewModels
             EndPoint = end.Position;
             start.PropertyChanged += Start_PropertyChanged;
             end.PropertyChanged += End_PropertyChanged;
+            start.Parent.ElementDeleted += ElementDeleted;
+            end.Parent.ElementDeleted += ElementDeleted;
+            start.Parent.SetConnection(this);
+            end.Parent.SetConnection(this);
             _startPlacement = start.Placemement;
             _endPlacemement = end.Placemement;
             Hooks = new List<Hook>();
             CalculateBreakPoint();
+        }
+
+        private void ElementDeleted(object sender, EventArgs e)
+        {
+            DeleteCommand.Execute(null);
         }
 
         private void End_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
