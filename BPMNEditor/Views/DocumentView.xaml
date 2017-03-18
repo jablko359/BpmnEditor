@@ -14,9 +14,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" PreviewMouseDown="DocumentView_OnMouseDown">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" PreviewMouseDown="DocumentView_OnMouseDown" PreviewMouseUp="DocumentView_OnMouseUp" MouseMove="DocumentView_OnMouseMove">
         <ItemsControl ItemsSource="{Binding BaseElements}">
             <ItemsControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:SelectionViewModel}">
+                    <Rectangle Visibility="{Binding IsVisible}" Height="{Binding Height}" Width="{Binding Width}" Stroke="DeepSkyBlue" StrokeThickness="2" Fill="SkyBlue" Opacity="0.3"/>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:ConnectionViewModel}">
                     <views:ConnectionView></views:ConnectionView>
                 </DataTemplate>

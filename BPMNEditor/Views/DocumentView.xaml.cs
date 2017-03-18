@@ -24,6 +24,7 @@ namespace BPMNEditor.Views
     public partial class DocumentView : UserControl
     {
         private bool _initialized = false;
+        private bool _isDragging = false;
 
         public DocumentView()
         {
@@ -56,13 +57,23 @@ namespace BPMNEditor.Views
             {
                 viewModel?.DeselectAll();
                 SelectNearLine(e);
+                if (e.ChangedButton == MouseButton.Left)
+                {
+                    _isDragging = true;
+                    if (!(sourceControl.DataContext is BaseElementViewModel))
+                    {
+                        viewModel?.StartSelection(e.GetPosition(this));
+                    }
+
+                }
             }
+            
         }
         /// <summary>
         /// Select nearby conenctions
         /// </summary>
         /// <param name="e"></param>
-        private void SelectNearLine(MouseButtonEventArgs e)
+        private bool SelectNearLine(MouseButtonEventArgs e)
         {
            
             var paths = VisualHelper.FindVisualChildren<Path>(this);
@@ -88,11 +99,31 @@ namespace BPMNEditor.Views
                                 {
                                     viewModel.IsContextMenuOpened = true;
                                 }
-                                return;
+                                return true;
                             }
                         }
                     }
                 }
+            }
+            return false;
+        }
+
+        private void DocumentView_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                _isDragging = false;
+                DocumentViewModel viewModel = DataContext as DocumentViewModel;
+                viewModel?.ReleaseSelection();
+            }
+        }
+
+        private void DocumentView_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDragging)
+            {
+                DocumentViewModel viewModel = DataContext as DocumentViewModel;
+                viewModel?.ChangeSelection(e.GetPosition(this));
             }
         }
     }

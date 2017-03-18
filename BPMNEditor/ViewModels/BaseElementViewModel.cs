@@ -112,6 +112,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public virtual bool IsSelectableByUser { get { return true; } }
 
         public double MinHeight { get; set; }
         public double MinWidth { get; set; }

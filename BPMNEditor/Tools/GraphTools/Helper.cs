@@ -22,7 +22,7 @@ namespace BPMNEditor.Tools.GraphTools
             {
                 var startPoint = points[i - 1];
                 var endPoint = points[i];
-                Rect lineRect = new Rect(startPoint,endPoint);
+                Rect lineRect = new Rect(startPoint, endPoint);
                 rects.Add(lineRect);
             }
             return rects;
@@ -30,8 +30,15 @@ namespace BPMNEditor.Tools.GraphTools
 
         public static Rect CreateCenteredRect(Point centerPoint, Size size)
         {
-            Point topLeft = new Point(centerPoint.X - size.Width, centerPoint.Y - size.Height);
+            Point topLeft = new Point(centerPoint.X - size.Width/2, centerPoint.Y - size.Height/2);
             return new Rect(topLeft, size);
+        }
+
+        public static Rect GetRect(BaseElementViewModel viewModel)
+        {
+            Point point = new Point(viewModel.Left, viewModel.Top);
+            Size size = new Size(viewModel.Width, viewModel.Height);
+            return new Rect(point, size);
         }
     }
 }

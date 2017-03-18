@@ -43,5 +43,7 @@ namespace BPMNEditor.ViewModels
         }
 
         protected override HashSet<Type> ApplicableTypes { get; }
+
+        public override bool IsSelectableByUser => false;
     }
 }

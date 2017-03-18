@@ -32,7 +32,9 @@ namespace BPMNEditor.ViewModels
 
         public TrackerViewModel Tracker { get; }
 
-        
+        public SelectionViewModel Selection { get; }
+
+
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
 
         #endregion
@@ -42,7 +44,9 @@ namespace BPMNEditor.ViewModels
         {
             BaseElements = new ObservableCollection<BaseElementViewModel>();
             Tracker = new TrackerViewModel(this);
+            Selection = new SelectionViewModel(this);
             BaseElements.Add(Tracker);
+            BaseElements.Add(Selection);
         }
 
         #region IDropable
@@ -151,7 +155,7 @@ namespace BPMNEditor.ViewModels
                 this.BaseElements.Add(connection);
                 _currentConnetor = null;
             }
-            
+
         }
         #endregion
 
@@ -165,5 +169,20 @@ namespace BPMNEditor.ViewModels
             BaseElements.Add(viewModel);
         }
         #endregion
+
+        public void StartSelection(Point startPoint)
+        {
+            Selection.Start(startPoint);
+        }
+
+        public void ReleaseSelection()
+        {
+            Selection.Release();
+        }
+
+        public void ChangeSelection(Point getPosition)
+        {
+            Selection.ChangeSelection(getPosition, BaseElements);
+        }
     }
 }
