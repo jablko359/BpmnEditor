@@ -36,7 +36,7 @@ namespace BPMNEditor.Tools.GraphTools
         private readonly ConnectionViewModel _parent;
 
         public Point HookPoint { get; private set; }
-        public Orientation Orientation { get; }
+        public Orientation Orientation { get; set; }
 
         public Hook(Point start, Point end, ConnectionViewModel parent)
         {

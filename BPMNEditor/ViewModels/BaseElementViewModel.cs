@@ -34,6 +34,11 @@ namespace BPMNEditor.ViewModels
         
         #region Properties
 
+        public IEnumerable<ConnectorViewModel> Connectors
+        {
+            get { return _connectors; }
+        }
+
         public double Width
         {
             get { return _width; }

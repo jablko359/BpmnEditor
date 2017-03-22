@@ -64,6 +64,6 @@ namespace BPMNEditor.ViewModels
 
     public enum Placemement
     {
-        Left, Top, Right, Bottom
+        Left, Top, Right, Bottom, None
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using BPMNEditor.ViewModels;
+using QuickGraph;
+using QuickGraph.Algorithms;
+
 
 namespace BPMNEditor.Tools.GraphTools
 {
@@ -22,7 +22,6 @@ namespace BPMNEditor.Tools.GraphTools
         }
 
 
-
         public IEnumerable<Point> CalculatePath(Point startPoint, Point endPoint, Placemement startPlacemement,
             Placemement endPlacemement, List<Hook> hooks)
         {
@@ -31,11 +30,30 @@ namespace BPMNEditor.Tools.GraphTools
             Direction stepDirection = GetRequireDirection(startPlacemement);
             Point currentPoint = startPoint;
 
+            if (hooks.Count == 0)
+            {
+                var hook = new Hook(startPoint, endPoint, null);
+                hook.Orientation = stepDirection == Direction.Horizontal ? Orientation.Vertical : Orientation.Horizontal;
+                hooks.Add(hook);
+            }
+
+            var graph = CreateGraph(_crossElements, hooks, startPoint, endPoint);
+
+
+
+            Func<Edge<PointComparable>, double> pointDistances = PointDistances;
+            var tryGetFunc = graph.ShortestPathsDijkstra(pointDistances, new PointComparable(endPoint));
+            IEnumerable<Edge<PointComparable>> resultPoints = null;
+            if (tryGetFunc(new PointComparable(endPoint), out resultPoints))
+            {
+                int fsadf = 0;
+            }
             int i = 0;
 
             Point pathEnd = hooks.Count > 0 ? hooks[0].HookPoint : arrowPoint;
             do
             {
+
                 while (!currentPoint.Equals(pathEnd))
                 {
                     Point newPoint = CalculateNextPoint(currentPoint, pathEnd, stepDirection);
@@ -87,6 +105,14 @@ namespace BPMNEditor.Tools.GraphTools
             } while (i <= hooks.Count);
 
             return points;
+        }
+
+        private double PointDistances(Edge<PointComparable> edge)
+        {
+            var source = edge.Source;
+            var target = edge.Target;
+            var vector = target.Point - source.Point;
+            return vector.Length;
         }
 
         private Point CalculateNextPoint(Point previousPoint, Point destinationPoint, Direction requiredDirection)
@@ -290,6 +316,300 @@ namespace BPMNEditor.Tools.GraphTools
             public override double GetDistance(Point startPoint)
             {
                 return double.MaxValue;
+            }
+        }
+
+        private static List<Point> GetPoints(List<BaseElementViewModel> rects, List<Hook> hooks, Point startPoint, Point endPoint)
+        {
+            List<Point> resultPoints = new List<Point>() { startPoint, endPoint };
+            foreach (BaseElementViewModel model in rects)
+            {
+                resultPoints.AddRange(GetPoints(model));
+            }
+            foreach (Hook hook in hooks)
+            {
+                Point hookPoint = hook.HookPoint;
+                List<Point> tempPoints = new List<Point>(resultPoints);
+                HashSet<double> addedPositions = new HashSet<double>();
+                foreach (Point point in tempPoints)
+                {
+                    if (hook.Orientation == Orientation.Horizontal)
+                    {
+                        if (addedPositions.Contains(point.Y))
+                        {
+                            continue;
+                        }
+                        Point cross = new Point(hookPoint.X, point.Y);
+                        addedPositions.Add(point.Y);
+                        resultPoints.Add(cross);
+                    }
+                    else
+                    {
+                        if (addedPositions.Contains(point.X))
+                        {
+                            continue;
+                        }
+                        Point cross = new Point(point.X, hookPoint.Y);
+                        addedPositions.Add(point.X);
+                        resultPoints.Add(cross);
+                    }
+                }
+            }
+            return resultPoints;
+        }
+
+        private static List<Point> GetPoints(BaseElementViewModel rectViewModel)
+        {
+            double margin = 20;
+            List<Point> points = new List<Point>();
+            double left = double.PositiveInfinity;
+            double right = double.NegativeInfinity;
+            double top = double.PositiveInfinity; ;
+            double bottom = double.NegativeInfinity; ;
+            foreach (ConnectorViewModel connector in rectViewModel.Connectors)
+            {
+                Point connectorPoint = connector.Position;
+                if (connectorPoint.X < left - margin)
+                {
+                    left = connectorPoint.X - margin;
+                }
+                else
+                {
+                    right = connectorPoint.X + margin;
+                }
+                if (connectorPoint.Y < top - margin)
+                {
+                    top = connectorPoint.Y - margin;
+                }
+                else
+                {
+                    bottom = connectorPoint.Y + margin;
+                }
+            }
+            points.Add(new Point(left, top));
+            points.Add(new Point((left + right) / 2, top));
+            points.Add(new Point(left, bottom));
+            points.Add(new Point((left + right) / 2, bottom));
+            points.Add(new Point(right, top));
+            points.Add(new Point(left, (top + bottom) / 2));
+            points.Add(new Point(right, bottom));
+            points.Add(new Point(right, (top + bottom) / 2));
+            //Rect marginRect = GetRectWithMargin(rectViewModel, 15);
+            //List<Point> points = GetPoints(marginRect);
+            return points;
+        }
+
+        private static IVertexAndEdgeListGraph<PointComparable, Edge<PointComparable>> CreateGraph(List<BaseElementViewModel> rects, List<Hook> hooks, Point startPoint, Point endPoint)
+        {
+            return CreateGraph(GetPoints(rects, hooks, startPoint, endPoint), rects);
+        }
+
+        private static IVertexAndEdgeListGraph<PointComparable, Edge<PointComparable>> CreateGraph(List<Point> points, List<BaseElementViewModel> rects)
+        {
+            BidirectionalGraph<PointComparable, Edge<PointComparable>> graph = new BidirectionalGraph<PointComparable, Edge<PointComparable>>();
+            List<Rect> rectItems = new List<Rect>();
+            foreach (var baseElementViewModel in rects)
+            {
+                rectItems.Add(GetRectWithMargin(baseElementViewModel, 0));
+            }
+            //List<PointNeighbor> neighbors = new List<PointNeighbor>();
+            for (int i = 0; i < points.Count; i++)
+            {
+                var startPoint = points[i];
+                var pointNeighbor = new PointNeighbor();
+                pointNeighbor.Point = startPoint;
+                for (int j = 0; j < points.Count; j++)
+                {
+                    var endPoint = points[j];
+                    if (endPoint == startPoint || IntersecrWithRects(startPoint, endPoint, rectItems))
+                    {
+                        continue;
+                    }
+                    if (endPoint.X == startPoint.X)
+                    {
+                        if (endPoint.Y < startPoint.Y)
+                        {
+                            if (pointNeighbor.North == null)
+                            {
+                                pointNeighbor.North = endPoint;
+                            }
+                            else if (Math.Abs(endPoint.Y - startPoint.Y) < Math.Abs(pointNeighbor.North.Value.Y - startPoint.Y))
+                            {
+                                pointNeighbor.North = endPoint;
+                            }
+                        }
+                        else
+                        {
+                            if (pointNeighbor.South == null)
+                            {
+                                pointNeighbor.South = endPoint;
+                            }
+                            else if (Math.Abs(endPoint.Y - startPoint.Y) < Math.Abs(pointNeighbor.South.Value.Y - startPoint.Y))
+                            {
+                                pointNeighbor.South = endPoint;
+                            }
+                        }
+                    }
+                    else if (startPoint.Y == endPoint.Y)
+                    {
+                        if (endPoint.X < startPoint.X)
+                        {
+                            if (pointNeighbor.West == null)
+                            {
+                                pointNeighbor.West = endPoint;
+                            }
+                            else if (Math.Abs(endPoint.X - startPoint.X) < Math.Abs(pointNeighbor.West.Value.X - startPoint.X))
+                            {
+                                pointNeighbor.West = endPoint;
+                            }
+                        }
+                        else
+                        {
+                            if (pointNeighbor.East == null)
+                            {
+                                pointNeighbor.East = endPoint;
+                            }
+                            else if (Math.Abs(endPoint.X - startPoint.X) < Math.Abs(pointNeighbor.East.Value.X - startPoint.X))
+                            {
+                                pointNeighbor.East = endPoint;
+                            }
+                        }
+                    }
+                }
+                AddPointsNeighbor(pointNeighbor, graph);
+            }
+            return graph;
+        }
+
+        private static bool IntersecrWithRects(Point startPoint, Point endPoint, IEnumerable<Rect> rects)
+        {
+            foreach (Rect rect in rects)
+            {
+                if (IntersectsWithRect(startPoint, endPoint, rect))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool IntersectsWithRect(Point startPoint, Point endPoint, Rect rect)
+        {
+            Rect line = new Rect(startPoint, endPoint);
+            return rect.IntersectsWith(line);
+        }
+
+        private static void AddPointsNeighbor(PointNeighbor points, BidirectionalGraph<PointComparable, Edge<PointComparable>> graph)
+        {
+            graph.AddVertex(new PointComparable(points.Point));
+            if (points.East != null)
+            {
+                graph.AddVertex(new PointComparable(points.East.Value));
+                Edge<PointComparable> graphEdge = new Edge<PointComparable>(new PointComparable(points.Point), new PointComparable(points.East.Value));
+                //Edge<PointComparable> graphEdgerev = new Edge<PointComparable>(new PointComparable(points.East.Value), new PointComparable(points.Point));
+                graph.AddEdge(graphEdge);
+                //graph.AddEdge(graphEdgerev);
+            }
+            if (points.North != null)
+            {
+                graph.AddVertex(new PointComparable(points.North.Value));
+                Edge<PointComparable> graphEdge = new Edge<PointComparable>(new PointComparable(points.Point), new PointComparable(points.North.Value));
+                graph.AddEdge(graphEdge);
+            }
+            if (points.West != null)
+            {
+                graph.AddVertex(new PointComparable(points.West.Value));
+                Edge<PointComparable> graphEdge = new Edge<PointComparable>(new PointComparable(points.Point), new PointComparable(points.West.Value));
+                graph.AddEdge(graphEdge);
+            }
+            if (points.South != null)
+            {
+                graph.AddVertex(new PointComparable(points.South.Value));
+                Edge<PointComparable> graphEdge = new Edge<PointComparable>(new PointComparable(points.Point), new PointComparable(points.South.Value));
+                graph.AddEdge(graphEdge);
+            }
+        }
+
+
+        private static Rect GetRectWithMargin(BaseElementViewModel rectViewModel, double margin)
+        {
+            Point topLeft = new Point(rectViewModel.Left - margin / 2, rectViewModel.Top - margin / 2);
+            Size size = new Size(rectViewModel.Width + margin / 2, rectViewModel.Height + margin / 2);
+            return new Rect(topLeft, size);
+        }
+
+        private static List<Point> GetPoints(Rect rect)
+        {
+            List<Point> pointList = new List<Point>
+            {
+                rect.TopLeft,
+                GetMiddlePoint(rect.TopLeft, rect.TopRight),
+                rect.TopRight,
+                GetMiddlePoint(rect.TopRight, rect.BottomRight),
+                rect.BottomRight,
+                GetMiddlePoint(rect.BottomRight, rect.BottomLeft),
+                rect.BottomLeft,
+                GetMiddlePoint(rect.BottomLeft, rect.TopLeft)
+            };
+            return pointList;
+        }
+
+        private static Point GetMiddlePoint(Point a, Point b)
+        {
+            var vector = new Vector(b.X, b.Y);
+            var sum = a + vector;
+            return new Point(sum.X / 2, sum.Y / 2);
+        }
+
+        private class PointNeighbor
+        {
+            public Point Point { get; set; }
+            public Point? North { get; set; }
+            public Point? East { get; set; }
+            public Point? South { get; set; }
+            public Point? West { get; set; }
+        }
+
+        public class PointComparable : IComparable
+        {
+            public Point Point { get; }
+
+            public PointComparable(Point point)
+            {
+                Point = point;
+            }
+
+            public int CompareTo(object obj)
+            {
+                PointComparable comparable = obj as PointComparable;
+                if (comparable != null)
+                {
+                    if (comparable.Point.Equals(Point))
+                    {
+                        return 0;
+                    }
+                }
+                return -1;
+            }
+
+            public override bool Equals(object obj)
+            {
+                PointComparable comparable = obj as PointComparable;
+                if (comparable != null)
+                {
+                    return comparable.Point.Equals(Point);
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                return Point.GetHashCode();
+            }
+
+            public override string ToString()
+            {
+                return Point.ToString();
             }
         }
     }

@@ -20,13 +20,27 @@ namespace BPMNEditor.ViewModels
         private List<Hook> _hooks;
         private PathFinder _pathFinder;
         private bool _isContextMenuOpened;
+        private ConnectorViewModel _start;
+        private ConnectorViewModel _end;
 
         private readonly Placemement _startPlacement;
         private readonly Placemement _endPlacemement;
 
         #region Properties
 
-        
+        private Point _arrowPoint;
+
+        public Point ArrowPoint
+        {
+            get { return _arrowPoint; }
+            set
+            {
+                _arrowPoint = value;
+                NotifyOfPropertyChange(nameof(ArrowPoint));
+            }
+        }
+
+
         public Point StartPoint
         {
             get { return _startPoint; }
@@ -93,6 +107,8 @@ namespace BPMNEditor.ViewModels
 
         public ConnectionViewModel(DocumentViewModel documentViewModel, ConnectorViewModel start, ConnectorViewModel end) : base(documentViewModel)
         {
+            _start = start;
+            _end = end;
             _pathFinder = new PathFinder(start.Parent, end.Parent);
             StartPoint = start.Position;
             EndPoint = end.Position;
@@ -142,9 +158,42 @@ namespace BPMNEditor.ViewModels
 
         private void CalculateBreakPoint()
         {
-            IEnumerable<Point> points = _pathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
-            Points = new PointCollection(points);
-            CalculateHooks(Points);
+            List<Point> points = PathCreator.GetConnectionLine(_start, _end, false);// _pathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
+            int idx = GetArrowIndex(points);
+            ArrowPoint = points[idx];
+            Points = new PointCollection(points.Take(idx + 1));
+            // CalculateHooks(Points);
+        }
+
+        private int GetArrowIndex(List<Point> points)
+        {
+            int index = points.Count;
+            for (int i = points.Count -1; i > 0; i--)
+            {
+                if (_end.Placemement == Placemement.Bottom || _end.Placemement == Placemement.Top)
+                {
+                    if (points[i].X == _endPoint.X)
+                    {
+                        index = i;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (points[i].Y == _endPoint.Y)
+                    {
+                        index = i;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            return index;
         }
 
         private void CalculateHooks(PointCollection points)
