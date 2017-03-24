@@ -88,6 +88,31 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Pool}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="10" Height="25" BorderBrush="#333333" BorderThickness="1 1 0 1"/>
+                                <Border Width="30" Height="25" BorderBrush="#333333" BorderThickness="1"/>
+                                <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Lane}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="25" BorderBrush="#333333" BorderThickness="1"/>
+                                <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -122,6 +147,22 @@
                                     <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
                                 </Rectangle.LayoutTransform>
                             </Rectangle>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Pool}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid Width="{x:Static vm:PoolViewModel.InitialWidth}" Height="{x:Static vm:PoolViewModel.InitialHeight}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="1 1 0 1" BorderBrush="{StaticResource DragTemplateColor}" Grid.Column="0"/>
+                                <Border BorderThickness="1" BorderBrush="{StaticResource DragTemplateColor}" Grid.Column="1" />
+                            </Grid>
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>

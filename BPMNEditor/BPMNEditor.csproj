@@ -79,6 +79,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Elements\Lane.cs" />
+    <Compile Include="Models\Elements\Pool.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Event.cs" />
@@ -113,6 +115,8 @@
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GatewayViewModel.cs" />
     <Compile Include="ViewModels\HookTempConnector.cs" />
+    <Compile Include="ViewModels\LaneViewModel.cs" />
+    <Compile Include="ViewModels\PoolViewModel.cs" />
     <Compile Include="ViewModels\PropertyChangedBase.cs" />
     <Compile Include="ViewModels\SelectionViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
