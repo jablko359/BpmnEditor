@@ -79,6 +79,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Event.cs" />
     <Compile Include="Models\Elements\Gateway.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="ViewModels\Converters\Converters.cs" />
     <Compile Include="ViewModels\Converters\PositionToMarginConverter.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
+    <Compile Include="ViewModels\DrawingConnectionViewModel.cs" />
     <Compile Include="ViewModels\ElementCreatorViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GatewayViewModel.cs" />
@@ -117,6 +119,9 @@
     <Compile Include="ViewModels\TrackerViewModel.cs" />
     <Compile Include="Views\BaseElementView.xaml.cs">
       <DependentUpon>BaseElementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DrawingConnectionView.xaml.cs">
+      <DependentUpon>DrawingConnectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConnectionView.xaml.cs">
       <DependentUpon>ConnectionView.xaml</DependentUpon>
@@ -176,6 +181,10 @@
     <Page Include="Views\BaseElementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DrawingConnectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ConnectionView.xaml">
       <SubType>Designer</SubType>

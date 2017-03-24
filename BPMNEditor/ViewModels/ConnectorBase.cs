@@ -35,6 +35,6 @@ namespace BPMNEditor.ViewModels
             Placemement = placemement;
         }
 
-        public abstract Rect GetRectWithMargin(double margin);
+        public abstract Rect GetParentRectWithMargin(double margin);
     }
 }

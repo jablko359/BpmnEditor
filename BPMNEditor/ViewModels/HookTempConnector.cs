@@ -31,7 +31,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        public override Rect GetRectWithMargin(double margin)
+        public override Rect GetParentRectWithMargin(double margin)
         {
             var rect = new Rect(Position, new Size(0, 0));
             return rect;

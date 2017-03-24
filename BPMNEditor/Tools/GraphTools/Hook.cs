@@ -44,12 +44,12 @@ namespace BPMNEditor.Tools.GraphTools
         public Point OriginalStartPoint { get; private set; }
         public Point OriginalEndPoint { get; private set; }
 
-        private readonly ConnectionViewModel _parent;
+        private readonly ElementsConnectionViewModel _parent;
 
         public Point HookPoint { get; private set; }
         public Orientation Orientation { get; set; }
 
-        public Hook(Point start, Point end, ConnectionViewModel parent)
+        public Hook(Point start, Point end, ElementsConnectionViewModel parent)
         {
             double x = (start.X + end.X) / 2;
             double y = (start.Y + end.Y) / 2;

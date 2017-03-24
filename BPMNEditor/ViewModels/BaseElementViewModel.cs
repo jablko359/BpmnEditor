@@ -22,7 +22,7 @@ namespace BPMNEditor.ViewModels
 
         private readonly DocumentViewModel _document;
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
-        private readonly List<ConnectionViewModel> _activeConnections = new List<ConnectionViewModel>();
+        private readonly List<ElementsConnectionViewModel> _activeConnections = new List<ElementsConnectionViewModel>();
         #endregion
 
         #region Commands
@@ -117,6 +117,19 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        private bool _isVisible;
+
+        public bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                _isVisible = value;
+                NotifyOfPropertyChange(nameof(IsVisible));
+            }
+        }
+
+
         public virtual bool IsSelectableByUser { get { return true; } }
 
         public double MinHeight { get; set; }
@@ -185,7 +198,7 @@ namespace BPMNEditor.ViewModels
             _document.NotifyConnectors(BaseElement.GetType(), connector, this);
         }
 
-        public void SetConnection(ConnectionViewModel connection)
+        public void SetConnection(ElementsConnectionViewModel connection)
         {
             connection.ElementDeleted += Connection_ElementDeleted;
             _activeConnections.Add(connection);
@@ -193,7 +206,7 @@ namespace BPMNEditor.ViewModels
 
         private void Connection_ElementDeleted(object sender, EventArgs e)
         {
-            ConnectionViewModel senderConnectionViewModel = sender as ConnectionViewModel;
+            ElementsConnectionViewModel senderConnectionViewModel = sender as ElementsConnectionViewModel;
             if (senderConnectionViewModel != null)
             {
                 senderConnectionViewModel.ElementDeleted -= Connection_ElementDeleted;
@@ -242,7 +255,7 @@ namespace BPMNEditor.ViewModels
 
         #endregion
 
-        private void RemoveConnection(ConnectionViewModel connection)
+        private void RemoveConnection(ElementsConnectionViewModel connection)
         {
             _activeConnections.Remove(connection);
         }

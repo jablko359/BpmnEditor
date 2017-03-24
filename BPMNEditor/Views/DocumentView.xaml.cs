@@ -22,9 +22,13 @@ namespace BPMNEditor.Views
     /// Interaction logic for DocumentView.xaml
     /// </summary>
     public partial class DocumentView : UserControl
-    {
+    {  
         private bool _initialized = false;
+        //For selectiong region
         private bool _isDragging = false;
+
+        
+        //TODO! add connection dragger
 
         public DocumentView()
         {
@@ -83,7 +87,7 @@ namespace BPMNEditor.Views
                 
                 if (path.Name == "ConnectionPath")
                 {
-                    ConnectionViewModel viewModel = path.DataContext as ConnectionViewModel;
+                    ElementsConnectionViewModel viewModel = path.DataContext as ElementsConnectionViewModel;
                     if (viewModel != null)
                     {
                         List<Rect> rects = Helper.GetPathRects(viewModel);

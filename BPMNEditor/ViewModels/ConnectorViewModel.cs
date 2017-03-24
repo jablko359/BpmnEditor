@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BPMNEditor.ViewModels.Converters;
 
 namespace BPMNEditor.ViewModels
 {
@@ -43,11 +44,18 @@ namespace BPMNEditor.ViewModels
             _parentViewModel.ConnectorStart(this);
         }
 
-        public override Rect GetRectWithMargin(double margin)
+        public override Rect GetParentRectWithMargin(double margin)
         {
             var rect = new Rect(Parent.Left, Parent.Top, Parent.Width, Parent.Height);
             rect.Inflate(margin, margin);
             return rect;
+        }
+
+        public Rect GetRectWithMargin(double margin)
+        {
+            PointToRectangleConverter converter = new PointToRectangleConverter();
+            Rect result = (Rect)converter.Convert(Position, typeof(Rect), null, null);
+            return result;
         }
     }
 

@@ -12,7 +12,7 @@ namespace BPMNEditor.Tools.GraphTools
 {
     public static class Helper
     {
-        public static List<Rect> GetPathRects(ConnectionViewModel connection)
+        public static List<Rect> GetPathRects(ElementsConnectionViewModel connection)
         {
             var rects = new List<Rect>();
             List<Point> points = new List<Point>() { connection.StartPoint };
@@ -34,11 +34,13 @@ namespace BPMNEditor.Tools.GraphTools
             return new Rect(topLeft, size);
         }
 
-        public static Rect GetRect(BaseElementViewModel viewModel)
+        public static Rect GetRect(BaseElementViewModel viewModel, double margin = 0)
         {
             Point point = new Point(viewModel.Left, viewModel.Top);
             Size size = new Size(viewModel.Width, viewModel.Height);
-            return new Rect(point, size);
+            var rect = new Rect(point, size);
+            rect.Inflate(margin, margin);
+            return rect;
         }
     }
 }

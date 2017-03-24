@@ -27,8 +27,8 @@ namespace BPMNEditor.Tools.GraphTools
         {
             List<Point> linePoints = new List<Point>();
             
-            Rect rectSource = source.GetRectWithMargin(Margin);
-            Rect rectSink = sink.GetRectWithMargin(Margin);
+            Rect rectSource = source.GetParentRectWithMargin(Margin);
+            Rect rectSink = sink.GetParentRectWithMargin(Margin);
 
             Point startPoint = GetOffsetPoint(source, rectSource);
             Point endPoint = GetOffsetPoint(sink, rectSink);
@@ -217,7 +217,7 @@ namespace BPMNEditor.Tools.GraphTools
         internal static List<Point> GetConnectionLine(ConnectorViewModel source, Point sinkPoint, Placemement preferredOrientation)
         {
             List<Point> linePoints = new List<Point>();
-            Rect rectSource = source.GetRectWithMargin(10);
+            Rect rectSource = source.GetParentRectWithMargin(10);
             Point startPoint = GetOffsetPoint(source, rectSource);
             Point endPoint = sinkPoint;
 
@@ -559,7 +559,7 @@ namespace BPMNEditor.Tools.GraphTools
             return Point.Subtract(p1, p2).Length;
         }
 
-        //private static Rect GetRectWithMargin(ConnectorViewModel connectorThumb, double margin)
+        //private static Rect GetParentRectWithMargin(ConnectorViewModel connectorThumb, double margin)
         //{
         //    Rect rect = new Rect(connectorThumb.Parent.Left,
         //                         connectorThumb.Parent.Top,
@@ -648,7 +648,7 @@ namespace BPMNEditor.Tools.GraphTools
             }
         }
 
-        private static Placemement GetOpositeOrientation(Placemement connectorOrientation)
+        public static Placemement GetOpositeOrientation(Placemement connectorOrientation)
         {
             switch (connectorOrientation)
             {

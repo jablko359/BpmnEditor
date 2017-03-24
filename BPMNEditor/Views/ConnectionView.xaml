@@ -7,7 +7,8 @@
              xmlns:tools="clr-namespace:BPMNEditor.Tools"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              xmlns:graphTools="clr-namespace:BPMNEditor.Tools.GraphTools"
-             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ConnectionViewModel}"
+             xmlns:bpmnEditor="clr-namespace:BPMNEditor"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ElementsConnectionViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <tools:BindingProxy x:Key="Proxy" Data="{Binding}"></tools:BindingProxy>

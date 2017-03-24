@@ -14,21 +14,48 @@ namespace BPMNEditor.Views.Controls
     public class Connector : Control
     {
         private ConnectorViewModel _viewModel;
+        private DocumentView _documentView;
+        private bool _isDragging;
 
         public Connector()
         {
             Loaded += Connector_Loaded;
-            this.MouseLeftButtonDown += Connector_MouseLeftButtonDown;
-            this.LayoutUpdated += Connector_LayoutUpdated;
+            MouseLeftButtonDown += Connector_MouseLeftButtonDown;
+            MouseLeftButtonUp += Connector_MouseLeftButtonUp;
+            MouseMove += Connector_MouseMove;
+            LayoutUpdated += Connector_LayoutUpdated;
+        }
+
+        private void Connector_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (_isDragging)
+            {
+                var documentDataContext = _documentView.DataContext as DocumentViewModel;
+                documentDataContext?.DrawConnectorLine(e.GetPosition(_documentView));
+            }
+        }
+
+        private void Connector_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (_isDragging)
+            {
+                var documentDataContext = _documentView.DataContext as DocumentViewModel;
+                documentDataContext?.EndDrawConnectionLine(e.GetPosition(_documentView));
+                _isDragging = false;
+            }
+            this.ReleaseMouseCapture();
         }
 
         private void Connector_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _viewModel.ConnectorStart();
+            _isDragging = true;
+            this.CaptureMouse();
         }
 
         private void Connector_Loaded(object sender, RoutedEventArgs e)
         {
+            _documentView = VisualHelper.FindParent<DocumentView>(this);
             var parentUserControl = VisualHelper.FindParent<DragableUserControl>(this);
             BaseElementViewModel viewModel = parentUserControl.DataContext as BaseElementViewModel;
             if (viewModel == null)

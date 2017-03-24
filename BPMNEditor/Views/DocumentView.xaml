@@ -8,7 +8,9 @@
              xmlns:dnd="clr-namespace:BPMNEditor.Tools.DragAndDrop"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              xmlns:views="clr-namespace:BPMNEditor.Views" 
-             xmlns:tools="clr-namespace:BPMNEditor.Tools" Background="White"
+             xmlns:tools="clr-namespace:BPMNEditor.Tools"
+             xmlns:bpmnEditor="clr-namespace:BPMNEditor"
+             Background="White"
              mc:Ignorable="d" Loaded="DocumentView_OnLoaded"
              d:DataContext="{d:DesignInstance Type=viewModels:DocumentViewModel, IsDesignTimeCreatable=True }"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -20,11 +22,14 @@
                 <DataTemplate DataType="{x:Type viewModels:SelectionViewModel}">
                     <Rectangle Visibility="{Binding IsVisible}" Height="{Binding Height}" Width="{Binding Width}" Stroke="DeepSkyBlue" StrokeThickness="2" Fill="SkyBlue" Opacity="0.3"/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type viewModels:ConnectionViewModel}">
+                <DataTemplate DataType="{x:Type viewModels:ElementsConnectionViewModel}">
                     <views:ConnectionView></views:ConnectionView>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:DrawingConnectionViewModel}">
+                    <views:DrawingConnectionView Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"></views:DrawingConnectionView>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}" >
-                    <views:BaseElementView Grid.ZIndex="0" />
+                    <views:BaseElementView Grid.ZIndex="0"  />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewModels:TrackerViewModel}">
                     <ContentControl x:Name="Tracker" SizeChanged="Tracker_OnSizeChanged"

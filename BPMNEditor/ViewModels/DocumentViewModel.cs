@@ -23,15 +23,13 @@ namespace BPMNEditor.ViewModels
         private double _trackerCenterY;
 
         private ConnectorViewModel _currentConnetor;
-
+        private DrawingConnectionViewModel _drawingConnectionViewModel;
         #endregion
 
         #region Properties
-        
+
         public TrackerViewModel Tracker { get; }
-
         public SelectionViewModel Selection { get; }
-
 
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
 
@@ -43,8 +41,10 @@ namespace BPMNEditor.ViewModels
             BaseElements = new ObservableCollection<BaseElementViewModel>();
             Tracker = new TrackerViewModel(this);
             Selection = new SelectionViewModel(this);
+            _drawingConnectionViewModel = new DrawingConnectionViewModel(this);
             BaseElements.Add(Tracker);
             BaseElements.Add(Selection);
+            BaseElements.Add(_drawingConnectionViewModel);
         }
 
         #region IDropable
@@ -145,16 +145,19 @@ namespace BPMNEditor.ViewModels
             }
             else
             {
+                _drawingConnectionViewModel.IsVisible = false;
                 foreach (BaseElementViewModel baseElement in BaseElements)
                 {
                     baseElement.ShowAllConnectors();
                 }
-                ConnectionViewModel connection = new ConnectionViewModel(this, _currentConnetor, connector);
+                ElementsConnectionViewModel connection = new ElementsConnectionViewModel(this, _currentConnetor, connector);
                 this.BaseElements.Add(connection);
                 _currentConnetor = null;
             }
 
         }
+
+
         #endregion
 
         #region PrivateMethods
@@ -181,6 +184,64 @@ namespace BPMNEditor.ViewModels
         public void ChangeSelection(Point getPosition)
         {
             Selection.ChangeSelection(getPosition, BaseElements);
+        }
+
+        public void DrawConnectorLine(Point point)
+        {
+            if (_currentConnetor != null)
+            {
+                _drawingConnectionViewModel.StartConnetor = _currentConnetor;
+                _drawingConnectionViewModel.EndPoint = point;
+                _drawingConnectionViewModel.CalculatePath();
+                _drawingConnectionViewModel.IsVisible = true;
+            }
+        }
+
+        public void EndDrawConnectionLine(Point position)
+        {
+            if (_currentConnetor != null)
+            {
+                BaseElementViewModel source = _currentConnetor.Parent;
+                _drawingConnectionViewModel.IsVisible = false;
+                List<BaseElementViewModel> tempList = new List<BaseElementViewModel>(BaseElements);
+                foreach (BaseElementViewModel baseElement in tempList)
+                {
+                    if (baseElement.BaseElement == null)
+                    {
+                        continue;
+                    }
+                    if (source != baseElement && baseElement.IsTypeApplicable(baseElement.BaseElement.GetType()))
+                    {
+                        Rect elementRect = Helper.GetRect(baseElement, 10);
+                        Rect pointRect = new Rect(position, new Size(1, 1));
+                        ConnectorViewModel connector = null;
+                        bool connectionAdded = false;
+
+                        foreach (ConnectorViewModel baseElementConnector in baseElement.Connectors)
+                        {
+                            Rect connectorRect = baseElementConnector.GetRectWithMargin(0);
+                            if (connectorRect.IntersectsWith(pointRect))
+                            {
+                                connector = baseElementConnector;
+                                break;
+                            }
+                            else if (baseElementConnector.Placemement == _drawingConnectionViewModel.EndPlacemement && elementRect.IntersectsWith(pointRect))
+                            {
+                                connector = baseElementConnector;
+                            }
+                        }
+                        if (connector != null)
+                        {
+                            ElementsConnectionViewModel connection = new ElementsConnectionViewModel(this, _currentConnetor, connector);
+                            this.BaseElements.Add(connection);
+                            break;
+                        }
+
+                    }
+                    baseElement.ShowAllConnectors();
+                }
+            }
+            _currentConnetor = null;
         }
     }
 }
