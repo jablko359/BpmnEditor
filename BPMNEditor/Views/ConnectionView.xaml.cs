@@ -65,6 +65,11 @@ namespace BPMNEditor.Views
             FrameworkElement hookElement = sender as FrameworkElement;
             if (hookElement != null)
             {
+                if (_hookDragging)
+                {
+                    Hook itemHook = hookElement.DataContext as Hook;
+                    itemHook?.HookDragEnd();
+                }
                 _hookDragging = false;
                 hookElement.ReleaseMouseCapture();
             }

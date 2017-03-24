@@ -18,7 +18,6 @@ namespace BPMNEditor.ViewModels
         private Point _endPoint;
         private PointCollection _points;
         private List<Hook> _hooks;
-        private PathFinder _pathFinder;
         private bool _isContextMenuOpened;
         private ConnectorViewModel _start;
         private ConnectorViewModel _end;
@@ -84,7 +83,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        
+
 
         public bool IsContextMenuOpened
         {
@@ -109,7 +108,6 @@ namespace BPMNEditor.ViewModels
         {
             _start = start;
             _end = end;
-            _pathFinder = new PathFinder(start.Parent, end.Parent);
             StartPoint = start.Position;
             EndPoint = end.Position;
             start.PropertyChanged += Start_PropertyChanged;
@@ -121,7 +119,7 @@ namespace BPMNEditor.ViewModels
             _startPlacement = start.Placemement;
             _endPlacemement = end.Placemement;
             Hooks = new List<Hook>();
-            CalculateBreakPoint();
+            CalculatePath();
         }
 
         private void ElementDeleted(object sender, EventArgs e)
@@ -137,7 +135,7 @@ namespace BPMNEditor.ViewModels
                 if (!EndPoint.Equals(end.Position))
                 {
                     EndPoint = end.Position;
-                    CalculateBreakPoint();
+                    CalculatePath();
                 }
             }
         }
@@ -150,25 +148,26 @@ namespace BPMNEditor.ViewModels
                 if (!StartPoint.Equals(start.Position))
                 {
                     StartPoint = start.Position;
-                    CalculateBreakPoint();
+                    CalculatePath();
                 }
 
             }
         }
 
-        private void CalculateBreakPoint()
+        private void CalculatePath()
         {
-            List<Point> points = PathCreator.GetConnectionLine(_start, _end, false);// _pathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
+            List<Point> points = PathCreator.GetConnectionLine(_start, _end, true);// _pathFinder.CalculatePath(StartPoint, EndPoint, _startPlacement, _endPlacemement, Hooks.Where(item => item.IsMoved).ToList());
             int idx = GetArrowIndex(points);
             ArrowPoint = points[idx];
+            CalculateHooks(points);
             Points = new PointCollection(points.Take(idx + 1));
-            // CalculateHooks(Points);
+
         }
 
         private int GetArrowIndex(List<Point> points)
         {
             int index = points.Count;
-            for (int i = points.Count -1; i > 0; i--)
+            for (int i = points.Count - 1; i > 0; i--)
             {
                 if (_end.Placemement == Placemement.Bottom || _end.Placemement == Placemement.Top)
                 {
@@ -196,28 +195,40 @@ namespace BPMNEditor.ViewModels
             return index;
         }
 
-        private void CalculateHooks(PointCollection points)
+        private void CalculateHooks(List<Point> points)
         {
-            List<Hook> userHooks = Hooks.Where(item => item.IsMoved).ToList();
             List<Hook> hooks = new List<Hook>();
-            for (int i = 1; i < points.Count; i++)
+            Point? lastCornerPoint = null;
+            for (int i = 2; i < points.Count; i++)
             {
-                Point startPoint = points[i - 1];
-                Point endPoint = points[i];
-                double x = (startPoint.X + endPoint.X) / 2;
-                double y = (startPoint.Y + endPoint.Y) / 2;
-                //prevent adding hooks 
-                if (x != EndPoint.X && y != EndPoint.Y)
+                Point point1 = points[i - 2];
+                Point point2 = points[i - 1];
+                Point point3 = points[i];
+                if (point1.X != point3.X && point1.Y != point3.Y)
                 {
-                    Hook newHook = new Hook(startPoint, endPoint, this);
-                    hooks.Add(newHook);
-                    Hook oldHook = userHooks.FirstOrDefault(
-                        item => item.StartPoint.Equals(newHook.StartPoint) || item.EndPoint.Equals(newHook.EndPoint));
-                    if (oldHook != null && oldHook.Orientation == newHook.Orientation)
+                    if (lastCornerPoint != null)
                     {
-                        newHook.IsMoved = true;
+                        var hook = new Hook(lastCornerPoint.Value, point2, this);
+                        hooks.Add(hook);
                     }
+                    lastCornerPoint = point2;
                 }
+                //Point startPoint = points[i - 1];
+                //Point endPoint = points[i];
+                //double x = (startPoint.X + endPoint.X) / 2;
+                //double y = (startPoint.Y + endPoint.Y) / 2;
+                ////prevent adding hooks 
+                //if (x != EndPoint.X && y != EndPoint.Y)
+                //{
+                //    Hook newHook = new Hook(startPoint, endPoint, this);
+                //    hooks.Add(newHook);
+                //    Hook oldHook = userHooks.FirstOrDefault(
+                //        item => item.StartPoint.Equals(newHook.StartPoint) || item.EndPoint.Equals(newHook.EndPoint));
+                //    if (oldHook != null && oldHook.Orientation == newHook.Orientation)
+                //    {
+                //        newHook.IsMoved = true;
+                //    }
+                //}
 
             }
             Hooks = hooks;
@@ -225,16 +236,42 @@ namespace BPMNEditor.ViewModels
 
         public void HookChange(Hook hook)
         {
+            foreach (Hook hookToNotify in Hooks)
+            {
+                if (hookToNotify != hook)
+                {
+                    hookToNotify.IsVisible = false;
+                }
+            }
             PointCollection temPoints = new PointCollection(Points);
             int startIndex = temPoints.IndexOf(hook.OriginalStartPoint);
             int endIndex = temPoints.IndexOf(hook.OriginalEndPoint);
             if (startIndex != -1 && endIndex != -1)
             {
-                temPoints[startIndex] = hook.StartPoint;
-                temPoints[endIndex] = hook.EndPoint;
+                for (int i = startIndex; i <= endIndex; i++)
+                {
+                    Point toChangePoint = temPoints[i];
+                    
+                    switch (hook.Orientation)
+                    {
+                        case Orientation.Horizontal:
+                            temPoints[i] = new Point(hook.HookPoint.X,toChangePoint.Y);
+                             break;
+                        case Orientation.Vertical:
+                            temPoints[i] = new Point(toChangePoint.X, hook.HookPoint.Y);
+                            break;
+                    }
+                }
                 hook.SetNewPoints();
             }
             Points = temPoints;
+            ArrowPoint = Points[Points.Count - 1];
+        }
+
+        public void RecalculateHooks()
+        {
+            List<Point> points = new List<Point>(Points) {ArrowPoint};
+            CalculateHooks(points);
         }
 
         #region BaseElementViewModel

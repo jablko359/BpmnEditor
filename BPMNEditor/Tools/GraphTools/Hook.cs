@@ -16,7 +16,18 @@ namespace BPMNEditor.Tools.GraphTools
         private Point _endPoint;
 
         public bool IsMoved { get; set; }
-         
+
+        private bool _isVisible = true;
+
+        public bool IsVisible
+        {
+            get { return _isVisible; }
+            set
+            {
+                _isVisible = value;
+                NotifyOfPropertyChange(nameof(IsVisible));
+            }
+        }
 
         public Point StartPoint
         {
@@ -86,6 +97,11 @@ namespace BPMNEditor.Tools.GraphTools
             double y = (StartPoint.Y + EndPoint.Y) / 2;
 
             
+        }
+
+        public void HookDragEnd()
+        {
+            _parent.RecalculateHooks();
         }
 
         public static Orientation GetOrientation(Point startPoint, Point endPoint)

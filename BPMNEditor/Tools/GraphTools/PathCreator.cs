@@ -11,14 +11,24 @@ namespace BPMNEditor.Tools.GraphTools
 {
     class PathCreator
     {
-        private const int margin = 20;
+        private const int Margin = 40;
 
-        internal static List<Point> GetConnectionLine(ConnectorViewModel source, ConnectorViewModel sink, bool showLastLine)
+        internal static List<Point> GetConnectionLine(ConnectorBase source, ConnectorBase sink,
+            bool showLastLine, List<Hook> userHooks)
+        {
+            List<Point> linePoints = new List<Point>();
+
+            //ConnectorBase end = userHooks.Count > 0 ? userHooks[0].HookPoint : arrowPoint;
+
+            return linePoints;
+        }
+
+        internal static List<Point> GetConnectionLine(ConnectorBase source, ConnectorBase sink, bool showLastLine)
         {
             List<Point> linePoints = new List<Point>();
             
-            Rect rectSource = GetRectWithMargin(source, margin);
-            Rect rectSink = GetRectWithMargin(sink, margin);
+            Rect rectSource = source.GetRectWithMargin(Margin);
+            Rect rectSink = sink.GetRectWithMargin(Margin);
 
             Point startPoint = GetOffsetPoint(source, rectSource);
             Point endPoint = GetOffsetPoint(sink, rectSink);
@@ -207,7 +217,7 @@ namespace BPMNEditor.Tools.GraphTools
         internal static List<Point> GetConnectionLine(ConnectorViewModel source, Point sinkPoint, Placemement preferredOrientation)
         {
             List<Point> linePoints = new List<Point>();
-            Rect rectSource = GetRectWithMargin(source, 10);
+            Rect rectSource = source.GetRectWithMargin(10);
             Point startPoint = GetOffsetPoint(source, rectSource);
             Point endPoint = sinkPoint;
 
@@ -381,7 +391,7 @@ namespace BPMNEditor.Tools.GraphTools
             }
         }
 
-        private static Point GetNearestNeighborSource(ConnectorViewModel source, Point endPoint, Rect rectSource, Rect rectSink, out bool flag)
+        private static Point GetNearestNeighborSource(ConnectorBase source, Point endPoint, Rect rectSource, Rect rectSink, out bool flag)
         {
             Point n1, n2; // neighbors
             GetNeighborCorners(source.Placemement, rectSource, out n1, out n2);
@@ -427,7 +437,7 @@ namespace BPMNEditor.Tools.GraphTools
             }
         }
 
-        private static Point GetNearestVisibleNeighborSink(Point currentPoint, Point endPoint, ConnectorViewModel sink, Rect rectSource, Rect rectSink)
+        private static Point GetNearestVisibleNeighborSink(Point currentPoint, Point endPoint, ConnectorBase sink, Rect rectSource, Rect rectSink)
         {
             Point s1, s2; // neighbors on sink side
             GetNeighborCorners(sink.Placemement, rectSink, out s1, out s2);
@@ -549,19 +559,19 @@ namespace BPMNEditor.Tools.GraphTools
             return Point.Subtract(p1, p2).Length;
         }
 
-        private static Rect GetRectWithMargin(ConnectorViewModel connectorThumb, double margin)
-        {
-            Rect rect = new Rect(connectorThumb.Parent.Left,
-                                 connectorThumb.Parent.Top,
-                                 connectorThumb.Parent.Width,
-                                 connectorThumb.Parent.Height);
+        //private static Rect GetRectWithMargin(ConnectorViewModel connectorThumb, double margin)
+        //{
+        //    Rect rect = new Rect(connectorThumb.Parent.Left,
+        //                         connectorThumb.Parent.Top,
+        //                         connectorThumb.Parent.Width,
+        //                         connectorThumb.Parent.Height);
 
-            rect.Inflate(margin, margin);
+        //    rect.Inflate(margin, margin);
 
-            return rect;
-        }
+        //    return rect;
+        //}
 
-        private static Point GetOffsetPoint(ConnectorViewModel connector, Rect rect)
+        private static Point GetOffsetPoint(ConnectorBase connector, Rect rect)
         {
             Point offsetPoint = new Point();
 
@@ -586,7 +596,7 @@ namespace BPMNEditor.Tools.GraphTools
             return offsetPoint;
         }
 
-        private static void CheckPathEnd(ConnectorViewModel source, ConnectorViewModel sink, bool showLastLine, List<Point> linePoints)
+        private static void CheckPathEnd(ConnectorBase source, ConnectorBase sink, bool showLastLine, List<Point> linePoints)
         {
             if (showLastLine)
             {

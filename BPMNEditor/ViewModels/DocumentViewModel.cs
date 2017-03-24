@@ -27,9 +27,7 @@ namespace BPMNEditor.ViewModels
         #endregion
 
         #region Properties
-
-        public PathFinder PathFinder { get; }
-
+        
         public TrackerViewModel Tracker { get; }
 
         public SelectionViewModel Selection { get; }
