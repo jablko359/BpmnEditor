@@ -76,7 +76,6 @@ namespace BPMNEditor.Tools.DragAndDrop
         }
 
         protected abstract void DoDrag(double x, double y);
-
-
+        
     }
 }

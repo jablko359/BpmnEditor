@@ -12,6 +12,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <ContentControl>
         <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}">
+                <Border Width="100" Height="100" BorderThickness="1" BorderBrush="#333333" Background="Lavender">
+                    <TextBlock Text="Unknown"></TextBlock>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:EventViewModel}" >
                 <Ellipse Height="{Binding Height}" Width="{Binding Width}" StrokeThickness="1" Stroke="Green" Fill="LawnGreen" >
                 </Ellipse>

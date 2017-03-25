@@ -8,7 +8,7 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
 {
-    [ElementViewModel(typeof(PoolViewModel), EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
+    [ElementViewModel(typeof(PoolViewModel), PoolViewModel.InitialWidth, PoolViewModel.InitialHeight)]
     class Pool : IBaseElement
     {
     }
