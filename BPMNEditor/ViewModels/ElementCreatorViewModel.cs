@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BPMNEditor.Models.Elements;
+using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
 
 
@@ -30,8 +31,20 @@ namespace BPMNEditor.ViewModels
         public ElementCreatorViewModel(Type elementType)
         {
             _elementType = elementType;
+            DataType = GetDataType(elementType);
         }
 
-        public Type DataType { get { return typeof(IBaseElement); } }
+        public Type DataType { get; }
+
+        private static Type GetDataType(Type providedType)
+        {
+            var attribute = Attribute.GetCustomAttribute(providedType, typeof(DraggableAttribute)) as DraggableAttribute;
+            if (attribute == null)
+            {
+                return typeof(IDocumentElement);
+            }
+            return attribute.DataType;
+        }
+
     }
 }

@@ -23,7 +23,7 @@ namespace BPMNEditor.ViewModels
         private double _trackerCenterY;
 
         private ConnectorViewModel _currentConnetor;
-        private DrawingConnectionViewModel _drawingConnectionViewModel;
+        private readonly DrawingConnectionViewModel _drawingConnectionViewModel;
         #endregion
 
         #region Properties
@@ -48,7 +48,7 @@ namespace BPMNEditor.ViewModels
         }
 
         #region IDropable
-        public Type DataType { get { return typeof(IBaseElement); } }
+        public Type DataType { get { return typeof(IDocumentElement); } }
 
         public void Drop(object data, double x = 0, double y = 0)
         {

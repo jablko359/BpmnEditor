@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="Models\Elements\Lane.cs" />
     <Compile Include="Models\Elements\Pool.cs" />
+    <Compile Include="Tools\DraggableAttribute.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Event.cs" />

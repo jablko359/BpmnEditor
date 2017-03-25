@@ -9,4 +9,16 @@ namespace BPMNEditor.Models.Elements
     public interface IBaseElement
     {
     }
+    /// <summary>
+    /// Elements that can be directly placed only into pool (ex. Line)
+    /// </summary>
+    public interface IPoolElement
+    {
+    }
+    /// <summary>
+    /// Elements that can be directly placed into document
+    /// </summary>
+    public interface IDocumentElement
+    {
+    }
 }

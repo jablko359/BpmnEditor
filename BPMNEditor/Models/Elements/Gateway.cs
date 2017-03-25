@@ -8,6 +8,7 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
 {
+    [Draggable(typeof(IDocumentElement))]
     [ElementViewModel(typeof(GatewayViewModel), GatewayViewModel.InitialWidth, GatewayViewModel.InitialHeight)]
     public class Gateway : IBaseElement
     {

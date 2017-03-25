@@ -8,6 +8,7 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
 {
+    [Draggable(typeof(IPoolElement))]
     [ElementViewModel(typeof(LaneViewModel), EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class Lane : IBaseElement
     {
