@@ -191,7 +191,7 @@
           VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         </Grid>
     </ControlTemplate>
-    
+
     <!--ConnectorTeplate-->
     <ControlTemplate x:Key="ConnectorDecoratorTemplate" TargetType="{x:Type Control}">
         <Grid Margin="-15">
@@ -218,5 +218,20 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="RotatedTextBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="False">
+                <Trigger.Setters>
+                    <Setter Property="LayoutTransform" >
+                        <Setter.Value>
+                            <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 </ResourceDictionary>
