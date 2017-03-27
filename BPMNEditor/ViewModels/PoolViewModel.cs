@@ -88,7 +88,14 @@ namespace BPMNEditor.ViewModels
         private void AddNewLane()
         {
             int index = Lanes.Count;
+           
             LaneViewModel laneViewModel = new LaneViewModel(index, this);
+            if (index > 0)
+            {
+                LaneViewModel previousLane = Lanes[index - 1];
+                previousLane.HeightChanged += laneViewModel.PreviousLaneHeightChanged;
+            }
+
             PropertyChanged += laneViewModel.PoolPropertyChanged;
             foreach (LaneViewModel lane in Lanes)
             {

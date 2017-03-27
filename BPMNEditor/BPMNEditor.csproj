@@ -138,6 +138,9 @@
     <Compile Include="Views\ElementCreatorView.xaml.cs">
       <DependentUpon>ElementCreatorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LaneView.xaml.cs">
+      <DependentUpon>LaneView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -203,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ElementCreatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LaneView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -45,7 +45,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:LaneViewModel}">
-                            <Border BorderBrush="Black">
+                            <local:LaneView></local:LaneView>
+                            <!--<Border BorderBrush="Black">
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderThickness" Value="0 1 0 0"></Setter>
@@ -67,7 +68,7 @@
                                         <Grid></Grid>
                                     </Border>
                                 </Grid>
-                            </Border>
+                            </Border>-->
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <i:Interaction.Behaviors>
