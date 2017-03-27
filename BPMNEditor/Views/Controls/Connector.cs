@@ -51,6 +51,7 @@ namespace BPMNEditor.Views.Controls
             _viewModel.ConnectorStart();
             _isDragging = true;
             this.CaptureMouse();
+            e.Handled = true;
         }
 
         private void Connector_Loaded(object sender, RoutedEventArgs e)
