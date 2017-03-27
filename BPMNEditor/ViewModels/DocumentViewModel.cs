@@ -33,6 +33,19 @@ namespace BPMNEditor.ViewModels
 
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
 
+        private string _name;
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                NotifyOfPropertyChange(nameof(Name));
+            }
+        }
+
+
         #endregion
 
         public bool CanSelect => true;
@@ -46,6 +59,7 @@ namespace BPMNEditor.ViewModels
             BaseElements.Add(Tracker);
             BaseElements.Add(Selection);
             BaseElements.Add(_drawingConnectionViewModel);
+            _name = "Graph";
         }
 
         #region IDropable

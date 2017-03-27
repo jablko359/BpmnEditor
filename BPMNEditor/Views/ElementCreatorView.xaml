@@ -8,13 +8,13 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:dnd="clr-namespace:BPMNEditor.Tools.DragAndDrop"
              xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
-             mc:Ignorable="d" HorizontalAlignment="Center" 
-             Margin="0 3" Cursor="Hand" Background="White"
+             mc:Ignorable="d" HorizontalAlignment="Stretch" 
+             Margin="15 3" Cursor="Hand" Background="White"
              d:DataContext="{d:DesignInstance Type=vm:ElementCreatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ContentControl  Content="{Binding ElementType}" HorizontalContentAlignment="Center" Style="{StaticResource ElementPickerContentControl}" Height="35px" >
+    <ContentControl HorizontalAlignment="Stretch"  Content="{Binding ElementType}" HorizontalContentAlignment="Stretch" Style="{StaticResource ElementPickerContentControl}" Height="35px" >
         <ContentControl.ToolTip>
-            <ToolTip Content="{Binding Name}"></ToolTip>
+            <ToolTip Content="{Binding Name}"/>
         </ContentControl.ToolTip>
     </ContentControl>
     <i:Interaction.Behaviors>

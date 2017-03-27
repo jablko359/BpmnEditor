@@ -10,11 +10,53 @@
         xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
+        xmlns:dock="clr-namespace:Xceed.Wpf;assembly=Xceed.Wpf.AvalonDock"
+        xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         mc:Ignorable="d" DataContext="{StaticResource MainViewModel}"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True }"
         Title="MainView" Height="700" Width="1000">
-    <Grid>
-        <Grid.ColumnDefinitions>
+    <DockPanel>
+        <xcad:DockingManager DockPanel.Dock="Top" >
+            <xcad:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5 1">
+                        <Image Source="../../Icons/light/appbar.page.png"  Width="16"></Image>
+                        <TextBlock Text="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentHeaderTemplate>
+            <xcad:LayoutRoot>
+                <xcad:LayoutPanel Orientation="Horizontal" >
+                    <xcad:LayoutAnchorablePaneGroup DockWidth="200">
+                        <xcad:LayoutAnchorablePane DockWidth="200" DockHeight="75" DockMinHeight="75" DockMinWidth="150" >
+                            <xcad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" Title="Toolbox" AutoHideWidth="240"  >
+                                <ItemsControl VerticalAlignment="Stretch" ItemsSource="{Binding Elements}" HorizontalContentAlignment="Center">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <views:ElementCreatorView></views:ElementCreatorView>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel>
+                                            </WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+                    <xcad:LayoutDocumentPaneGroup CanRepositionItems="False">
+                        <xcad:LayoutDocumentPane CanRepositionItems="False ">
+                            <xcad:LayoutDocument Title="Document" CanClose="False"   >
+                                <views:DocumentView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" DataContext="{Binding Document}" x:Name="Document" ></views:DocumentView>
+                            </xcad:LayoutDocument>
+                        </xcad:LayoutDocumentPane>
+                    </xcad:LayoutDocumentPaneGroup>
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" ></ColumnDefinition>
             <ColumnDefinition Width="5"></ColumnDefinition>
             <ColumnDefinition Width="*" MaxWidth="300" MinWidth="60" ></ColumnDefinition>
@@ -22,7 +64,9 @@
         </Grid.ColumnDefinitions>
         <views:DocumentView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" DataContext="{Binding Document}" x:Name="Document" Grid.Column="0"></views:DocumentView>
         <GridSplitter x:Name="ToolboxSplitter" Grid.Column="1"  Width="1" HorizontalAlignment="Stretch" Visibility="{Binding IsToolBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"></GridSplitter>
+        -->
         <!--Toolbox-->
+        <!--
         <DockPanel x:Name="ToolboxColumn" Grid.Column="2" Visibility="{Binding IsToolBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
             <Grid  DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
@@ -48,7 +92,9 @@
                     <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"></RotateTransform>
                 </Button.LayoutTransform>
             </Button>
-        </StackPanel>
-    </Grid>
+        </StackPanel>-->
+    </DockPanel>
 </Window>
+
+
 

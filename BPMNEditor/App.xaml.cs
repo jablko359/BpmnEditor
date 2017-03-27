@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using BPMNEditor.Views;
 
 namespace BPMNEditor
@@ -17,7 +18,12 @@ namespace BPMNEditor
         public App()
         {
             InitializeComponent();
-           
+            this.DispatcherUnhandledException += AppGlobalDispatcherUnhandledException;
+        }
+
+        private void AppGlobalDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }
