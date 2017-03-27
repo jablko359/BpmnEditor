@@ -21,6 +21,13 @@
                          TextWrapping="Wrap" VerticalAlignment="Center" 
                          HorizontalAlignment="Center" FontSize="14" 
                          PreviewMouseDown="TextBox_OnPreviewMouseDown"/>
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <!--Doesn't work-->
+                        <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>-->
+                        <MenuItem Header="Usuń" Command="{Binding DeleteCommand}"/>
+                    </ContextMenu>
+                </Border.ContextMenu>
             </Border>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1"  >
                 <ItemsControl ItemsSource="{Binding Lanes}" HorizontalContentAlignment="Stretch" MouseLeftButtonDown="ItemsClicked" >
@@ -88,6 +95,7 @@
             </Style.Triggers>
         </Style>
     </dragAndDrop:DragableUserControl.Style>
+    
 </dragAndDrop:DragableUserControl>
 
 

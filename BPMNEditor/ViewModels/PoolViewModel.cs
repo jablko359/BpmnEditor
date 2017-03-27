@@ -88,7 +88,7 @@ namespace BPMNEditor.ViewModels
         private void AddNewLane()
         {
             int index = Lanes.Count;
-           
+
             LaneViewModel laneViewModel = new LaneViewModel(index, this);
             if (index > 0)
             {
@@ -115,7 +115,7 @@ namespace BPMNEditor.ViewModels
 
         private double CalculateMinHeight(LaneViewModel addedLane)
         {
-            return Lanes.Sum(item => item.Height) + LaneViewModel.MinHeight;
+            return (Lanes.Count + 1) * LaneViewModel.MinHeight;
         }
 
         public bool CanSelect { get { return !IsSelected; } }
