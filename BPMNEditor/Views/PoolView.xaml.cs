@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
 using BPMNEditor.ViewModels;
 
@@ -22,9 +23,18 @@ namespace BPMNEditor.Views
     /// </summary>
     public partial class PoolView : DragableUserControl
     {
+        private DocumentView _documentView;
+
         public PoolView()
         {
             InitializeComponent();
+            Loaded += PoolView_Loaded;
+            
+        }
+
+        private void PoolView_Loaded(object sender, RoutedEventArgs e)
+        {
+            _documentView = VisualHelper.FindParent<DocumentView>(this);
         }
 
         protected override void DoDrag(double x, double y)
@@ -32,8 +42,8 @@ namespace BPMNEditor.Views
             BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
             if (viewModel.IsSelected)
             {
-                viewModel.Left = x - TextArea.ActualWidth / 2;
-                viewModel.Top = y - TextArea.ActualHeight / 2;
+                viewModel.Left = x - DragStartPoint.X;
+                viewModel.Top = y - DragStartPoint.Y;
             }
         }
         
@@ -55,5 +65,8 @@ namespace BPMNEditor.Views
             TextBox.Focus();
             e.Handled = true;
         }
+
+
+        
     }
 }

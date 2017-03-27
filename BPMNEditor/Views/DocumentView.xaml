@@ -49,7 +49,9 @@
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
                     <Style.Triggers>
-                        <DataTrigger ></DataTrigger>
+                        <DataTrigger Binding="{Binding Converter={StaticResource InstanceTypeConverter}}" Value="{x:Type viewModels:PoolViewModel}">
+                            <Setter Property="Panel.ZIndex" Value="-1"/>
+                        </DataTrigger>
                     </Style.Triggers>
                     <Setter Property="Margin">
                         <Setter.Value>

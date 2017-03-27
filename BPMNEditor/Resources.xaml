@@ -18,6 +18,7 @@
     <converters:BooleanToHiddenVisibilityConverter x:Key="BooleanToHiddenVisibilityConverter"/>
     <converters:PointFromCollectionConverter x:Key="PointFromCollectionConverter"/>
     <converters:PointToRectangleConverter x:Key="PointToRectangleConverter"/>
+    <converters:InstanceTypeConverter x:Key="InstanceTypeConverter"/>
 
     <!--Colors-->
     <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"></SolidColorBrush>

@@ -32,8 +32,8 @@ namespace BPMNEditor.Views
             BaseElementViewModel viewModel = (BaseElementViewModel) DataContext;
             if (viewModel.IsSelected)
             {
-                viewModel.Left = x - ActualWidth / 2;
-                viewModel.Top = y - ActualHeight / 2;
+                viewModel.Left = x - DragStartPoint.X;
+                viewModel.Top = y - DragStartPoint.Y;
             }
         }
 

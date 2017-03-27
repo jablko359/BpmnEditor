@@ -41,16 +41,25 @@ namespace BPMNEditor.Views
         private void ChangeVertical(double verticalChange, IResizableObject resizable)
         {
             double deltaVertical;
+            double newHeight;
             switch (VerticalAlignment)
             {
                 case VerticalAlignment.Bottom:
                     deltaVertical = Math.Min(verticalChange, resizable.Height - resizable.MinHeight);
-                    resizable.Height += deltaVertical;
+                    newHeight = resizable.Height + deltaVertical;
+                    if (newHeight > resizable.MinHeight)
+                    {
+                        resizable.Height += deltaVertical;
+                    }
                     break;
                 case VerticalAlignment.Top:
                     deltaVertical = Math.Min(verticalChange, resizable.Height - resizable.MinHeight);
-                    resizable.Top += deltaVertical;
-                    resizable.Height -= deltaVertical;
+                    newHeight = resizable.Height + deltaVertical;
+                    if (newHeight > resizable.MinHeight)
+                    {
+                        resizable.Top += deltaVertical;
+                        resizable.Height -= deltaVertical;
+                    }
                     break;
                 default:
                     break;

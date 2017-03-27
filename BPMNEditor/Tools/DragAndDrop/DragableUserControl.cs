@@ -16,6 +16,7 @@ namespace BPMNEditor.Tools.DragAndDrop
     {
         private bool _isMouseDown;
         private Panel _parentPanel;
+        protected Point DragStartPoint = new Point();
 
         protected DragableUserControl()
         {
@@ -58,6 +59,7 @@ namespace BPMNEditor.Tools.DragAndDrop
             if (!IsConnector(e.OriginalSource))
             {
                 _isMouseDown = true;
+                DragStartPoint = e.GetPosition(this);
                 CaptureMouse();
             }
 

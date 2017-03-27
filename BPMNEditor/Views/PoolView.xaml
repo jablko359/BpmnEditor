@@ -8,6 +8,7 @@
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"  d:DataContext="{d:DesignInstance Type=viewModels:PoolViewModel}"
+            
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid Width="{Binding Width}" Height="{Binding Height}">
@@ -21,11 +22,25 @@
                          HorizontalAlignment="Center" FontSize="14" 
                          PreviewMouseDown="TextBox_OnPreviewMouseDown"/>
             </Border>
-            <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" >
-                <ItemsControl ItemsSource="{Binding Lanes}" HorizontalContentAlignment="Stretch">
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1"  >
+                <ItemsControl ItemsSource="{Binding Lanes}" HorizontalContentAlignment="Stretch" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDragOver}" Value="True">
+                                                <Setter Property="Background" Value="LawnGreen"/>
+                                                <Setter Property="Opacity" Value="0.1"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDragOver}" Value="False">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                            </StackPanel>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -55,19 +70,6 @@
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                    <ItemsControl.Style>
-                        <Style TargetType="ItemsControl">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsDragOver}" Value="True">
-                                    <Setter Property="Background" Value="LawnGreen"/>
-                                    <Setter Property="Opacity" Value="0.1"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsDragOver}" Value="False">
-                                    <Setter Property="Background" Value="Transparent"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ItemsControl.Style>
                     <i:Interaction.Behaviors>
                         <dragAndDrop:ElementDropBehavior/>
                     </i:Interaction.Behaviors>
