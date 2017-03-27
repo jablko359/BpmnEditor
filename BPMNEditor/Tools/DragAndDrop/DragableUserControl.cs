@@ -21,7 +21,7 @@ namespace BPMNEditor.Tools.DragAndDrop
         protected DragableUserControl()
         {
             MouseLeave += DragableUserControl_MouseLeave;
-            PreviewMouseLeftButtonDown += DragableUserControl_MouseLeftButtonDown;
+            MouseLeftButtonDown += DragableUserControl_MouseLeftButtonDown;
             MouseLeftButtonUp += DragableUserControl_MouseLeftButtonUp;
             Loaded += DragableUserControl_Loaded;
         }
@@ -38,7 +38,7 @@ namespace BPMNEditor.Tools.DragAndDrop
                 Point newPosition = e.GetPosition(_parentPanel);
                 DoDrag(newPosition.X, newPosition.Y);
             }
-
+            e.Handled = true;
         }
 
         private void DragableUserControl_Loaded(object sender, RoutedEventArgs e)
@@ -52,17 +52,21 @@ namespace BPMNEditor.Tools.DragAndDrop
         {
             _isMouseDown = false;
             ReleaseMouseCapture();
+            e.Handled = true;
         }
 
         private void DragableUserControl_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!IsConnector(e.OriginalSource))
+            FrameworkElement element = sender as FrameworkElement;
+            IMovable movable = element?.DataContext as IMovable;
+            if (!IsConnector(e.OriginalSource) && movable?.CanMove == true)
             {
                 _isMouseDown = true;
                 DragStartPoint = e.GetPosition(this);
                 CaptureMouse();
+                e.Handled = true;
             }
-
+            
         }
 
         private bool IsConnector(object orginalSource)

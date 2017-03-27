@@ -18,7 +18,8 @@ namespace BPMNEditor.ViewModels
         private double _height;
         private string _name;
         private readonly PoolViewModel _pool;
-        public event EventHandler<HeightChangedEventArgs> HeightChanged;
+
+        public LaneViewModel Next { get; set; }
 
         public string Name
         {
@@ -67,8 +68,15 @@ namespace BPMNEditor.ViewModels
         {
             if (newHeight > MinHeight)
             {
-                HeightChanged?.Invoke(this, new HeightChangedEventArgs(Height, newHeight));
-                Height = newHeight;
+                //HeightChanged?.Invoke(this, new HeightChangedEventArgs(Height, newHeight));
+                var difference = Height - newHeight;
+                double newNextHeight = Next.Height + difference;
+                if (newNextHeight > MinHeight)
+                {
+                    Height = newHeight;
+                    Next.Height += difference;
+                }
+                
             }
             
         }

@@ -23,7 +23,7 @@
                          PreviewMouseDown="TextBox_OnPreviewMouseDown"/>
             </Border>
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1"  >
-                <ItemsControl ItemsSource="{Binding Lanes}" HorizontalContentAlignment="Stretch" >
+                <ItemsControl ItemsSource="{Binding Lanes}" HorizontalContentAlignment="Stretch" MouseLeftButtonDown="ItemsClicked" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >

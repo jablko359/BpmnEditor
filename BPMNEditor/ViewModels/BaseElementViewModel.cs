@@ -9,7 +9,7 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject
+    public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject, IMovable
     {
         #region Private members
         private double _width;
@@ -278,6 +278,8 @@ namespace BPMNEditor.ViewModels
             viewModel.Width = attribute.InitialSize.Width;
             return viewModel;
         }
+
+        public bool CanMove { get { return IsSelected; } }
 
         #endregion
 

@@ -51,13 +51,16 @@ namespace BPMNEditor.Tools.DragAndDrop
 
     public interface IMovable
     {
-        void Move(double x, double y);
-        double Left { get; }
-        double Top { get; }
+        bool CanMove { get; }
     }
 
     public interface ITypeProvider
     {
         Type ElementType { get; }
+    }
+
+    public interface IContentSelectable
+    {
+        bool CanSelect { get; }
     }
 }

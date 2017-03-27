@@ -9,7 +9,7 @@ using BPMNEditor.Tools.DragAndDrop;
 
 namespace BPMNEditor.ViewModels
 {
-    public class PoolViewModel : BaseElementViewModel, IDropable
+    public class PoolViewModel : BaseElementViewModel, IDropable, IContentSelectable
     {
         public const double InitialWidth = 700;
         public const double InitialHeight = 350;
@@ -93,7 +93,7 @@ namespace BPMNEditor.ViewModels
             if (index > 0)
             {
                 LaneViewModel previousLane = Lanes[index - 1];
-                previousLane.HeightChanged += laneViewModel.PreviousLaneHeightChanged;
+                previousLane.Next = laneViewModel;
             }
 
             PropertyChanged += laneViewModel.PoolPropertyChanged;
@@ -118,5 +118,6 @@ namespace BPMNEditor.ViewModels
             return Lanes.Sum(item => item.Height) + LaneViewModel.MinHeight;
         }
 
+        public bool CanSelect { get { return !IsSelected; } }
     }
 }

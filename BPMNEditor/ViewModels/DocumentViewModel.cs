@@ -15,7 +15,7 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public class DocumentViewModel : PropertyChangedBase, IDropable
+    public class DocumentViewModel : PropertyChangedBase, IDropable, IContentSelectable
     {
         #region Private members
 
@@ -35,6 +35,7 @@ namespace BPMNEditor.ViewModels
 
         #endregion
 
+        public bool CanSelect => true;
 
         public DocumentViewModel()
         {
@@ -243,5 +244,7 @@ namespace BPMNEditor.ViewModels
             }
             _currentConnetor = null;
         }
+
+        
     }
 }

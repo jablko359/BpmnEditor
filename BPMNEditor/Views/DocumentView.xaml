@@ -16,7 +16,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" PreviewMouseDown="DocumentView_OnMouseDown" PreviewMouseUp="DocumentView_OnMouseUp" MouseMove="DocumentView_OnMouseMove">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
         <ItemsControl ItemsSource="{Binding BaseElements}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type viewModels:PoolViewModel}">
@@ -43,7 +43,7 @@
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDown="DocumentView_OnMouseDown" PreviewMouseUp="DocumentView_OnMouseUp" PreviewMouseMove="DocumentView_OnMouseMove" Background="Transparent"  />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>

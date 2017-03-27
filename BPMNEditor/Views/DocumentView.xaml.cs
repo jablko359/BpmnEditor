@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BPMNEditor.Tools;
+using BPMNEditor.Tools.DragAndDrop;
 using BPMNEditor.Tools.GraphTools;
 using BPMNEditor.ViewModels;
 
@@ -56,16 +57,17 @@ namespace BPMNEditor.Views
         private void DocumentView_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             DocumentViewModel viewModel = DataContext as DocumentViewModel;
-            Control sourceControl = e.OriginalSource as Control;
+            FrameworkElement sourceControl = e.OriginalSource as FrameworkElement;
             if (sourceControl != null)
             {
                 viewModel?.DeselectAll();
                 SelectNearLine(e);
                 if (e.ChangedButton == MouseButton.Left)
                 {
-                    _isDragging = true;
-                    if (!(sourceControl.DataContext is BaseElementViewModel))
+                    IContentSelectable selectableContent = sourceControl.DataContext as IContentSelectable;
+                    if (selectableContent?.CanSelect == true)
                     {
+                        _isDragging = true;
                         viewModel?.StartSelection(e.GetPosition(this));
                     }
 

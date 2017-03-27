@@ -67,6 +67,13 @@ namespace BPMNEditor.Views
         }
 
 
-        
+        private void ItemsClicked(object sender, MouseButtonEventArgs e)
+        {
+            var viewModel = this.DataContext as BaseElementViewModel;
+            if (viewModel != null && viewModel.IsSelected)
+            {
+                viewModel.IsSelected = false;
+            }
+        }
     }
 }
