@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
+using BPMNEditor.Tools.GraphTools;
 using BPMNEditor.ViewModels.Command;
 
 
@@ -11,6 +13,9 @@ namespace BPMNEditor.ViewModels
 {
     public abstract class BaseElementViewModel : PropertyChangedBase, IResizableObject, IMovable
     {
+        private static readonly HashSet<string> DimensionProperties = new HashSet<string>() { nameof(Width), nameof(Height), nameof(Top), nameof(Left) };
+
+
         #region Private members
         private double _width;
         private double _top;
@@ -20,7 +25,7 @@ namespace BPMNEditor.ViewModels
         private int _itemZIndex;
         private bool _isConnectorVisible;
 
-        private readonly DocumentViewModel _document;
+        protected readonly DocumentViewModel Document;
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
         private readonly List<ElementsConnectionViewModel> _activeConnections = new List<ElementsConnectionViewModel>();
         #endregion
@@ -31,7 +36,7 @@ namespace BPMNEditor.ViewModels
         public ICommand BringToFrontCommand { get; private set; }
         #endregion
 
-        
+
         #region Properties
 
         public IEnumerable<ConnectorViewModel> Connectors
@@ -66,7 +71,9 @@ namespace BPMNEditor.ViewModels
             {
                 if (value > 0)
                 {
+                    LocationChagnedEventArgs args = new LocationChagnedEventArgs(0,value - Left);
                     _left = value;
+                    NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Left));
                 }
 
@@ -80,7 +87,9 @@ namespace BPMNEditor.ViewModels
             {
                 if (value > 0)
                 {
+                    LocationChagnedEventArgs args = new LocationChagnedEventArgs(value - Top, 0);
                     _top = value;
+                    NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Top));
                 }
 
@@ -145,7 +154,14 @@ namespace BPMNEditor.ViewModels
 
         #region Events
 
-        public event EventHandler<EventArgs> ElementDeleted; 
+        public event EventHandler<EventArgs> ElementDeleted;
+        public event EventHandler<LocationChagnedEventArgs> LocationChanged;
+
+        private void NotifyLocationChanged(LocationChagnedEventArgs args)
+        {
+            LocationChanged?.Invoke(this, args);
+        }
+
 
         #endregion
 
@@ -156,11 +172,20 @@ namespace BPMNEditor.ViewModels
         protected BaseElementViewModel(DocumentViewModel documentViewModel)
         {
             _itemZIndex = 0;
-            _document = documentViewModel;
+            Document = documentViewModel;
+            PropertyChanged += BaseElementViewModel_PropertyChanged;
             SelectCommand = new RelayCommand(item => Select());
             DeleteCommand = new RelayCommand(item => Delete());
             //Doesn't work
             BringToFrontCommand = new RelayCommand(item => BringToFront());
+        }
+
+        private void BaseElementViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (DimensionProperties.Contains(e.PropertyName))
+            {
+                DimensionChanged();
+            }
         }
 
 
@@ -172,7 +197,7 @@ namespace BPMNEditor.ViewModels
         {
             IsSelected = true;
             IsConnectorVisible = true;
-            _document.SelectSignleItem(this);
+            Document.SelectSignleItem(this);
         }
 
         public void Deselect()
@@ -184,18 +209,18 @@ namespace BPMNEditor.ViewModels
 
         public void Delete()
         {
-            _document.DeleteItem(this);
+            Document.DeleteItem(this);
             ElementDeleted?.Invoke(this, new EventArgs());
         }
 
         public void BringToFront()
         {
-            _document.BringItemToFront(this);
+            Document.BringItemToFront(this);
         }
 
         public void ConnectorStart(ConnectorViewModel connector)
         {
-            _document.NotifyConnectors(BaseElement.GetType(), connector, this);
+            Document.NotifyConnectors(BaseElement.GetType(), connector, this);
         }
 
         public void SetConnection(ElementsConnectionViewModel connection)
@@ -259,6 +284,12 @@ namespace BPMNEditor.ViewModels
         {
             _activeConnections.Remove(connection);
         }
+
+        protected virtual void DimensionChanged()
+        {
+        }
+
+
 
         #region Factory
 

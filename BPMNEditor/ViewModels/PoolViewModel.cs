@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.DragAndDrop;
+using BPMNEditor.Tools.GraphTools;
 
 namespace BPMNEditor.ViewModels
 {
@@ -14,11 +15,16 @@ namespace BPMNEditor.ViewModels
         public const double InitialWidth = 700;
         public const double InitialHeight = 350;
 
+        #region Private members
+
         private Pool _pool;
-
         private string _name;
-
         private bool _isDragOver;
+        private List<PoolElementViewModel> _elements = new List<PoolElementViewModel>();
+
+        #endregion
+
+        #region Properties
 
         public ObservableCollection<LaneViewModel> Lanes { get; } = new ObservableCollection<LaneViewModel>();
 
@@ -44,13 +50,22 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        #endregion
+
+        #region Contructor
 
         public PoolViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
             ApplicableTypes = new HashSet<Type>();
+            LocationChanged += PoolViewModel_LocationChanged;
             _name = "Pool";
         }
 
+        
+
+        #endregion
+
+        #region BaseElementViewModel
 
         protected override HashSet<Type> ApplicableTypes { get; }
         protected override IBaseElement CreateElement()
@@ -58,6 +73,8 @@ namespace BPMNEditor.ViewModels
             _pool = new Pool();
             return _pool;
         }
+
+        #endregion
 
         #region IDropable
 
@@ -101,7 +118,7 @@ namespace BPMNEditor.ViewModels
             {
                 PropertyChanged -= lane.PoolPropertyChanged;
             }
-            MinHeight = CalculateMinHeight(laneViewModel);
+            MinHeight = CalculateMinHeight();
             if (index == 0)
             {
                 laneViewModel.Height = Height;
@@ -113,11 +130,53 @@ namespace BPMNEditor.ViewModels
             Lanes.Add(laneViewModel);
         }
 
-        private double CalculateMinHeight(LaneViewModel addedLane)
+        private double CalculateMinHeight()
         {
             return (Lanes.Count + 1) * LaneViewModel.MinHeight;
         }
 
         public bool CanSelect { get { return !IsSelected; } }
+
+        public void RemoveElement(PoolElementViewModel poolElementViewModel)
+        {
+            _elements.Remove(poolElementViewModel);
+        }
+
+        public void AddElement(PoolElementViewModel poolElementViewModel)
+        {
+            _elements.Add(poolElementViewModel);
+        }
+
+        private void PoolViewModel_LocationChanged(object sender, Tools.LocationChagnedEventArgs e)
+        {
+            var tempElements = new List<PoolElementViewModel>(_elements);
+            foreach (PoolElementViewModel element in tempElements)
+            {
+                element.Left += e.HorizontalChange;
+                element.Top += e.VerticalChange;
+            }
+        }
+
+        protected override void DimensionChanged()
+        {
+            var poolRect = Helper.GetRect(this);
+            foreach (BaseElementViewModel baseElement in Document.BaseElements)
+            {
+                PoolElementViewModel poolElementViewModel = baseElement as PoolElementViewModel;
+                if (poolElementViewModel != null)
+                {
+                    var objectRect = Helper.GetRect(baseElement);
+                    if (poolRect.Contains(objectRect))
+                    {
+                        if (poolElementViewModel.Pool != null)
+                        {
+                            continue;
+                        }
+                        AddElement(poolElementViewModel);
+                        poolElementViewModel.Pool = this;
+                    }
+                }
+            }
+        }
     }
 }

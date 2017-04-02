@@ -7,7 +7,7 @@ using BPMNEditor.Tools;
 
 namespace BPMNEditor.ViewModels
 {
-    public class GatewayViewModel : BaseElementViewModel
+    public class GatewayViewModel : PoolElementViewModel
     {
         public const double InitialWidth = 40;
         public const double InitialHeight = 40;

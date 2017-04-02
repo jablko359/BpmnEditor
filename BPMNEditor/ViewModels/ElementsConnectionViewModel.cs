@@ -94,7 +94,8 @@ namespace BPMNEditor.ViewModels
             int idx = GetArrowIndex(points, _end.Placemement);
             ArrowPoint = points[idx];
             CalculateHooks(points);
-            Points = new PointCollection(points.Take(idx + 1));
+            points.Insert(0,StartPoint);
+            Points = new PointCollection(points);
 
         }
 

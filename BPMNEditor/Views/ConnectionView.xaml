@@ -21,7 +21,7 @@
             <Path.Data>
                 <PathGeometry>
                     <PathFigure StartPoint="{Binding StartPoint}">
-                        <PolyLineSegment Points="{Binding Points}" IsSmoothJoin="True"/>
+                        <PolyLineSegment Points="{Binding Points}" IsSmoothJoin="True"  />
                     </PathFigure>
                 </PathGeometry>
             </Path.Data>

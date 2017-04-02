@@ -107,6 +107,7 @@
     <Compile Include="Models\Elements\Lane.cs" />
     <Compile Include="Models\Elements\Pool.cs" />
     <Compile Include="Tools\DraggableAttribute.cs" />
+    <Compile Include="Tools\Events.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Event.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="ViewModels\GatewayViewModel.cs" />
     <Compile Include="ViewModels\HookTempConnector.cs" />
     <Compile Include="ViewModels\LaneViewModel.cs" />
+    <Compile Include="ViewModels\PoolElementViewModel.cs" />
     <Compile Include="ViewModels\PoolViewModel.cs" />
     <Compile Include="ViewModels\PropertyChangedBase.cs" />
     <Compile Include="ViewModels\SelectionViewModel.cs" />

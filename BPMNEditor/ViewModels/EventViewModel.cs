@@ -7,7 +7,7 @@ using BPMNEditor.Tools;
 
 namespace BPMNEditor.ViewModels
 {
-    public class EventViewModel : BaseElementViewModel
+    public class EventViewModel : PoolElementViewModel
     {
         public const double InitialWidth = 40;
         public const double InitialHeight = 40;
