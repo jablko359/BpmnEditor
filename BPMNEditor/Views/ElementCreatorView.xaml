@@ -9,7 +9,7 @@
              xmlns:dnd="clr-namespace:BPMNEditor.Tools.DragAndDrop"
              xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
              mc:Ignorable="d" HorizontalAlignment="Stretch" 
-             Margin="15 3" Cursor="Hand" Background="White"
+             Margin="15 3" Cursor="Hand" Background="Transparent"
              d:DataContext="{d:DesignInstance Type=vm:ElementCreatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <ContentControl HorizontalAlignment="Stretch"  Content="{Binding ElementType}" HorizontalContentAlignment="Stretch" Style="{StaticResource ElementPickerContentControl}" Height="35px" >

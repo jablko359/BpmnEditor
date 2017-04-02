@@ -152,6 +152,7 @@
     <Compile Include="Views\BaseElementView.xaml.cs">
       <DependentUpon>BaseElementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\GraphDocument.cs" />
     <Compile Include="Views\DrawingConnectionView.xaml.cs">
       <DependentUpon>DrawingConnectionView.xaml</DependentUpon>
     </Compile>

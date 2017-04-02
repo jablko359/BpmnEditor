@@ -6,6 +6,7 @@ using System.Windows.Input;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels.Command;
+using BPMNEditor.Views.Controls;
 
 
 namespace BPMNEditor.ViewModels
@@ -21,7 +22,7 @@ namespace BPMNEditor.ViewModels
         #region Properties
 
         public ObservableCollection<ElementCreatorViewModel> Elements { get; private set; }
-        public DocumentViewModel Document { get; private set; }
+        public ObservableCollection<DocumentViewModel> Documents { get; } = new ObservableCollection<DocumentViewModel>();
         public ICommand ToggleToolboxCommand { get; private set; }
 
         public bool IsToolBoxVisible
@@ -34,7 +35,10 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public DocumentViewModel ActiveDcoument { get; set; }
 
+
+        public ICommand AddDocumentCommand { get; private set; }
 
         #endregion
 
@@ -43,9 +47,11 @@ namespace BPMNEditor.ViewModels
         public MainViewModel()
         {
             Elements = new ObservableCollection<ElementCreatorViewModel>();
-            Document = new DocumentViewModel();
+            Documents.Add(new DocumentViewModel());
             ToggleToolboxCommand = new RelayCommand(TriggerToolbox);
             ReadAvailableElements();
+            
+            AddDocumentCommand = new RelayCommand(x => AddNewDocument());
         }
 
         private void ReadAvailableElements()
@@ -57,6 +63,11 @@ namespace BPMNEditor.ViewModels
                 ElementCreatorViewModel model = new ElementCreatorViewModel(type);
                 Elements.Add(model);
             }
+        }
+
+        private void AddNewDocument()
+        {
+            Documents.Add(new DocumentViewModel());
         }
 
         #endregion

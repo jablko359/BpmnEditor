@@ -12,99 +12,83 @@
         xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
         xmlns:dock="clr-namespace:Xceed.Wpf;assembly=Xceed.Wpf.AvalonDock"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
         xmlns:primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
-        mc:Ignorable="d" DataContext="{StaticResource MainViewModel}"
+        mc:Ignorable="d" DataContext="{StaticResource MainViewModel}" Background="WhiteSmoke"
+        
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True }"
         Title="MainView" Height="700" Width="1000">
-    <DockPanel>
+
+    <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Margin="0 -23 0 0 ">
-            <Ribbon  ShowQuickAccessToolBarOnTop="True" Background="White" Style="{DynamicResource RibbonStyle1}" >
-
-                <RibbonTab Header="Home">
-
+            <Ribbon  ShowQuickAccessToolBarOnTop="True" Background="White" ContextMenu="{x:Null}" >
+                <Ribbon.Resources>
+                    <Style TargetType="RibbonTab">
+                        <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
+                    </Style>
+                    <Style TargetType="RibbonButton">
+                        <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
+                    </Style>
+                    <Style TargetType="RibbonGroup">
+                        <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
+                    </Style>
+                </Ribbon.Resources>
+                <RibbonTab Header="Home" >
+                    <RibbonGroup Header="File">
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.page.add.png" Command="{Binding AddDocumentCommand}" Label="New"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.folder.open.png" Label="Load"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" Label="Save"/>
+                    </RibbonGroup>
+                    <RibbonGroup Header="Edit">
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.undo.point.png" Label="Undo"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.redo.point.png" Label="Redo"/>
+                    </RibbonGroup>
                 </RibbonTab>
                 <Ribbon.ApplicationMenu>
                     <RibbonApplicationMenu Visibility="Collapsed"></RibbonApplicationMenu>
                 </Ribbon.ApplicationMenu>
             </Ribbon>
         </StackPanel>
-        <xcad:DockingManager DockPanel.Dock="Top" >
-            <xcad:DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5 1">
-                        <Image Source="../../Icons/light/appbar.page.png"  Width="16"></Image>
-                        <TextBlock Text="{Binding Title}" />
-                    </StackPanel>
-                </DataTemplate>
-            </xcad:DockingManager.DocumentHeaderTemplate>
-            <xcad:LayoutRoot>
-                <xcad:LayoutPanel Orientation="Horizontal" >
-                    <xcad:LayoutAnchorablePaneGroup DockWidth="200">
-                        <xcad:LayoutAnchorablePane DockWidth="200" DockHeight="75" DockMinHeight="75" DockMinWidth="150" >
-                            <xcad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" Title="Toolbox" AutoHideWidth="240"  >
-                                <ItemsControl VerticalAlignment="Stretch" ItemsSource="{Binding Elements}" HorizontalContentAlignment="Center">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <views:ElementCreatorView></views:ElementCreatorView>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel>
-                                            </WrapPanel>
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </xcad:LayoutAnchorable>
-                        </xcad:LayoutAnchorablePane>
-                    </xcad:LayoutAnchorablePaneGroup>
-                    <xcad:LayoutDocumentPaneGroup CanRepositionItems="False">
-                        <xcad:LayoutDocumentPane CanRepositionItems="False ">
-                            <xcad:LayoutDocument Title="Document" CanClose="False"   >
-                                <views:DocumentView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" DataContext="{Binding Document}" x:Name="Document" ></views:DocumentView>
-                            </xcad:LayoutDocument>
-                        </xcad:LayoutDocumentPane>
-                    </xcad:LayoutDocumentPaneGroup>
-                </xcad:LayoutPanel>
-            </xcad:LayoutRoot>
-        </xcad:DockingManager>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" ></ColumnDefinition>
-            <ColumnDefinition Width="5"></ColumnDefinition>
-            <ColumnDefinition Width="*" MaxWidth="300" MinWidth="60" ></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <views:DocumentView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" DataContext="{Binding Document}" x:Name="Document" Grid.Column="0"></views:DocumentView>
-        <GridSplitter x:Name="ToolboxSplitter" Grid.Column="1"  Width="1" HorizontalAlignment="Stretch" Visibility="{Binding IsToolBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}"></GridSplitter>
-        -->
-        <!--Toolbox-->
-        <!--
-        <DockPanel x:Name="ToolboxColumn" Grid.Column="2" Visibility="{Binding IsToolBoxVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
-            <Grid  DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Padding="5 0" Text="Toolbox" TextTrimming="CharacterEllipsis" ></TextBlock>
-                <Button Grid.Column="1" Command="{Binding ToggleToolboxCommand}" CommandParameter="{StaticResource False}" Style="{StaticResource ButtonTransparent}" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="20" Height="20" >
-                    <Image Style="{StaticResource IconCloseLight}"></Image>
-                </Button>
-            </Grid>
-            <ItemsControl VerticalAlignment="Stretch" ItemsSource="{Binding Elements}" HorizontalContentAlignment="Center">
-                <ItemsControl.ItemTemplate>
+        <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" Margin="5" >
+            <xcad:DockingManager x:Name="DockingManager"  ActiveContentChanged="DockingManager_OnActiveContentChanged" >
+                <xcad:DockingManager.DocumentHeaderTemplate>
                     <DataTemplate>
-                        <views:ElementCreatorView></views:ElementCreatorView>
+                        <StackPanel Orientation="Horizontal" Margin="5 1">
+                            <Image Source="../../Icons/light/appbar.page.png"  Width="16"></Image>
+                            <TextBlock Text="Diagram" />
+                        </StackPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </DockPanel>
-        <StackPanel Grid.Column="3">
-            <Button  Style="{StaticResource ButtonTransparent}" Command="{Binding ToggleToolboxCommand}" CommandParameter="{StaticResource True}"  Visibility="{Binding IsToolBoxVisible, Converter={StaticResource NegativeBooleanToVisibilityConverter}}" BorderBrush="Gainsboro" Padding="5 0" Content="Toolbox">
-                <Button.LayoutTransform>
-                    <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"></RotateTransform>
-                </Button.LayoutTransform>
-            </Button>
-        </StackPanel>-->
+                </xcad:DockingManager.DocumentHeaderTemplate>
+                <xcad:LayoutRoot>
+                    <xcad:LayoutPanel Orientation="Horizontal" >
+                        <xcad:LayoutAnchorablePaneGroup DockWidth="200" DockMinWidth="175">
+                            <xcad:LayoutAnchorablePane DockWidth="200" DockHeight="75" DockMinHeight="75" DockMinWidth="175" >
+                                <xcad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" Title="Toolbox"  >
+                                    <ItemsControl VerticalAlignment="Stretch" ItemsSource="{Binding Elements}" HorizontalContentAlignment="Center">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <views:ElementCreatorView></views:ElementCreatorView>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel>
+                                                </WrapPanel>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </xcad:LayoutAnchorable>
+                            </xcad:LayoutAnchorablePane>
+                        </xcad:LayoutAnchorablePaneGroup>
+                        <xcad:LayoutDocumentPaneGroup  CanRepositionItems="False">
+                            <xcad:LayoutDocumentPane x:Name="LayoutDocumentPane" CanRepositionItems="False ">
+                            </xcad:LayoutDocumentPane>
+                        </xcad:LayoutDocumentPaneGroup>
+                    </xcad:LayoutPanel>
+                </xcad:LayoutRoot>
+
+            </xcad:DockingManager>
+        </Grid>
     </DockPanel>
 </Window>
 

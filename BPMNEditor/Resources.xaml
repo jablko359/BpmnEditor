@@ -10,6 +10,12 @@
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>
 
+    <!--Color-->
+    <SolidColorBrush x:Key="FlameColor" Color="#E55812"/>
+    <SolidColorBrush x:Key="IguanaGreenColor" Color="#69B578"/>
+    <SolidColorBrush x:Key="LicoriceColor" Color="#1C0F13"/>
+    <SolidColorBrush x:Key="SandstromColor" Color="#EEC643"/>
+    
     <!--Converters-->
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <converters:NegativeBooleanToVisibilityConverter x:Key="NegativeBooleanToVisibilityConverter"/>
