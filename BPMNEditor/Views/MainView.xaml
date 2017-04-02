@@ -24,24 +24,24 @@
             <Ribbon  ShowQuickAccessToolBarOnTop="True" Background="White" ContextMenu="{x:Null}" >
                 <Ribbon.Resources>
                     <Style TargetType="RibbonTab">
-                        <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
+                        <Setter Property="ContextMenu" Value="{x:Null}"/>
                     </Style>
                     <Style TargetType="RibbonButton">
-                        <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
+                        <Setter Property="ContextMenu" Value="{x:Null}"/>
                     </Style>
                     <Style TargetType="RibbonGroup">
-                        <Setter Property="ContextMenu" Value="{x:Null}"></Setter>
+                        <Setter Property="ContextMenu" Value="{x:Null}"/>
                     </Style>
                 </Ribbon.Resources>
                 <RibbonTab Header="Home" >
                     <RibbonGroup Header="File">
                         <RibbonButton LargeImageSource="../Icons/light/appbar.page.add.png" Command="{Binding AddDocumentCommand}" Label="New"/>
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.folder.open.png" Label="Load"/>
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" Label="Save"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.folder.open.png" IsEnabled="False" Label="Load"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" IsEnabled="False" Label="Save"/>
                     </RibbonGroup>
                     <RibbonGroup Header="Edit">
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.undo.point.png" Label="Undo"/>
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.redo.point.png" Label="Redo"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.undo.point.png" IsEnabled="False" Label="Undo"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.redo.point.png" IsEnabled="False" Label="Redo"/>
                     </RibbonGroup>
                 </RibbonTab>
                 <Ribbon.ApplicationMenu>
