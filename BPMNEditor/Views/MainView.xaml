@@ -12,10 +12,22 @@
         xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
         xmlns:dock="clr-namespace:Xceed.Wpf;assembly=Xceed.Wpf.AvalonDock"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
         mc:Ignorable="d" DataContext="{StaticResource MainViewModel}"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True }"
         Title="MainView" Height="700" Width="1000">
     <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="0 -23 0 0 ">
+            <Ribbon  ShowQuickAccessToolBarOnTop="True" Background="White" Style="{DynamicResource RibbonStyle1}" >
+
+                <RibbonTab Header="Home">
+
+                </RibbonTab>
+                <Ribbon.ApplicationMenu>
+                    <RibbonApplicationMenu Visibility="Collapsed"></RibbonApplicationMenu>
+                </Ribbon.ApplicationMenu>
+            </Ribbon>
+        </StackPanel>
         <xcad:DockingManager DockPanel.Dock="Top" >
             <xcad:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate>
