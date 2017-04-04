@@ -100,6 +100,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Actions\Action.cs" />
+    <Compile Include="Actions\ActionPerformedEventArgs.cs" />
+    <Compile Include="Actions\BaseElementAction.cs" />
+    <Compile Include="Actions\DropoutStack.cs" />
+    <Compile Include="Actions\ElementAddedAction.cs" />
+    <Compile Include="Actions\ElementDeletedAction.cs" />
+    <Compile Include="Actions\ElementMoveAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -12,6 +12,7 @@
         xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
         xmlns:dock="clr-namespace:Xceed.Wpf;assembly=Xceed.Wpf.AvalonDock"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:actions="clr-namespace:BPMNEditor.Actions"
         xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
         xmlns:primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
         mc:Ignorable="d" DataContext="{StaticResource MainViewModel}" Background="WhiteSmoke"
@@ -40,8 +41,18 @@
                         <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" IsEnabled="False" Label="Save"/>
                     </RibbonGroup>
                     <RibbonGroup Header="Edit">
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.undo.point.png" IsEnabled="False" Label="Undo"/>
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.redo.point.png" IsEnabled="False" Label="Redo"/>
+                        <RibbonSplitButton IsCheckable="False" 
+                                           IsEnabled="{Binding ActiveDocument.Actions.Count, Converter={StaticResource IsCollectionEmpty}, UpdateSourceTrigger=Default, Mode=OneWay}" 
+                                           ItemsSource="{Binding ActiveDocument.Actions}" 
+                                           LargeImageSource="../Icons/light/appbar.undo.point.png" 
+                                           Command="{Binding UndoCommand}" Label="Undo">
+                        </RibbonSplitButton>
+                        <RibbonSplitButton LargeImageSource="../Icons/light/appbar.redo.point.png" 
+                                           IsEnabled="{Binding ActiveDocument.RedoActions.Count, Converter={StaticResource IsCollectionEmpty}, UpdateSourceTrigger=Default, Mode=OneWay}" 
+                                           ItemsSource="{Binding ActiveDocument.RedoActions}" 
+                                           Command="{Binding RedoCommand}"
+                                           Label="Redo">
+                        </RibbonSplitButton>
                     </RibbonGroup>
                 </RibbonTab>
                 <Ribbon.ApplicationMenu>

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
@@ -24,6 +26,9 @@ namespace BPMNEditor.ViewModels
 
         private ConnectorViewModel _currentConnetor;
         private readonly DrawingConnectionViewModel _drawingConnectionViewModel;
+
+        
+        
         #endregion
 
         #region Properties
@@ -31,7 +36,11 @@ namespace BPMNEditor.ViewModels
         public TrackerViewModel Tracker { get; }
         public SelectionViewModel Selection { get; }
 
+
+        public ObservableDropoutStack<IAction> Actions { get; } = new ObservableDropoutStack<IAction>(10);
+        public ObservableDropoutStack<IAction> RedoActions { get; } = new ObservableDropoutStack<IAction>();
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
+        
 
         private string _name;
 
@@ -45,10 +54,10 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-
+        public bool CanSelect => true;
         #endregion
 
-        public bool CanSelect => true;
+
 
         public DocumentViewModel()
         {
@@ -61,6 +70,10 @@ namespace BPMNEditor.ViewModels
             BaseElements.Add(_drawingConnectionViewModel);
             _name = "Graph";
         }
+
+      
+
+
 
         #region IDropable
         public Type DataType { get { return typeof(IDocumentElement); } }
@@ -98,6 +111,22 @@ namespace BPMNEditor.ViewModels
 
         #region PublicMethods
 
+        public void Redo()
+        {
+            IAction lastUndoAction = RedoActions.Pop();
+            IAction undoAction = lastUndoAction.GetInverseAction();
+            Actions.Add(undoAction);
+            lastUndoAction?.Revert();
+        }
+
+        public void Undo()
+        {
+            IAction lastAction = Actions.Pop();
+            IAction redoAction = lastAction.GetInverseAction();
+            RedoActions.Push(redoAction);
+            lastAction?.Revert();
+        }
+
         public void OnTrackerSizeChanged(Size newSize)
         {
             _trackerCenterX = newSize.Width / 2;
@@ -127,6 +156,7 @@ namespace BPMNEditor.ViewModels
         public void DeleteItem(BaseElementViewModel item)
         {
             BaseElements.Remove(item);
+            Actions.Push(new ElementDeletedAction(item));
         }
 
         public void BringItemToFront(BaseElementViewModel item)
@@ -171,20 +201,6 @@ namespace BPMNEditor.ViewModels
             }
 
         }
-
-
-        #endregion
-
-        #region PrivateMethods
-
-        private void PlaceElement(ITypeProvider provider, double x, double y)
-        {
-            BaseElementViewModel viewModel = BaseElementViewModel.GetViewModel(provider.ElementType, this);
-            viewModel.Left = x - _trackerCenterX;
-            viewModel.Top = y - _trackerCenterY;
-            BaseElements.Add(viewModel);
-        }
-        #endregion
 
         public void StartSelection(Point startPoint)
         {
@@ -258,6 +274,23 @@ namespace BPMNEditor.ViewModels
             }
             _currentConnetor = null;
         }
+        #endregion
+
+        #region PrivateMethods
+
+        private void PlaceElement(ITypeProvider provider, double x, double y)
+        {
+            BaseElementViewModel viewModel = BaseElementViewModel.GetViewModel(provider.ElementType, this);
+            viewModel.Left = x - _trackerCenterX;
+            viewModel.Top = y - _trackerCenterY;
+            BaseElements.Add(viewModel);
+            Actions.Push(new ElementAddedAction(viewModel));
+        }
+
+        
+        #endregion
+
+      
 
         
     }

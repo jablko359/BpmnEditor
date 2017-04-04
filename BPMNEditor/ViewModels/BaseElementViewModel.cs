@@ -25,7 +25,7 @@ namespace BPMNEditor.ViewModels
         private int _itemZIndex;
         private bool _isConnectorVisible;
 
-        protected readonly DocumentViewModel Document;
+        
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
         private readonly List<ElementsConnectionViewModel> _activeConnections = new List<ElementsConnectionViewModel>();
         #endregion
@@ -38,6 +38,8 @@ namespace BPMNEditor.ViewModels
 
 
         #region Properties
+
+        public DocumentViewModel Document { get; }
 
         public IEnumerable<ConnectorViewModel> Connectors
         {

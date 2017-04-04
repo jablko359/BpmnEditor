@@ -16,6 +16,7 @@ namespace BPMNEditor.ViewModels
         #region Private members
         private const string ElementsNamespace = "BPMNEditor.Models.Elements";
         private bool _isToolboxVisible = true;
+        private DocumentViewModel _activeDocument;
 
         #endregion
 
@@ -23,7 +24,7 @@ namespace BPMNEditor.ViewModels
 
         public ObservableCollection<ElementCreatorViewModel> Elements { get; private set; }
         public ObservableCollection<DocumentViewModel> Documents { get; } = new ObservableCollection<DocumentViewModel>();
-        public ICommand ToggleToolboxCommand { get; private set; }
+        
 
         public bool IsToolBoxVisible
         {
@@ -35,10 +36,21 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        public DocumentViewModel ActiveDcoument { get; set; }
+        public DocumentViewModel ActiveDocument
+        {
+            get { return _activeDocument; }
+            set
+            {
+                _activeDocument = value;
+                NotifyOfPropertyChange(nameof(ActiveDocument));
+            }
+        }
 
 
         public ICommand AddDocumentCommand { get; private set; }
+        public ICommand ToggleToolboxCommand { get; private set; }
+        public ICommand UndoCommand { get; private set; }
+        public ICommand RedoCommand { get; private set; }
 
         #endregion
 
@@ -52,6 +64,8 @@ namespace BPMNEditor.ViewModels
             ReadAvailableElements();
             
             AddDocumentCommand = new RelayCommand(x => AddNewDocument());
+            UndoCommand = new RelayCommand(x => Revert());
+            RedoCommand = new RelayCommand(x => Redo());
         }
 
         private void ReadAvailableElements()
@@ -65,10 +79,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        private void AddNewDocument()
-        {
-            Documents.Add(new DocumentViewModel());
-        }
+        
 
         #endregion
 
@@ -79,6 +90,26 @@ namespace BPMNEditor.ViewModels
             IsToolBoxVisible = (bool)isVisible;
         }
 
+        private void AddNewDocument()
+        {
+            Documents.Add(new DocumentViewModel());
+        }
+
+        private void Revert()
+        {
+            if (ActiveDocument != null)
+            {
+                ActiveDocument.Undo();
+            }
+        }
+
+        private void Redo()
+        {
+            if (ActiveDocument != null)
+            {
+                ActiveDocument.Redo();
+            }
+        }
         #endregion
 
 

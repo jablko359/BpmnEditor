@@ -25,6 +25,7 @@
     <converters:PointFromCollectionConverter x:Key="PointFromCollectionConverter"/>
     <converters:PointToRectangleConverter x:Key="PointToRectangleConverter"/>
     <converters:InstanceTypeConverter x:Key="InstanceTypeConverter"/>
+    <converters:IsCollectionEmpty x:Key="IsCollectionEmpty"/>
 
     <!--Colors-->
     <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"></SolidColorBrush>

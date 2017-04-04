@@ -78,7 +78,7 @@ namespace BPMNEditor.Views
             DocumentViewModel documentViewModel = document?.DataContext as DocumentViewModel;
             if (documentViewModel != null)
             {
-                _viewModel.ActiveDcoument = documentViewModel;
+                _viewModel.ActiveDocument = documentViewModel;
             }
         }
     }
