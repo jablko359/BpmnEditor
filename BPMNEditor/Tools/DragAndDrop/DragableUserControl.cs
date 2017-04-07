@@ -37,6 +37,7 @@ namespace BPMNEditor.Tools.DragAndDrop
             {
                 Point newPosition = e.GetPosition(_parentPanel);
                 DoDrag(newPosition.X, newPosition.Y);
+                
             }
             e.Handled = true;
         }
@@ -50,6 +51,10 @@ namespace BPMNEditor.Tools.DragAndDrop
 
         private void DragableUserControl_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (_isMouseDown)
+            {
+                StopDrag();
+            }
             _isMouseDown = false;
             ReleaseMouseCapture();
             e.Handled = true;
@@ -63,6 +68,7 @@ namespace BPMNEditor.Tools.DragAndDrop
             {
                 _isMouseDown = true;
                 DragStartPoint = e.GetPosition(this);
+                StartDrag();
                 CaptureMouse();
                 e.Handled = true;
             }
@@ -82,6 +88,10 @@ namespace BPMNEditor.Tools.DragAndDrop
         }
 
         protected abstract void DoDrag(double x, double y);
-        
+
+        protected abstract void StartDrag();
+
+        protected abstract void StopDrag();
+
     }
 }

@@ -45,7 +45,16 @@
                                            IsEnabled="{Binding ActiveDocument.Actions.Count, Converter={StaticResource IsCollectionEmpty}, UpdateSourceTrigger=Default, Mode=OneWay}" 
                                            ItemsSource="{Binding ActiveDocument.Actions}" 
                                            LargeImageSource="../Icons/light/appbar.undo.point.png" 
-                                           Command="{Binding UndoCommand}" Label="Undo">
+                                           Command="{Binding UndoCommand}" Label="Undo" >
+                            <RibbonSplitButton.ItemTemplate>
+                                <DataTemplate DataType="{x:Type actions:IAction}">
+                                    <TextBlock Text="{Binding Name}">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type RibbonSplitButton}}, Path=DataContext.RedoUntilCommand}" CommandParameter="{Binding}" MouseAction="LeftClick" />
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </RibbonSplitButton.ItemTemplate>
                         </RibbonSplitButton>
                         <RibbonSplitButton LargeImageSource="../Icons/light/appbar.redo.point.png" 
                                            IsEnabled="{Binding ActiveDocument.RedoActions.Count, Converter={StaticResource IsCollectionEmpty}, UpdateSourceTrigger=Default, Mode=OneWay}" 

@@ -75,5 +75,17 @@ namespace BPMNEditor.Views
                 viewModel.IsSelected = false;
             }
         }
+
+        protected override void StartDrag()
+        {
+            var viewModel = this.DataContext as BaseElementViewModel;
+            viewModel?.StartMove();
+        }
+
+        protected override void StopDrag()
+        {
+            var viewModel = this.DataContext as BaseElementViewModel;
+            viewModel?.StopMove();
+        }
     }
 }

@@ -51,5 +51,17 @@ namespace BPMNEditor.Views
             
             
         }
+
+        protected override void StartDrag()
+        {
+            BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
+            viewModel.StartMove();
+        }
+
+        protected override void StopDrag()
+        {
+            BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
+            viewModel.StopMove();
+        }
     }
 }

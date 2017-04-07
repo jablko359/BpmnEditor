@@ -27,8 +27,8 @@ namespace BPMNEditor.ViewModels
         private ConnectorViewModel _currentConnetor;
         private readonly DrawingConnectionViewModel _drawingConnectionViewModel;
 
-        
-        
+
+
         #endregion
 
         #region Properties
@@ -40,7 +40,7 @@ namespace BPMNEditor.ViewModels
         public ObservableDropoutStack<IAction> Actions { get; } = new ObservableDropoutStack<IAction>(10);
         public ObservableDropoutStack<IAction> RedoActions { get; } = new ObservableDropoutStack<IAction>();
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
-        
+
 
         private string _name;
 
@@ -62,6 +62,7 @@ namespace BPMNEditor.ViewModels
         public DocumentViewModel()
         {
             BaseElements = new ObservableCollection<BaseElementViewModel>();
+            BaseElements.CollectionChanged += BaseElements_CollectionChanged;
             Tracker = new TrackerViewModel(this);
             Selection = new SelectionViewModel(this);
             _drawingConnectionViewModel = new DrawingConnectionViewModel(this);
@@ -71,12 +72,30 @@ namespace BPMNEditor.ViewModels
             _name = "Graph";
         }
 
-      
+        private void BaseElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (object item in e.NewItems)
+                {
+                    var baseElementViewModel = item as BaseElementViewModel;
+                    baseElementViewModel.ActionPerformed += ViewModel_ActionPerformed;
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (object item in e.OldItems)
+                {
+                    var baseElementViewModel = item as BaseElementViewModel;
+                    baseElementViewModel.ActionPerformed -= ViewModel_ActionPerformed;
+                }
+            }
 
+        }
 
 
         #region IDropable
-        public Type DataType { get { return typeof(IDocumentElement); } }
+        public Type DataType => typeof(IDocumentElement);
 
         public void Drop(object data, double x = 0, double y = 0)
         {
@@ -87,6 +106,21 @@ namespace BPMNEditor.ViewModels
                 throw new ArgumentException("Incorrect document drag over argument. Expected ITypeProvider");
             }
             PlaceElement(provider, x, y);
+        }
+
+        public void Redo(IAction action)
+        {
+            var index = Actions.IndexOf(action);
+            if (index != -1)
+            {
+                for (var i = 0; i <= index; i++)
+                {
+                    IAction undoAction = Actions.Pop();
+                    var redoAction = undoAction.GetInverseAction();
+                    RedoActions.Push(redoAction);
+                    undoAction.Revert();
+                }
+            }
         }
 
         public void DragOver(double x, double y, object dragItem)
@@ -156,7 +190,7 @@ namespace BPMNEditor.ViewModels
         public void DeleteItem(BaseElementViewModel item)
         {
             BaseElements.Remove(item);
-            Actions.Push(new ElementDeletedAction(item));
+            AddUndoAction(new ElementDeletedAction(item));
         }
 
         public void BringItemToFront(BaseElementViewModel item)
@@ -284,14 +318,24 @@ namespace BPMNEditor.ViewModels
             viewModel.Left = x - _trackerCenterX;
             viewModel.Top = y - _trackerCenterY;
             BaseElements.Add(viewModel);
-            Actions.Push(new ElementAddedAction(viewModel));
+            AddUndoAction(new ElementAddedAction(viewModel));
         }
 
-        
+        private void ViewModel_ActionPerformed(object sender, ActionPerformedEventArgs e)
+        {
+            AddUndoAction(e.Action);
+        }
+
+        private void AddUndoAction(IAction action)
+        {
+            Actions.Push(action);
+            RedoActions.Clear();
+        }
+
         #endregion
 
-      
 
-        
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels.Command;
@@ -51,6 +52,7 @@ namespace BPMNEditor.ViewModels
         public ICommand ToggleToolboxCommand { get; private set; }
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
+        public ICommand RedoUntilCommand { get; private set; }
 
         #endregion
 
@@ -66,6 +68,7 @@ namespace BPMNEditor.ViewModels
             AddDocumentCommand = new RelayCommand(x => AddNewDocument());
             UndoCommand = new RelayCommand(x => Revert());
             RedoCommand = new RelayCommand(x => Redo());
+            RedoUntilCommand = new RelayCommand(x => Redo(x as IAction));
         }
 
         private void ReadAvailableElements()
@@ -97,18 +100,17 @@ namespace BPMNEditor.ViewModels
 
         private void Revert()
         {
-            if (ActiveDocument != null)
-            {
-                ActiveDocument.Undo();
-            }
+            ActiveDocument?.Undo();
         }
 
         private void Redo()
         {
-            if (ActiveDocument != null)
-            {
-                ActiveDocument.Redo();
-            }
+            ActiveDocument?.Redo();
+        }
+
+        private void Redo(IAction action)
+        {
+            ActiveDocument?.Redo(action);
         }
         #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
@@ -25,6 +26,9 @@ namespace BPMNEditor.ViewModels
         private int _itemZIndex;
         private bool _isConnectorVisible;
 
+        private Point _lastPoint;
+
+        
         
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
         private readonly List<ElementsConnectionViewModel> _activeConnections = new List<ElementsConnectionViewModel>();
@@ -156,6 +160,7 @@ namespace BPMNEditor.ViewModels
 
         #region Events
 
+        public event EventHandler<ActionPerformedEventArgs> ActionPerformed; 
         public event EventHandler<EventArgs> ElementDeleted;
         public event EventHandler<LocationChagnedEventArgs> LocationChanged;
 
@@ -228,6 +233,9 @@ namespace BPMNEditor.ViewModels
         public void SetConnection(ElementsConnectionViewModel connection)
         {
             connection.ElementDeleted += Connection_ElementDeleted;
+            ElementAddedAction addedAction = new ElementAddedAction(connection);
+            var addedActionArgs = new ActionPerformedEventArgs(addedAction);
+            ActionPerformed?.Invoke(this, addedActionArgs);
             _activeConnections.Add(connection);
         }
 
@@ -291,6 +299,18 @@ namespace BPMNEditor.ViewModels
         {
         }
 
+        public virtual void StartMove()
+        {
+            _lastPoint = new Point(Left,Top);
+        }
+
+        public virtual void StopMove()
+        {
+            ElementMoveAction moveAction = new ElementMoveAction(this,_lastPoint,new Point(Left,Top));
+            ActionPerformedEventArgs moveActionEventArgs = new ActionPerformedEventArgs(moveAction);
+            ActionPerformed?.Invoke(this, moveActionEventArgs);
+        }
+
 
 
         #region Factory
@@ -312,7 +332,7 @@ namespace BPMNEditor.ViewModels
             return viewModel;
         }
 
-        public bool CanMove { get { return IsSelected; } }
+        public bool CanMove => IsSelected;
 
         #endregion
 

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.DragAndDrop;
 using BPMNEditor.Tools.GraphTools;
@@ -20,7 +21,7 @@ namespace BPMNEditor.ViewModels
         private Pool _pool;
         private string _name;
         private bool _isDragOver;
-        private List<PoolElementViewModel> _elements = new List<PoolElementViewModel>();
+        private readonly List<PoolElementViewModel> _elements = new List<PoolElementViewModel>();
 
         #endregion
 
@@ -49,6 +50,8 @@ namespace BPMNEditor.ViewModels
                 NotifyOfPropertyChange(nameof(Name));
             }
         }
+
+        public IReadOnlyList<PoolElementViewModel> Elements => _elements;
 
         #endregion
 
@@ -177,6 +180,16 @@ namespace BPMNEditor.ViewModels
                     }
                 }
             }
+        }
+
+        public override void StartMove()
+        {
+            base.StartMove();
+        }
+
+        public override void StopMove()
+        {
+            base.StopMove();
         }
     }
 }
