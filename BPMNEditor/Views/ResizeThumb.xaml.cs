@@ -45,7 +45,7 @@ namespace BPMNEditor.Views
 
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            IResizableObject resizable = DataContext as IResizableObject;
+            IResizable resizable = DataContext as IResizable;
             if (resizable != null)
             {
                 ChangeVertical(e.VerticalChange, resizable);
@@ -53,7 +53,7 @@ namespace BPMNEditor.Views
             }
         }
 
-        private void ChangeVertical(double verticalChange, IResizableObject resizable)
+        private void ChangeVertical(double verticalChange, IResizable resizable)
         {
             double deltaVertical;
             double newHeight;
@@ -82,7 +82,7 @@ namespace BPMNEditor.Views
 
         }
 
-        private void ChangeHorizontal(double horizontalChange, IResizableObject resizable)
+        private void ChangeHorizontal(double horizontalChange, IResizable resizable)
         {
             double deltaHorizontal;
             switch (HorizontalAlignment)

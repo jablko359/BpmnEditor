@@ -85,7 +85,7 @@ namespace BPMNEditor.ViewModels
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (object item in e.OldItems)
-                {
+                {  
                     var baseElementViewModel = item as BaseElementViewModel;
                     baseElementViewModel.ActionPerformed -= ViewModel_ActionPerformed;
                 }

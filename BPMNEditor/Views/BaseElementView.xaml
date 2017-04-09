@@ -4,7 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
              xmlns:local="clr-namespace:BPMNEditor.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:views="clr-namespace:BPMNEditor.Views" PreviewMouseDown="BaseElementView_OnPreviewMouseDown"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              mc:Ignorable="d" Cursor="SizeAll" Grid.ZIndex="{Binding ItemZIndex}"
@@ -22,7 +24,13 @@
                 </Ellipse>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:TaskViewModel}" >
-                <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="DodgerBlue"  BorderThickness="1" CornerRadius="3" Background="DeepSkyBlue" ></Border>
+                <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="DodgerBlue"  BorderThickness="1" CornerRadius="3" Background="DeepSkyBlue" >
+                    <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" >
+                        <i:Interaction.Behaviors>
+                            <controls:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:GatewayViewModel}" >
                 <Border  Height="{Binding Height}" Width="{Binding Width}" BorderBrush="Goldenrod" BorderThickness="1" Background="Yellow" >

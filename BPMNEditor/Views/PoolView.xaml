@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BPMNEditor.Views"
              xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
+             xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"  d:DataContext="{d:DesignInstance Type=viewModels:PoolViewModel}"
             
@@ -17,10 +18,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border x:Name="TextArea" BorderThickness="1 1 0 1" BorderBrush="Black" Grid.Column="0" Background="Transparent" PreviewMouseDown="TextAreaOnPreviewMouseDown">
-                <TextBox x:Name="TextBox"  GotFocus="TextBox_OnGotFocus" LostFocus="TextBox_OnLostFocus" Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" 
+                <TextBox x:Name="TextBox"   Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" 
                          TextWrapping="Wrap" VerticalAlignment="Center" 
                          HorizontalAlignment="Center" FontSize="14" 
-                         PreviewMouseDown="TextBox_OnPreviewMouseDown"/>
+                         PreviewMouseDown="TextBox_OnPreviewMouseDown">
+                    <i:Interaction.Behaviors>
+                        <controls:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"></controls:RaisePropertyChangedActionBehavior>
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <Border.ContextMenu>
                     <ContextMenu>
                         <!--Doesn't work-->
@@ -53,29 +58,6 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:LaneViewModel}">
                             <local:LaneView></local:LaneView>
-                            <!--<Border BorderBrush="Black">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Setter Property="BorderThickness" Value="0 1 0 0"></Setter>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Index}" Value="0">
-                                                <Setter Property="BorderThickness" Value="0"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Grid Height="{Binding Height}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" TextWrapping="Wrap" VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center" FontSize="14"></TextBox>
-                                    <Border BorderThickness="1 0 0 0" Grid.Column="1" BorderBrush="Black">
-                                        <Grid></Grid>
-                                    </Border>
-                                </Grid>
-                            </Border>-->
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     <i:Interaction.Behaviors>

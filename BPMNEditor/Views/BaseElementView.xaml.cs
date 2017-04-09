@@ -63,5 +63,6 @@ namespace BPMNEditor.Views
             BaseElementViewModel viewModel = (BaseElementViewModel)DataContext;
             viewModel.StopMove();
         }
+        
     }
 }

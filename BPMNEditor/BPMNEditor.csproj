@@ -163,6 +163,7 @@
       <DependentUpon>BaseElementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\GraphDocument.cs" />
+    <Compile Include="Views\Controls\RaisePropertyChangedActionBehavior.cs" />
     <Compile Include="Views\DrawingConnectionView.xaml.cs">
       <DependentUpon>DrawingConnectionView.xaml</DependentUpon>
     </Compile>

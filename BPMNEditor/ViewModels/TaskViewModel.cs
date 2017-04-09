@@ -14,8 +14,27 @@ namespace BPMNEditor.ViewModels
 
         private Task _task;
 
+        private string _name;
+
+        #region Properties
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                NotifyOfPropertyChange(nameof(Name));
+            }
+        }
+
+        #endregion
+
+
+
         public TaskViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
+            Name = "Task";
             ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };
         }
 
