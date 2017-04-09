@@ -28,7 +28,11 @@ namespace BPMNEditor.Views.Controls
         {
             var viewModel = AssociatedObject.DataContext as BaseElementViewModel;
             var data = AssociatedObject.GetType().GetProperty(ControlPropertyName);
-            viewModel?.NotifyActionPropertyChagned(UpdatePropertyName, data);
+            if (data != null)
+            {
+                viewModel?.NotifyActionPropertyChagned(UpdatePropertyName, data.GetValue(AssociatedObject));
+            }
+           
         }
 
         private void AssociatedObject_GotFocus(object sender, RoutedEventArgs e)

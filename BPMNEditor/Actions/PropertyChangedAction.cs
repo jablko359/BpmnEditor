@@ -8,13 +8,13 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Actions
 {
-    public class PropertyChagnedAction : BaseElementAction
+    public class PropertyChangedAction : BaseElementAction
     {
         private readonly object _oldValue;
         private readonly object _newValue;
         private readonly string _propertyName;
 
-        public PropertyChagnedAction(BaseElementViewModel viewModel, object oldValue, object newValue, string propertyName) : base(viewModel)
+        public PropertyChangedAction(BaseElementViewModel viewModel, object oldValue, object newValue, string propertyName) : base(viewModel)
         {
             _oldValue = oldValue;
             _newValue = newValue;
@@ -34,7 +34,7 @@ namespace BPMNEditor.Actions
 
         public override IAction GetInverseAction()
         {
-            return new PropertyChagnedAction(BaseElementViewModel, _newValue, _oldValue, _propertyName);
+            return new PropertyChangedAction(BaseElementViewModel, _newValue, _oldValue, _propertyName);
         }
     }
 }

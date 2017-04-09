@@ -14,6 +14,9 @@ namespace BPMNEditor.ViewModels
 
         private Gateway _gateway;
 
+        
+
+
         public GatewayViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
             ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };

@@ -14,4 +14,9 @@ namespace BPMNEditor.Models.Elements
     {
 
     }
+
+    public enum EventType
+    {
+        Start, Intermediate, End
+    }
 }

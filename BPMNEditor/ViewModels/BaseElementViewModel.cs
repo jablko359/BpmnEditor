@@ -386,9 +386,9 @@ namespace BPMNEditor.ViewModels
                 {
                     throw new ArgumentException($"Property {propertyName} not found");
                 }
-                if (value != _lastProperty.Value)
+                if (!value.Equals(_lastProperty.Value))
                 {
-                    PropertyChagnedAction action = new PropertyChagnedAction(this,_lastProperty.Value, value, propertyName);
+                    PropertyChangedAction action = new PropertyChangedAction(this,_lastProperty.Value, value, propertyName);
                     NotifyActionPerformed(action);
                 }
             }

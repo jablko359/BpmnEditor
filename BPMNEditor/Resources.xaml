@@ -10,11 +10,15 @@
     <system:Boolean x:Key="True">True</system:Boolean>
     <system:Boolean x:Key="False">False</system:Boolean>
 
-    <!--Color-->
-    <SolidColorBrush x:Key="FlameColor" Color="#E55812"/>
-    <SolidColorBrush x:Key="IguanaGreenColor" Color="#69B578"/>
-    <SolidColorBrush x:Key="LicoriceColor" Color="#1C0F13"/>
-    <SolidColorBrush x:Key="SandstromColor" Color="#EEC643"/>
+    <!--Colors-->
+    <SolidColorBrush x:Key="TaskBackgroundColor" Color="#DFF1FF"/>
+    <SolidColorBrush x:Key="TaskBorderColor" Color="#508FA0"/>
+    <SolidColorBrush x:Key="StartEventBackgroundColor" Color="#C3E392"/>
+    <SolidColorBrush x:Key="StartEventBorderColor" Color="#768166"/>
+    <SolidColorBrush x:Key="EndEventBackgroundColor" Color="#FF96A5"/>
+    <SolidColorBrush x:Key="EndEventBorderColor" Color="#512C32"/>
+    <SolidColorBrush x:Key="GatewayBackgroundColor" Color="#F3FE4A"/>
+    <SolidColorBrush x:Key="GatewayBorderColor" Color="#C6CC63"/>
     
     <!--Converters-->
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -59,7 +63,7 @@
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                 <Canvas Width="25" Height="25">
-                                    <Ellipse Canvas.Right="0" Canvas.Top="0" Height="25" Width="25" StrokeThickness="1" Stroke="Green" >
+                                    <Ellipse Canvas.Right="0" Canvas.Top="0" Height="25" Width="25" StrokeThickness="1" Stroke="{StaticResource StartEventBorderColor}" Fill="{StaticResource StartEventBackgroundColor}" >
                                     </Ellipse>
                                 </Canvas>
                                 <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
@@ -73,7 +77,7 @@
                     <Setter.Value>
                         <DataTemplate >
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
-                                <Border Width="40" Height="25" BorderBrush="DodgerBlue" BorderThickness="1" CornerRadius="3" ></Border>
+                                <Border Width="40" Height="25" BorderBrush="{StaticResource TaskBorderColor}" Background="{StaticResource TaskBackgroundColor}" BorderThickness="1" CornerRadius="5" ></Border>
                                 <TextBlock Style="{StaticResource ElementPickerTextBlock}"/>
                             </StackPanel>
                         </DataTemplate>
@@ -85,7 +89,7 @@
                     <Setter.Value>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
-                                <Border Width="25" Height="25" BorderBrush="Goldenrod" BorderThickness="1" >
+                                <Border Width="25" Height="25" BorderBrush="{StaticResource GatewayBorderColor}" Background="{StaticResource GatewayBackgroundColor}" BorderThickness="1" >
                                     <Border.LayoutTransform>
                                         <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
                                     </Border.LayoutTransform>
@@ -249,6 +253,14 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="14"></Setter>
     </Style>
     
+    <MenuItem x:Key="DeleteMenuItem" Header="Delete" Command="{Binding DeleteCommand}" x:Shared="False"/>
+    
+    <ObjectDataProvider x:Shared="False" x:Key="EventTypes" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="elements:EventType"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
 </ResourceDictionary>

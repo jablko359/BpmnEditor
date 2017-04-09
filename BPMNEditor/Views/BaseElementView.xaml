@@ -16,15 +16,49 @@
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}">
                 <Border Width="100" Height="100" BorderThickness="1" BorderBrush="#333333" Background="Lavender">
-                    <TextBlock Text="Unknown"></TextBlock>
+                    <TextBlock Text="Unknow" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:EventViewModel}" >
-                <Ellipse Height="{Binding Height}" Width="{Binding Width}" StrokeThickness="1" Stroke="Green" Fill="LawnGreen" >
+                <Ellipse Height="{Binding Height}" Width="{Binding Width}">
+                    <Ellipse.Style>
+                        <Style TargetType="Ellipse">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Type}" Value="Start">
+                                    <Setter Property="Stroke" Value="{StaticResource StartEventBorderColor}"/>
+                                    <Setter Property="StrokeThickness" Value="1" />
+                                    <Setter Property="Fill" Value="{StaticResource StartEventBackgroundColor}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Type}" Value="Intermediate">
+                                    <Setter Property="Stroke" Value="{StaticResource GatewayBorderColor}"/>
+                                    <Setter Property="StrokeThickness" Value="1" />
+                                    <Setter Property="Fill" Value="{StaticResource GatewayBackgroundColor}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Type}" Value="End">
+                                    <Setter Property="Stroke" Value="{StaticResource EndEventBorderColor}"/>
+                                    <Setter Property="StrokeThickness" Value="3" />
+                                    <Setter Property="Fill" Value="{StaticResource EndEventBackgroundColor}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
+                    <Ellipse.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Change Type" ItemsSource="{Binding Source={StaticResource EventTypes}}">
+                                <MenuItem.ItemContainerStyle>
+                                    <Style TargetType="MenuItem">
+                                        <Setter Property="Command" Value="{Binding DataContext.ChangeTypeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}, AncestorLevel=1}}"/>
+                                        <Setter Property="CommandParameter" Value="{Binding}"></Setter>
+                                    </Style>
+                                </MenuItem.ItemContainerStyle>
+                            </MenuItem>
+                            <StaticResource ResourceKey="DeleteMenuItem"/>
+                        </ContextMenu>
+                    </Ellipse.ContextMenu>
                 </Ellipse>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:TaskViewModel}" >
-                <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="DodgerBlue"  BorderThickness="1" CornerRadius="3" Background="DeepSkyBlue" >
+                <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="{StaticResource TaskBorderColor}"  BorderThickness="1" CornerRadius="10" Background="{StaticResource TaskBackgroundColor}" >
                     <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" >
                         <i:Interaction.Behaviors>
                             <controls:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
@@ -33,9 +67,10 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:GatewayViewModel}" >
-                <Border  Height="{Binding Height}" Width="{Binding Width}" BorderBrush="Goldenrod" BorderThickness="1" Background="Yellow" >
+                <Border  Height="{Binding Height}" Width="{Binding Width}" BorderThickness="1" Background="{StaticResource GatewayBackgroundColor}" BorderBrush="{StaticResource GatewayBorderColor}" >
+                    
                     <Border.LayoutTransform>
-                        <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
+                        <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"/>
                     </Border.LayoutTransform>
                 </Border>
             </DataTemplate>
@@ -48,11 +83,11 @@
             </Grid>
         </ContentControl>
     </ContentControl>
-    <dnd:DragableUserControl.ContextMenu>
+    <!--<dnd:DragableUserControl.ContextMenu>
         <ContextMenu>
-            <!--Doesn't work-->
-            <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>-->
-            <MenuItem Header="Usuń" Command="{Binding DeleteCommand}"/>
+            --><!--Doesn't work-->
+            <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>--><!--
+            <StaticResource ResourceKey="DeleteMenuItem"/>
         </ContextMenu>
-    </dnd:DragableUserControl.ContextMenu>
+    </dnd:DragableUserControl.ContextMenu>-->
 </dnd:DragableUserControl>
