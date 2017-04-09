@@ -104,9 +104,12 @@
     <Compile Include="Actions\ActionPerformedEventArgs.cs" />
     <Compile Include="Actions\BaseElementAction.cs" />
     <Compile Include="Actions\DropoutStack.cs" />
-    <Compile Include="Actions\ElementAddedAction.cs" />
-    <Compile Include="Actions\ElementDeletedAction.cs" />
     <Compile Include="Actions\ElementMoveAction.cs" />
+    <Compile Include="Actions\ElementResizeAction.cs" />
+    <Compile Include="Actions\GenericAddedAction.cs" />
+    <Compile Include="Actions\GenericDeletedAction.cs" />
+    <Compile Include="Actions\PropertyChagnedAction.cs" />
+    <Compile Include="Actions\PropertyMemento.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

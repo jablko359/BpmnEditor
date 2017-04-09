@@ -5,13 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.DragAndDrop;
 using BPMNEditor.Tools.GraphTools;
+using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public class PoolViewModel : BaseElementViewModel, IDropable, IContentSelectable
+    public class PoolViewModel : BaseElementViewModel, IDropable, IContentSelectable, IElementsContainer<LaneViewModel>
     {
         public const double InitialWidth = 700;
         public const double InitialHeight = 350;
@@ -28,7 +31,6 @@ namespace BPMNEditor.ViewModels
         #region Properties
 
         public ObservableCollection<LaneViewModel> Lanes { get; } = new ObservableCollection<LaneViewModel>();
-
 
         public bool IsDragOver
         {
@@ -64,7 +66,7 @@ namespace BPMNEditor.ViewModels
             _name = "Pool";
         }
 
-        
+
 
         #endregion
 
@@ -103,7 +105,35 @@ namespace BPMNEditor.ViewModels
             IsDragOver = false;
         }
 
+        public void DeleteLine(LaneViewModel lane)
+        {
+            var index = Lanes.IndexOf(lane);
+
+            if (index == Lanes.Count - 1)
+            {
+                if (index > 0)
+                {
+                    LaneViewModel previousLane = Lanes[index - 1];
+
+                    PropertyChanged -= lane.PoolPropertyChanged;
+                    PropertyChanged += previousLane.PoolPropertyChanged;
+                }
+            }
+            else if (index > 0)
+            {
+                LaneViewModel next = lane.Next;
+                LaneViewModel previousLane = Lanes[index - 1];
+                previousLane.Next = next;
+            }
+            Lanes.Remove(lane);
+            NotifyOfPropertyChange(nameof(Height));
+
+            NotifyActionPerformed(new GenericDeletedAction<LaneViewModel>(this, lane));
+        }
+
         #endregion
+
+
 
         private void AddNewLane()
         {
@@ -131,6 +161,9 @@ namespace BPMNEditor.ViewModels
                 Height += laneViewModel.Height;
             }
             Lanes.Add(laneViewModel);
+
+            GenericAddedAction<LaneViewModel> laneAddedAction = new GenericAddedAction<LaneViewModel>(this, laneViewModel);
+            NotifyActionPerformed(laneAddedAction);
         }
 
         private double CalculateMinHeight()
@@ -191,5 +224,8 @@ namespace BPMNEditor.ViewModels
         {
             base.StopMove();
         }
+
+        public IList<LaneViewModel> Items => Lanes;
+       
     }
 }

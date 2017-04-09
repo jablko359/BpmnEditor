@@ -18,14 +18,25 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>-->
-        
+
         <Grid Height="{Binding Height, Mode=TwoWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" TextWrapping="Wrap" VerticalAlignment="Center" 
-                                            HorizontalAlignment="Center" FontSize="14"></TextBox>
+            <Border Background="Transparent">
+                <TextBox Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" FontSize="14">
+                </TextBox>
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <!--Doesn't work-->
+                        <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>-->
+                        <MenuItem Header="Usuń" Command="{Binding DeleteCommand}" />
+                    </ContextMenu>
+                </Border.ContextMenu>
+            </Border>
+
             <Border BorderThickness="1 0 0 0" Grid.Column="1" BorderBrush="Black">
                 <Grid></Grid>
             </Border>

@@ -25,11 +25,12 @@ namespace BPMNEditor.ViewModels
         private bool _isSelected;
         private int _itemZIndex;
         private bool _isConnectorVisible;
+        private PropertyMemento _lastProperty;
 
         private Point _lastPoint;
+        private Rect _lastSize;
 
-        
-        
+
         private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
         private readonly List<ElementsConnectionViewModel> _activeConnections = new List<ElementsConnectionViewModel>();
         #endregion
@@ -77,7 +78,7 @@ namespace BPMNEditor.ViewModels
             {
                 if (value > 0)
                 {
-                    LocationChagnedEventArgs args = new LocationChagnedEventArgs(0,value - Left);
+                    LocationChagnedEventArgs args = new LocationChagnedEventArgs(0, value - Left);
                     _left = value;
                     NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Left));
@@ -160,7 +161,7 @@ namespace BPMNEditor.ViewModels
 
         #region Events
 
-        public event EventHandler<ActionPerformedEventArgs> ActionPerformed; 
+        public event EventHandler<ActionPerformedEventArgs> ActionPerformed;
         public event EventHandler<EventArgs> ElementDeleted;
         public event EventHandler<LocationChagnedEventArgs> LocationChanged;
 
@@ -195,6 +196,11 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        protected void NotifyActionPerformed(IAction action)
+        {
+            ActionPerformedEventArgs eventArgs = new ActionPerformedEventArgs(action);
+            ActionPerformed?.Invoke(this, eventArgs);
+        }
 
         #endregion
 
@@ -233,7 +239,7 @@ namespace BPMNEditor.ViewModels
         public void SetConnection(ElementsConnectionViewModel connection)
         {
             connection.ElementDeleted += Connection_ElementDeleted;
-            ElementAddedAction addedAction = new ElementAddedAction(connection);
+            GenericAddedAction<BaseElementViewModel> addedAction = new GenericAddedAction<BaseElementViewModel>(Document, connection);
             var addedActionArgs = new ActionPerformedEventArgs(addedAction);
             ActionPerformed?.Invoke(this, addedActionArgs);
             _activeConnections.Add(connection);
@@ -301,12 +307,12 @@ namespace BPMNEditor.ViewModels
 
         public virtual void StartMove()
         {
-            _lastPoint = new Point(Left,Top);
+            _lastPoint = new Point(Left, Top);
         }
 
         public virtual void StopMove()
         {
-            ElementMoveAction moveAction = new ElementMoveAction(this,_lastPoint,new Point(Left,Top));
+            ElementMoveAction moveAction = new ElementMoveAction(this, _lastPoint, new Point(Left, Top));
             ActionPerformedEventArgs moveActionEventArgs = new ActionPerformedEventArgs(moveAction);
             ActionPerformed?.Invoke(this, moveActionEventArgs);
         }
@@ -336,5 +342,60 @@ namespace BPMNEditor.ViewModels
 
         #endregion
 
+        public void ResizeStart()
+        {
+            Size lastSize = new Size(Width, Height);
+            Point lastPos = new Point(Left, Top);
+            _lastSize = new Rect(lastPos, lastSize);
+        }
+
+        public void ResizeStop()
+        {
+            Size newSize = new Size(Width, Height);
+            Point newPos = new Point(Left, Top);
+            Rect newRect = new Rect(newPos, newSize);
+            IAction actionPerformed = new ElementResizeAction(this, _lastSize, newRect);
+            ActionPerformedEventArgs actionPerformedEventArgs = new ActionPerformedEventArgs(actionPerformed);
+            ActionPerformed?.Invoke(this, actionPerformedEventArgs);
+        }
+
+        public void RememberProperty(string propertyName)
+        {
+            var property = GetType().GetProperty(propertyName);
+            if (property != null)
+            {
+                object value = property.GetValue(this);
+                _lastProperty = new PropertyMemento(value, propertyName);
+            }
+            else
+            {
+                throw new ArgumentException($"Property {propertyName} not found");
+            }
+        }
+
+        public void NotifyActionPropertyChagned(string propertyName, object value)
+        {
+            if (_lastProperty == null)
+            {
+                throw new NullReferenceException("Property not saved. Cannot raise event");
+            }
+            if (_lastProperty.Name == propertyName)
+            {
+                var property = GetType().GetProperty(propertyName);
+                if (property == null)
+                {
+                    throw new ArgumentException($"Property {propertyName} not found");
+                }
+                if (value != _lastProperty.Value)
+                {
+                    PropertyChagnedAction action = new PropertyChagnedAction(this,_lastProperty.Value, value, propertyName);
+                    NotifyActionPerformed(action);
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Last property is {_lastProperty.Name} not {propertyName}");
+            }
+        }
     }
 }

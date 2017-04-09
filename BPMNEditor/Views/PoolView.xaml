@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border x:Name="TextArea" BorderThickness="1 1 0 1" BorderBrush="Black" Grid.Column="0" Background="Transparent" PreviewMouseDown="TextAreaOnPreviewMouseDown">
-                <TextBox x:Name="TextBox" Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" 
+                <TextBox x:Name="TextBox"  GotFocus="TextBox_OnGotFocus" LostFocus="TextBox_OnLostFocus" Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" 
                          TextWrapping="Wrap" VerticalAlignment="Center" 
                          HorizontalAlignment="Center" FontSize="14" 
                          PreviewMouseDown="TextBox_OnPreviewMouseDown"/>

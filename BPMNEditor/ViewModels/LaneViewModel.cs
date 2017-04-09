@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using BPMNEditor.Models.Elements;
+using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
@@ -12,14 +14,18 @@ namespace BPMNEditor.ViewModels
     {
         public const double MinHeight = 75;
 
-        public Lane Lane { get;  }
-        public int Index { get; private set; }
+
 
         private double _height;
         private string _name;
         private readonly PoolViewModel _pool;
 
         public LaneViewModel Next { get; set; }
+
+        #region Properties
+
+        public Lane Lane { get; }
+        public int Index { get; private set; }
 
         public string Name
         {
@@ -42,6 +48,11 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public ICommand DeleteCommand { get; }
+
+        #endregion
+
+
 
         public LaneViewModel(int index, PoolViewModel poolViewModel)
         {
@@ -49,6 +60,7 @@ namespace BPMNEditor.ViewModels
             _name = "Lane";
             Height = 150;
             Lane = new Lane();
+            DeleteCommand = new RelayCommand(x => Delete());
             _pool = poolViewModel;
         }
 
@@ -62,7 +74,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        
+
 
         public void Resize(double newHeight)
         {
@@ -76,9 +88,13 @@ namespace BPMNEditor.ViewModels
                     Height = newHeight;
                     Next.Height += difference;
                 }
-                
             }
-            
+
+        }
+
+        public void Delete()
+        {
+            _pool.DeleteLine(this);
         }
 
         public void PreviousLaneHeightChanged(object sender, HeightChangedEventArgs e)
@@ -98,6 +114,6 @@ namespace BPMNEditor.ViewModels
                 NewValue = newValue;
             }
         }
-        
+
     }
 }

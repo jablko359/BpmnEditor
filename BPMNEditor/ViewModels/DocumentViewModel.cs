@@ -17,7 +17,7 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public class DocumentViewModel : PropertyChangedBase, IDropable, IContentSelectable
+    public class DocumentViewModel : PropertyChangedBase, IDropable, IContentSelectable, IElementsContainer<BaseElementViewModel>
     {
         #region Private members
 
@@ -149,7 +149,7 @@ namespace BPMNEditor.ViewModels
         {
             IAction lastUndoAction = RedoActions.Pop();
             IAction undoAction = lastUndoAction.GetInverseAction();
-            Actions.Add(undoAction);
+            Actions.Push(undoAction);
             lastUndoAction?.Revert();
         }
 
@@ -190,7 +190,7 @@ namespace BPMNEditor.ViewModels
         public void DeleteItem(BaseElementViewModel item)
         {
             BaseElements.Remove(item);
-            AddUndoAction(new ElementDeletedAction(item));
+            AddUndoAction(new GenericDeletedAction<BaseElementViewModel>(this, item));
         }
 
         public void BringItemToFront(BaseElementViewModel item)
@@ -318,7 +318,7 @@ namespace BPMNEditor.ViewModels
             viewModel.Left = x - _trackerCenterX;
             viewModel.Top = y - _trackerCenterY;
             BaseElements.Add(viewModel);
-            AddUndoAction(new ElementAddedAction(viewModel));
+            AddUndoAction(new GenericAddedAction<BaseElementViewModel>(this, viewModel));
         }
 
         private void ViewModel_ActionPerformed(object sender, ActionPerformedEventArgs e)
@@ -331,6 +331,8 @@ namespace BPMNEditor.ViewModels
             Actions.Push(action);
             RedoActions.Clear();
         }
+
+        public IList<BaseElementViewModel> Items => BaseElements;
 
         #endregion
 

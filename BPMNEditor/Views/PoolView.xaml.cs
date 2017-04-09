@@ -87,5 +87,22 @@ namespace BPMNEditor.Views
             var viewModel = this.DataContext as BaseElementViewModel;
             viewModel?.StopMove();
         }
+
+        private void TextBox_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            var viewModel = this.DataContext as BaseElementViewModel;
+            viewModel?.RememberProperty("Name");
+        }
+
+        private void TextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            var viewModel = this.DataContext as BaseElementViewModel;
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                viewModel?.NotifyActionPropertyChagned("Name", textBox.Text);
+            }
+            
+        }
     }
 }

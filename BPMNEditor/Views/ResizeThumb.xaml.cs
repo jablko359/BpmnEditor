@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BPMNEditor.Tools.DragAndDrop;
+using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Views
 {
@@ -25,7 +26,21 @@ namespace BPMNEditor.Views
         public ResizeThumb()
         {
             InitializeComponent();
+            DragStarted += ResizeThumb_DragStarted;
+            DragCompleted += ResizeThumb_DragCompleted;
             DragDelta += ResizeThumb_DragDelta;
+        }
+
+        private void ResizeThumb_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            BaseElementViewModel viewModel = DataContext as BaseElementViewModel;
+            viewModel?.ResizeStop();
+        }
+
+        private void ResizeThumb_DragStarted(object sender, DragStartedEventArgs e)
+        {
+            BaseElementViewModel viewModel = DataContext as BaseElementViewModel;
+            viewModel?.ResizeStart();
         }
 
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
