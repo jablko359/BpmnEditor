@@ -57,7 +57,7 @@ namespace BPMNEditor.ViewModels
         public bool CanSelect => true;
         #endregion
 
-
+        public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 
         public DocumentViewModel()
         {
@@ -85,7 +85,7 @@ namespace BPMNEditor.ViewModels
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (object item in e.OldItems)
-                {  
+                {
                     var baseElementViewModel = item as BaseElementViewModel;
                     baseElementViewModel.ActionPerformed -= ViewModel_ActionPerformed;
                 }
@@ -173,6 +173,7 @@ namespace BPMNEditor.ViewModels
             {
                 baseElement.Deselect();
             }
+            SelectionChanged?.Invoke(this, new SelectionChangedEventArgs(null));
         }
 
         public void SelectSignleItem(BaseElementViewModel sender)
@@ -185,6 +186,7 @@ namespace BPMNEditor.ViewModels
                     baseElement.IsConnectorVisible = false;
                 }
             }
+            SelectionChanged?.Invoke(this, new SelectionChangedEventArgs(sender));
         }
 
         public void DeleteItem(BaseElementViewModel item)
@@ -248,7 +250,12 @@ namespace BPMNEditor.ViewModels
 
         public void ChangeSelection(Point getPosition)
         {
-            Selection.ChangeSelection(getPosition, BaseElements);
+            var selected = Selection.ChangeSelection(getPosition, BaseElements);
+            var selectedCount = selected.Count;
+            SelectionChanged?.Invoke(this,
+                selectedCount == 1
+                    ? new SelectionChangedEventArgs(selected.FirstOrDefault())
+                    : new SelectionChangedEventArgs(null));
         }
 
         public void DrawConnectorLine(Point point)

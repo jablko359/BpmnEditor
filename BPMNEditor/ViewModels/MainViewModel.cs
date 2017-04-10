@@ -18,6 +18,7 @@ namespace BPMNEditor.ViewModels
         private const string ElementsNamespace = "BPMNEditor.Models.Elements";
         private bool _isToolboxVisible = true;
         private DocumentViewModel _activeDocument;
+        private BaseElementViewModel _propertyEditElement;
 
         #endregion
 
@@ -25,7 +26,19 @@ namespace BPMNEditor.ViewModels
 
         public ObservableCollection<ElementCreatorViewModel> Elements { get; private set; }
         public ObservableCollection<DocumentViewModel> Documents { get; } = new ObservableCollection<DocumentViewModel>();
-        
+
+        private bool _isSettingsEditorVisible;
+
+        public bool IsSettingsEditorVisible
+        {
+            get { return _isSettingsEditorVisible; }
+            set
+            {
+                _isSettingsEditorVisible = value;
+                NotifyOfPropertyChange(nameof(IsSettingsEditorVisible));
+            }
+        }
+
 
         public bool IsToolBoxVisible
         {
@@ -47,6 +60,17 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public BaseElementViewModel PropertyEditElement
+        {
+            get { return _propertyEditElement; }
+            set
+            {
+                _propertyEditElement = value;
+                NotifyOfPropertyChange(nameof(PropertyEditElement));
+            }
+        }
+            
+
 
         public ICommand AddDocumentCommand { get; private set; }
         public ICommand ToggleToolboxCommand { get; private set; }
@@ -61,7 +85,7 @@ namespace BPMNEditor.ViewModels
         public MainViewModel()
         {
             Elements = new ObservableCollection<ElementCreatorViewModel>();
-            Documents.Add(new DocumentViewModel());
+            AddNewDocument();
             ToggleToolboxCommand = new RelayCommand(TriggerToolbox);
             ReadAvailableElements();
             
@@ -69,6 +93,14 @@ namespace BPMNEditor.ViewModels
             UndoCommand = new RelayCommand(x => Revert());
             RedoCommand = new RelayCommand(x => Redo());
             RedoUntilCommand = new RelayCommand(x => Redo(x as IAction));
+        }
+
+        private void Document_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender == ActiveDocument)
+            {
+                PropertyEditElement = e.SelectedItem;
+            }
         }
 
         private void ReadAvailableElements()
@@ -93,9 +125,20 @@ namespace BPMNEditor.ViewModels
             IsToolBoxVisible = (bool)isVisible;
         }
 
+        public void RemoveDocument(DocumentViewModel document)
+        {
+            if (document != null)
+            {
+                document.SelectionChanged -= Document_SelectionChanged;
+                Documents.Remove(document);
+            }
+        }
+
         private void AddNewDocument()
         {
-            Documents.Add(new DocumentViewModel());
+            var document = new DocumentViewModel();
+            document.SelectionChanged += Document_SelectionChanged;
+            Documents.Add(document);
         }
 
         private void Revert()

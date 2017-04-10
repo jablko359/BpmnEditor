@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="Models\Elements\Lane.cs" />
     <Compile Include="Models\Elements\Pool.cs" />
+    <Compile Include="Tools\Categories.cs" />
     <Compile Include="Tools\DraggableAttribute.cs" />
     <Compile Include="Tools\Events.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />

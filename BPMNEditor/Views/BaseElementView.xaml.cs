@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BPMNEditor.Tools.DragAndDrop;
 using BPMNEditor.ViewModels;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace BPMNEditor.Views
 {

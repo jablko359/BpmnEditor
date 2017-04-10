@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -28,7 +29,7 @@ namespace BPMNEditor.ViewModels
                 NotifyOfPropertyChange(nameof(Type));
             }
         }
-
+        [Browsable(false)]
         public ICommand ChangeTypeCommand { get; }
 
 

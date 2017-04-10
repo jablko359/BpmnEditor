@@ -9,6 +9,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:xtpg="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid;assembly=Xceed.Wpf.Toolkit"
         xmlns:dragAndDrop="clr-namespace:BPMNEditor.Tools.DragAndDrop"
         xmlns:dock="clr-namespace:Xceed.Wpf;assembly=Xceed.Wpf.AvalonDock"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
@@ -63,6 +64,11 @@
                                            Label="Redo">
                         </RibbonSplitButton>
                     </RibbonGroup>
+                    <RibbonGroup Header="Object">
+                        <RibbonToggleButton LargeImageSource="../Icons/light/appbar.settings.png" 
+                                            Label="Properties" IsChecked="{Binding IsSettingsEditorVisible, Mode=TwoWay}">
+                        </RibbonToggleButton>
+                    </RibbonGroup>
                 </RibbonTab>
                 <Ribbon.ApplicationMenu>
                     <RibbonApplicationMenu Visibility="Collapsed"></RibbonApplicationMenu>
@@ -81,8 +87,8 @@
                 </xcad:DockingManager.DocumentHeaderTemplate>
                 <xcad:LayoutRoot>
                     <xcad:LayoutPanel Orientation="Horizontal" >
-                        <xcad:LayoutAnchorablePaneGroup DockWidth="200" DockMinWidth="175">
-                            <xcad:LayoutAnchorablePane DockWidth="200" DockHeight="75" DockMinHeight="75" DockMinWidth="175" >
+                        <xcad:LayoutAnchorablePaneGroup DockWidth="175" DockMinWidth="175">
+                            <xcad:LayoutAnchorablePane DockWidth="175" DockHeight="75" DockMinHeight="75" DockMinWidth="175" >
                                 <xcad:LayoutAnchorable CanClose="False" CanHide="False" CanAutoHide="False" Title="Toolbox"  >
                                     <ItemsControl VerticalAlignment="Stretch" ItemsSource="{Binding Elements}" HorizontalContentAlignment="Center">
                                         <ItemsControl.ItemTemplate>
@@ -104,6 +110,13 @@
                             <xcad:LayoutDocumentPane x:Name="LayoutDocumentPane" CanRepositionItems="False ">
                             </xcad:LayoutDocumentPane>
                         </xcad:LayoutDocumentPaneGroup>
+                        <xcad:LayoutAnchorablePaneGroup DockWidth="250" DockMinWidth="200">
+                            <xcad:LayoutAnchorablePane DockWidth="250" DockHeight="75" DockMinHeight="75" DockMinWidth="200" >
+                                <xcad:LayoutAnchorable x:Name="PropertyGrid" CanClose="False" CanHide="False" CanAutoHide="False" Title="Properties"  >
+                                    <xtpg:PropertyGrid SelectedObject="{Binding PropertyEditElement}" ></xtpg:PropertyGrid>
+                                </xcad:LayoutAnchorable>
+                            </xcad:LayoutAnchorablePane>
+                        </xcad:LayoutAnchorablePaneGroup>
                     </xcad:LayoutPanel>
                 </xcad:LayoutRoot>
 

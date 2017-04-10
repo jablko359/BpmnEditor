@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using BPMNEditor.ViewModels;
 using BPMNEditor.Views.Controls;
@@ -31,8 +32,31 @@ namespace BPMNEditor.Views
                     AddDocument(_viewModel.Documents[0]);
                 }
                 _viewModel.Documents.CollectionChanged += DocumentsOnCollectionChanged;
-
+                _viewModel.PropertyChanged += ViewModel_PropertyChanged;
+                SetPropertyGridVisibility();
             }
+        }
+
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsSettingsEditorVisible")
+            {
+                SetPropertyGridVisibility();
+            }
+        }
+
+        private void SetPropertyGridVisibility()
+        {
+            
+                if (_viewModel.IsSettingsEditorVisible)
+                {
+                    PropertyGrid.Show();
+                }
+                else
+                {
+                    PropertyGrid.Hide();
+                }
+            
         }
 
         private void DocumentsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
@@ -66,7 +90,7 @@ namespace BPMNEditor.Views
             {
                 GraphDocument document = sender as GraphDocument;
                 DocumentView view = document.Content as DocumentView;
-                _viewModel.Documents.Remove(view?.DataContext as DocumentViewModel);
+                _viewModel.RemoveDocument(view.DataContext as DocumentViewModel);
                 document.Closing -= Document_Closing;
             }
             
@@ -81,5 +105,6 @@ namespace BPMNEditor.Views
                 _viewModel.ActiveDocument = documentViewModel;
             }
         }
+        
     }
 }

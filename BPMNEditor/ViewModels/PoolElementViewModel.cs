@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace BPMNEditor.ViewModels
 {
     public abstract class PoolElementViewModel : BaseElementViewModel
     {
+        [Browsable(false)]
         public PoolViewModel Pool { get; set; }
 
         protected PoolElementViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)

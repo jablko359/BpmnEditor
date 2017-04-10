@@ -47,11 +47,11 @@ namespace BPMNEditor.ViewModels
             IsVisible = false;
         }
 
-        public void ChangeSelection(Point point, IEnumerable<BaseElementViewModel> selectableModels)
+        public List<BaseElementViewModel> ChangeSelection(Point point, IEnumerable<BaseElementViewModel> selectableModels)
         {
             Rect selectedRect = new Rect(_startPoint, point);
             SetDimension(selectedRect);
-            Select(selectableModels, selectedRect);
+            return Select(selectableModels, selectedRect);
         }
 
         private void SetDimension(Rect selected)
@@ -62,20 +62,23 @@ namespace BPMNEditor.ViewModels
             Height = selected.Height;
         }
 
-        private void Select(IEnumerable<BaseElementViewModel> selectableModels, Rect selectedRect)
+        private List<BaseElementViewModel> Select(IEnumerable<BaseElementViewModel> selectableModels, Rect selectedRect)
         {
+            List<BaseElementViewModel> selected = new List<BaseElementViewModel>();
             foreach (BaseElementViewModel model in selectableModels.Where(item => item.IsSelectableByUser))
             {
                 Rect itemRect = Helper.GetRect(model);
                 if (selectedRect.Contains(itemRect))
                 {
                     model.IsSelected = true;
+                    selected.Add(model);
                 }
                 else
                 {
                     model.IsSelected = false;
                 }
             }
+            return selected;
         }
 
         #region BaseElementViewModel

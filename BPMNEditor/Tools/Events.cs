@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Tools
 {
@@ -15,6 +16,16 @@ namespace BPMNEditor.Tools
         {
             VerticalChange = verticalChange;
             HorizontalChange = horizontalChange;
+        }
+    }
+
+    public class SelectionChangedEventArgs : EventArgs
+    {
+        public BaseElementViewModel SelectedItem { get; private set; }
+
+        public SelectionChangedEventArgs(BaseElementViewModel selectedItem)
+        {
+            SelectedItem = selectedItem;
         }
     }
 }

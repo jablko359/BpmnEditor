@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using BPMNEditor.Actions;
@@ -26,6 +27,7 @@ namespace BPMNEditor.ViewModels
         private int _itemZIndex;
         private bool _isConnectorVisible;
         private PropertyMemento _lastProperty;
+        private bool _isVisible;
 
         private Point _lastPoint;
         private Rect _lastSize;
@@ -36,21 +38,29 @@ namespace BPMNEditor.ViewModels
         #endregion
 
         #region Commands
+        [Browsable(false)]
         public ICommand SelectCommand { get; private set; }
+        [Browsable(false)]
         public ICommand DeleteCommand { get; private set; }
+        [Browsable(false)]
         public ICommand BringToFrontCommand { get; private set; }
         #endregion
 
 
         #region Properties
+        [Browsable(false)]
+        public bool CanMove => IsSelected;
 
+        [Browsable(false)]
         public DocumentViewModel Document { get; }
 
+        [Browsable(false)]
         public IEnumerable<ConnectorViewModel> Connectors
         {
             get { return _connectors; }
         }
 
+        [Category(Categories.LayoutCategory)]
         public double Width
         {
             get { return _width; }
@@ -61,6 +71,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        [Category(Categories.LayoutCategory)]
         public double Height
         {
             get { return _height; }
@@ -71,6 +82,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        [Category(Categories.LayoutCategory)]
         public double Left
         {
             get { return _left; }
@@ -87,6 +99,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        [Category(Categories.LayoutCategory)]
         public double Top
         {
             get { return _top; }
@@ -103,6 +116,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        [Browsable(false)]
         public bool IsSelected
         {
             get { return _isSelected; }
@@ -113,6 +127,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        [Browsable(false)]
         public int ItemZIndex
         {
             get { return _itemZIndex; }
@@ -123,6 +138,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        [Browsable(false)]
         public bool IsConnectorVisible
         {
             get { return _isConnectorVisible; }
@@ -133,8 +149,8 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        private bool _isVisible;
-
+        
+        [Browsable(false)]
         public bool IsVisible
         {
             get { return _isVisible; }
@@ -145,12 +161,16 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-
+        [Browsable(false)]
         public virtual bool IsSelectableByUser { get { return true; } }
 
+        [Browsable(false)]
         public double MinHeight { get; set; }
+        [Browsable(false)]
         public double MinWidth { get; set; }
+        [Browsable(false)]
         protected abstract HashSet<Type> ApplicableTypes { get; }
+        [Browsable(false)]
         public IBaseElement BaseElement { get; private set; }
         #endregion
 
@@ -338,7 +358,7 @@ namespace BPMNEditor.ViewModels
             return viewModel;
         }
 
-        public bool CanMove => IsSelected;
+        
 
         #endregion
 

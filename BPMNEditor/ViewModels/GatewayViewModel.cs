@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -19,6 +20,8 @@ namespace BPMNEditor.ViewModels
 
         private GatewayType _type;
 
+        #region Properties
+
         public GatewayType Type
         {
             get { return _type; }
@@ -29,7 +32,11 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        public ICommand ChangeTypeCommand { get;}
+        [Browsable(false)]
+        public ICommand ChangeTypeCommand { get; }
+
+        #endregion
+
 
         public GatewayViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
