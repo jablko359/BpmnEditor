@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:BPMNEditor">
+    <SolidColorBrush x:Key="TaskBackgroundColor" Color="#DFF1FF"/>
+    <SolidColorBrush x:Key="TaskBorderColor" Color="#508FA0"/>
+    <SolidColorBrush x:Key="StartEventBackgroundColor" Color="#C3E392"/>
+    <SolidColorBrush x:Key="StartEventBorderColor" Color="#768166"/>
+    <SolidColorBrush x:Key="EndEventBackgroundColor" Color="#FF96A5"/>
+    <SolidColorBrush x:Key="EndEventBorderColor" Color="#512C32"/>
+    <SolidColorBrush x:Key="GatewayBackgroundColor" Color="#F3FE4A"/>
+    <SolidColorBrush x:Key="GatewayBorderColor" Color="#C6CC63"/>
+    <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"/>
+</ResourceDictionary>

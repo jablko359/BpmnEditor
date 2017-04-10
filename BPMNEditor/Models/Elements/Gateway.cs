@@ -15,5 +15,9 @@ namespace BPMNEditor.Models.Elements
         
     }
 
+    public enum GatewayType
+    {
+        None, Or, Xor, EventBased, Parallel
+    }
     
 }

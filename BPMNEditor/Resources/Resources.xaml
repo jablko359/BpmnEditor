@@ -1,0 +1,191 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:BPMNEditor.ViewModels.Converters"
+                    xmlns:local="clr-namespace:BPMNEditor"
+                    xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
+                    xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
+                    xmlns:views="clr-namespace:BPMNEditor.Views"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:controls="clr-namespace:BPMNEditor.Views.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Elements.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <system:Boolean x:Key="True">True</system:Boolean>
+    <system:Boolean x:Key="False">False</system:Boolean>
+    
+    <!--Converters-->
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converters:NegativeBooleanToVisibilityConverter x:Key="NegativeBooleanToVisibilityConverter"/>
+    <converters:WidthToVisibilityConverter x:Key="WidthToVisibilityConverter"/>
+    <converters:PositionToMarginConverter x:Key="PositionToMarginConverter"/>
+    <converters:BooleanToHiddenVisibilityConverter x:Key="BooleanToHiddenVisibilityConverter"/>
+    <converters:PointFromCollectionConverter x:Key="PointFromCollectionConverter"/>
+    <converters:PointToRectangleConverter x:Key="PointToRectangleConverter"/>
+    <converters:InstanceTypeConverter x:Key="InstanceTypeConverter"/>
+    <converters:IsCollectionEmpty x:Key="IsCollectionEmpty"/>
+    
+
+
+    <Style x:Key="ButtonTransparent" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="ElementPickerTextBlock" TargetType="{x:Type TextBlock}">
+        <Style.Setters>
+            <Setter Property="Visibility" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Converter={StaticResource WidthToVisibilityConverter}, ConverterParameter=150}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Text" Value="{Binding Name}"/>
+            <Setter Property="Padding" Value="2 0"></Setter>
+        </Style.Setters>
+    </Style>
+
+    
+
+    <!--Dnd Trackers-->
+    <Style x:Key="TrackerContentControl" TargetType="{x:Type ContentControl}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Event}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Ellipse  Height="{x:Static vm:EventViewModel.InitialHeight}" Width="{x:Static vm:EventViewModel.InitialWidth}" StrokeThickness="1" Stroke="{StaticResource DragTemplateColor}" >
+                            </Ellipse>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Task}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Border Width="{x:Static vm:TaskViewModel.InitialWidth}" Height="{x:Static vm:TaskViewModel.InitialHeight}" BorderBrush="{StaticResource DragTemplateColor}" BorderThickness="1" CornerRadius="3" ></Border>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Gateway}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Viewbox Width="{x:Static vm:GatewayViewModel.InitialWidth}" Height="{x:Static vm:GatewayViewModel.InitialHeight}" Stretch="Uniform">
+                                <StaticResource ResourceKey="GatewayTracker"/>
+                            </Viewbox>
+                            <!--<Rectangle Width="{x:Static vm:GatewayViewModel.InitialWidth}" Height="{x:Static vm:GatewayViewModel.InitialHeight}" Stroke="{StaticResource DragTemplateColor}" >
+                                <Rectangle.LayoutTransform>
+                                    <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"></RotateTransform>
+                                </Rectangle.LayoutTransform>
+                            </Rectangle>-->
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Pool}">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid Width="{x:Static vm:PoolViewModel.InitialWidth}" Height="{x:Static vm:PoolViewModel.InitialHeight}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="1 1 0 1" BorderBrush="{StaticResource DragTemplateColor}" Grid.Column="0"/>
+                                <Border BorderThickness="1" BorderBrush="{StaticResource DragTemplateColor}" Grid.Column="1" />
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Resize Thumb-->
+    <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="Control">
+        <Grid>
+            <views:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" 
+          VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <views:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0"
+          VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+            <views:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0"
+          VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
+            <views:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4"
+          VerticalAlignment="Bottom"  HorizontalAlignment="Stretch"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0"
+          VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0"
+          VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6"
+          VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6"
+          VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!--ConnectorTeplate-->
+    <ControlTemplate x:Key="ConnectorDecoratorTemplate" TargetType="{x:Type Control}">
+        <Grid Margin="-15">
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type controls:Connector}">
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="Height" Value="8"/>
+        <Setter Property="Cursor" Value="Cross"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:Connector}">
+                    <Grid>
+                        <!-- transparent extra space makes connector easier to hit -->
+                        <Rectangle Fill="Transparent" Margin="-2"/>
+                        <Rectangle Fill="Lavender" StrokeThickness="1" Stroke="#AA000080"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RotatedTextBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="False">
+                <Trigger.Setters>
+                    <Setter Property="LayoutTransform" >
+                        <Setter.Value>
+                            <RotateTransform Angle="-90" CenterX="0.5" CenterY="0.5"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    
+    <Style x:Key="TransparentTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="14"></Setter>
+    </Style>
+    
+    <MenuItem x:Key="DeleteMenuItem" Header="Delete" Command="{Binding DeleteCommand}" x:Shared="False"/>
+    
+    <ObjectDataProvider x:Shared="False" x:Key="EventTypes" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="elements:EventType"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Shared="False" x:Key="GatewayTypes" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="elements:GatewayType"/>
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+</ResourceDictionary>
