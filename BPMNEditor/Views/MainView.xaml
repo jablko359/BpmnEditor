@@ -1,8 +1,9 @@
-﻿<Window x:Class="BPMNEditor.Views.MainView"
+﻿<window:StyledWindow x:Class="BPMNEditor.Views.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:window="clr-namespace:BPMNEditor.WindowStyle"
         xmlns:local="clr-namespace:BPMNEditor"
         xmlns:micro="http://www.caliburnproject.org"
         xmlns:views="clr-namespace:BPMNEditor.Views"
@@ -14,14 +15,14 @@
         xmlns:dock="clr-namespace:Xceed.Wpf;assembly=Xceed.Wpf.AvalonDock"
         xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:actions="clr-namespace:BPMNEditor.Actions"
-        xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
+        xmlns:controls="clr-namespace:BPMNEditor.Views.Controls" 
         xmlns:primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
-        mc:Ignorable="d" DataContext="{StaticResource MainViewModel}" Background="WhiteSmoke"
+        mc:Ignorable="d" DataContext="{StaticResource MainViewModel}" 
         
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True }"
         Title="MainView" Height="700" Width="1000">
 
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True" Background="White">
         <StackPanel DockPanel.Dock="Top" Margin="0 -23 0 0 ">
             <Ribbon  ShowQuickAccessToolBarOnTop="True" Background="White" ContextMenu="{x:Null}" >
                 <Ribbon.Resources>
@@ -123,7 +124,7 @@
             </xcad:DockingManager>
         </Grid>
     </DockPanel>
-</Window>
+</window:StyledWindow>
 
 
 

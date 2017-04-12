@@ -10,4 +10,34 @@
     <SolidColorBrush x:Key="GatewayBackgroundColor" Color="#F3FE4A"/>
     <SolidColorBrush x:Key="GatewayBorderColor" Color="#C6CC63"/>
     <SolidColorBrush x:Key="DragTemplateColor" Color="#838383"/>
+
+    <!--Purple-->
+    <SolidColorBrush x:Key="PurpleMain" Color="#2219B2"/>
+    <SolidColorBrush x:Key="PurpleVeryLight" Color="#645EC5"/>
+    <SolidColorBrush x:Key="PurpleLight" Color="#443DB6"/>
+    <SolidColorBrush x:Key="PurpleDark" Color="#191289"/>
+    <SolidColorBrush x:Key="PurpleVeryDark" Color="#100B6C"/>
+
+    
+    <!--Blue-->
+    <SolidColorBrush x:Key="BlueMain" Color="#0C5AA6"/>
+    <SolidColorBrush x:Key="BlueVeryLight" Color="#5288BC"/>
+    <SolidColorBrush x:Key="BlueLight" Color="#306FAB"/>
+    <SolidColorBrush x:Key="BlueDark" Color="#094680"/>
+    <SolidColorBrush x:Key="BlueVeryDark" Color="#053564"/>
+
+    <!--Yellow-->
+    <SolidColorBrush x:Key="YellowMain" Color="#FFC300"/>
+    <SolidColorBrush x:Key="YellowVeryLight" Color="#FFDA63"/>
+    <SolidColorBrush x:Key="YellowLight" Color="#FFD139"/>
+    <SolidColorBrush x:Key="YellowDark" Color="#C59700"/>
+    <SolidColorBrush x:Key="YellowVeryDark" Color="#9B7600"/>
+
+    <!--Orange-->
+    <SolidColorBrush x:Key="OrangeMain" Color="#FF9700"/>
+    <SolidColorBrush x:Key="OrangeVeryLight" Color="#FFC063"/>
+    <SolidColorBrush x:Key="OrangeLight" Color="#FFAE39"/>
+    <SolidColorBrush x:Key="OrangeDark" Color="#C57500"/>
+    <SolidColorBrush x:Key="OrangeVeryDark" Color="#9B5C00"/>
+    
 </ResourceDictionary>
