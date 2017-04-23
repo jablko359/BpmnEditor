@@ -12,11 +12,9 @@ namespace BPMNEditor.ViewModels
     {
         private List<Hook> _hooks;
 
-        private ConnectorViewModel _end;
-        private bool _isContextMenuOpened;
 
-        private readonly Placemement _startPlacement;
-        private readonly Placemement _endPlacemement;
+        private readonly ConnectorViewModel _end;
+        private bool _isContextMenuOpened;
 
         public List<Hook> Hooks
         {
@@ -38,20 +36,24 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public BaseElementViewModel From { get; private set; }
+        public BaseElementViewModel To { get; private set; }
+
+
         public ElementsConnectionViewModel(DocumentViewModel documentViewModel, ConnectorViewModel start, ConnectorViewModel end) : base(documentViewModel)
         {
             _start = start;
             _end = end;
             StartPoint = start.Position;
             EndPoint = end.Position;
+            From = start.Parent;
+            To = end.Parent;
             start.PropertyChanged += Start_PropertyChanged;
             end.PropertyChanged += End_PropertyChanged;
             start.Parent.ElementDeleted += ElementDeleted;
             end.Parent.ElementDeleted += ElementDeleted;
             start.Parent.SetConnection(this);
             end.Parent.SetConnection(this);
-            _startPlacement = start.Placemement;
-            _endPlacemement = end.Placemement;
             Hooks = new List<Hook>();
             CalculatePath();
         }
@@ -94,8 +96,8 @@ namespace BPMNEditor.ViewModels
             int idx = GetArrowIndex(points, _end.Placemement);
             ArrowPoint = points[idx];
             CalculateHooks(points);
-            points.Insert(0,StartPoint);
-            Points = new PointCollection(points);
+            points.Insert(0, StartPoint);
+            Points = new PointCollection(points.GetRange(0, idx + 2));
 
         }
 

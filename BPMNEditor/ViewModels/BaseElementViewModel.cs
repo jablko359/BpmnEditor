@@ -13,7 +13,7 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public abstract class BaseElementViewModel : PropertyChangedBase, IResizable, IMovable
+    public abstract class BaseElementViewModel : PropertyChangedBase, IResizable, IMovable, IInsertable
     {
         private static readonly HashSet<string> DimensionProperties = new HashSet<string>() { nameof(Width), nameof(Height), nameof(Top), nameof(Left) };
 
@@ -33,7 +33,7 @@ namespace BPMNEditor.ViewModels
         private Rect _lastSize;
 
 
-        private readonly List<ConnectorViewModel> _connectors = new List<ConnectorViewModel>();
+        private readonly ConnectorViewModel[] _connectors = new ConnectorViewModel[4];
         private readonly List<ElementsConnectionViewModel> _activeConnections = new List<ElementsConnectionViewModel>();
         #endregion
 
@@ -55,7 +55,7 @@ namespace BPMNEditor.ViewModels
         public DocumentViewModel Document { get; }
 
         [Browsable(false)]
-        public IEnumerable<ConnectorViewModel> Connectors
+        public ConnectorViewModel[] Connectors
         {
             get { return _connectors; }
         }
@@ -149,7 +149,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        
+
         [Browsable(false)]
         public bool IsVisible
         {
@@ -206,6 +206,8 @@ namespace BPMNEditor.ViewModels
             DeleteCommand = new RelayCommand(item => Delete());
             //Doesn't work
             BringToFrontCommand = new RelayCommand(item => BringToFront());
+            InitializeConnectors();
+
         }
 
         private void BaseElementViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -213,6 +215,14 @@ namespace BPMNEditor.ViewModels
             if (DimensionProperties.Contains(e.PropertyName))
             {
                 DimensionChanged();
+            }
+        }
+
+        private void InitializeConnectors()
+        {
+            for (int i = 0; i < _connectors.Length; i++)
+            {
+                _connectors[i] = new ConnectorViewModel(this, (Placemement)i);
             }
         }
 
@@ -286,11 +296,6 @@ namespace BPMNEditor.ViewModels
             return isApplicable;
         }
 
-        public void AddConenctor(ConnectorViewModel connector)
-        {
-            _connectors.Add(connector);
-        }
-
         /// <summary>
         /// Hides all connectors expcept specified one
         /// </summary>
@@ -358,7 +363,7 @@ namespace BPMNEditor.ViewModels
             return viewModel;
         }
 
-        
+
 
         #endregion
 
@@ -393,6 +398,16 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public void NotifyActionPropertyChagned(string propertyName, object oldValue, object newValue)
+        {
+            var property = GetType().GetProperty(propertyName);
+            if (property.PropertyType == oldValue.GetType())
+            {
+                _lastProperty = new PropertyMemento(oldValue, propertyName);
+            }
+            NotifyActionPropertyChagned(propertyName, newValue);
+        }
+
         public void NotifyActionPropertyChagned(string propertyName, object value)
         {
             if (_lastProperty == null)
@@ -408,7 +423,7 @@ namespace BPMNEditor.ViewModels
                 }
                 if (!value.Equals(_lastProperty.Value))
                 {
-                    PropertyChangedAction action = new PropertyChangedAction(this,_lastProperty.Value, value, propertyName);
+                    PropertyChangedAction action = new PropertyChangedAction(this, _lastProperty.Value, value, propertyName);
                     NotifyActionPerformed(action);
                 }
             }
@@ -417,5 +432,25 @@ namespace BPMNEditor.ViewModels
                 throw new ArgumentException($"Last property is {_lastProperty.Name} not {propertyName}");
             }
         }
+
+        #region IInsertable
+
+        public void AfterInsert()
+        {
+            foreach (var item in Document.BaseElements)
+            {
+                ElementsConnectionViewModel connectionViewModel = item as ElementsConnectionViewModel;
+                if (connectionViewModel != null && (connectionViewModel.From == this || connectionViewModel.To == this))
+                {
+                    _activeConnections.Add(connectionViewModel);
+                }
+            }
+        }
+
+        public void AfterDelete()
+        {
+            
+        }
+        #endregion
     }
 }

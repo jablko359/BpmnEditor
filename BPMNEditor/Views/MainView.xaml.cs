@@ -5,6 +5,7 @@ using System.Windows;
 using BPMNEditor.ViewModels;
 using BPMNEditor.Views.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.Toolkit.PropertyGrid;
 
 namespace BPMNEditor.Views
 {
@@ -105,6 +106,21 @@ namespace BPMNEditor.Views
                 _viewModel.ActiveDocument = documentViewModel;
             }
         }
+
         
+        private void PropertyGrid_OnPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
+        {
+            PropertyGrid senderElement = sender as PropertyGrid;
+            if (senderElement != null)
+            {
+                var baseElementViewModel = senderElement.SelectedObject as BaseElementViewModel;
+                var propertyItem = e.OriginalSource as PropertyItem;
+                if (propertyItem != null)
+                {
+                    baseElementViewModel?.NotifyActionPropertyChagned(propertyItem.PropertyName, e.OldValue, e.NewValue);
+                }
+            }
+            
+        }
     }
 }

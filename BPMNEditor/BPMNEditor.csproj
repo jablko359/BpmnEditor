@@ -110,6 +110,7 @@
     <Compile Include="Actions\ElementResizeAction.cs" />
     <Compile Include="Actions\GenericAddedAction.cs" />
     <Compile Include="Actions\GenericDeletedAction.cs" />
+    <Compile Include="Actions\Interfaces.cs" />
     <Compile Include="Actions\PropertyChangedAction.cs" />
     <Compile Include="Actions\PropertyMemento.cs" />
     <Compile Include="App.xaml.cs">

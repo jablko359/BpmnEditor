@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public class LaneViewModel : PropertyChangedBase
+    public class LaneViewModel : PropertyChangedBase, IInsertable
     {
         public const double MinHeight = 75;
 
@@ -101,6 +102,16 @@ namespace BPMNEditor.ViewModels
         {
             var difference = e.PreviousValue - e.NewValue;
             Height += difference;
+        }
+
+        public void AfterInsert()
+        {
+            
+        }
+
+        public void AfterDelete()
+        {
+            
         }
 
         public class HeightChangedEventArgs : EventArgs

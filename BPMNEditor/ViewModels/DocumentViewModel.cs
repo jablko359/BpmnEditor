@@ -341,6 +341,7 @@ namespace BPMNEditor.ViewModels
 
         public IList<BaseElementViewModel> Items => BaseElements;
 
+
         #endregion
 
 

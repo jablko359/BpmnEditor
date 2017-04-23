@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPMNEditor.Actions
 {
-    public class GenericDeletedAction<T> : IAction
+    public class GenericDeletedAction<T> : IAction where T : IInsertable
     {
         private readonly T _deletedItem;
         private readonly IElementsContainer<T> _container;
@@ -22,6 +22,7 @@ namespace BPMNEditor.Actions
         public void Revert()
         {
             _container.Items.Add(_deletedItem);
+            _deletedItem.AfterInsert();
         }
 
         public IAction GetInverseAction()

@@ -81,6 +81,56 @@ namespace BPMNEditor.ViewModels.Converters
 
     #endregion
 
+    #region Connectors
+
+    public class PlacementToHorizontalAligmentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Placemement placemement = (Placemement) value;
+            HorizontalAlignment result = HorizontalAlignment.Center;
+            if (placemement == Placemement.Left)
+            {
+                result = HorizontalAlignment.Left;
+            }
+            else if (placemement == Placemement.Right)
+            {
+                result = HorizontalAlignment.Right;
+            }
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PlacementToVerticalAligmentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Placemement placemement = (Placemement)value;
+            VerticalAlignment result = VerticalAlignment.Center;
+            if (placemement == Placemement.Top)
+            {
+                result = VerticalAlignment.Top;
+            }
+            else if (placemement == Placemement.Bottom)
+            {
+                result = VerticalAlignment.Bottom;
+            }
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    #endregion
 
     public class PointFromCollectionConverter : IValueConverter
     {
@@ -100,14 +150,14 @@ namespace BPMNEditor.ViewModels.Converters
                     result = collection[index];
                 }
                 else switch (converterParameter)
-                {
-                    case FirstIndexer:
-                        result = collection.First();
-                        break;
-                    case LastIndexer:
-                        result = collection.Last();
-                        break;
-                }
+                    {
+                        case FirstIndexer:
+                            result = collection.First();
+                            break;
+                        case LastIndexer:
+                            result = collection.Last();
+                            break;
+                    }
             }
             return result;
         }
@@ -120,18 +170,18 @@ namespace BPMNEditor.ViewModels.Converters
 
     public class PointToRectangleConverter : IValueConverter
     {
-        private static readonly Size RectSize = new Size(7,7);
+        private static readonly Size RectSize = new Size(7, 7);
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return CreateRectangle((Point) value, RectSize);
+            return CreateRectangle((Point)value, RectSize);
         }
 
         private static Rect CreateRectangle(Point point, Size rectSize)
         {
-            double left = point.X - rectSize.Width/2;
-            double top = point.Y - rectSize.Height/2;
-            Point topLeft = new Point(left,top);
+            double left = point.X - rectSize.Width / 2;
+            double top = point.Y - rectSize.Height / 2;
+            Point topLeft = new Point(left, top);
             return new Rect(topLeft, rectSize);
         }
 
@@ -158,7 +208,7 @@ namespace BPMNEditor.ViewModels.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int size = (int) value;
+            int size = (int)value;
             return size > 0;
         }
 

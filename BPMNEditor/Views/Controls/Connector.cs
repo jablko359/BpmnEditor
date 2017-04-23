@@ -13,7 +13,6 @@ namespace BPMNEditor.Views.Controls
 {
     public class Connector : Control
     {
-        private ConnectorViewModel _viewModel;
         private DocumentView _documentView;
         private bool _isDragging;
 
@@ -48,29 +47,27 @@ namespace BPMNEditor.Views.Controls
 
         private void Connector_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _viewModel.ConnectorStart();
-            _isDragging = true;
-            this.CaptureMouse();
+            var viewModel = this.DataContext as ConnectorViewModel;
+            if (viewModel != null)
+            {
+                viewModel.ConnectorStart();
+                _isDragging = true;
+                this.CaptureMouse();
+            }
+            
             e.Handled = true;
         }
 
         private void Connector_Loaded(object sender, RoutedEventArgs e)
         {
             _documentView = VisualHelper.FindParent<DocumentView>(this);
-            var parentUserControl = VisualHelper.FindParent<DragableUserControl>(this);
-            BaseElementViewModel viewModel = parentUserControl.DataContext as BaseElementViewModel;
-            if (viewModel == null)
-            {
-                throw new ArgumentException("Incorrect Data Context. Failed to create Connector");
-            }
-            _viewModel = new ConnectorViewModel(viewModel, GetPlacement());
-            DataContext = _viewModel;
         }
 
         private void Connector_LayoutUpdated(object sender, EventArgs e)
         {
             BaseElementView elementView = VisualHelper.FindParent<BaseElementView>(this);
-            if (elementView != null && _viewModel != null)
+            var viewModel = this.DataContext as ConnectorViewModel;
+            if (elementView != null && viewModel != null)
             {
                 BaseElementViewModel parentViewModel = elementView.DataContext as BaseElementViewModel;
                 if (parentViewModel == null)
@@ -82,7 +79,7 @@ namespace BPMNEditor.Views.Controls
                 Point relative = this.TranslatePoint(new Point(0, 0), elementView);
                 left += relative.X + ActualWidth / 2;
                 top += relative.Y + ActualHeight / 2;
-                _viewModel.Position = new Point(left, top);
+                viewModel.Position = new Point(left, top);
             }
         }
 

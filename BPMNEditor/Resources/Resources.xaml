@@ -23,6 +23,8 @@
     <converters:PointToRectangleConverter x:Key="PointToRectangleConverter"/>
     <converters:InstanceTypeConverter x:Key="InstanceTypeConverter"/>
     <converters:IsCollectionEmpty x:Key="IsCollectionEmpty"/>
+    <converters:PlacementToHorizontalAligmentConverter x:Key="PlacementToHorizontalAligmentConverter"/>
+    <converters:PlacementToVerticalAligmentConverter x:Key="PlacementToVerticalAligmentConverter"/>
     
 
 
@@ -125,12 +127,20 @@
 
     <!--ConnectorTeplate-->
     <ControlTemplate x:Key="ConnectorDecoratorTemplate" TargetType="{x:Type Control}">
-        <Grid Margin="-15">
-            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
-            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-        </Grid>
+        <ItemsControl ItemsSource="{Binding Connectors}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:ConnectorViewModel}">
+                    <controls:Connector Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                        VerticalAlignment="{Binding Placemement, Converter={StaticResource PlacementToVerticalAligmentConverter}}" 
+                                        HorizontalAlignment="{Binding Placemement, Converter={StaticResource PlacementToHorizontalAligmentConverter}}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid Margin="-10"></Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </ControlTemplate>
 
     <Style TargetType="{x:Type controls:Connector}">

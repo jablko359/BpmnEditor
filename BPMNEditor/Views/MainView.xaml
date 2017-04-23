@@ -114,7 +114,7 @@
                         <xcad:LayoutAnchorablePaneGroup DockWidth="250" DockMinWidth="200">
                             <xcad:LayoutAnchorablePane DockWidth="250" DockHeight="75" DockMinHeight="75" DockMinWidth="200" >
                                 <xcad:LayoutAnchorable x:Name="PropertyGrid" CanClose="False" CanHide="False" CanAutoHide="False" Title="Properties"  >
-                                    <xtpg:PropertyGrid SelectedObject="{Binding PropertyEditElement}" ></xtpg:PropertyGrid>
+                                    <xtpg:PropertyGrid SelectedObject="{Binding PropertyEditElement}" PropertyValueChanged="PropertyGrid_OnPropertyValueChanged"></xtpg:PropertyGrid>
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutAnchorablePaneGroup>

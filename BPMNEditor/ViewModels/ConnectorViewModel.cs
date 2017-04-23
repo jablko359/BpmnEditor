@@ -23,8 +23,6 @@ namespace BPMNEditor.ViewModels
                 _isVisible = value;
                 NotifyOfPropertyChange(nameof(IsVisible));
             }
-
-
         }
 
 
@@ -36,7 +34,6 @@ namespace BPMNEditor.ViewModels
         public ConnectorViewModel(BaseElementViewModel baseElementViewModel, Placemement placemement) : base(placemement)
         {
             _parentViewModel = baseElementViewModel;
-            baseElementViewModel.AddConenctor(this);
         }
 
         public void ConnectorStart()
@@ -61,6 +58,6 @@ namespace BPMNEditor.ViewModels
 
     public enum Placemement
     {
-        Left, Top, Right, Bottom, None
+        Left = 0, Top = 1, Right = 2, Bottom = 3, None
     }
 }

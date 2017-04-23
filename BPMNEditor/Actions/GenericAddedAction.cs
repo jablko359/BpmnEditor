@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPMNEditor.Actions
 {
-    public class GenericAddedAction<T> : IAction
+    public class GenericAddedAction<T> : IAction where T : IInsertable
     {
         private readonly T _addedItem;
         private readonly IElementsContainer<T> _container;
@@ -22,6 +22,7 @@ namespace BPMNEditor.Actions
         public void Revert()
         {
             _container.Items.Remove(_addedItem);
+            _addedItem.AfterDelete();
         }
 
         public IAction GetInverseAction()
