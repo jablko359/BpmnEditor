@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 using BPMNEditor.Views;
 
+
 namespace BPMNEditor
 {
     /// <summary>

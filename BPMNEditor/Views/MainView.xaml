@@ -40,7 +40,7 @@
                     <RibbonGroup Header="File">
                         <RibbonButton LargeImageSource="../Icons/light/appbar.page.add.png" Command="{Binding AddDocumentCommand}" Label="New"/>
                         <RibbonButton LargeImageSource="../Icons/light/appbar.folder.open.png" IsEnabled="False" Label="Load"/>
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" IsEnabled="False" Label="Save"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" Command="{Binding SaveCommand}" Label="Save"/>
                     </RibbonGroup>
                     <RibbonGroup Header="Edit">
                         <RibbonSplitButton IsCheckable="False" 
@@ -107,14 +107,15 @@
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutAnchorablePaneGroup>
-                        <xcad:LayoutDocumentPaneGroup  CanRepositionItems="False">
+                        <xcad:LayoutDocumentPaneGroup CanRepositionItems="False">
                             <xcad:LayoutDocumentPane x:Name="LayoutDocumentPane" CanRepositionItems="False ">
                             </xcad:LayoutDocumentPane>
                         </xcad:LayoutDocumentPaneGroup>
                         <xcad:LayoutAnchorablePaneGroup DockWidth="250" DockMinWidth="200">
                             <xcad:LayoutAnchorablePane DockWidth="250" DockHeight="75" DockMinHeight="75" DockMinWidth="200" >
                                 <xcad:LayoutAnchorable x:Name="PropertyGrid" CanClose="False" CanHide="False" CanAutoHide="False" Title="Properties"  >
-                                    <xtpg:PropertyGrid SelectedObject="{Binding PropertyEditElement}" PropertyValueChanged="PropertyGrid_OnPropertyValueChanged"></xtpg:PropertyGrid>
+                                    <xtpg:PropertyGrid x:Name="PropertyGridControl" SelectedObject="{Binding PropertyEditElement}"
+                                                       PropertyValueChanged="PropertyGrid_OnPropertyValueChanged"></xtpg:PropertyGrid>
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutAnchorablePaneGroup>

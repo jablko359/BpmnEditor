@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
 using BPMNEditor.ViewModels;
 using BPMNEditor.Views.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -48,16 +50,16 @@ namespace BPMNEditor.Views
 
         private void SetPropertyGridVisibility()
         {
-            
-                if (_viewModel.IsSettingsEditorVisible)
-                {
-                    PropertyGrid.Show();
-                }
-                else
-                {
-                    PropertyGrid.Hide();
-                }
-            
+
+            if (_viewModel.IsSettingsEditorVisible)
+            {
+                PropertyGrid.Show();
+            }
+            else
+            {
+                PropertyGrid.Hide();
+            }
+
         }
 
         private void DocumentsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
@@ -94,7 +96,7 @@ namespace BPMNEditor.Views
                 _viewModel.RemoveDocument(view.DataContext as DocumentViewModel);
                 document.Closing -= Document_Closing;
             }
-            
+
         }
 
         private void DockingManager_OnActiveContentChanged(object sender, EventArgs e)
@@ -107,20 +109,27 @@ namespace BPMNEditor.Views
             }
         }
 
-        
+
         private void PropertyGrid_OnPropertyValueChanged(object sender, PropertyValueChangedEventArgs e)
         {
+            PropertyItem selectedPropertyItem = PropertyGridControl.SelectedPropertyItem as PropertyItem;
+            if (selectedPropertyItem == null)
+            {
+                return;
+            }
             PropertyGrid senderElement = sender as PropertyGrid;
             if (senderElement != null)
             {
                 var baseElementViewModel = senderElement.SelectedObject as BaseElementViewModel;
                 var propertyItem = e.OriginalSource as PropertyItem;
-                if (propertyItem != null)
+                if (propertyItem != null && propertyItem == selectedPropertyItem)
                 {
                     baseElementViewModel?.NotifyActionPropertyChagned(propertyItem.PropertyName, e.OldValue, e.NewValue);
                 }
             }
-            
+
         }
+
+       
     }
 }

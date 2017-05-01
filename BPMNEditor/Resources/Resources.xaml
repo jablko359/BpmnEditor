@@ -102,19 +102,50 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    
+    <Style x:Key="EllipseThumb" TargetType="{x:Type Thumb}">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Stroke="#FF000000" >
+                            <Rectangle.Fill>
+                                <DrawingBrush Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
+                                    <DrawingBrush.Drawing>
+                                        <DrawingGroup>
+                                            <GeometryDrawing Brush="Transparent">
+                                                <GeometryDrawing.Geometry>
+                                                    <RectangleGeometry Rect="0,0,10,10"/>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="Black">
+                                                <GeometryDrawing.Geometry>
+                                                    <RectangleGeometry Rect="0,0,1,1"/>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
 
     <!--Resize Thumb-->
     <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="Control">
         <Grid>
-            <views:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0" 
+            <views:ResizeThumb Style="{StaticResource EllipseThumb}" Height="2" Cursor="SizeNS" Margin="0 -5 0 0" 
           VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-            <views:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0"
+            <views:ResizeThumb Style="{StaticResource EllipseThumb}"  Width="3" Cursor="SizeWE" Margin="-5 0 0 0"
           VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-            <views:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0"
+            <views:ResizeThumb Style="{StaticResource EllipseThumb}"  Width="3" Cursor="SizeWE" Margin="0 0 -5 0"
           VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
-            <views:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4"
+            <views:ResizeThumb Style="{StaticResource EllipseThumb}"  Height="3" Cursor="SizeNS" Margin="0 0 0 -5"
           VerticalAlignment="Bottom"  HorizontalAlignment="Stretch"/>
-            <views:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0"
+            <views:ResizeThumb  Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0"
           VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <views:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0"
           VerticalAlignment="Top" HorizontalAlignment="Right"/>
@@ -137,7 +168,7 @@
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Margin="-10"></Grid>
+                    <Grid Margin="-12"></Grid>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
@@ -146,7 +177,7 @@
     <Style TargetType="{x:Type controls:Connector}">
         <Setter Property="Width" Value="8"/>
         <Setter Property="Height" Value="8"/>
-        <Setter Property="Cursor" Value="Cross"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -154,7 +185,7 @@
                     <Grid>
                         <!-- transparent extra space makes connector easier to hit -->
                         <Rectangle Fill="Transparent" Margin="-2"/>
-                        <Rectangle Fill="Lavender" StrokeThickness="1" Stroke="#AA000080"/>
+                        <Ellipse Fill="Lavender" Width="8" Height="8" StrokeThickness="1" Stroke="#AA000080"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

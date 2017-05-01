@@ -82,30 +82,5 @@ namespace BPMNEditor.Views.Controls
                 viewModel.Position = new Point(left, top);
             }
         }
-
-        private Placemement GetPlacement()
-        {
-            Placemement result = Placemement.Left;
-            switch (HorizontalAlignment)
-            {
-                case HorizontalAlignment.Left:
-                    result = Placemement.Left;
-                    break;
-                case HorizontalAlignment.Right:
-                    result = Placemement.Right;
-                    break;
-
-            }
-            switch (VerticalAlignment)
-            {
-                case VerticalAlignment.Bottom:
-                    result = Placemement.Bottom;
-                    break;
-                case VerticalAlignment.Top:
-                    result = Placemement.Top;
-                    break;
-            }
-            return result;
-        }
     }
 }

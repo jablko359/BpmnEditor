@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
+using BPMNEditor.Serialization;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels.Command;
 using BPMNEditor.Views.Controls;
@@ -77,6 +79,7 @@ namespace BPMNEditor.ViewModels
         public ICommand UndoCommand { get; private set; }
         public ICommand RedoCommand { get; private set; }
         public ICommand RedoUntilCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
 
         #endregion
 
@@ -93,6 +96,7 @@ namespace BPMNEditor.ViewModels
             UndoCommand = new RelayCommand(x => Revert());
             RedoCommand = new RelayCommand(x => Redo());
             RedoUntilCommand = new RelayCommand(x => Redo(x as IAction));
+            SaveCommand = new RelayCommand(x => Save());
         }
 
         private void Document_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -154,6 +158,21 @@ namespace BPMNEditor.ViewModels
         private void Redo(IAction action)
         {
             ActiveDocument?.Redo(action);
+        }
+
+        private void Save()
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                ISerializer serializer = new XpdlSerializer();
+                Document document = Document.FromViewModel(_activeDocument);
+                using (var outputStream = file.OpenFile())
+                {
+                    serializer.Serialize(document, outputStream);
+                }
+            }
+            
         }
         #endregion
 
