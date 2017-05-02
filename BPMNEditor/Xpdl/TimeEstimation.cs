@@ -5,19 +5,23 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class TimeEstimation
     {
 
-        private string waitingTimeField;
+        private WaitingTime waitingTimeField;
 
-        private string workingTimeField;
+        private WorkingTime workingTimeField;
 
-        private string durationField;
+        private Duration durationField;
+
+        private System.Xml.XmlElement[] anyField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
-        public string WaitingTime
+        public WaitingTime WaitingTime
         {
             get
             {
@@ -30,7 +34,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string WorkingTime
+        public WorkingTime WorkingTime
         {
             get
             {
@@ -43,7 +47,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Duration
+        public Duration Duration
         {
             get
             {
@@ -52,6 +56,34 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.durationField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

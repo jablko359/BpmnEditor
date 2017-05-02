@@ -22,12 +22,16 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [XmlType(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [XmlRoot(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [XmlRoot(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class Activities
     {
 
         private Activity[] activityField;
+
+        private System.Xml.XmlElement[] anyField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
         [XmlElement("Activity")]
@@ -40,6 +44,34 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.activityField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [XmlAnyElement()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [XmlAnyAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

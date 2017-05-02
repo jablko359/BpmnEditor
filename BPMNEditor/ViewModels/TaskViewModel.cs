@@ -5,6 +5,7 @@ using System.Text;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 
+
 namespace BPMNEditor.ViewModels
 {
     public class TaskViewModel : PoolElementViewModel

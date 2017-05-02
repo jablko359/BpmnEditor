@@ -5,31 +5,35 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class ProcessHeader
     {
 
-        private string createdField;
+        private Created createdField;
 
-        private string descriptionField;
+        private Description descriptionField;
 
-        private string priorityField;
+        private Priority priorityField;
 
-        private string limitField;
+        private Limit limitField;
 
-        private string validFromField;
+        private ValidFrom validFromField;
 
-        private string validToField;
+        private ValidTo validToField;
 
         private TimeEstimation timeEstimationField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private ProcessHeaderDurationUnit durationUnitField;
 
         private bool durationUnitFieldSpecified;
 
+        private System.Xml.XmlAttribute[] anyAttrField;
+
         /// <uwagi/>
-        public string Created
+        public Created Created
         {
             get
             {
@@ -42,7 +46,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Description
+        public Description Description
         {
             get
             {
@@ -55,7 +59,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Priority
+        public Priority Priority
         {
             get
             {
@@ -68,7 +72,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Limit
+        public Limit Limit
         {
             get
             {
@@ -81,7 +85,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string ValidFrom
+        public ValidFrom ValidFrom
         {
             get
             {
@@ -94,7 +98,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string ValidTo
+        public ValidTo ValidTo
         {
             get
             {
@@ -116,6 +120,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.timeEstimationField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -144,6 +162,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.durationUnitFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

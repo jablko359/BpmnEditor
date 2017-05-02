@@ -20,11 +20,15 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Activities {
     
     private Activity[] activityField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlElementAttribute("Activity")]
@@ -36,6 +40,28 @@ public partial class Activities {
             this.activityField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -43,42 +69,96 @@ public partial class Activities {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Activity {
     
-    private string descriptionField;
+    private Description descriptionField;
     
-    private string limitField;
+    private Limit limitField;
     
     private object itemField;
     
-    private string performerField;
+    private Transaction transactionField;
     
-    private StartMode startModeField;
+    private Performers performersField;
     
-    private FinishMode finishModeField;
+    private Performer performerField;
     
-    private string priorityField;
+    private Priority priorityField;
     
-    private Deadline[] deadlineField;
+    private Deadline[] itemsField;
     
     private SimulationInformation simulationInformationField;
     
-    private string iconField;
+    private Icon iconField;
     
-    private string documentationField;
+    private Documentation documentationField;
     
-    private TransitionRestriction[] transitionRestrictionsField;
+    private TransitionRestrictions transitionRestrictionsField;
     
     private ExtendedAttribute[] extendedAttributesField;
     
+    private DataFields dataFieldsField;
+    
+    private FormalParameters formalParametersField;
+    
+    private ActualParameters actualParametersField;
+    
+    private InputSets inputSetsField;
+    
+    private OutputSets outputSetsField;
+    
+    private IORules iORulesField;
+    
+    private Loop loopField;
+    
+    private Assignments assignmentsField;
+    
+    private Object objectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private object[] items1Field;
+    
     private string idField;
+    
+    private bool isForCompensationField;
     
     private string nameField;
     
+    private bool startActivityField;
+    
+    private bool startActivityFieldSpecified;
+    
+    private ActivityStatus statusField;
+    
+    private ActivityStartMode startModeField;
+    
+    private bool startModeFieldSpecified;
+    
+    private ActivityFinishMode finishModeField;
+    
+    private bool finishModeFieldSpecified;
+    
+    private string startQuantityField;
+    
+    private string completionQuantityField;
+    
+    private bool isATransactionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Activity() {
+        this.isForCompensationField = false;
+        this.statusField = ActivityStatus.None;
+        this.startQuantityField = "1";
+        this.completionQuantityField = "1";
+        this.isATransactionField = false;
+    }
+    
     /// <uwagi/>
-    public string Description {
+    public Description Description {
         get {
             return this.descriptionField;
         }
@@ -88,7 +168,7 @@ public partial class Activity {
     }
     
     /// <uwagi/>
-    public string Limit {
+    public Limit Limit {
         get {
             return this.limitField;
         }
@@ -99,6 +179,7 @@ public partial class Activity {
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlElementAttribute("BlockActivity", typeof(BlockActivity))]
+    [System.Xml.Serialization.XmlElementAttribute("Event", typeof(Event))]
     [System.Xml.Serialization.XmlElementAttribute("Implementation", typeof(Implementation))]
     [System.Xml.Serialization.XmlElementAttribute("Route", typeof(Route))]
     public object Item {
@@ -111,7 +192,27 @@ public partial class Activity {
     }
     
     /// <uwagi/>
-    public string Performer {
+    public Transaction Transaction {
+        get {
+            return this.transactionField;
+        }
+        set {
+            this.transactionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Performers Performers {
+        get {
+            return this.performersField;
+        }
+        set {
+            this.performersField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Performer Performer {
         get {
             return this.performerField;
         }
@@ -121,27 +222,7 @@ public partial class Activity {
     }
     
     /// <uwagi/>
-    public StartMode StartMode {
-        get {
-            return this.startModeField;
-        }
-        set {
-            this.startModeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public FinishMode FinishMode {
-        get {
-            return this.finishModeField;
-        }
-        set {
-            this.finishModeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public string Priority {
+    public Priority Priority {
         get {
             return this.priorityField;
         }
@@ -152,12 +233,12 @@ public partial class Activity {
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlElementAttribute("Deadline")]
-    public Deadline[] Deadline {
+    public Deadline[] Items {
         get {
-            return this.deadlineField;
+            return this.itemsField;
         }
         set {
-            this.deadlineField = value;
+            this.itemsField = value;
         }
     }
     
@@ -172,7 +253,7 @@ public partial class Activity {
     }
     
     /// <uwagi/>
-    public string Icon {
+    public Icon Icon {
         get {
             return this.iconField;
         }
@@ -182,7 +263,7 @@ public partial class Activity {
     }
     
     /// <uwagi/>
-    public string Documentation {
+    public Documentation Documentation {
         get {
             return this.documentationField;
         }
@@ -192,8 +273,7 @@ public partial class Activity {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TransitionRestriction", IsNullable=false)]
-    public TransitionRestriction[] TransitionRestrictions {
+    public TransitionRestrictions TransitionRestrictions {
         get {
             return this.transitionRestrictionsField;
         }
@@ -210,6 +290,1564 @@ public partial class Activity {
         }
         set {
             this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataFields DataFields {
+        get {
+            return this.dataFieldsField;
+        }
+        set {
+            this.dataFieldsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public FormalParameters FormalParameters {
+        get {
+            return this.formalParametersField;
+        }
+        set {
+            this.formalParametersField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ActualParameters ActualParameters {
+        get {
+            return this.actualParametersField;
+        }
+        set {
+            this.actualParametersField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public InputSets InputSets {
+        get {
+            return this.inputSetsField;
+        }
+        set {
+            this.inputSetsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public OutputSets OutputSets {
+        get {
+            return this.outputSetsField;
+        }
+        set {
+            this.outputSetsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public IORules IORules {
+        get {
+            return this.iORulesField;
+        }
+        set {
+            this.iORulesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Loop Loop {
+        get {
+            return this.loopField;
+        }
+        set {
+            this.loopField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Assignments Assignments {
+        get {
+            return this.assignmentsField;
+        }
+        set {
+            this.assignmentsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public NodeGraphicsInfos NodeGraphicsInfos {
+        get {
+            return this.nodeGraphicsInfosField;
+        }
+        set {
+            this.nodeGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    [System.Xml.Serialization.XmlElementAttribute("Extensions", typeof(object))]
+    public object[] Items1 {
+        get {
+            return this.items1Field;
+        }
+        set {
+            this.items1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool IsForCompensation {
+        get {
+            return this.isForCompensationField;
+        }
+        set {
+            this.isForCompensationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool StartActivity {
+        get {
+            return this.startActivityField;
+        }
+        set {
+            this.startActivityField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool StartActivitySpecified {
+        get {
+            return this.startActivityFieldSpecified;
+        }
+        set {
+            this.startActivityFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(ActivityStatus.None)]
+    public ActivityStatus Status {
+        get {
+            return this.statusField;
+        }
+        set {
+            this.statusField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public ActivityStartMode StartMode {
+        get {
+            return this.startModeField;
+        }
+        set {
+            this.startModeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool StartModeSpecified {
+        get {
+            return this.startModeFieldSpecified;
+        }
+        set {
+            this.startModeFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public ActivityFinishMode FinishMode {
+        get {
+            return this.finishModeField;
+        }
+        set {
+            this.finishModeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool FinishModeSpecified {
+        get {
+            return this.finishModeFieldSpecified;
+        }
+        set {
+            this.finishModeFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    [System.ComponentModel.DefaultValueAttribute("1")]
+    public string StartQuantity {
+        get {
+            return this.startQuantityField;
+        }
+        set {
+            this.startQuantityField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    [System.ComponentModel.DefaultValueAttribute("1")]
+    public string CompletionQuantity {
+        get {
+            return this.completionQuantityField;
+        }
+        set {
+            this.completionQuantityField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool IsATransaction {
+        get {
+            return this.isATransactionField;
+        }
+        set {
+            this.isATransactionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Description {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationType {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("BusinessRule", typeof(ApplicationTypeBusinessRule))]
+    [System.Xml.Serialization.XmlElementAttribute("Ejb", typeof(ApplicationTypeEjb))]
+    [System.Xml.Serialization.XmlElementAttribute("Form", typeof(ApplicationTypeForm))]
+    [System.Xml.Serialization.XmlElementAttribute("Pojo", typeof(ApplicationTypePojo))]
+    [System.Xml.Serialization.XmlElementAttribute("Script", typeof(ApplicationTypeScript))]
+    [System.Xml.Serialization.XmlElementAttribute("WebService", typeof(ApplicationTypeWebService))]
+    [System.Xml.Serialization.XmlElementAttribute("Xslt", typeof(ApplicationTypeXslt))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeBusinessRule {
+    
+    private ApplicationTypeBusinessRuleRuleName ruleNameField;
+    
+    private ApplicationTypeBusinessRuleLocation locationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ApplicationTypeBusinessRuleRuleName RuleName {
+        get {
+            return this.ruleNameField;
+        }
+        set {
+            this.ruleNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ApplicationTypeBusinessRuleLocation Location {
+        get {
+            return this.locationField;
+        }
+        set {
+            this.locationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeBusinessRuleRuleName {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeBusinessRuleLocation {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute(DataType="anyURI")]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeEjb {
+    
+    private ApplicationTypeEjbJndiName jndiNameField;
+    
+    private ApplicationTypeEjbHomeClass homeClassField;
+    
+    private ApplicationTypeEjbMethod methodField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ApplicationTypeEjbJndiName JndiName {
+        get {
+            return this.jndiNameField;
+        }
+        set {
+            this.jndiNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ApplicationTypeEjbHomeClass HomeClass {
+        get {
+            return this.homeClassField;
+        }
+        set {
+            this.homeClassField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ApplicationTypeEjbMethod Method {
+        get {
+            return this.methodField;
+        }
+        set {
+            this.methodField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeEjbJndiName {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeEjbHomeClass {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeEjbMethod {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeForm {
+    
+    private ApplicationTypeFormFormLayout formLayoutField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ApplicationTypeFormFormLayout FormLayout {
+        get {
+            return this.formLayoutField;
+        }
+        set {
+            this.formLayoutField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeFormFormLayout {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypePojo {
+    
+    private ApplicationTypePojoClass classField;
+    
+    private ApplicationTypePojoMethod methodField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ApplicationTypePojoClass Class {
+        get {
+            return this.classField;
+        }
+        set {
+            this.classField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ApplicationTypePojoMethod Method {
+        get {
+            return this.methodField;
+        }
+        set {
+            this.methodField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypePojoClass {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypePojoMethod {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeScript {
+    
+    private ExpressionType expressionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ExpressionType Expression {
+        get {
+            return this.expressionField;
+        }
+        set {
+            this.expressionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ExpressionType {
+    
+    private System.Xml.XmlElement[] itemsField;
+    
+    private string[] textField;
+    
+    private string scriptTypeField;
+    
+    private string scriptVersionField;
+    
+    private string scriptGrammarField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Items {
+        get {
+            return this.itemsField;
+        }
+        set {
+            this.itemsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string[] Text {
+        get {
+            return this.textField;
+        }
+        set {
+            this.textField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ScriptType {
+        get {
+            return this.scriptTypeField;
+        }
+        set {
+            this.scriptTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ScriptVersion {
+        get {
+            return this.scriptVersionField;
+        }
+        set {
+            this.scriptVersionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string ScriptGrammar {
+        get {
+            return this.scriptGrammarField;
+        }
+        set {
+            this.scriptGrammarField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeWebService {
+    
+    private WebServiceOperation webServiceOperationField;
+    
+    private WebServiceFaultCatch[] webServiceFaultCatchField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string inputMsgNameField;
+    
+    private string outputMsgNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public WebServiceOperation WebServiceOperation {
+        get {
+            return this.webServiceOperationField;
+        }
+        set {
+            this.webServiceOperationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("WebServiceFaultCatch")]
+    public WebServiceFaultCatch[] WebServiceFaultCatch {
+        get {
+            return this.webServiceFaultCatchField;
+        }
+        set {
+            this.webServiceFaultCatchField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string InputMsgName {
+        get {
+            return this.inputMsgNameField;
+        }
+        set {
+            this.inputMsgNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string OutputMsgName {
+        get {
+            return this.outputMsgNameField;
+        }
+        set {
+            this.outputMsgNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class WebServiceOperation {
+    
+    private object itemField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string operationNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Partner", typeof(WebServiceOperationPartner))]
+    [System.Xml.Serialization.XmlElementAttribute("Service", typeof(WebServiceOperationService))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string OperationName {
+        get {
+            return this.operationNameField;
+        }
+        set {
+            this.operationNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class WebServiceOperationPartner {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string partnerLinkIdField;
+    
+    private WebServiceOperationPartnerRoleType roleTypeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PartnerLinkId {
+        get {
+            return this.partnerLinkIdField;
+        }
+        set {
+            this.partnerLinkIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public WebServiceOperationPartnerRoleType RoleType {
+        get {
+            return this.roleTypeField;
+        }
+        set {
+            this.roleTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum WebServiceOperationPartnerRoleType {
+    
+    /// <uwagi/>
+    MyRole,
+    
+    /// <uwagi/>
+    PartnerRole,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class WebServiceOperationService {
+    
+    private EndPoint endPointField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string serviceNameField;
+    
+    private string portNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public EndPoint EndPoint {
+        get {
+            return this.endPointField;
+        }
+        set {
+            this.endPointField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ServiceName {
+        get {
+            return this.serviceNameField;
+        }
+        set {
+            this.serviceNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string PortName {
+        get {
+            return this.portNameField;
+        }
+        set {
+            this.portNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class EndPoint {
+    
+    private ExternalReference externalReferenceField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private EndPointEndPointType endPointTypeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public EndPoint() {
+        this.endPointTypeField = EndPointEndPointType.WSDL;
+    }
+    
+    /// <uwagi/>
+    public ExternalReference ExternalReference {
+        get {
+            return this.externalReferenceField;
+        }
+        set {
+            this.externalReferenceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(EndPointEndPointType.WSDL)]
+    public EndPointEndPointType EndPointType {
+        get {
+            return this.endPointTypeField;
+        }
+        set {
+            this.endPointTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ExternalReference {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string xrefField;
+    
+    private string locationField;
+    
+    private string namespaceField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string xref {
+        get {
+            return this.xrefField;
+        }
+        set {
+            this.xrefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string location {
+        get {
+            return this.locationField;
+        }
+        set {
+            this.locationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string @namespace {
+        get {
+            return this.namespaceField;
+        }
+        set {
+            this.namespaceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum EndPointEndPointType {
+    
+    /// <uwagi/>
+    WSDL,
+    
+    /// <uwagi/>
+    Service,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class WebServiceFaultCatch {
+    
+    private MessageType messageField;
+    
+    private object itemField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string faultNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public MessageType Message {
+        get {
+            return this.messageField;
+        }
+        set {
+            this.messageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("BlockActivity", typeof(BlockActivity))]
+    [System.Xml.Serialization.XmlElementAttribute("TransitionRef", typeof(TransitionRef))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string FaultName {
+        get {
+            return this.faultNameField;
+        }
+        set {
+            this.faultNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class MessageType {
+    
+    private object itemField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string fromField;
+    
+    private string toField;
+    
+    private string faultNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ActualParameters", typeof(ActualParameters))]
+    [System.Xml.Serialization.XmlElementAttribute("DataMappings", typeof(DataMappings))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
@@ -234,52 +1872,48 @@ public partial class Activity {
             this.nameField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class BlockActivity {
-    
-    private string blockIdField;
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string BlockId {
+    public string From {
         get {
-            return this.blockIdField;
+            return this.fromField;
         }
         set {
-            this.blockIdField = value;
+            this.fromField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Implementation {
-    
-    private object[] itemsField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("No", typeof(No))]
-    [System.Xml.Serialization.XmlElementAttribute("SubFlow", typeof(SubFlow))]
-    [System.Xml.Serialization.XmlElementAttribute("Tool", typeof(Tool))]
-    public object[] Items {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string To {
         get {
-            return this.itemsField;
+            return this.toField;
         }
         set {
-            this.itemsField = value;
+            this.toField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string FaultName {
+        get {
+            return this.faultNameField;
+        }
+        set {
+            this.faultNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -289,9 +1923,48 @@ public partial class Implementation {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class No {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ActualParameters {
+    
+    private ActualParameter[] actualParameterField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ActualParameter")]
+    public ActualParameter[] ActualParameter {
+        get {
+            return this.actualParameterField;
+        }
+        set {
+            this.actualParameterField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -299,31 +1972,506 @@ public partial class No {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class SubFlow {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ActualParameter {
     
-    private string[] actualParametersField;
+    private ExpressionType formalExpressionField;
+    
+    private string[] sourceField;
+    
+    private Assignments assignmentsField;
+    
+    private System.Xml.XmlElement[] anyField;
     
     private string idField;
     
-    private SubFlowExecution executionField;
-    
-    private bool executionFieldSpecified;
+    private string targetField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ActualParameter", IsNullable=false)]
-    public string[] ActualParameters {
+    public ExpressionType FormalExpression {
         get {
-            return this.actualParametersField;
+            return this.formalExpressionField;
         }
         set {
-            this.actualParametersField = value;
+            this.formalExpressionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Source", DataType="NMTOKEN")]
+    public string[] Source {
+        get {
+            return this.sourceField;
+        }
+        set {
+            this.sourceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Assignments Assignments {
+        get {
+            return this.assignmentsField;
+        }
+        set {
+            this.assignmentsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Target {
+        get {
+            return this.targetField;
+        }
+        set {
+            this.targetField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Assignments {
+    
+    private Assignment[] assignmentField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Assignment")]
+    public Assignment[] Assignment {
+        get {
+            return this.assignmentField;
+        }
+        set {
+            this.assignmentField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Assignment {
+    
+    private ExpressionType targetField;
+    
+    private ExpressionType expressionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private AssignmentAssignTime assignTimeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Assignment() {
+        this.assignTimeField = AssignmentAssignTime.Start;
+    }
+    
+    /// <uwagi/>
+    public ExpressionType Target {
+        get {
+            return this.targetField;
+        }
+        set {
+            this.targetField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ExpressionType Expression {
+        get {
+            return this.expressionField;
+        }
+        set {
+            this.expressionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(AssignmentAssignTime.Start)]
+    public AssignmentAssignTime AssignTime {
+        get {
+            return this.assignTimeField;
+        }
+        set {
+            this.assignTimeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum AssignmentAssignTime {
+    
+    /// <uwagi/>
+    Start,
+    
+    /// <uwagi/>
+    End,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataMappings {
+    
+    private DataMapping[] dataMappingField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataMapping")]
+    public DataMapping[] DataMapping {
+        get {
+            return this.dataMappingField;
+        }
+        set {
+            this.dataMappingField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataMapping {
+    
+    private ExpressionType actualField;
+    
+    private ExpressionType testValueField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string formalField;
+    
+    private DataMappingDirection directionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public DataMapping() {
+        this.directionField = DataMappingDirection.IN;
+    }
+    
+    /// <uwagi/>
+    public ExpressionType Actual {
+        get {
+            return this.actualField;
+        }
+        set {
+            this.actualField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ExpressionType TestValue {
+        get {
+            return this.testValueField;
+        }
+        set {
+            this.testValueField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Formal {
+        get {
+            return this.formalField;
+        }
+        set {
+            this.formalField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(DataMappingDirection.IN)]
+    public DataMappingDirection Direction {
+        get {
+            return this.directionField;
+        }
+        set {
+            this.directionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum DataMappingDirection {
+    
+    /// <uwagi/>
+    IN,
+    
+    /// <uwagi/>
+    OUT,
+    
+    /// <uwagi/>
+    INOUT,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class BlockActivity {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string activitySetIdField;
+    
+    private string startActivityIdField;
+    
+    private BlockActivityView viewField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public BlockActivity() {
+        this.viewField = BlockActivityView.COLLAPSED;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ActivitySetId {
+        get {
+            return this.activitySetIdField;
+        }
+        set {
+            this.activitySetIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string StartActivityId {
+        get {
+            return this.startActivityIdField;
+        }
+        set {
+            this.startActivityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(BlockActivityView.COLLAPSED)]
+    public BlockActivityView View {
+        get {
+            return this.viewField;
+        }
+        set {
+            this.viewField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum BlockActivityView {
+    
+    /// <uwagi/>
+    COLLAPSED,
+    
+    /// <uwagi/>
+    EXPANDED,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TransitionRef {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
     public string Id {
         get {
             return this.idField;
@@ -335,7 +2483,3284 @@ public partial class SubFlow {
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class ApplicationTypeXslt {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string locationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string location {
+        get {
+            return this.locationField;
+        }
+        set {
+            this.locationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Limit {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Event {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("EndEvent", typeof(EndEvent))]
+    [System.Xml.Serialization.XmlElementAttribute("IntermediateEvent", typeof(IntermediateEvent))]
+    [System.Xml.Serialization.XmlElementAttribute("StartEvent", typeof(StartEvent))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class EndEvent {
+    
+    private object itemField;
+    
+    private ItemChoiceType1 itemElementNameField;
+    
+    private EndEventResult resultField;
+    
+    private EndEventImplementation implementationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public EndEvent() {
+        this.implementationField = EndEventImplementation.WebService;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ResultError", typeof(ResultError))]
+    [System.Xml.Serialization.XmlElementAttribute("ResultMultiple", typeof(ResultMultiple))]
+    [System.Xml.Serialization.XmlElementAttribute("ResultTerminate", typeof(object))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerEscalation", typeof(TriggerEscalation))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultCancel", typeof(object))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultCompensation", typeof(TriggerResultCompensation))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultMessage", typeof(TriggerResultMessage))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultSignal", typeof(TriggerResultSignal))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType1 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public EndEventResult Result {
+        get {
+            return this.resultField;
+        }
+        set {
+            this.resultField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(EndEventImplementation.WebService)]
+    public EndEventImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ResultError {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string errorCodeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ErrorCode {
+        get {
+            return this.errorCodeField;
+        }
+        set {
+            this.errorCodeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ResultMultiple {
+    
+    private TriggerResultMessage triggerResultMessageField;
+    
+    private TriggerEscalation triggerEscalationField;
+    
+    private object triggerResultCancelField;
+    
+    private TriggerResultCompensation triggerResultCompensationField;
+    
+    private TriggerResultSignal triggerResultSignalField;
+    
+    private object resultTerminateField;
+    
+    private ResultError resultErrorField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public TriggerResultMessage TriggerResultMessage {
+        get {
+            return this.triggerResultMessageField;
+        }
+        set {
+            this.triggerResultMessageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerEscalation TriggerEscalation {
+        get {
+            return this.triggerEscalationField;
+        }
+        set {
+            this.triggerEscalationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public object TriggerResultCancel {
+        get {
+            return this.triggerResultCancelField;
+        }
+        set {
+            this.triggerResultCancelField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultCompensation TriggerResultCompensation {
+        get {
+            return this.triggerResultCompensationField;
+        }
+        set {
+            this.triggerResultCompensationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultSignal TriggerResultSignal {
+        get {
+            return this.triggerResultSignalField;
+        }
+        set {
+            this.triggerResultSignalField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public object ResultTerminate {
+        get {
+            return this.resultTerminateField;
+        }
+        set {
+            this.resultTerminateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ResultError ResultError {
+        get {
+            return this.resultErrorField;
+        }
+        set {
+            this.resultErrorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerResultMessage {
+    
+    private MessageType messageField;
+    
+    private WebServiceOperation webServiceOperationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private TriggerResultMessageCatchThrow catchThrowField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TriggerResultMessage() {
+        this.catchThrowField = TriggerResultMessageCatchThrow.CATCH;
+    }
+    
+    /// <uwagi/>
+    public MessageType Message {
+        get {
+            return this.messageField;
+        }
+        set {
+            this.messageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WebServiceOperation WebServiceOperation {
+        get {
+            return this.webServiceOperationField;
+        }
+        set {
+            this.webServiceOperationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TriggerResultMessageCatchThrow.CATCH)]
+    public TriggerResultMessageCatchThrow CatchThrow {
+        get {
+            return this.catchThrowField;
+        }
+        set {
+            this.catchThrowField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TriggerResultMessageCatchThrow {
+    
+    /// <uwagi/>
+    CATCH,
+    
+    /// <uwagi/>
+    THROW,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerEscalation {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string escalationCodeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string EscalationCode {
+        get {
+            return this.escalationCodeField;
+        }
+        set {
+            this.escalationCodeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerResultCompensation {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string activityIdField;
+    
+    private bool waitForCompletionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TriggerResultCompensation() {
+        this.waitForCompletionField = true;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ActivityId {
+        get {
+            return this.activityIdField;
+        }
+        set {
+            this.activityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(true)]
+    public bool WaitForCompletion {
+        get {
+            return this.waitForCompletionField;
+        }
+        set {
+            this.waitForCompletionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerResultSignal {
+    
+    private ExpressionType[] propertiesField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string nameField;
+    
+    private TriggerResultSignalCatchThrow catchThrowField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TriggerResultSignal() {
+        this.catchThrowField = TriggerResultSignalCatchThrow.CATCH;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Properties")]
+    public ExpressionType[] Properties {
+        get {
+            return this.propertiesField;
+        }
+        set {
+            this.propertiesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TriggerResultSignalCatchThrow.CATCH)]
+    public TriggerResultSignalCatchThrow CatchThrow {
+        get {
+            return this.catchThrowField;
+        }
+        set {
+            this.catchThrowField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TriggerResultSignalCatchThrow {
+    
+    /// <uwagi/>
+    CATCH,
+    
+    /// <uwagi/>
+    THROW,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IncludeInSchema=false)]
+public enum ItemChoiceType1 {
+    
+    /// <uwagi/>
+    ResultError,
+    
+    /// <uwagi/>
+    ResultMultiple,
+    
+    /// <uwagi/>
+    ResultTerminate,
+    
+    /// <uwagi/>
+    TriggerEscalation,
+    
+    /// <uwagi/>
+    TriggerResultCancel,
+    
+    /// <uwagi/>
+    TriggerResultCompensation,
+    
+    /// <uwagi/>
+    TriggerResultMessage,
+    
+    /// <uwagi/>
+    TriggerResultSignal,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum EndEventResult {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    Message,
+    
+    /// <uwagi/>
+    Error,
+    
+    /// <uwagi/>
+    Escalation,
+    
+    /// <uwagi/>
+    Cancel,
+    
+    /// <uwagi/>
+    Compensation,
+    
+    /// <uwagi/>
+    Signal,
+    
+    /// <uwagi/>
+    Terminate,
+    
+    /// <uwagi/>
+    Multiple,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum EndEventImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class IntermediateEvent {
+    
+    private object itemField;
+    
+    private IntermediateEventTrigger triggerField;
+    
+    private IntermediateEventImplementation implementationField;
+    
+    private string targetField;
+    
+    private bool interruptingField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public IntermediateEvent() {
+        this.implementationField = IntermediateEventImplementation.WebService;
+        this.interruptingField = true;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ResultError", typeof(ResultError))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerConditional", typeof(TriggerConditional))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerEscalation", typeof(TriggerEscalation))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerIntermediateMultiple", typeof(TriggerIntermediateMultiple))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultCancel", typeof(object))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultCompensation", typeof(TriggerResultCompensation))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultLink", typeof(TriggerResultLink))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultMessage", typeof(TriggerResultMessage))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultSignal", typeof(TriggerResultSignal))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerTimer", typeof(TriggerTimer))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public IntermediateEventTrigger Trigger {
+        get {
+            return this.triggerField;
+        }
+        set {
+            this.triggerField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(IntermediateEventImplementation.WebService)]
+    public IntermediateEventImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Target {
+        get {
+            return this.targetField;
+        }
+        set {
+            this.targetField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(true)]
+    public bool Interrupting {
+        get {
+            return this.interruptingField;
+        }
+        set {
+            this.interruptingField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerConditional {
+    
+    private ExpressionType expressionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string conditionNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ExpressionType Expression {
+        get {
+            return this.expressionField;
+        }
+        set {
+            this.expressionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ConditionName {
+        get {
+            return this.conditionNameField;
+        }
+        set {
+            this.conditionNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerIntermediateMultiple {
+    
+    private TriggerResultMessage triggerResultMessageField;
+    
+    private TriggerTimer triggerTimerField;
+    
+    private ResultError resultErrorField;
+    
+    private TriggerEscalation triggerEscalationField;
+    
+    private TriggerResultCompensation triggerResultCompensationField;
+    
+    private TriggerConditional triggerConditionalField;
+    
+    private TriggerResultLink triggerResultLinkField;
+    
+    private object triggerResultCancelField;
+    
+    private TriggerResultSignal triggerResultSignalField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public TriggerResultMessage TriggerResultMessage {
+        get {
+            return this.triggerResultMessageField;
+        }
+        set {
+            this.triggerResultMessageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerTimer TriggerTimer {
+        get {
+            return this.triggerTimerField;
+        }
+        set {
+            this.triggerTimerField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ResultError ResultError {
+        get {
+            return this.resultErrorField;
+        }
+        set {
+            this.resultErrorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerEscalation TriggerEscalation {
+        get {
+            return this.triggerEscalationField;
+        }
+        set {
+            this.triggerEscalationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultCompensation TriggerResultCompensation {
+        get {
+            return this.triggerResultCompensationField;
+        }
+        set {
+            this.triggerResultCompensationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerConditional TriggerConditional {
+        get {
+            return this.triggerConditionalField;
+        }
+        set {
+            this.triggerConditionalField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultLink TriggerResultLink {
+        get {
+            return this.triggerResultLinkField;
+        }
+        set {
+            this.triggerResultLinkField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public object TriggerResultCancel {
+        get {
+            return this.triggerResultCancelField;
+        }
+        set {
+            this.triggerResultCancelField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultSignal TriggerResultSignal {
+        get {
+            return this.triggerResultSignalField;
+        }
+        set {
+            this.triggerResultSignalField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerTimer {
+    
+    private ExpressionType itemField;
+    
+    private ItemChoiceType itemElementNameField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string timeDateField;
+    
+    private string timeCycleField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("TimeCycle", typeof(ExpressionType))]
+    [System.Xml.Serialization.XmlElementAttribute("TimeDate", typeof(ExpressionType))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public ExpressionType Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string TimeDate {
+        get {
+            return this.timeDateField;
+        }
+        set {
+            this.timeDateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string TimeCycle {
+        get {
+            return this.timeCycleField;
+        }
+        set {
+            this.timeCycleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IncludeInSchema=false)]
+public enum ItemChoiceType {
+    
+    /// <uwagi/>
+    TimeCycle,
+    
+    /// <uwagi/>
+    TimeDate,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerResultLink {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private TriggerResultLinkCatchThrow catchThrowField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TriggerResultLink() {
+        this.catchThrowField = TriggerResultLinkCatchThrow.CATCH;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TriggerResultLinkCatchThrow.CATCH)]
+    public TriggerResultLinkCatchThrow CatchThrow {
+        get {
+            return this.catchThrowField;
+        }
+        set {
+            this.catchThrowField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TriggerResultLinkCatchThrow {
+    
+    /// <uwagi/>
+    CATCH,
+    
+    /// <uwagi/>
+    THROW,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum IntermediateEventTrigger {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    Message,
+    
+    /// <uwagi/>
+    Timer,
+    
+    /// <uwagi/>
+    Error,
+    
+    /// <uwagi/>
+    Escalation,
+    
+    /// <uwagi/>
+    Cancel,
+    
+    /// <uwagi/>
+    Conditional,
+    
+    /// <uwagi/>
+    Link,
+    
+    /// <uwagi/>
+    Signal,
+    
+    /// <uwagi/>
+    Compensation,
+    
+    /// <uwagi/>
+    Multiple,
+    
+    /// <uwagi/>
+    ParallelMultiple,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum IntermediateEventImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class StartEvent {
+    
+    private object itemField;
+    
+    private StartEventTrigger triggerField;
+    
+    private StartEventImplementation implementationField;
+    
+    private bool interruptingField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public StartEvent() {
+        this.implementationField = StartEventImplementation.WebService;
+        this.interruptingField = true;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ResultError", typeof(ResultError))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerConditional", typeof(TriggerConditional))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerEscalation", typeof(TriggerEscalation))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerMultiple", typeof(TriggerMultiple))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultCompensation", typeof(TriggerResultCompensation))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultMessage", typeof(TriggerResultMessage))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerResultSignal", typeof(TriggerResultSignal))]
+    [System.Xml.Serialization.XmlElementAttribute("TriggerTimer", typeof(TriggerTimer))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public StartEventTrigger Trigger {
+        get {
+            return this.triggerField;
+        }
+        set {
+            this.triggerField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(StartEventImplementation.WebService)]
+    public StartEventImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(true)]
+    public bool Interrupting {
+        get {
+            return this.interruptingField;
+        }
+        set {
+            this.interruptingField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerMultiple {
+    
+    private TriggerResultMessage triggerResultMessageField;
+    
+    private TriggerTimer triggerTimerField;
+    
+    private ResultError resultErrorField;
+    
+    private TriggerEscalation triggerEscalationField;
+    
+    private TriggerResultCompensation triggerResultCompensationField;
+    
+    private TriggerConditional triggerConditionalField;
+    
+    private TriggerResultSignal triggerResultSignalField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public TriggerResultMessage TriggerResultMessage {
+        get {
+            return this.triggerResultMessageField;
+        }
+        set {
+            this.triggerResultMessageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerTimer TriggerTimer {
+        get {
+            return this.triggerTimerField;
+        }
+        set {
+            this.triggerTimerField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ResultError ResultError {
+        get {
+            return this.resultErrorField;
+        }
+        set {
+            this.resultErrorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerEscalation TriggerEscalation {
+        get {
+            return this.triggerEscalationField;
+        }
+        set {
+            this.triggerEscalationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultCompensation TriggerResultCompensation {
+        get {
+            return this.triggerResultCompensationField;
+        }
+        set {
+            this.triggerResultCompensationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerConditional TriggerConditional {
+        get {
+            return this.triggerConditionalField;
+        }
+        set {
+            this.triggerConditionalField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public TriggerResultSignal TriggerResultSignal {
+        get {
+            return this.triggerResultSignalField;
+        }
+        set {
+            this.triggerResultSignalField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum StartEventTrigger {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    Message,
+    
+    /// <uwagi/>
+    Timer,
+    
+    /// <uwagi/>
+    Error,
+    
+    /// <uwagi/>
+    Escalation,
+    
+    /// <uwagi/>
+    Compensation,
+    
+    /// <uwagi/>
+    Conditional,
+    
+    /// <uwagi/>
+    Signal,
+    
+    /// <uwagi/>
+    Multiple,
+    
+    /// <uwagi/>
+    ParallelMultiple,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum StartEventImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Implementation {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("GlobalActivityReference", typeof(GlobalActivityReference))]
+    [System.Xml.Serialization.XmlElementAttribute("No", typeof(No))]
+    [System.Xml.Serialization.XmlElementAttribute("Reference", typeof(Reference))]
+    [System.Xml.Serialization.XmlElementAttribute("SubFlow", typeof(SubFlow))]
+    [System.Xml.Serialization.XmlElementAttribute("Task", typeof(Task))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class GlobalActivityReference {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string globalActivityIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string GlobalActivityId {
+        get {
+            return this.globalActivityIdField;
+        }
+        set {
+            this.globalActivityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class No {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Reference {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string activityIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ActivityId {
+        get {
+            return this.activityIdField;
+        }
+        set {
+            this.activityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class SubFlow {
+    
+    private object itemField;
+    
+    private EndPoint endPointField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private SubFlowExecution executionField;
+    
+    private SubFlowView viewField;
+    
+    private string packageRefField;
+    
+    private string instanceDataFieldField;
+    
+    private string startActivitySetIdField;
+    
+    private string startActivityIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public SubFlow() {
+        this.executionField = SubFlowExecution.SYNCHR;
+        this.viewField = SubFlowView.COLLAPSED;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ActualParameters", typeof(ActualParameters))]
+    [System.Xml.Serialization.XmlElementAttribute("DataMappings", typeof(DataMappings))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public EndPoint EndPoint {
+        get {
+            return this.endPointField;
+        }
+        set {
+            this.endPointField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(SubFlowExecution.SYNCHR)]
     public SubFlowExecution Execution {
+        get {
+            return this.executionField;
+        }
+        set {
+            this.executionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(SubFlowView.COLLAPSED)]
+    public SubFlowView View {
+        get {
+            return this.viewField;
+        }
+        set {
+            this.viewField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PackageRef {
+        get {
+            return this.packageRefField;
+        }
+        set {
+            this.packageRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string InstanceDataField {
+        get {
+            return this.instanceDataFieldField;
+        }
+        set {
+            this.instanceDataFieldField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string StartActivitySetId {
+        get {
+            return this.startActivitySetIdField;
+        }
+        set {
+            this.startActivitySetIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string StartActivityId {
+        get {
+            return this.startActivityIdField;
+        }
+        set {
+            this.startActivityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum SubFlowExecution {
+    
+    /// <uwagi/>
+    ASYNCHR,
+    
+    /// <uwagi/>
+    SYNCHR,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum SubFlowView {
+    
+    /// <uwagi/>
+    COLLAPSED,
+    
+    /// <uwagi/>
+    EXPANDED,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Task {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("TaskApplication", typeof(TaskApplication))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskBusinessRule", typeof(TaskBusinessRule))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskManual", typeof(TaskManual))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskReceive", typeof(TaskReceive))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskReference", typeof(TaskReference))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskScript", typeof(TaskScript))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskSend", typeof(TaskSend))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskService", typeof(TaskService))]
+    [System.Xml.Serialization.XmlElementAttribute("TaskUser", typeof(TaskUser))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskApplication {
+    
+    private object itemField;
+    
+    private Description descriptionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string packageRefField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ActualParameters", typeof(ActualParameters))]
+    [System.Xml.Serialization.XmlElementAttribute("DataMappings", typeof(DataMappings))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Description Description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PackageRef {
+        get {
+            return this.packageRefField;
+        }
+        set {
+            this.packageRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskBusinessRule {
+    
+    private TaskBusinessRuleBusinessRuleTaskImplementation businessRuleTaskImplementationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TaskBusinessRule() {
+        this.businessRuleTaskImplementationField = TaskBusinessRuleBusinessRuleTaskImplementation.Other;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TaskBusinessRuleBusinessRuleTaskImplementation.Other)]
+    public TaskBusinessRuleBusinessRuleTaskImplementation BusinessRuleTaskImplementation {
+        get {
+            return this.businessRuleTaskImplementationField;
+        }
+        set {
+            this.businessRuleTaskImplementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TaskBusinessRuleBusinessRuleTaskImplementation {
+    
+    /// <uwagi/>
+    BusinessRuleWebService,
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskManual {
+    
+    private Performers performersField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Performers Performers {
+        get {
+            return this.performersField;
+        }
+        set {
+            this.performersField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Performers {
+    
+    private Performer[] performerField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Performer")]
+    public Performer[] Performer {
+        get {
+            return this.performerField;
+        }
+        set {
+            this.performerField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Performer {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskReceive {
+    
+    private MessageType messageField;
+    
+    private WebServiceOperation webServiceOperationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private bool instantiateField;
+    
+    private TaskReceiveImplementation implementationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TaskReceive() {
+        this.implementationField = TaskReceiveImplementation.WebService;
+    }
+    
+    /// <uwagi/>
+    public MessageType Message {
+        get {
+            return this.messageField;
+        }
+        set {
+            this.messageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WebServiceOperation WebServiceOperation {
+        get {
+            return this.webServiceOperationField;
+        }
+        set {
+            this.webServiceOperationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool Instantiate {
+        get {
+            return this.instantiateField;
+        }
+        set {
+            this.instantiateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TaskReceiveImplementation.WebService)]
+    public TaskReceiveImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TaskReceiveImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskReference {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string taskRefField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string TaskRef {
+        get {
+            return this.taskRefField;
+        }
+        set {
+            this.taskRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskScript {
+    
+    private ExpressionType scriptField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ExpressionType Script {
+        get {
+            return this.scriptField;
+        }
+        set {
+            this.scriptField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskSend {
+    
+    private MessageType messageField;
+    
+    private WebServiceOperation webServiceOperationField;
+    
+    private WebServiceFaultCatch[] webServiceFaultCatchField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private TaskSendImplementation implementationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TaskSend() {
+        this.implementationField = TaskSendImplementation.WebService;
+    }
+    
+    /// <uwagi/>
+    public MessageType Message {
+        get {
+            return this.messageField;
+        }
+        set {
+            this.messageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WebServiceOperation WebServiceOperation {
+        get {
+            return this.webServiceOperationField;
+        }
+        set {
+            this.webServiceOperationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("WebServiceFaultCatch")]
+    public WebServiceFaultCatch[] WebServiceFaultCatch {
+        get {
+            return this.webServiceFaultCatchField;
+        }
+        set {
+            this.webServiceFaultCatchField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TaskSendImplementation.WebService)]
+    public TaskSendImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TaskSendImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskService {
+    
+    private MessageType messageInField;
+    
+    private MessageType messageOutField;
+    
+    private WebServiceOperation webServiceOperationField;
+    
+    private WebServiceFaultCatch[] webServiceFaultCatchField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private TaskServiceImplementation implementationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TaskService() {
+        this.implementationField = TaskServiceImplementation.WebService;
+    }
+    
+    /// <uwagi/>
+    public MessageType MessageIn {
+        get {
+            return this.messageInField;
+        }
+        set {
+            this.messageInField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public MessageType MessageOut {
+        get {
+            return this.messageOutField;
+        }
+        set {
+            this.messageOutField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WebServiceOperation WebServiceOperation {
+        get {
+            return this.webServiceOperationField;
+        }
+        set {
+            this.webServiceOperationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("WebServiceFaultCatch")]
+    public WebServiceFaultCatch[] WebServiceFaultCatch {
+        get {
+            return this.webServiceFaultCatchField;
+        }
+        set {
+            this.webServiceFaultCatchField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TaskServiceImplementation.WebService)]
+    public TaskServiceImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TaskServiceImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TaskUser {
+    
+    private Performers performersField;
+    
+    private MessageType messageInField;
+    
+    private MessageType messageOutField;
+    
+    private WebServiceOperation webServiceOperationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private TaskUserImplementation implementationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public TaskUser() {
+        this.implementationField = TaskUserImplementation.WebService;
+    }
+    
+    /// <uwagi/>
+    public Performers Performers {
+        get {
+            return this.performersField;
+        }
+        set {
+            this.performersField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public MessageType MessageIn {
+        get {
+            return this.messageInField;
+        }
+        set {
+            this.messageInField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public MessageType MessageOut {
+        get {
+            return this.messageOutField;
+        }
+        set {
+            this.messageOutField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WebServiceOperation WebServiceOperation {
+        get {
+            return this.webServiceOperationField;
+        }
+        set {
+            this.webServiceOperationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(TaskUserImplementation.WebService)]
+    public TaskUserImplementation Implementation {
+        get {
+            return this.implementationField;
+        }
+        set {
+            this.implementationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TaskUserImplementation {
+    
+    /// <uwagi/>
+    WebService,
+    
+    /// <uwagi/>
+    Other,
+    
+    /// <uwagi/>
+    Unspecified,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Route {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private RouteGatewayType gatewayTypeField;
+    
+    private RouteXORType xORTypeField;
+    
+    private RouteExclusiveType exclusiveTypeField;
+    
+    private bool instantiateField;
+    
+    private bool parallelEventBasedField;
+    
+    private bool markerVisibleField;
+    
+    private string incomingConditionField;
+    
+    private string outgoingConditionField;
+    
+    private RouteGatewayDirection gatewayDirectionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Route() {
+        this.gatewayTypeField = RouteGatewayType.Exclusive;
+        this.xORTypeField = RouteXORType.Data;
+        this.exclusiveTypeField = RouteExclusiveType.Data;
+        this.instantiateField = false;
+        this.parallelEventBasedField = false;
+        this.markerVisibleField = false;
+        this.gatewayDirectionField = RouteGatewayDirection.Unspecified;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(RouteGatewayType.Exclusive)]
+    public RouteGatewayType GatewayType {
+        get {
+            return this.gatewayTypeField;
+        }
+        set {
+            this.gatewayTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(RouteXORType.Data)]
+    public RouteXORType XORType {
+        get {
+            return this.xORTypeField;
+        }
+        set {
+            this.xORTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(RouteExclusiveType.Data)]
+    public RouteExclusiveType ExclusiveType {
+        get {
+            return this.exclusiveTypeField;
+        }
+        set {
+            this.exclusiveTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool Instantiate {
+        get {
+            return this.instantiateField;
+        }
+        set {
+            this.instantiateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool ParallelEventBased {
+        get {
+            return this.parallelEventBasedField;
+        }
+        set {
+            this.parallelEventBasedField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool MarkerVisible {
+        get {
+            return this.markerVisibleField;
+        }
+        set {
+            this.markerVisibleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string IncomingCondition {
+        get {
+            return this.incomingConditionField;
+        }
+        set {
+            this.incomingConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string OutgoingCondition {
+        get {
+            return this.outgoingConditionField;
+        }
+        set {
+            this.outgoingConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(RouteGatewayDirection.Unspecified)]
+    public RouteGatewayDirection GatewayDirection {
+        get {
+            return this.gatewayDirectionField;
+        }
+        set {
+            this.gatewayDirectionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum RouteGatewayType {
+    
+    /// <uwagi/>
+    XOR,
+    
+    /// <uwagi/>
+    OR,
+    
+    /// <uwagi/>
+    AND,
+    
+    /// <uwagi/>
+    Exclusive,
+    
+    /// <uwagi/>
+    Inclusive,
+    
+    /// <uwagi/>
+    Parallel,
+    
+    /// <uwagi/>
+    Complex,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum RouteXORType {
+    
+    /// <uwagi/>
+    Data,
+    
+    /// <uwagi/>
+    Event,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum RouteExclusiveType {
+    
+    /// <uwagi/>
+    Data,
+    
+    /// <uwagi/>
+    Event,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum RouteGatewayDirection {
+    
+    /// <uwagi/>
+    Unspecified,
+    
+    /// <uwagi/>
+    Converging,
+    
+    /// <uwagi/>
+    Diverging,
+    
+    /// <uwagi/>
+    Mixed,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Transaction {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string transactionIdField;
+    
+    private string transactionProtocolField;
+    
+    private TransactionTransactionMethod transactionMethodField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string TransactionId {
+        get {
+            return this.transactionIdField;
+        }
+        set {
+            this.transactionIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string TransactionProtocol {
+        get {
+            return this.transactionProtocolField;
+        }
+        set {
+            this.transactionProtocolField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TransactionTransactionMethod TransactionMethod {
+        get {
+            return this.transactionMethodField;
+        }
+        set {
+            this.transactionMethodField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum TransactionTransactionMethod {
+    
+    /// <uwagi/>
+    Compensate,
+    
+    /// <uwagi/>
+    Store,
+    
+    /// <uwagi/>
+    Image,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Priority {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Deadline {
+    
+    private ExpressionType deadlineDurationField;
+    
+    private DeadlineExceptionName exceptionNameField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private DeadlineExecution executionField;
+    
+    private bool executionFieldSpecified;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ExpressionType DeadlineDuration {
+        get {
+            return this.deadlineDurationField;
+        }
+        set {
+            this.deadlineDurationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DeadlineExceptionName ExceptionName {
+        get {
+            return this.exceptionNameField;
+        }
+        set {
+            this.exceptionNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public DeadlineExecution Execution {
         get {
             return this.executionField;
         }
@@ -354,13 +5779,59 @@ public partial class SubFlow {
             this.executionFieldSpecified = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum SubFlowExecution {
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class DeadlineExceptionName {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum DeadlineExecution {
     
     /// <uwagi/>
     ASYNCHR,
@@ -374,68 +5845,719 @@ public enum SubFlowExecution {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Tool {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class SimulationInformation {
     
-    private string[] actualParametersField;
+    private object itemField;
     
-    private string descriptionField;
+    private TimeEstimation timeEstimationField;
     
-    private ExtendedAttribute[] extendedAttributesField;
+    private System.Xml.XmlElement[] anyField;
     
-    private string idField;
+    private SimulationInformationInstantiation instantiationField;
     
-    private ToolType typeField;
+    private bool instantiationFieldSpecified;
     
-    private bool typeFieldSpecified;
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ActualParameter", IsNullable=false)]
-    public string[] ActualParameters {
+    [System.Xml.Serialization.XmlElementAttribute("Cost", typeof(Cost))]
+    [System.Xml.Serialization.XmlElementAttribute("CostStructure", typeof(CostStructure))]
+    public object Item {
         get {
-            return this.actualParametersField;
+            return this.itemField;
         }
         set {
-            this.actualParametersField = value;
+            this.itemField = value;
         }
     }
     
     /// <uwagi/>
-    public string Description {
+    public TimeEstimation TimeEstimation {
         get {
-            return this.descriptionField;
+            return this.timeEstimationField;
         }
         set {
-            this.descriptionField = value;
+            this.timeEstimationField = value;
         }
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ExtendedAttribute", IsNullable=false)]
-    public ExtendedAttribute[] ExtendedAttributes {
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
         get {
-            return this.extendedAttributesField;
+            return this.anyField;
         }
         set {
-            this.extendedAttributesField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
+            this.anyField = value;
         }
     }
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ToolType Type {
+    public SimulationInformationInstantiation Instantiation {
+        get {
+            return this.instantiationField;
+        }
+        set {
+            this.instantiationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool InstantiationSpecified {
+        get {
+            return this.instantiationFieldSpecified;
+        }
+        set {
+            this.instantiationFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Cost {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class CostStructure {
+    
+    private object[] itemsField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("FixedCost", typeof(string), DataType="integer")]
+    [System.Xml.Serialization.XmlElementAttribute("ResourceCosts", typeof(ResourceCosts))]
+    public object[] Items {
+        get {
+            return this.itemsField;
+        }
+        set {
+            this.itemsField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ResourceCosts {
+    
+    private string resourceCostNameField;
+    
+    private decimal resourceCostField;
+    
+    private ResourceCostsCostUnitOfTime costUnitOfTimeField;
+    
+    /// <uwagi/>
+    public string ResourceCostName {
+        get {
+            return this.resourceCostNameField;
+        }
+        set {
+            this.resourceCostNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public decimal ResourceCost {
+        get {
+            return this.resourceCostField;
+        }
+        set {
+            this.resourceCostField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ResourceCostsCostUnitOfTime CostUnitOfTime {
+        get {
+            return this.costUnitOfTimeField;
+        }
+        set {
+            this.costUnitOfTimeField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ResourceCostsCostUnitOfTime {
+    
+    /// <uwagi/>
+    second,
+    
+    /// <uwagi/>
+    minute,
+    
+    /// <uwagi/>
+    hour,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TimeEstimation {
+    
+    private WaitingTime waitingTimeField;
+    
+    private WorkingTime workingTimeField;
+    
+    private Duration durationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public WaitingTime WaitingTime {
+        get {
+            return this.waitingTimeField;
+        }
+        set {
+            this.waitingTimeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WorkingTime WorkingTime {
+        get {
+            return this.workingTimeField;
+        }
+        set {
+            this.workingTimeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Duration Duration {
+        get {
+            return this.durationField;
+        }
+        set {
+            this.durationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class WaitingTime {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class WorkingTime {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Duration {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum SimulationInformationInstantiation {
+    
+    /// <uwagi/>
+    ONCE,
+    
+    /// <uwagi/>
+    MULTIPLE,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Icon {
+    
+    private string xCOORDField;
+    
+    private string yCOORDField;
+    
+    private string wIDTHField;
+    
+    private string hEIGHTField;
+    
+    private IconSHAPE sHAPEField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    public Icon() {
+        this.sHAPEField = IconSHAPE.RoundRectangle;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string XCOORD {
+        get {
+            return this.xCOORDField;
+        }
+        set {
+            this.xCOORDField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string YCOORD {
+        get {
+            return this.yCOORDField;
+        }
+        set {
+            this.yCOORDField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string WIDTH {
+        get {
+            return this.wIDTHField;
+        }
+        set {
+            this.wIDTHField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string HEIGHT {
+        get {
+            return this.hEIGHTField;
+        }
+        set {
+            this.hEIGHTField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(IconSHAPE.RoundRectangle)]
+    public IconSHAPE SHAPE {
+        get {
+            return this.sHAPEField;
+        }
+        set {
+            this.sHAPEField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum IconSHAPE {
+    
+    /// <uwagi/>
+    RoundRectangle,
+    
+    /// <uwagi/>
+    Rectangle,
+    
+    /// <uwagi/>
+    Ellipse,
+    
+    /// <uwagi/>
+    Diamond,
+    
+    /// <uwagi/>
+    UpTriangle,
+    
+    /// <uwagi/>
+    DownTriangle,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Documentation {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TransitionRestrictions {
+    
+    private TransitionRestriction[] transitionRestrictionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("TransitionRestriction")]
+    public TransitionRestriction[] TransitionRestriction {
+        get {
+            return this.transitionRestrictionField;
+        }
+        set {
+            this.transitionRestrictionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TransitionRestriction {
+    
+    private Join joinField;
+    
+    private Split splitField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Join Join {
+        get {
+            return this.joinField;
+        }
+        set {
+            this.joinField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Split Split {
+        get {
+            return this.splitField;
+        }
+        set {
+            this.splitField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Join {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private JoinType typeField;
+    
+    private bool typeFieldSpecified;
+    
+    private JoinExclusiveType exclusiveTypeField;
+    
+    private string incomingCondtionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Join() {
+        this.exclusiveTypeField = JoinExclusiveType.Data;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public JoinType Type {
         get {
             return this.typeField;
         }
@@ -454,6 +6576,81 @@ public partial class Tool {
             this.typeFieldSpecified = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(JoinExclusiveType.Data)]
+    public JoinExclusiveType ExclusiveType {
+        get {
+            return this.exclusiveTypeField;
+        }
+        set {
+            this.exclusiveTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string IncomingCondtion {
+        get {
+            return this.incomingCondtionField;
+        }
+        set {
+            this.incomingCondtionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum JoinType {
+    
+    /// <uwagi/>
+    XOR,
+    
+    /// <uwagi/>
+    Exclusive,
+    
+    /// <uwagi/>
+    OR,
+    
+    /// <uwagi/>
+    Inclusive,
+    
+    /// <uwagi/>
+    Complex,
+    
+    /// <uwagi/>
+    AND,
+    
+    /// <uwagi/>
+    Parallel,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum JoinExclusiveType {
+    
+    /// <uwagi/>
+    Data,
+    
+    /// <uwagi/>
+    Event,
 }
 
 /// <uwagi/>
@@ -461,8 +6658,203 @@ public partial class Tool {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Split {
+    
+    private TransitionRefs transitionRefsField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private SplitType typeField;
+    
+    private bool typeFieldSpecified;
+    
+    private SplitExclusiveType exclusiveTypeField;
+    
+    private string outgoingConditionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Split() {
+        this.exclusiveTypeField = SplitExclusiveType.Data;
+    }
+    
+    /// <uwagi/>
+    public TransitionRefs TransitionRefs {
+        get {
+            return this.transitionRefsField;
+        }
+        set {
+            this.transitionRefsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public SplitType Type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool TypeSpecified {
+        get {
+            return this.typeFieldSpecified;
+        }
+        set {
+            this.typeFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(SplitExclusiveType.Data)]
+    public SplitExclusiveType ExclusiveType {
+        get {
+            return this.exclusiveTypeField;
+        }
+        set {
+            this.exclusiveTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string OutgoingCondition {
+        get {
+            return this.outgoingConditionField;
+        }
+        set {
+            this.outgoingConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TransitionRefs {
+    
+    private TransitionRef[] transitionRefField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("TransitionRef")]
+    public TransitionRef[] TransitionRef {
+        get {
+            return this.transitionRefField;
+        }
+        set {
+            this.transitionRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum SplitType {
+    
+    /// <uwagi/>
+    XOR,
+    
+    /// <uwagi/>
+    Exclusive,
+    
+    /// <uwagi/>
+    OR,
+    
+    /// <uwagi/>
+    Inclusive,
+    
+    /// <uwagi/>
+    Complex,
+    
+    /// <uwagi/>
+    AND,
+    
+    /// <uwagi/>
+    Parallel,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum SplitExclusiveType {
+    
+    /// <uwagi/>
+    Data,
+    
+    /// <uwagi/>
+    Event,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ExtendedAttribute {
     
     private System.Xml.XmlElement[] itemsField;
@@ -521,90 +6913,48 @@ public partial class ExtendedAttribute {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum ToolType {
-    
-    /// <uwagi/>
-    APPLICATION,
-    
-    /// <uwagi/>
-    PROCEDURE,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Route {
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class StartMode {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataFields {
     
-    private object itemField;
+    private DataField[] dataFieldField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Automatic", typeof(Automatic))]
-    [System.Xml.Serialization.XmlElementAttribute("Manual", typeof(Manual))]
-    public object Item {
+    [System.Xml.Serialization.XmlElementAttribute("DataField")]
+    public DataField[] DataField {
         get {
-            return this.itemField;
+            return this.dataFieldField;
         }
         set {
-            this.itemField = value;
+            this.dataFieldField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Automatic {
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Manual {
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class FinishMode {
-    
-    private object itemField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Automatic", typeof(Automatic))]
-    [System.Xml.Serialization.XmlElementAttribute("Manual", typeof(Manual))]
-    public object Item {
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
         get {
-            return this.itemField;
+            return this.anyField;
         }
         set {
-            this.itemField = value;
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -614,445 +6964,72 @@ public partial class FinishMode {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Deadline {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataField {
     
-    private object deadlineConditionField;
+    private DataType dataTypeField;
     
-    private object exceptionNameField;
+    private ExpressionType initialValueField;
     
-    private DeadlineExecution executionField;
+    private Length lengthField;
     
-    private bool executionFieldSpecified;
-    
-    /// <uwagi/>
-    public object DeadlineCondition {
-        get {
-            return this.deadlineConditionField;
-        }
-        set {
-            this.deadlineConditionField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public object ExceptionName {
-        get {
-            return this.exceptionNameField;
-        }
-        set {
-            this.exceptionNameField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public DeadlineExecution Execution {
-        get {
-            return this.executionField;
-        }
-        set {
-            this.executionField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool ExecutionSpecified {
-        get {
-            return this.executionFieldSpecified;
-        }
-        set {
-            this.executionFieldSpecified = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum DeadlineExecution {
-    
-    /// <uwagi/>
-    ASYNCHR,
-    
-    /// <uwagi/>
-    SYNCHR,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class SimulationInformation {
-    
-    private string costField;
-    
-    private TimeEstimation timeEstimationField;
-    
-    private SimulationInformationInstantiation instantiationField;
-    
-    private bool instantiationFieldSpecified;
-    
-    /// <uwagi/>
-    public string Cost {
-        get {
-            return this.costField;
-        }
-        set {
-            this.costField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public TimeEstimation TimeEstimation {
-        get {
-            return this.timeEstimationField;
-        }
-        set {
-            this.timeEstimationField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public SimulationInformationInstantiation Instantiation {
-        get {
-            return this.instantiationField;
-        }
-        set {
-            this.instantiationField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool InstantiationSpecified {
-        get {
-            return this.instantiationFieldSpecified;
-        }
-        set {
-            this.instantiationFieldSpecified = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class TimeEstimation {
-    
-    private string waitingTimeField;
-    
-    private string workingTimeField;
-    
-    private string durationField;
-    
-    /// <uwagi/>
-    public string WaitingTime {
-        get {
-            return this.waitingTimeField;
-        }
-        set {
-            this.waitingTimeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public string WorkingTime {
-        get {
-            return this.workingTimeField;
-        }
-        set {
-            this.workingTimeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public string Duration {
-        get {
-            return this.durationField;
-        }
-        set {
-            this.durationField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum SimulationInformationInstantiation {
-    
-    /// <uwagi/>
-    ONCE,
-    
-    /// <uwagi/>
-    MULTIPLE,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class TransitionRestriction {
-    
-    private Join joinField;
-    
-    private Split splitField;
-    
-    /// <uwagi/>
-    public Join Join {
-        get {
-            return this.joinField;
-        }
-        set {
-            this.joinField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public Split Split {
-        get {
-            return this.splitField;
-        }
-        set {
-            this.splitField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Join {
-    
-    private JoinType typeField;
-    
-    private bool typeFieldSpecified;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public JoinType Type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool TypeSpecified {
-        get {
-            return this.typeFieldSpecified;
-        }
-        set {
-            this.typeFieldSpecified = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum JoinType {
-    
-    /// <uwagi/>
-    AND,
-    
-    /// <uwagi/>
-    XOR,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Split {
-    
-    private TransitionRef[] transitionRefsField;
-    
-    private SplitType typeField;
-    
-    private bool typeFieldSpecified;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TransitionRef", IsNullable=false)]
-    public TransitionRef[] TransitionRefs {
-        get {
-            return this.transitionRefsField;
-        }
-        set {
-            this.transitionRefsField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public SplitType Type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool TypeSpecified {
-        get {
-            return this.typeFieldSpecified;
-        }
-        set {
-            this.typeFieldSpecified = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class TransitionRef {
-    
-    private string idField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum SplitType {
-    
-    /// <uwagi/>
-    AND,
-    
-    /// <uwagi/>
-    XOR,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class ActivitySet {
-    
-    private Activity[] activitiesField;
-    
-    private Transition[] transitionsField;
-    
-    private string idField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Activity", IsNullable=false)]
-    public Activity[] Activities {
-        get {
-            return this.activitiesField;
-        }
-        set {
-            this.activitiesField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Transition", IsNullable=false)]
-    public Transition[] Transitions {
-        get {
-            return this.transitionsField;
-        }
-        set {
-            this.transitionsField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Transition {
-    
-    private Condition conditionField;
-    
-    private string descriptionField;
+    private Description descriptionField;
     
     private ExtendedAttribute[] extendedAttributesField;
     
+    private System.Xml.XmlElement[] anyField;
+    
     private string idField;
-    
-    private string fromField;
-    
-    private string toField;
     
     private string nameField;
     
+    private bool readOnlyField;
+    
+    private bool isArrayField;
+    
+    private bool correlationField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public DataField() {
+        this.readOnlyField = false;
+        this.isArrayField = false;
+        this.correlationField = false;
+    }
+    
     /// <uwagi/>
-    public Condition Condition {
+    public DataType DataType {
         get {
-            return this.conditionField;
+            return this.dataTypeField;
         }
         set {
-            this.conditionField = value;
+            this.dataTypeField = value;
         }
     }
     
     /// <uwagi/>
-    public string Description {
+    public ExpressionType InitialValue {
+        get {
+            return this.initialValueField;
+        }
+        set {
+            this.initialValueField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Length Length {
+        get {
+            return this.lengthField;
+        }
+        set {
+            this.lengthField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Description Description {
         get {
             return this.descriptionField;
         }
@@ -1069,6 +7046,3267 @@ public partial class Transition {
         }
         set {
             this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool ReadOnly {
+        get {
+            return this.readOnlyField;
+        }
+        set {
+            this.readOnlyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool IsArray {
+        get {
+            return this.isArrayField;
+        }
+        set {
+            this.isArrayField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool Correlation {
+        get {
+            return this.correlationField;
+        }
+        set {
+            this.correlationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataType {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
+    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
+    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
+    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
+    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
+    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
+    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
+    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
+    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ArrayType {
+    
+    private object itemField;
+    
+    private string lowerIndexField;
+    
+    private string upperIndexField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
+    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
+    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
+    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
+    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
+    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
+    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
+    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
+    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string LowerIndex {
+        get {
+            return this.lowerIndexField;
+        }
+        set {
+            this.lowerIndexField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string UpperIndex {
+        get {
+            return this.upperIndexField;
+        }
+        set {
+            this.upperIndexField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class BasicType {
+    
+    private Length lengthField;
+    
+    private Precision precisionField;
+    
+    private Scale scaleField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private BasicTypeType typeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Length Length {
+        get {
+            return this.lengthField;
+        }
+        set {
+            this.lengthField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Precision Precision {
+        get {
+            return this.precisionField;
+        }
+        set {
+            this.precisionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Scale Scale {
+        get {
+            return this.scaleField;
+        }
+        set {
+            this.scaleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public BasicTypeType Type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Length {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Precision {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private short valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public short Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Scale {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private short valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public short Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum BasicTypeType {
+    
+    /// <uwagi/>
+    STRING,
+    
+    /// <uwagi/>
+    FLOAT,
+    
+    /// <uwagi/>
+    INTEGER,
+    
+    /// <uwagi/>
+    REFERENCE,
+    
+    /// <uwagi/>
+    DATETIME,
+    
+    /// <uwagi/>
+    DATE,
+    
+    /// <uwagi/>
+    TIME,
+    
+    /// <uwagi/>
+    BOOLEAN,
+    
+    /// <uwagi/>
+    PERFORMER,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DeclaredType {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="IDREF")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class EnumerationType {
+    
+    private EnumerationValue[] enumerationValueField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("EnumerationValue")]
+    public EnumerationValue[] EnumerationValue {
+        get {
+            return this.enumerationValueField;
+        }
+        set {
+            this.enumerationValueField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class EnumerationValue {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ListType {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
+    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
+    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
+    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
+    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
+    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
+    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
+    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
+    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class RecordType {
+    
+    private Member[] memberField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Member")]
+    public Member[] Member {
+        get {
+            return this.memberField;
+        }
+        set {
+            this.memberField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Member {
+    
+    private object itemField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
+    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
+    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
+    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
+    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
+    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
+    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
+    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
+    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class SchemaType {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class UnionType {
+    
+    private Member[] memberField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Member")]
+    public Member[] Member {
+        get {
+            return this.memberField;
+        }
+        set {
+            this.memberField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class FormalParameters {
+    
+    private FormalParameter[] itemsField;
+    
+    private object[] items1Field;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("FormalParameter")]
+    public FormalParameter[] Items {
+        get {
+            return this.itemsField;
+        }
+        set {
+            this.itemsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    [System.Xml.Serialization.XmlElementAttribute("Extensions", typeof(object))]
+    public object[] Items1 {
+        get {
+            return this.items1Field;
+        }
+        set {
+            this.items1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class FormalParameter {
+    
+    private DataType dataTypeField;
+    
+    private ExpressionType initialValueField;
+    
+    private Description descriptionField;
+    
+    private Length lengthField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private FormalParameterMode modeField;
+    
+    private string nameField;
+    
+    private bool readOnlyField;
+    
+    private bool requiredField;
+    
+    private bool isArrayField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public FormalParameter() {
+        this.modeField = FormalParameterMode.IN;
+        this.readOnlyField = false;
+        this.requiredField = false;
+        this.isArrayField = false;
+    }
+    
+    /// <uwagi/>
+    public DataType DataType {
+        get {
+            return this.dataTypeField;
+        }
+        set {
+            this.dataTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ExpressionType InitialValue {
+        get {
+            return this.initialValueField;
+        }
+        set {
+            this.initialValueField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Description Description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Length Length {
+        get {
+            return this.lengthField;
+        }
+        set {
+            this.lengthField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(FormalParameterMode.IN)]
+    public FormalParameterMode Mode {
+        get {
+            return this.modeField;
+        }
+        set {
+            this.modeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool ReadOnly {
+        get {
+            return this.readOnlyField;
+        }
+        set {
+            this.readOnlyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool Required {
+        get {
+            return this.requiredField;
+        }
+        set {
+            this.requiredField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool IsArray {
+        get {
+            return this.isArrayField;
+        }
+        set {
+            this.isArrayField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum FormalParameterMode {
+    
+    /// <uwagi/>
+    IN,
+    
+    /// <uwagi/>
+    OUT,
+    
+    /// <uwagi/>
+    INOUT,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class InputSets {
+    
+    private InputSet[] inputSetField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("InputSet")]
+    public InputSet[] InputSet {
+        get {
+            return this.inputSetField;
+        }
+        set {
+            this.inputSetField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class InputSet {
+    
+    private Input[] inputField;
+    
+    private ArtifactInput[] artifactInputField;
+    
+    private PropertyInput[] propertyInputField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Input")]
+    public Input[] Input {
+        get {
+            return this.inputField;
+        }
+        set {
+            this.inputField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ArtifactInput")]
+    public ArtifactInput[] ArtifactInput {
+        get {
+            return this.artifactInputField;
+        }
+        set {
+            this.artifactInputField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("PropertyInput")]
+    public PropertyInput[] PropertyInput {
+        get {
+            return this.propertyInputField;
+        }
+        set {
+            this.propertyInputField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Input {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string artifactIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ArtifactId {
+        get {
+            return this.artifactIdField;
+        }
+        set {
+            this.artifactIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ArtifactInput {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string artifactIdField;
+    
+    private bool requiredForStartField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public ArtifactInput() {
+        this.requiredForStartField = true;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ArtifactId {
+        get {
+            return this.artifactIdField;
+        }
+        set {
+            this.artifactIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(true)]
+    public bool RequiredForStart {
+        get {
+            return this.requiredForStartField;
+        }
+        set {
+            this.requiredForStartField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PropertyInput {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string propertyIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PropertyId {
+        get {
+            return this.propertyIdField;
+        }
+        set {
+            this.propertyIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class OutputSets {
+    
+    private OutputSet[] outputSetField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("OutputSet")]
+    public OutputSet[] OutputSet {
+        get {
+            return this.outputSetField;
+        }
+        set {
+            this.outputSetField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class OutputSet {
+    
+    private Output[] outputField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Output")]
+    public Output[] Output {
+        get {
+            return this.outputField;
+        }
+        set {
+            this.outputField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Output {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string artifactIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ArtifactId {
+        get {
+            return this.artifactIdField;
+        }
+        set {
+            this.artifactIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class IORules {
+    
+    private ExpressionType[] expressionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Expression")]
+    public ExpressionType[] Expression {
+        get {
+            return this.expressionField;
+        }
+        set {
+            this.expressionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Loop {
+    
+    private object itemField;
+    
+    private LoopLoopType loopTypeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("LoopMultiInstance", typeof(LoopMultiInstance))]
+    [System.Xml.Serialization.XmlElementAttribute("LoopStandard", typeof(LoopStandard))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public LoopLoopType LoopType {
+        get {
+            return this.loopTypeField;
+        }
+        set {
+            this.loopTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class LoopMultiInstance {
+    
+    private ExpressionType mI_ConditionField;
+    
+    private ExpressionType complexMI_FlowConditionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string mI_Condition1Field;
+    
+    private string loopCounterField;
+    
+    private LoopMultiInstanceMI_Ordering mI_OrderingField;
+    
+    private LoopMultiInstanceMI_FlowCondition mI_FlowConditionField;
+    
+    private string complexMI_FlowCondition1Field;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public LoopMultiInstance() {
+        this.mI_OrderingField = LoopMultiInstanceMI_Ordering.Parallel;
+        this.mI_FlowConditionField = LoopMultiInstanceMI_FlowCondition.All;
+    }
+    
+    /// <uwagi/>
+    public ExpressionType MI_Condition {
+        get {
+            return this.mI_ConditionField;
+        }
+        set {
+            this.mI_ConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ExpressionType ComplexMI_FlowCondition {
+        get {
+            return this.complexMI_FlowConditionField;
+        }
+        set {
+            this.complexMI_FlowConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute("MI_Condition")]
+    public string MI_Condition1 {
+        get {
+            return this.mI_Condition1Field;
+        }
+        set {
+            this.mI_Condition1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string LoopCounter {
+        get {
+            return this.loopCounterField;
+        }
+        set {
+            this.loopCounterField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(LoopMultiInstanceMI_Ordering.Parallel)]
+    public LoopMultiInstanceMI_Ordering MI_Ordering {
+        get {
+            return this.mI_OrderingField;
+        }
+        set {
+            this.mI_OrderingField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(LoopMultiInstanceMI_FlowCondition.All)]
+    public LoopMultiInstanceMI_FlowCondition MI_FlowCondition {
+        get {
+            return this.mI_FlowConditionField;
+        }
+        set {
+            this.mI_FlowConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute("ComplexMI_FlowCondition")]
+    public string ComplexMI_FlowCondition1 {
+        get {
+            return this.complexMI_FlowCondition1Field;
+        }
+        set {
+            this.complexMI_FlowCondition1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum LoopMultiInstanceMI_Ordering {
+    
+    /// <uwagi/>
+    Sequential,
+    
+    /// <uwagi/>
+    Parallel,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum LoopMultiInstanceMI_FlowCondition {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    One,
+    
+    /// <uwagi/>
+    All,
+    
+    /// <uwagi/>
+    Complex,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class LoopStandard {
+    
+    private ExpressionType loopConditionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string loopCondition1Field;
+    
+    private string loopCounterField;
+    
+    private string loopMaximumField;
+    
+    private LoopStandardTestTime testTimeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public LoopStandard() {
+        this.testTimeField = LoopStandardTestTime.After;
+    }
+    
+    /// <uwagi/>
+    public ExpressionType LoopCondition {
+        get {
+            return this.loopConditionField;
+        }
+        set {
+            this.loopConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute("LoopCondition")]
+    public string LoopCondition1 {
+        get {
+            return this.loopCondition1Field;
+        }
+        set {
+            this.loopCondition1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string LoopCounter {
+        get {
+            return this.loopCounterField;
+        }
+        set {
+            this.loopCounterField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string LoopMaximum {
+        get {
+            return this.loopMaximumField;
+        }
+        set {
+            this.loopMaximumField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(LoopStandardTestTime.After)]
+    public LoopStandardTestTime TestTime {
+        get {
+            return this.testTimeField;
+        }
+        set {
+            this.testTimeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum LoopStandardTestTime {
+    
+    /// <uwagi/>
+    Before,
+    
+    /// <uwagi/>
+    After,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum LoopLoopType {
+    
+    /// <uwagi/>
+    Standard,
+    
+    /// <uwagi/>
+    MultiInstance,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Object {
+    
+    private Categories categoriesField;
+    
+    private Documentation documentationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Categories Categories {
+        get {
+            return this.categoriesField;
+        }
+        set {
+            this.categoriesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Documentation Documentation {
+        get {
+            return this.documentationField;
+        }
+        set {
+            this.documentationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Categories {
+    
+    private Category[] categoryField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Category")]
+    public Category[] Category {
+        get {
+            return this.categoryField;
+        }
+        set {
+            this.categoryField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Category {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class NodeGraphicsInfos {
+    
+    private NodeGraphicsInfo[] nodeGraphicsInfoField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("NodeGraphicsInfo")]
+    public NodeGraphicsInfo[] NodeGraphicsInfo {
+        get {
+            return this.nodeGraphicsInfoField;
+        }
+        set {
+            this.nodeGraphicsInfoField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class NodeGraphicsInfo {
+    
+    private Coordinates coordinatesField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string toolIdField;
+    
+    private bool isVisibleField;
+    
+    private string pageField;
+    
+    private string pageIdField;
+    
+    private string laneIdField;
+    
+    private double heightField;
+    
+    private bool heightFieldSpecified;
+    
+    private double widthField;
+    
+    private bool widthFieldSpecified;
+    
+    private string borderColorField;
+    
+    private string fillColorField;
+    
+    private string shapeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public NodeGraphicsInfo() {
+        this.isVisibleField = true;
+    }
+    
+    /// <uwagi/>
+    public Coordinates Coordinates {
+        get {
+            return this.coordinatesField;
+        }
+        set {
+            this.coordinatesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ToolId {
+        get {
+            return this.toolIdField;
+        }
+        set {
+            this.toolIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(true)]
+    public bool IsVisible {
+        get {
+            return this.isVisibleField;
+        }
+        set {
+            this.isVisibleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Page {
+        get {
+            return this.pageField;
+        }
+        set {
+            this.pageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PageId {
+        get {
+            return this.pageIdField;
+        }
+        set {
+            this.pageIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string LaneId {
+        get {
+            return this.laneIdField;
+        }
+        set {
+            this.laneIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public double Height {
+        get {
+            return this.heightField;
+        }
+        set {
+            this.heightField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool HeightSpecified {
+        get {
+            return this.heightFieldSpecified;
+        }
+        set {
+            this.heightFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public double Width {
+        get {
+            return this.widthField;
+        }
+        set {
+            this.widthField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool WidthSpecified {
+        get {
+            return this.widthFieldSpecified;
+        }
+        set {
+            this.widthFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string BorderColor {
+        get {
+            return this.borderColorField;
+        }
+        set {
+            this.borderColorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string FillColor {
+        get {
+            return this.fillColorField;
+        }
+        set {
+            this.fillColorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Shape {
+        get {
+            return this.shapeField;
+        }
+        set {
+            this.shapeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Coordinates {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private double xCoordinateField;
+    
+    private bool xCoordinateFieldSpecified;
+    
+    private double yCoordinateField;
+    
+    private bool yCoordinateFieldSpecified;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public double XCoordinate {
+        get {
+            return this.xCoordinateField;
+        }
+        set {
+            this.xCoordinateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool XCoordinateSpecified {
+        get {
+            return this.xCoordinateFieldSpecified;
+        }
+        set {
+            this.xCoordinateFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public double YCoordinate {
+        get {
+            return this.yCoordinateField;
+        }
+        set {
+            this.yCoordinateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool YCoordinateSpecified {
+        get {
+            return this.yCoordinateFieldSpecified;
+        }
+        set {
+            this.yCoordinateFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ActivityStatus {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    Ready,
+    
+    /// <uwagi/>
+    Active,
+    
+    /// <uwagi/>
+    Cancelled,
+    
+    /// <uwagi/>
+    Aborting,
+    
+    /// <uwagi/>
+    Aborted,
+    
+    /// <uwagi/>
+    Completing,
+    
+    /// <uwagi/>
+    Completed,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ActivityStartMode {
+    
+    /// <uwagi/>
+    Automatic,
+    
+    /// <uwagi/>
+    Manual,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ActivityFinishMode {
+    
+    /// <uwagi/>
+    Automatic,
+    
+    /// <uwagi/>
+    Manual,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ActivitySet {
+    
+    private Activities activitiesField;
+    
+    private DataObjects dataObjectsField;
+    
+    private DataStoreReferences dataStoreReferencesField;
+    
+    private Transitions transitionsField;
+    
+    private DataAssociations dataAssociationsField;
+    
+    private Object objectField;
+    
+    private Associations associationsField;
+    
+    private Artifacts artifactsField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private bool adHocField;
+    
+    private ActivitySetAdHocOrdering adHocOrderingField;
+    
+    private string adHocCompletionConditionField;
+    
+    private string defaultStartActivityIdField;
+    
+    private bool triggeredByEventField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public ActivitySet() {
+        this.adHocField = false;
+        this.adHocOrderingField = ActivitySetAdHocOrdering.Parallel;
+        this.triggeredByEventField = false;
+    }
+    
+    /// <uwagi/>
+    public Activities Activities {
+        get {
+            return this.activitiesField;
+        }
+        set {
+            this.activitiesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataObjects DataObjects {
+        get {
+            return this.dataObjectsField;
+        }
+        set {
+            this.dataObjectsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataStoreReferences DataStoreReferences {
+        get {
+            return this.dataStoreReferencesField;
+        }
+        set {
+            this.dataStoreReferencesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Transitions Transitions {
+        get {
+            return this.transitionsField;
+        }
+        set {
+            this.transitionsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataAssociations DataAssociations {
+        get {
+            return this.dataAssociationsField;
+        }
+        set {
+            this.dataAssociationsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Associations Associations {
+        get {
+            return this.associationsField;
+        }
+        set {
+            this.associationsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Artifacts Artifacts {
+        get {
+            return this.artifactsField;
+        }
+        set {
+            this.artifactsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool AdHoc {
+        get {
+            return this.adHocField;
+        }
+        set {
+            this.adHocField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(ActivitySetAdHocOrdering.Parallel)]
+    public ActivitySetAdHocOrdering AdHocOrdering {
+        get {
+            return this.adHocOrderingField;
+        }
+        set {
+            this.adHocOrderingField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string AdHocCompletionCondition {
+        get {
+            return this.adHocCompletionConditionField;
+        }
+        set {
+            this.adHocCompletionConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string DefaultStartActivityId {
+        get {
+            return this.defaultStartActivityIdField;
+        }
+        set {
+            this.defaultStartActivityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool TriggeredByEvent {
+        get {
+            return this.triggeredByEventField;
+        }
+        set {
+            this.triggeredByEventField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataObjects {
+    
+    private DataObject[] dataObjectField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataObject")]
+    public DataObject[] DataObject {
+        get {
+            return this.dataObjectField;
+        }
+        set {
+            this.dataObjectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataObject {
+    
+    private DataObjectDataFieldRef[] dataFieldRefField;
+    
+    private Object objectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string stateField;
+    
+    private bool requiredForStartField;
+    
+    private bool requiredForStartFieldSpecified;
+    
+    private bool producedAtCompletionField;
+    
+    private bool producedAtCompletionFieldSpecified;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataFieldRef")]
+    public DataObjectDataFieldRef[] DataFieldRef {
+        get {
+            return this.dataFieldRefField;
+        }
+        set {
+            this.dataFieldRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public NodeGraphicsInfos NodeGraphicsInfos {
+        get {
+            return this.nodeGraphicsInfosField;
+        }
+        set {
+            this.nodeGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string State {
+        get {
+            return this.stateField;
+        }
+        set {
+            this.stateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool RequiredForStart {
+        get {
+            return this.requiredForStartField;
+        }
+        set {
+            this.requiredForStartField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool RequiredForStartSpecified {
+        get {
+            return this.requiredForStartFieldSpecified;
+        }
+        set {
+            this.requiredForStartFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool ProducedAtCompletion {
+        get {
+            return this.producedAtCompletionField;
+        }
+        set {
+            this.producedAtCompletionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool ProducedAtCompletionSpecified {
+        get {
+            return this.producedAtCompletionFieldSpecified;
+        }
+        set {
+            this.producedAtCompletionFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class DataObjectDataFieldRef {
+    
+    private string idField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataStoreReferences {
+    
+    private DataStoreReference[] dataStoreReferenceField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataStoreReference")]
+    public DataStoreReference[] DataStoreReference {
+        get {
+            return this.dataStoreReferenceField;
+        }
+        set {
+            this.dataStoreReferenceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataStoreReference {
+    
+    private Object objectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string dataStoreRefField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string stateField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public NodeGraphicsInfos NodeGraphicsInfos {
+        get {
+            return this.nodeGraphicsInfosField;
+        }
+        set {
+            this.nodeGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string DataStoreRef {
+        get {
+            return this.dataStoreRefField;
+        }
+        set {
+            this.dataStoreRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string State {
+        get {
+            return this.stateField;
+        }
+        set {
+            this.stateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Transitions {
+    
+    private Transition[] transitionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Transition")]
+    public Transition[] Transition {
+        get {
+            return this.transitionField;
+        }
+        set {
+            this.transitionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Transition {
+    
+    private Condition conditionField;
+    
+    private Description descriptionField;
+    
+    private ExtendedAttribute[] extendedAttributesField;
+    
+    private Assignments assignmentsField;
+    
+    private Object objectField;
+    
+    private ConnectorGraphicsInfos connectorGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string fromField;
+    
+    private string toField;
+    
+    private string nameField;
+    
+    private int quantityField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Transition() {
+        this.quantityField = 1;
+    }
+    
+    /// <uwagi/>
+    public Condition Condition {
+        get {
+            return this.conditionField;
+        }
+        set {
+            this.conditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Description Description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlArrayItemAttribute("ExtendedAttribute", IsNullable=false)]
+    public ExtendedAttribute[] ExtendedAttributes {
+        get {
+            return this.extendedAttributesField;
+        }
+        set {
+            this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Assignments Assignments {
+        get {
+            return this.assignmentsField;
+        }
+        set {
+            this.assignmentsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ConnectorGraphicsInfos ConnectorGraphicsInfos {
+        get {
+            return this.connectorGraphicsInfosField;
+        }
+        set {
+            this.connectorGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
@@ -1115,6 +10353,29 @@ public partial class Transition {
             this.nameField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(1)]
+    public int Quantity {
+        get {
+            return this.quantityField;
+        }
+        set {
+            this.quantityField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -1122,11 +10383,11 @@ public partial class Transition {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Condition {
     
-    private Xpression[] itemsField;
+    private ExpressionType itemField;
     
     private string[] textField;
     
@@ -1134,14 +10395,16 @@ public partial class Condition {
     
     private bool typeFieldSpecified;
     
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Xpression")]
-    public Xpression[] Items {
+    [System.Xml.Serialization.XmlElementAttribute("Expression")]
+    public ExpressionType Item {
         get {
-            return this.itemsField;
+            return this.itemField;
         }
         set {
-            this.itemsField = value;
+            this.itemField = value;
         }
     }
     
@@ -1177,40 +10440,15 @@ public partial class Condition {
             this.typeFieldSpecified = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Xpression {
-    
-    private System.Xml.XmlElement[] itemsField;
-    
-    private string[] textField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlAnyElementAttribute()]
-    public System.Xml.XmlElement[] Items {
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
         get {
-            return this.itemsField;
+            return this.anyAttrField;
         }
         set {
-            this.itemsField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlTextAttribute()]
-    public string[] Text {
-        get {
-            return this.textField;
-        }
-        set {
-            this.textField = value;
+            this.anyAttrField = value;
         }
     }
 }
@@ -1218,7 +10456,7 @@ public partial class Xpression {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
 public enum ConditionType {
     
     /// <uwagi/>
@@ -1239,11 +10477,942 @@ public enum ConditionType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ConnectorGraphicsInfos {
+    
+    private ConnectorGraphicsInfo[] connectorGraphicsInfoField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("ConnectorGraphicsInfo")]
+    public ConnectorGraphicsInfo[] ConnectorGraphicsInfo {
+        get {
+            return this.connectorGraphicsInfoField;
+        }
+        set {
+            this.connectorGraphicsInfoField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ConnectorGraphicsInfo {
+    
+    private Coordinates[] coordinatesField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string toolIdField;
+    
+    private bool isVisibleField;
+    
+    private string pageField;
+    
+    private string pageIdField;
+    
+    private string styleField;
+    
+    private string borderColorField;
+    
+    private string fillColorField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public ConnectorGraphicsInfo() {
+        this.isVisibleField = true;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Coordinates")]
+    public Coordinates[] Coordinates {
+        get {
+            return this.coordinatesField;
+        }
+        set {
+            this.coordinatesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ToolId {
+        get {
+            return this.toolIdField;
+        }
+        set {
+            this.toolIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(true)]
+    public bool IsVisible {
+        get {
+            return this.isVisibleField;
+        }
+        set {
+            this.isVisibleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Page {
+        get {
+            return this.pageField;
+        }
+        set {
+            this.pageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PageId {
+        get {
+            return this.pageIdField;
+        }
+        set {
+            this.pageIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Style {
+        get {
+            return this.styleField;
+        }
+        set {
+            this.styleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string BorderColor {
+        get {
+            return this.borderColorField;
+        }
+        set {
+            this.borderColorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string FillColor {
+        get {
+            return this.fillColorField;
+        }
+        set {
+            this.fillColorField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataAssociations {
+    
+    private DataAssociation[] dataAssociationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataAssociation")]
+    public DataAssociation[] DataAssociation {
+        get {
+            return this.dataAssociationField;
+        }
+        set {
+            this.dataAssociationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataAssociation {
+    
+    private Description descriptionField;
+    
+    private ExtendedAttribute[] extendedAttributesField;
+    
+    private Object objectField;
+    
+    private ConnectorGraphicsInfos connectorGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string fromField;
+    
+    private string toField;
+    
+    private string actualParameterRefField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Description Description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlArrayItemAttribute("ExtendedAttribute", IsNullable=false)]
+    public ExtendedAttribute[] ExtendedAttributes {
+        get {
+            return this.extendedAttributesField;
+        }
+        set {
+            this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ConnectorGraphicsInfos ConnectorGraphicsInfos {
+        get {
+            return this.connectorGraphicsInfosField;
+        }
+        set {
+            this.connectorGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string From {
+        get {
+            return this.fromField;
+        }
+        set {
+            this.fromField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string To {
+        get {
+            return this.toField;
+        }
+        set {
+            this.toField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ActualParameterRef {
+        get {
+            return this.actualParameterRefField;
+        }
+        set {
+            this.actualParameterRefField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Associations {
+    
+    private Association[] associationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Association")]
+    public Association[] Association {
+        get {
+            return this.associationField;
+        }
+        set {
+            this.associationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Association {
+    
+    private Object objectField;
+    
+    private ConnectorGraphicsInfos connectorGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string sourceField;
+    
+    private string targetField;
+    
+    private string nameField;
+    
+    private AssociationAssociationDirection associationDirectionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Association() {
+        this.associationDirectionField = AssociationAssociationDirection.None;
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ConnectorGraphicsInfos ConnectorGraphicsInfos {
+        get {
+            return this.connectorGraphicsInfosField;
+        }
+        set {
+            this.connectorGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Source {
+        get {
+            return this.sourceField;
+        }
+        set {
+            this.sourceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Target {
+        get {
+            return this.targetField;
+        }
+        set {
+            this.targetField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(AssociationAssociationDirection.None)]
+    public AssociationAssociationDirection AssociationDirection {
+        get {
+            return this.associationDirectionField;
+        }
+        set {
+            this.associationDirectionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum AssociationAssociationDirection {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    To,
+    
+    /// <uwagi/>
+    From,
+    
+    /// <uwagi/>
+    Both,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Artifacts {
+    
+    private Artifact[] artifactField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Artifact")]
+    public Artifact[] Artifact {
+        get {
+            return this.artifactField;
+        }
+        set {
+            this.artifactField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Artifact {
+    
+    private Object objectField;
+    
+    private Group groupField;
+    
+    private DataObject dataObjectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private ArtifactArtifactType artifactTypeField;
+    
+    private string textAnnotationField;
+    
+    private string group1Field;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Group Group {
+        get {
+            return this.groupField;
+        }
+        set {
+            this.groupField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataObject DataObject {
+        get {
+            return this.dataObjectField;
+        }
+        set {
+            this.dataObjectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public NodeGraphicsInfos NodeGraphicsInfos {
+        get {
+            return this.nodeGraphicsInfosField;
+        }
+        set {
+            this.nodeGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public ArtifactArtifactType ArtifactType {
+        get {
+            return this.artifactTypeField;
+        }
+        set {
+            this.artifactTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string TextAnnotation {
+        get {
+            return this.textAnnotationField;
+        }
+        set {
+            this.textAnnotationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute("Group")]
+    public string Group1 {
+        get {
+            return this.group1Field;
+        }
+        set {
+            this.group1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Group {
+    
+    private Category categoryField;
+    
+    private GroupObject[] objectField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Category Category {
+        get {
+            return this.categoryField;
+        }
+        set {
+            this.categoryField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Object")]
+    public GroupObject[] Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class GroupObject {
+    
+    private string idField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ArtifactArtifactType {
+    
+    /// <uwagi/>
+    DataObject,
+    
+    /// <uwagi/>
+    Group,
+    
+    /// <uwagi/>
+    Annotation,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ActivitySetAdHocOrdering {
+    
+    /// <uwagi/>
+    Sequential,
+    
+    /// <uwagi/>
+    Parallel,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ActivitySets {
     
     private ActivitySet[] activitySetField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlElementAttribute("ActivitySet")]
@@ -1255,27 +11424,26 @@ public partial class ActivitySets {
             this.activitySetField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class ActualParameters {
-    
-    private string[] actualParameterField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("ActualParameter")]
-    public string[] ActualParameter {
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
         get {
-            return this.actualParameterField;
+            return this.anyField;
         }
         set {
-            this.actualParameterField = value;
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -1285,27 +11453,43 @@ public partial class ActualParameters {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Application {
     
-    private string descriptionField;
+    private Description descriptionField;
+    
+    private ApplicationType typeField;
     
     private object itemField;
     
     private ExtendedAttribute[] extendedAttributesField;
     
+    private System.Xml.XmlElement[] anyField;
+    
     private string idField;
     
     private string nameField;
     
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
     /// <uwagi/>
-    public string Description {
+    public Description Description {
         get {
             return this.descriptionField;
         }
         set {
             this.descriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ApplicationType Type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
         }
     }
     
@@ -1333,497 +11517,6 @@ public partial class Application {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string Name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class ExternalReference {
-    
-    private string xrefField;
-    
-    private string locationField;
-    
-    private string namespaceField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string xref {
-        get {
-            return this.xrefField;
-        }
-        set {
-            this.xrefField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string location {
-        get {
-            return this.locationField;
-        }
-        set {
-            this.locationField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string @namespace {
-        get {
-            return this.namespaceField;
-        }
-        set {
-            this.namespaceField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class FormalParameters {
-    
-    private FormalParameter[] formalParameterField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("FormalParameter")]
-    public FormalParameter[] FormalParameter {
-        get {
-            return this.formalParameterField;
-        }
-        set {
-            this.formalParameterField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class FormalParameter {
-    
-    private DataType dataTypeField;
-    
-    private string descriptionField;
-    
-    private string idField;
-    
-    private string indexField;
-    
-    private FormalParameterMode modeField;
-    
-    public FormalParameter() {
-        this.modeField = FormalParameterMode.IN;
-    }
-    
-    /// <uwagi/>
-    public DataType DataType {
-        get {
-            return this.dataTypeField;
-        }
-        set {
-            this.dataTypeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public string Description {
-        get {
-            return this.descriptionField;
-        }
-        set {
-            this.descriptionField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Index {
-        get {
-            return this.indexField;
-        }
-        set {
-            this.indexField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    [System.ComponentModel.DefaultValueAttribute(FormalParameterMode.IN)]
-    public FormalParameterMode Mode {
-        get {
-            return this.modeField;
-        }
-        set {
-            this.modeField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class DataType {
-    
-    private object itemField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
-    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
-    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
-    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
-    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
-    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
-    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
-    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
-    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
-    public object Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class ArrayType {
-    
-    private object itemField;
-    
-    private string lowerIndexField;
-    
-    private string upperIndexField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
-    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
-    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
-    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
-    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
-    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
-    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
-    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
-    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
-    public object Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string LowerIndex {
-        get {
-            return this.lowerIndexField;
-        }
-        set {
-            this.lowerIndexField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string UpperIndex {
-        get {
-            return this.upperIndexField;
-        }
-        set {
-            this.upperIndexField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class BasicType {
-    
-    private BasicTypeType typeField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public BasicTypeType Type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum BasicTypeType {
-    
-    /// <uwagi/>
-    STRING,
-    
-    /// <uwagi/>
-    FLOAT,
-    
-    /// <uwagi/>
-    INTEGER,
-    
-    /// <uwagi/>
-    REFERENCE,
-    
-    /// <uwagi/>
-    DATETIME,
-    
-    /// <uwagi/>
-    BOOLEAN,
-    
-    /// <uwagi/>
-    PERFORMER,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class DeclaredType {
-    
-    private string idField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="IDREF")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class EnumerationType {
-    
-    private EnumerationValue[] enumerationValueField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("EnumerationValue")]
-    public EnumerationValue[] EnumerationValue {
-        get {
-            return this.enumerationValueField;
-        }
-        set {
-            this.enumerationValueField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class EnumerationValue {
-    
-    private string nameField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
-    public string Name {
-        get {
-            return this.nameField;
-        }
-        set {
-            this.nameField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class ListType {
-    
-    private object itemField;
-    
-    private ItemChoiceType itemElementNameField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
-    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
-    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
-    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
-    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
-    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
-    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
-    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
-    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public object Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType ItemElementName {
-        get {
-            return this.itemElementNameField;
-        }
-        set {
-            this.itemElementNameField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class RecordType {
-    
-    private Member[] memberField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Member")]
-    public Member[] Member {
-        get {
-            return this.memberField;
-        }
-        set {
-            this.memberField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Member {
-    
-    private object itemField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
-    [System.Xml.Serialization.XmlElementAttribute("BasicType", typeof(BasicType))]
-    [System.Xml.Serialization.XmlElementAttribute("DeclaredType", typeof(DeclaredType))]
-    [System.Xml.Serialization.XmlElementAttribute("EnumerationType", typeof(EnumerationType))]
-    [System.Xml.Serialization.XmlElementAttribute("ExternalReference", typeof(ExternalReference))]
-    [System.Xml.Serialization.XmlElementAttribute("ListType", typeof(ListType))]
-    [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
-    [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
-    [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
-    public object Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class SchemaType {
-    
-    private System.Xml.XmlElement[] anyField;
-    
-    /// <uwagi/>
     [System.Xml.Serialization.XmlAnyElementAttribute()]
     public System.Xml.XmlElement[] Any {
         get {
@@ -1833,27 +11526,37 @@ public partial class SchemaType {
             this.anyField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class UnionType {
-    
-    private Member[] memberField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Member")]
-    public Member[] Member {
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
         get {
-            return this.memberField;
+            return this.idField;
         }
         set {
-            this.memberField = value;
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -1861,63 +11564,17 @@ public partial class UnionType {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IncludeInSchema=false)]
-public enum ItemChoiceType {
-    
-    /// <uwagi/>
-    ArrayType,
-    
-    /// <uwagi/>
-    BasicType,
-    
-    /// <uwagi/>
-    DeclaredType,
-    
-    /// <uwagi/>
-    EnumerationType,
-    
-    /// <uwagi/>
-    ExternalReference,
-    
-    /// <uwagi/>
-    ListType,
-    
-    /// <uwagi/>
-    RecordType,
-    
-    /// <uwagi/>
-    SchemaType,
-    
-    /// <uwagi/>
-    UnionType,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum FormalParameterMode {
-    
-    /// <uwagi/>
-    IN,
-    
-    /// <uwagi/>
-    OUT,
-    
-    /// <uwagi/>
-    INOUT,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Applications {
     
     private Application[] applicationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlElementAttribute("Application")]
@@ -1929,6 +11586,28 @@ public partial class Applications {
             this.applicationField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -1936,16 +11615,109 @@ public partial class Applications {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Author {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Codepage {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ConformanceClass {
+    
+    private System.Xml.XmlElement[] anyField;
     
     private ConformanceClassGraphConformance graphConformanceField;
     
-    private bool graphConformanceFieldSpecified;
+    private ConformanceClassBPMNModelPortabilityConformance bPMNModelPortabilityConformanceField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public ConformanceClass() {
+        this.graphConformanceField = ConformanceClassGraphConformance.NON_BLOCKED;
+        this.bPMNModelPortabilityConformanceField = ConformanceClassBPMNModelPortabilityConformance.NONE;
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(ConformanceClassGraphConformance.NON_BLOCKED)]
     public ConformanceClassGraphConformance GraphConformance {
         get {
             return this.graphConformanceField;
@@ -1956,13 +11728,25 @@ public partial class ConformanceClass {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool GraphConformanceSpecified {
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(ConformanceClassBPMNModelPortabilityConformance.NONE)]
+    public ConformanceClassBPMNModelPortabilityConformance BPMNModelPortabilityConformance {
         get {
-            return this.graphConformanceFieldSpecified;
+            return this.bPMNModelPortabilityConformanceField;
         }
         set {
-            this.graphConformanceFieldSpecified = value;
+            this.bPMNModelPortabilityConformanceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -1970,7 +11754,7 @@ public partial class ConformanceClass {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
 public enum ConformanceClassGraphConformance {
     
     /// <uwagi/>
@@ -1986,80 +11770,194 @@ public enum ConformanceClassGraphConformance {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ConformanceClassBPMNModelPortabilityConformance {
+    
+    /// <uwagi/>
+    NONE,
+    
+    /// <uwagi/>
+    SIMPLE,
+    
+    /// <uwagi/>
+    STANDARD,
+    
+    /// <uwagi/>
+    COMPLETE,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class DataField {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class CostUnit {
     
-    private DataType dataTypeField;
+    private System.Xml.XmlAttribute[] anyAttrField;
     
-    private string initialValueField;
+    private string valueField;
     
-    private string lengthField;
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
     
-    private string descriptionField;
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Countrykey {
     
-    private ExtendedAttribute[] extendedAttributesField;
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Created {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute("DataInput", Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataInputOutput {
+    
+    private DataInputOutputFormalParameterRef[] formalParameterRefField;
+    
+    private Object objectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
     
     private string idField;
     
     private string nameField;
     
-    private DataFieldIsArray isArrayField;
+    private string stateField;
     
-    public DataField() {
-        this.isArrayField = DataFieldIsArray.FALSE;
-    }
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
-    public DataType DataType {
+    [System.Xml.Serialization.XmlElementAttribute("FormalParameterRef")]
+    public DataInputOutputFormalParameterRef[] FormalParameterRef {
         get {
-            return this.dataTypeField;
+            return this.formalParameterRefField;
         }
         set {
-            this.dataTypeField = value;
-        }
-    }
-    
-    /// <uwagi/>
-    public string InitialValue {
-        get {
-            return this.initialValueField;
-        }
-        set {
-            this.initialValueField = value;
+            this.formalParameterRefField = value;
         }
     }
     
     /// <uwagi/>
-    public string Length {
+    public Object Object {
         get {
-            return this.lengthField;
+            return this.objectField;
         }
         set {
-            this.lengthField = value;
+            this.objectField = value;
         }
     }
     
     /// <uwagi/>
-    public string Description {
+    public NodeGraphicsInfos NodeGraphicsInfos {
         get {
-            return this.descriptionField;
+            return this.nodeGraphicsInfosField;
         }
         set {
-            this.descriptionField = value;
+            this.nodeGraphicsInfosField = value;
         }
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ExtendedAttribute", IsNullable=false)]
-    public ExtendedAttribute[] ExtendedAttributes {
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
         get {
-            return this.extendedAttributesField;
+            return this.anyField;
         }
         set {
-            this.extendedAttributesField = value;
+            this.anyField = value;
         }
     }
     
@@ -2087,49 +11985,23 @@ public partial class DataField {
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    [System.ComponentModel.DefaultValueAttribute(DataFieldIsArray.FALSE)]
-    public DataFieldIsArray IsArray {
+    public string State {
         get {
-            return this.isArrayField;
+            return this.stateField;
         }
         set {
-            this.isArrayField = value;
+            this.stateField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum DataFieldIsArray {
     
     /// <uwagi/>
-    TRUE,
-    
-    /// <uwagi/>
-    FALSE,
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class DataFields {
-    
-    private DataField[] dataFieldField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("DataField")]
-    public DataField[] DataField {
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
         get {
-            return this.dataFieldField;
+            return this.anyAttrField;
         }
         set {
-            this.dataFieldField = value;
+            this.anyAttrField = value;
         }
     }
 }
@@ -2139,8 +12011,246 @@ public partial class DataFields {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class DataInputOutputFormalParameterRef {
+    
+    private string idField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataInputOutputs {
+    
+    private DataInputOutput[] dataInputField;
+    
+    private DataInputOutput[] dataOutputField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataInput")]
+    public DataInputOutput[] DataInput {
+        get {
+            return this.dataInputField;
+        }
+        set {
+            this.dataInputField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataOutput")]
+    public DataInputOutput[] DataOutput {
+        get {
+            return this.dataOutputField;
+        }
+        set {
+            this.dataOutputField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataStore {
+    
+    private Object objectField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string capacityField;
+    
+    private bool isUnlimitedField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public DataStore() {
+        this.isUnlimitedField = false;
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string Capacity {
+        get {
+            return this.capacityField;
+        }
+        set {
+            this.capacityField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool IsUnlimited {
+        get {
+            return this.isUnlimitedField;
+        }
+        set {
+            this.isUnlimitedField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class DataStores {
+    
+    private DataStore[] dataStoreField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("DataStore")]
+    public DataStore[] DataStore {
+        get {
+            return this.dataStoreField;
+        }
+        set {
+            this.dataStoreField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ExtendedAttributes {
     
     private ExtendedAttribute[] extendedAttributeField;
@@ -2162,13 +12272,21 @@ public partial class ExtendedAttributes {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ExternalPackage {
     
     private ExtendedAttribute[] extendedAttributesField;
     
+    private System.Xml.XmlElement[] anyField;
+    
     private string hrefField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlArrayItemAttribute("ExtendedAttribute", IsNullable=false)]
@@ -2182,6 +12300,17 @@ public partial class ExternalPackage {
     }
     
     /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     public string href {
         get {
@@ -2191,6 +12320,39 @@ public partial class ExternalPackage {
             this.hrefField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -2198,11 +12360,15 @@ public partial class ExternalPackage {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ExternalPackages {
     
     private ExternalPackage[] externalPackageField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlElementAttribute("ExternalPackage")]
@@ -2214,6 +12380,28 @@ public partial class ExternalPackages {
             this.externalPackageField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -2221,9 +12409,602 @@ public partial class ExternalPackages {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Package {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class GlobalActivities {
+    
+    private Activity[] activityField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Activity")]
+    public Activity[] Activity {
+        get {
+            return this.activityField;
+        }
+        set {
+            this.activityField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Lane {
+    
+    private Object objectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private Performers performersField;
+    
+    private LaneNestedLane[] nestedLaneField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string parentLaneField;
+    
+    private string parentPoolField;
+    
+    private LaneOrientation orientationField;
+    
+    private bool orientationFieldSpecified;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public NodeGraphicsInfos NodeGraphicsInfos {
+        get {
+            return this.nodeGraphicsInfosField;
+        }
+        set {
+            this.nodeGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Performers Performers {
+        get {
+            return this.performersField;
+        }
+        set {
+            this.performersField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("NestedLane")]
+    public LaneNestedLane[] NestedLane {
+        get {
+            return this.nestedLaneField;
+        }
+        set {
+            this.nestedLaneField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ParentLane {
+        get {
+            return this.parentLaneField;
+        }
+        set {
+            this.parentLaneField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string ParentPool {
+        get {
+            return this.parentPoolField;
+        }
+        set {
+            this.parentPoolField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public LaneOrientation Orientation {
+        get {
+            return this.orientationField;
+        }
+        set {
+            this.orientationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool OrientationSpecified {
+        get {
+            return this.orientationFieldSpecified;
+        }
+        set {
+            this.orientationFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class LaneNestedLane {
+    
+    private string laneIdField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string LaneId {
+        get {
+            return this.laneIdField;
+        }
+        set {
+            this.laneIdField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum LaneOrientation {
+    
+    /// <uwagi/>
+    HORIZONTAL,
+    
+    /// <uwagi/>
+    VERTICAL,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Lanes {
+    
+    private Lane[] laneField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Lane")]
+    public Lane[] Lane {
+        get {
+            return this.laneField;
+        }
+        set {
+            this.laneField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class LayoutInfo {
+    
+    private float pixelsPerMillimeterField;
+    
+    private bool pixelsPerMillimeterFieldSpecified;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public float PixelsPerMillimeter {
+        get {
+            return this.pixelsPerMillimeterField;
+        }
+        set {
+            this.pixelsPerMillimeterField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool PixelsPerMillimeterSpecified {
+        get {
+            return this.pixelsPerMillimeterFieldSpecified;
+        }
+        set {
+            this.pixelsPerMillimeterFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class MessageFlow {
+    
+    private MessageType messageField;
+    
+    private Object objectField;
+    
+    private ConnectorGraphicsInfos connectorGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private string sourceField;
+    
+    private string targetField;
+    
+    private MessageFlowMarkerVisible markerVisibleField;
+    
+    private bool markerVisibleFieldSpecified;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public MessageType Message {
+        get {
+            return this.messageField;
+        }
+        set {
+            this.messageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public ConnectorGraphicsInfos ConnectorGraphicsInfos {
+        get {
+            return this.connectorGraphicsInfosField;
+        }
+        set {
+            this.connectorGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Source {
+        get {
+            return this.sourceField;
+        }
+        set {
+            this.sourceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Target {
+        get {
+            return this.targetField;
+        }
+        set {
+            this.targetField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public MessageFlowMarkerVisible MarkerVisible {
+        get {
+            return this.markerVisibleField;
+        }
+        set {
+            this.markerVisibleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool MarkerVisibleSpecified {
+        get {
+            return this.markerVisibleFieldSpecified;
+        }
+        set {
+            this.markerVisibleFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum MessageFlowMarkerVisible {
+    
+    /// <uwagi/>
+    INITIATING,
+    
+    /// <uwagi/>
+    NON_INITIATING,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class MessageFlows {
+    
+    private MessageFlow[] messageFlowField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("MessageFlow")]
+    public MessageFlow[] MessageFlow {
+        get {
+            return this.messageFlowField;
+        }
+        set {
+            this.messageFlowField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ModificationDate {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute("Package", Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PackageType {
     
     private PackageHeader packageHeaderField;
     
@@ -2233,23 +13014,47 @@ public partial class Package {
     
     private Script scriptField;
     
-    private ExternalPackage[] externalPackagesField;
+    private ExternalPackages externalPackagesField;
     
-    private TypeDeclaration[] typeDeclarationsField;
+    private TypeDeclarations typeDeclarationsField;
     
-    private Participant[] participantsField;
+    private Participants participantsField;
     
-    private Application[] applicationsField;
+    private Applications applicationsField;
     
-    private DataField[] dataFieldsField;
+    private DataFields dataFieldsField;
     
-    private WorkflowProcess[] workflowProcessesField;
+    private PartnerLinkTypes partnerLinkTypesField;
+    
+    private Pages pagesField;
+    
+    private GlobalActivities globalActivitiesField;
+    
+    private DataStores dataStoresField;
+    
+    private Pools poolsField;
+    
+    private MessageFlows messageFlowsField;
+    
+    private Associations associationsField;
+    
+    private Artifacts artifactsField;
+    
+    private WorkflowProcesses workflowProcessesField;
     
     private ExtendedAttribute[] extendedAttributesField;
+    
+    private System.Xml.XmlElement[] anyField;
     
     private string idField;
     
     private string nameField;
+    
+    private string languageField;
+    
+    private string queryLanguageField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     public PackageHeader PackageHeader {
@@ -2292,8 +13097,7 @@ public partial class Package {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ExternalPackage", IsNullable=false)]
-    public ExternalPackage[] ExternalPackages {
+    public ExternalPackages ExternalPackages {
         get {
             return this.externalPackagesField;
         }
@@ -2303,8 +13107,7 @@ public partial class Package {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("TypeDeclaration", IsNullable=false)]
-    public TypeDeclaration[] TypeDeclarations {
+    public TypeDeclarations TypeDeclarations {
         get {
             return this.typeDeclarationsField;
         }
@@ -2314,8 +13117,7 @@ public partial class Package {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Participant", IsNullable=false)]
-    public Participant[] Participants {
+    public Participants Participants {
         get {
             return this.participantsField;
         }
@@ -2325,8 +13127,7 @@ public partial class Package {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Application", IsNullable=false)]
-    public Application[] Applications {
+    public Applications Applications {
         get {
             return this.applicationsField;
         }
@@ -2336,8 +13137,7 @@ public partial class Package {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DataField", IsNullable=false)]
-    public DataField[] DataFields {
+    public DataFields DataFields {
         get {
             return this.dataFieldsField;
         }
@@ -2347,8 +13147,87 @@ public partial class Package {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("WorkflowProcess", IsNullable=false)]
-    public WorkflowProcess[] WorkflowProcesses {
+    public PartnerLinkTypes PartnerLinkTypes {
+        get {
+            return this.partnerLinkTypesField;
+        }
+        set {
+            this.partnerLinkTypesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Pages Pages {
+        get {
+            return this.pagesField;
+        }
+        set {
+            this.pagesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public GlobalActivities GlobalActivities {
+        get {
+            return this.globalActivitiesField;
+        }
+        set {
+            this.globalActivitiesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataStores DataStores {
+        get {
+            return this.dataStoresField;
+        }
+        set {
+            this.dataStoresField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Pools Pools {
+        get {
+            return this.poolsField;
+        }
+        set {
+            this.poolsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public MessageFlows MessageFlows {
+        get {
+            return this.messageFlowsField;
+        }
+        set {
+            this.messageFlowsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Associations Associations {
+        get {
+            return this.associationsField;
+        }
+        set {
+            this.associationsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Artifacts Artifacts {
+        get {
+            return this.artifactsField;
+        }
+        set {
+            this.artifactsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public WorkflowProcesses WorkflowProcesses {
         get {
             return this.workflowProcessesField;
         }
@@ -2365,6 +13244,17 @@ public partial class Package {
         }
         set {
             this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
@@ -2389,6 +13279,39 @@ public partial class Package {
             this.nameField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Language {
+        get {
+            return this.languageField;
+        }
+        set {
+            this.languageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string QueryLanguage {
+        get {
+            return this.queryLanguageField;
+        }
+        set {
+            this.queryLanguageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -2396,26 +13319,36 @@ public partial class Package {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class PackageHeader {
     
-    private string xPDLVersionField;
+    private XPDLVersion xPDLVersionField;
     
-    private string vendorField;
+    private Vendor vendorField;
     
-    private string createdField;
+    private Created createdField;
     
-    private string descriptionField;
+    private ModificationDate modificationDateField;
     
-    private string documentationField;
+    private Description descriptionField;
     
-    private string priorityUnitField;
+    private Documentation documentationField;
     
-    private string costUnitField;
+    private PriorityUnit priorityUnitField;
+    
+    private CostUnit costUnitField;
+    
+    private VendorExtensions vendorExtensionsField;
+    
+    private LayoutInfo layoutInfoField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
-    public string XPDLVersion {
+    public XPDLVersion XPDLVersion {
         get {
             return this.xPDLVersionField;
         }
@@ -2425,7 +13358,7 @@ public partial class PackageHeader {
     }
     
     /// <uwagi/>
-    public string Vendor {
+    public Vendor Vendor {
         get {
             return this.vendorField;
         }
@@ -2435,7 +13368,7 @@ public partial class PackageHeader {
     }
     
     /// <uwagi/>
-    public string Created {
+    public Created Created {
         get {
             return this.createdField;
         }
@@ -2445,7 +13378,17 @@ public partial class PackageHeader {
     }
     
     /// <uwagi/>
-    public string Description {
+    public ModificationDate ModificationDate {
+        get {
+            return this.modificationDateField;
+        }
+        set {
+            this.modificationDateField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Description Description {
         get {
             return this.descriptionField;
         }
@@ -2455,7 +13398,7 @@ public partial class PackageHeader {
     }
     
     /// <uwagi/>
-    public string Documentation {
+    public Documentation Documentation {
         get {
             return this.documentationField;
         }
@@ -2465,7 +13408,7 @@ public partial class PackageHeader {
     }
     
     /// <uwagi/>
-    public string PriorityUnit {
+    public PriorityUnit PriorityUnit {
         get {
             return this.priorityUnitField;
         }
@@ -2475,12 +13418,54 @@ public partial class PackageHeader {
     }
     
     /// <uwagi/>
-    public string CostUnit {
+    public CostUnit CostUnit {
         get {
             return this.costUnitField;
         }
         set {
             this.costUnitField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public VendorExtensions VendorExtensions {
+        get {
+            return this.vendorExtensionsField;
+        }
+        set {
+            this.vendorExtensionsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public LayoutInfo LayoutInfo {
+        get {
+            return this.layoutInfoField;
+        }
+        set {
+            this.layoutInfoField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -2490,26 +13475,262 @@ public partial class PackageHeader {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class XPDLVersion {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Vendor {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PriorityUnit {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class VendorExtensions {
+    
+    private VendorExtension[] vendorExtensionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("VendorExtension")]
+    public VendorExtension[] VendorExtension {
+        get {
+            return this.vendorExtensionField;
+        }
+        set {
+            this.vendorExtensionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class VendorExtension {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string toolIdField;
+    
+    private string schemaLocationField;
+    
+    private string extensionDescriptionField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ToolId {
+        get {
+            return this.toolIdField;
+        }
+        set {
+            this.toolIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string schemaLocation {
+        get {
+            return this.schemaLocationField;
+        }
+        set {
+            this.schemaLocationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string extensionDescription {
+        get {
+            return this.extensionDescriptionField;
+        }
+        set {
+            this.extensionDescriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class RedefinableHeader {
     
-    private string authorField;
+    private Author authorField;
     
-    private string versionField;
+    private Version versionField;
     
-    private string codepageField;
+    private Codepage codepageField;
     
-    private string countrykeyField;
+    private Countrykey countrykeyField;
     
-    private string[] responsiblesField;
+    private Responsibles responsiblesField;
+    
+    private System.Xml.XmlElement[] anyField;
     
     private RedefinableHeaderPublicationStatus publicationStatusField;
     
     private bool publicationStatusFieldSpecified;
     
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
     /// <uwagi/>
-    public string Author {
+    public Author Author {
         get {
             return this.authorField;
         }
@@ -2519,7 +13740,7 @@ public partial class RedefinableHeader {
     }
     
     /// <uwagi/>
-    public string Version {
+    public Version Version {
         get {
             return this.versionField;
         }
@@ -2529,7 +13750,7 @@ public partial class RedefinableHeader {
     }
     
     /// <uwagi/>
-    public string Codepage {
+    public Codepage Codepage {
         get {
             return this.codepageField;
         }
@@ -2539,7 +13760,7 @@ public partial class RedefinableHeader {
     }
     
     /// <uwagi/>
-    public string Countrykey {
+    public Countrykey Countrykey {
         get {
             return this.countrykeyField;
         }
@@ -2549,13 +13770,23 @@ public partial class RedefinableHeader {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Responsible", IsNullable=false)]
-    public string[] Responsibles {
+    public Responsibles Responsibles {
         get {
             return this.responsiblesField;
         }
         set {
             this.responsiblesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
@@ -2580,12 +13811,144 @@ public partial class RedefinableHeader {
             this.publicationStatusFieldSpecified = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Version {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Responsibles {
+    
+    private Responsible[] responsibleField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Responsible")]
+    public Responsible[] Responsible {
+        get {
+            return this.responsibleField;
+        }
+        set {
+            this.responsibleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Responsible {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
 public enum RedefinableHeaderPublicationStatus {
     
     /// <uwagi/>
@@ -2603,15 +13966,30 @@ public enum RedefinableHeaderPublicationStatus {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Script {
+    
+    private System.Xml.XmlElement[] anyField;
     
     private string typeField;
     
     private string versionField;
     
     private string grammarField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2645,6 +14023,17 @@ public partial class Script {
             this.grammarField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -2652,8 +14041,57 @@ public partial class Script {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TypeDeclarations {
+    
+    private TypeDeclaration[] typeDeclarationField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("TypeDeclaration")]
+    public TypeDeclaration[] TypeDeclaration {
+        get {
+            return this.typeDeclarationField;
+        }
+        set {
+            this.typeDeclarationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class TypeDeclaration {
     
     private BasicType basicTypeField;
@@ -2674,13 +14112,17 @@ public partial class TypeDeclaration {
     
     private ListType listTypeField;
     
-    private string descriptionField;
+    private Description descriptionField;
     
     private ExtendedAttribute[] extendedAttributesField;
+    
+    private System.Xml.XmlElement[] anyField;
     
     private string idField;
     
     private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     public BasicType BasicType {
@@ -2773,7 +14215,7 @@ public partial class TypeDeclaration {
     }
     
     /// <uwagi/>
-    public string Description {
+    public Description Description {
         get {
             return this.descriptionField;
         }
@@ -2790,6 +14232,17 @@ public partial class TypeDeclaration {
         }
         set {
             this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
@@ -2814,6 +14267,17 @@ public partial class TypeDeclaration {
             this.nameField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -2821,21 +14285,74 @@ public partial class TypeDeclaration {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Participants {
+    
+    private Participant[] participantField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Participant")]
+    public Participant[] Participant {
+        get {
+            return this.participantField;
+        }
+        set {
+            this.participantField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class Participant {
     
     private ParticipantType participantTypeField;
     
-    private string descriptionField;
+    private Description descriptionField;
     
     private ExternalReference externalReferenceField;
     
     private ExtendedAttribute[] extendedAttributesField;
     
+    private System.Xml.XmlElement[] anyField;
+    
     private string idField;
     
     private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
     public ParticipantType ParticipantType {
@@ -2848,7 +14365,7 @@ public partial class Participant {
     }
     
     /// <uwagi/>
-    public string Description {
+    public Description Description {
         get {
             return this.descriptionField;
         }
@@ -2879,6 +14396,17 @@ public partial class Participant {
     }
     
     /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
     public string Id {
         get {
@@ -2899,6 +14427,17 @@ public partial class Participant {
             this.nameField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
@@ -2906,11 +14445,26 @@ public partial class Participant {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ParticipantType {
     
+    private System.Xml.XmlElement[] anyField;
+    
     private ParticipantTypeType typeField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -2922,12 +14476,23 @@ public partial class ParticipantType {
             this.typeField = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
 public enum ParticipantTypeType {
     
     /// <uwagi/>
@@ -2954,9 +14519,678 @@ public enum ParticipantTypeType {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class WorkflowProcess {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PartnerLinkTypes {
+    
+    private PartnerLinkType[] partnerLinkTypeField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("PartnerLinkType")]
+    public PartnerLinkType[] PartnerLinkType {
+        get {
+            return this.partnerLinkTypeField;
+        }
+        set {
+            this.partnerLinkTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PartnerLinkType {
+    
+    private PartnerLinkTypeRole[] roleField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Role")]
+    public PartnerLinkTypeRole[] Role {
+        get {
+            return this.roleField;
+        }
+        set {
+            this.roleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class PartnerLinkTypeRole {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string portTypeField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string portType {
+        get {
+            return this.portTypeField;
+        }
+        set {
+            this.portTypeField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Pages {
+    
+    private Page[] pageField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Page")]
+    public Page[] Page {
+        get {
+            return this.pageField;
+        }
+        set {
+            this.pageField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Page {
+    
+    private Description descriptionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string nameField;
+    
+    private string idField;
+    
+    private double heightField;
+    
+    private bool heightFieldSpecified;
+    
+    private double widthField;
+    
+    private bool widthFieldSpecified;
+    
+    private string toolIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public Description Description {
+        get {
+            return this.descriptionField;
+        }
+        set {
+            this.descriptionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public double Height {
+        get {
+            return this.heightField;
+        }
+        set {
+            this.heightField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool HeightSpecified {
+        get {
+            return this.heightFieldSpecified;
+        }
+        set {
+            this.heightFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public double Width {
+        get {
+            return this.widthField;
+        }
+        set {
+            this.widthField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool WidthSpecified {
+        get {
+            return this.widthFieldSpecified;
+        }
+        set {
+            this.widthFieldSpecified = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ToolId {
+        get {
+            return this.toolIdField;
+        }
+        set {
+            this.toolIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Pools {
+    
+    private Pool[] poolField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("Pool")]
+    public Pool[] Pool {
+        get {
+            return this.poolField;
+        }
+        set {
+            this.poolField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Pool {
+    
+    private Lanes lanesField;
+    
+    private Object objectField;
+    
+    private NodeGraphicsInfos nodeGraphicsInfosField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private PoolOrientation orientationField;
+    
+    private string processField;
+    
+    private string participantField;
+    
+    private bool boundaryVisibleField;
+    
+    private bool mainPoolField;
+    
+    private bool multiInstanceField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public Pool() {
+        this.orientationField = PoolOrientation.HORIZONTAL;
+        this.mainPoolField = false;
+        this.multiInstanceField = false;
+    }
+    
+    /// <uwagi/>
+    public Lanes Lanes {
+        get {
+            return this.lanesField;
+        }
+        set {
+            this.lanesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public NodeGraphicsInfos NodeGraphicsInfos {
+        get {
+            return this.nodeGraphicsInfosField;
+        }
+        set {
+            this.nodeGraphicsInfosField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(PoolOrientation.HORIZONTAL)]
+    public PoolOrientation Orientation {
+        get {
+            return this.orientationField;
+        }
+        set {
+            this.orientationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Process {
+        get {
+            return this.processField;
+        }
+        set {
+            this.processField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Participant {
+        get {
+            return this.participantField;
+        }
+        set {
+            this.participantField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool BoundaryVisible {
+        get {
+            return this.boundaryVisibleField;
+        }
+        set {
+            this.boundaryVisibleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool MainPool {
+        get {
+            return this.mainPoolField;
+        }
+        set {
+            this.mainPoolField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool MultiInstance {
+        get {
+            return this.multiInstanceField;
+        }
+        set {
+            this.multiInstanceField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum PoolOrientation {
+    
+    /// <uwagi/>
+    HORIZONTAL,
+    
+    /// <uwagi/>
+    VERTICAL,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class WorkflowProcesses {
+    
+    private ProcessType[] workflowProcessField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("WorkflowProcess")]
+    public ProcessType[] WorkflowProcess {
+        get {
+            return this.workflowProcessField;
+        }
+        set {
+            this.workflowProcessField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute("WorkflowProcess", Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ProcessType {
     
     private ProcessHeader processHeaderField;
     
@@ -2964,27 +15198,71 @@ public partial class WorkflowProcess {
     
     private FormalParameters formalParametersField;
     
-    private DataField[] dataFieldsField;
+    private InputSets inputSetsField;
     
-    private Participant[] participantsField;
+    private OutputSets outputSetsField;
     
-    private Application[] applicationsField;
+    private object[] itemsField;
     
-    private ActivitySet[] activitySetsField;
+    private ActivitySets activitySetsField;
     
-    private Activity[] activitiesField;
+    private Activities activitiesField;
     
-    private Transition[] transitionsField;
+    private DataObjects dataObjectsField;
+    
+    private DataInputOutputs dataInputOutputsField;
+    
+    private DataStoreReferences dataStoreReferencesField;
+    
+    private Transitions transitionsField;
+    
+    private DataAssociations dataAssociationsField;
     
     private ExtendedAttribute[] extendedAttributesField;
+    
+    private Assignments assignmentsField;
+    
+    private PartnerLinks partnerLinksField;
+    
+    private Object objectField;
+    
+    private object[] items1Field;
     
     private string idField;
     
     private string nameField;
     
-    private WorkflowProcessAccessLevel accessLevelField;
+    private ProcessTypeAccessLevel accessLevelField;
     
-    private bool accessLevelFieldSpecified;
+    private ProcessTypeProcessType processType1Field;
+    
+    private ProcessTypeStatus statusField;
+    
+    private bool suppressJoinFailureField;
+    
+    private bool enableInstanceCompensationField;
+    
+    private bool adHocField;
+    
+    private ProcessTypeAdHocOrdering adHocOrderingField;
+    
+    private string adHocCompletionConditionField;
+    
+    private string defaultStartActivitySetIdField;
+    
+    private string defaultStartActivityIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    public ProcessType() {
+        this.accessLevelField = ProcessTypeAccessLevel.PUBLIC;
+        this.processType1Field = ProcessTypeProcessType.None;
+        this.statusField = ProcessTypeStatus.None;
+        this.suppressJoinFailureField = false;
+        this.enableInstanceCompensationField = false;
+        this.adHocField = false;
+        this.adHocOrderingField = ProcessTypeAdHocOrdering.Parallel;
+    }
     
     /// <uwagi/>
     public ProcessHeader ProcessHeader {
@@ -3017,41 +15295,40 @@ public partial class WorkflowProcess {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("DataField", IsNullable=false)]
-    public DataField[] DataFields {
+    public InputSets InputSets {
         get {
-            return this.dataFieldsField;
+            return this.inputSetsField;
         }
         set {
-            this.dataFieldsField = value;
+            this.inputSetsField = value;
         }
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Participant", IsNullable=false)]
-    public Participant[] Participants {
+    public OutputSets OutputSets {
         get {
-            return this.participantsField;
+            return this.outputSetsField;
         }
         set {
-            this.participantsField = value;
+            this.outputSetsField = value;
         }
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Application", IsNullable=false)]
-    public Application[] Applications {
+    [System.Xml.Serialization.XmlElementAttribute("Applications", typeof(Applications))]
+    [System.Xml.Serialization.XmlElementAttribute("DataFields", typeof(DataFields))]
+    [System.Xml.Serialization.XmlElementAttribute("Participants", typeof(Participants))]
+    public object[] Items {
         get {
-            return this.applicationsField;
+            return this.itemsField;
         }
         set {
-            this.applicationsField = value;
+            this.itemsField = value;
         }
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("ActivitySet", IsNullable=false)]
-    public ActivitySet[] ActivitySets {
+    public ActivitySets ActivitySets {
         get {
             return this.activitySetsField;
         }
@@ -3061,8 +15338,7 @@ public partial class WorkflowProcess {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Activity", IsNullable=false)]
-    public Activity[] Activities {
+    public Activities Activities {
         get {
             return this.activitiesField;
         }
@@ -3072,13 +15348,52 @@ public partial class WorkflowProcess {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Transition", IsNullable=false)]
-    public Transition[] Transitions {
+    public DataObjects DataObjects {
+        get {
+            return this.dataObjectsField;
+        }
+        set {
+            this.dataObjectsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataInputOutputs DataInputOutputs {
+        get {
+            return this.dataInputOutputsField;
+        }
+        set {
+            this.dataInputOutputsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataStoreReferences DataStoreReferences {
+        get {
+            return this.dataStoreReferencesField;
+        }
+        set {
+            this.dataStoreReferencesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Transitions Transitions {
         get {
             return this.transitionsField;
         }
         set {
             this.transitionsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public DataAssociations DataAssociations {
+        get {
+            return this.dataAssociationsField;
+        }
+        set {
+            this.dataAssociationsField = value;
         }
     }
     
@@ -3090,6 +15405,48 @@ public partial class WorkflowProcess {
         }
         set {
             this.extendedAttributesField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Assignments Assignments {
+        get {
+            return this.assignmentsField;
+        }
+        set {
+            this.assignmentsField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public PartnerLinks PartnerLinks {
+        get {
+            return this.partnerLinksField;
+        }
+        set {
+            this.partnerLinksField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public Object Object {
+        get {
+            return this.objectField;
+        }
+        set {
+            this.objectField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    [System.Xml.Serialization.XmlElementAttribute("Extensions", typeof(object))]
+    public object[] Items1 {
+        get {
+            return this.items1Field;
+        }
+        set {
+            this.items1Field = value;
         }
     }
     
@@ -3117,7 +15474,8 @@ public partial class WorkflowProcess {
     
     /// <uwagi/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public WorkflowProcessAccessLevel AccessLevel {
+    [System.ComponentModel.DefaultValueAttribute(ProcessTypeAccessLevel.PUBLIC)]
+    public ProcessTypeAccessLevel AccessLevel {
         get {
             return this.accessLevelField;
         }
@@ -3127,13 +15485,118 @@ public partial class WorkflowProcess {
     }
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool AccessLevelSpecified {
+    [System.Xml.Serialization.XmlAttributeAttribute("ProcessType")]
+    [System.ComponentModel.DefaultValueAttribute(ProcessTypeProcessType.None)]
+    public ProcessTypeProcessType ProcessType1 {
         get {
-            return this.accessLevelFieldSpecified;
+            return this.processType1Field;
         }
         set {
-            this.accessLevelFieldSpecified = value;
+            this.processType1Field = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(ProcessTypeStatus.None)]
+    public ProcessTypeStatus Status {
+        get {
+            return this.statusField;
+        }
+        set {
+            this.statusField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool SuppressJoinFailure {
+        get {
+            return this.suppressJoinFailureField;
+        }
+        set {
+            this.suppressJoinFailureField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool EnableInstanceCompensation {
+        get {
+            return this.enableInstanceCompensationField;
+        }
+        set {
+            this.enableInstanceCompensationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool AdHoc {
+        get {
+            return this.adHocField;
+        }
+        set {
+            this.adHocField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(ProcessTypeAdHocOrdering.Parallel)]
+    public ProcessTypeAdHocOrdering AdHocOrdering {
+        get {
+            return this.adHocOrderingField;
+        }
+        set {
+            this.adHocOrderingField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string AdHocCompletionCondition {
+        get {
+            return this.adHocCompletionConditionField;
+        }
+        set {
+            this.adHocCompletionConditionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string DefaultStartActivitySetId {
+        get {
+            return this.defaultStartActivitySetIdField;
+        }
+        set {
+            this.defaultStartActivitySetIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string DefaultStartActivityId {
+        get {
+            return this.defaultStartActivityIdField;
+        }
+        set {
+            this.defaultStartActivityIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -3143,30 +15606,34 @@ public partial class WorkflowProcess {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
 public partial class ProcessHeader {
     
-    private string createdField;
+    private Created createdField;
     
-    private string descriptionField;
+    private Description descriptionField;
     
-    private string priorityField;
+    private Priority priorityField;
     
-    private string limitField;
+    private Limit limitField;
     
-    private string validFromField;
+    private ValidFrom validFromField;
     
-    private string validToField;
+    private ValidTo validToField;
     
     private TimeEstimation timeEstimationField;
+    
+    private System.Xml.XmlElement[] anyField;
     
     private ProcessHeaderDurationUnit durationUnitField;
     
     private bool durationUnitFieldSpecified;
     
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
     /// <uwagi/>
-    public string Created {
+    public Created Created {
         get {
             return this.createdField;
         }
@@ -3176,7 +15643,7 @@ public partial class ProcessHeader {
     }
     
     /// <uwagi/>
-    public string Description {
+    public Description Description {
         get {
             return this.descriptionField;
         }
@@ -3186,7 +15653,7 @@ public partial class ProcessHeader {
     }
     
     /// <uwagi/>
-    public string Priority {
+    public Priority Priority {
         get {
             return this.priorityField;
         }
@@ -3196,7 +15663,7 @@ public partial class ProcessHeader {
     }
     
     /// <uwagi/>
-    public string Limit {
+    public Limit Limit {
         get {
             return this.limitField;
         }
@@ -3206,7 +15673,7 @@ public partial class ProcessHeader {
     }
     
     /// <uwagi/>
-    public string ValidFrom {
+    public ValidFrom ValidFrom {
         get {
             return this.validFromField;
         }
@@ -3216,7 +15683,7 @@ public partial class ProcessHeader {
     }
     
     /// <uwagi/>
-    public string ValidTo {
+    public ValidTo ValidTo {
         get {
             return this.validToField;
         }
@@ -3232,6 +15699,17 @@ public partial class ProcessHeader {
         }
         set {
             this.timeEstimationField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
         }
     }
     
@@ -3256,12 +15734,95 @@ public partial class ProcessHeader {
             this.durationUnitFieldSpecified = value;
         }
     }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
 }
 
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ValidFrom {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class ValidTo {
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    private string valueField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public string Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
 public enum ProcessHeaderDurationUnit {
     
     /// <uwagi/>
@@ -3286,8 +15847,290 @@ public enum ProcessHeaderDurationUnit {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-public enum WorkflowProcessAccessLevel {
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PartnerLinks {
+    
+    private PartnerLink[] partnerLinkField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlElementAttribute("PartnerLink")]
+    public PartnerLink[] PartnerLink {
+        get {
+            return this.partnerLinkField;
+        }
+        set {
+            this.partnerLinkField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class PartnerLink {
+    
+    private PartnerLinkMyRole myRoleField;
+    
+    private PartnerLinkPartnerRole partnerRoleField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string nameField;
+    
+    private string idField;
+    
+    private string partnerLinkTypeIdField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public PartnerLinkMyRole MyRole {
+        get {
+            return this.myRoleField;
+        }
+        set {
+            this.myRoleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    public PartnerLinkPartnerRole PartnerRole {
+        get {
+            return this.partnerRoleField;
+        }
+        set {
+            this.partnerRoleField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string PartnerLinkTypeId {
+        get {
+            return this.partnerLinkTypeIdField;
+        }
+        set {
+            this.partnerLinkTypeIdField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class PartnerLinkMyRole {
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string roleNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string RoleName {
+        get {
+            return this.roleNameField;
+        }
+        set {
+            this.roleNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public partial class PartnerLinkPartnerRole {
+    
+    private EndPoint endPointField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string roleNameField;
+    
+    private string serviceNameField;
+    
+    private string portNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public EndPoint EndPoint {
+        get {
+            return this.endPointField;
+        }
+        set {
+            this.endPointField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string RoleName {
+        get {
+            return this.roleNameField;
+        }
+        set {
+            this.roleNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string ServiceName {
+        get {
+            return this.serviceNameField;
+        }
+        set {
+            this.serviceNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string PortName {
+        get {
+            return this.portNameField;
+        }
+        set {
+            this.portNameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
+        }
+    }
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ProcessTypeAccessLevel {
     
     /// <uwagi/>
     PUBLIC,
@@ -3299,22 +16142,136 @@ public enum WorkflowProcessAccessLevel {
 /// <uwagi/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
 [System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Participants {
-    
-    private Participant[] participantField;
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ProcessTypeProcessType {
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Participant")]
-    public Participant[] Participant {
+    None,
+    
+    /// <uwagi/>
+    Private,
+    
+    /// <uwagi/>
+    Abstract,
+    
+    /// <uwagi/>
+    Collaboration,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ProcessTypeStatus {
+    
+    /// <uwagi/>
+    None,
+    
+    /// <uwagi/>
+    Ready,
+    
+    /// <uwagi/>
+    Active,
+    
+    /// <uwagi/>
+    Cancelled,
+    
+    /// <uwagi/>
+    Aborting,
+    
+    /// <uwagi/>
+    Aborted,
+    
+    /// <uwagi/>
+    Completing,
+    
+    /// <uwagi/>
+    Completed,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+public enum ProcessTypeAdHocOrdering {
+    
+    /// <uwagi/>
+    Sequential,
+    
+    /// <uwagi/>
+    Parallel,
+}
+
+/// <uwagi/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class Rule {
+    
+    private ExpressionType expressionField;
+    
+    private System.Xml.XmlElement[] anyField;
+    
+    private string idField;
+    
+    private string nameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
+    
+    /// <uwagi/>
+    public ExpressionType Expression {
         get {
-            return this.participantField;
+            return this.expressionField;
         }
         set {
-            this.participantField = value;
+            this.expressionField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
+        get {
+            return this.anyField;
+        }
+        set {
+            this.anyField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="NMTOKEN")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string Name {
+        get {
+            return this.nameField;
+        }
+        set {
+            this.nameField = value;
+        }
+    }
+    
+    /// <uwagi/>
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
+        get {
+            return this.anyAttrField;
+        }
+        set {
+            this.anyAttrField = value;
         }
     }
 }
@@ -3324,135 +16281,46 @@ public partial class Participants {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Responsibles {
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2009/XPDL2.2")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2009/XPDL2.2", IsNullable=false)]
+public partial class TriggerRule {
     
-    private string[] responsibleField;
+    private System.Xml.XmlElement[] anyField;
+    
+    private string ruleNameField;
+    
+    private System.Xml.XmlAttribute[] anyAttrField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Responsible")]
-    public string[] Responsible {
+    [System.Xml.Serialization.XmlAnyElementAttribute()]
+    public System.Xml.XmlElement[] Any {
         get {
-            return this.responsibleField;
+            return this.anyField;
         }
         set {
-            this.responsibleField = value;
+            this.anyField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class TransitionRefs {
-    
-    private TransitionRef[] transitionRefField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("TransitionRef")]
-    public TransitionRef[] TransitionRef {
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string RuleName {
         get {
-            return this.transitionRefField;
+            return this.ruleNameField;
         }
         set {
-            this.transitionRefField = value;
+            this.ruleNameField = value;
         }
     }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class TransitionRestrictions {
-    
-    private TransitionRestriction[] transitionRestrictionField;
     
     /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("TransitionRestriction")]
-    public TransitionRestriction[] TransitionRestriction {
+    [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+    public System.Xml.XmlAttribute[] AnyAttr {
         get {
-            return this.transitionRestrictionField;
+            return this.anyAttrField;
         }
         set {
-            this.transitionRestrictionField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class Transitions {
-    
-    private Transition[] transitionField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("Transition")]
-    public Transition[] Transition {
-        get {
-            return this.transitionField;
-        }
-        set {
-            this.transitionField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class TypeDeclarations {
-    
-    private TypeDeclaration[] typeDeclarationField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("TypeDeclaration")]
-    public TypeDeclaration[] TypeDeclaration {
-        get {
-            return this.typeDeclarationField;
-        }
-        set {
-            this.typeDeclarationField = value;
-        }
-    }
-}
-
-/// <uwagi/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.wfmc.org/2002/XPDL1.0")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.wfmc.org/2002/XPDL1.0", IsNullable=false)]
-public partial class WorkflowProcesses {
-    
-    private WorkflowProcess[] workflowProcessField;
-    
-    /// <uwagi/>
-    [System.Xml.Serialization.XmlElementAttribute("WorkflowProcess")]
-    public WorkflowProcess[] WorkflowProcess {
-        get {
-            return this.workflowProcessField;
-        }
-        set {
-            this.workflowProcessField = value;
+            this.anyAttrField = value;
         }
     }
 }

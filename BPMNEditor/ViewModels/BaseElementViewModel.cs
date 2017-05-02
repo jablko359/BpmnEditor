@@ -11,6 +11,7 @@ using BPMNEditor.Tools.GraphTools;
 using BPMNEditor.ViewModels.Command;
 
 
+
 namespace BPMNEditor.ViewModels
 {
     public abstract class BaseElementViewModel : PropertyChangedBase, IResizable, IMovable, IInsertable
@@ -45,7 +46,6 @@ namespace BPMNEditor.ViewModels
         [Browsable(false)]
         public ICommand BringToFrontCommand { get; private set; }
         #endregion
-
 
         #region Properties
         [Browsable(false)]
@@ -173,7 +173,6 @@ namespace BPMNEditor.ViewModels
         [Browsable(false)]
         public IBaseElement BaseElement { get; private set; }
         #endregion
-
 
         #region Abstract
         protected abstract IBaseElement CreateElement();

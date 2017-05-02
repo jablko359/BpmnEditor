@@ -5,27 +5,31 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class RedefinableHeader
     {
 
-        private string authorField;
+        private Author authorField;
 
-        private string versionField;
+        private Version versionField;
 
-        private string codepageField;
+        private Codepage codepageField;
 
-        private string countrykeyField;
+        private Countrykey countrykeyField;
 
-        private string[] responsiblesField;
+        private Responsibles responsiblesField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private RedefinableHeaderPublicationStatus publicationStatusField;
 
         private bool publicationStatusFieldSpecified;
 
+        private System.Xml.XmlAttribute[] anyAttrField;
+
         /// <uwagi/>
-        public string Author
+        public Author Author
         {
             get
             {
@@ -38,7 +42,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Version
+        public Version Version
         {
             get
             {
@@ -51,7 +55,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Codepage
+        public Codepage Codepage
         {
             get
             {
@@ -64,7 +68,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Countrykey
+        public Countrykey Countrykey
         {
             get
             {
@@ -77,8 +81,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Responsible", IsNullable = false)]
-        public string[] Responsibles
+        public Responsibles Responsibles
         {
             get
             {
@@ -87,6 +90,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.responsiblesField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -115,6 +132,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.publicationStatusFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

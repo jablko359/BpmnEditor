@@ -8,6 +8,7 @@ using System.Windows.Input;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.ViewModels.Command;
+using Lane = BPMNEditor.Xpdl.Lane;
 
 namespace BPMNEditor.ViewModels
 {

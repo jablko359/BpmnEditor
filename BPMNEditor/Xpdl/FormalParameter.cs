@@ -5,24 +5,41 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class FormalParameter
     {
 
         private DataType dataTypeField;
 
-        private string descriptionField;
+        private ExpressionType initialValueField;
+
+        private Description descriptionField;
+
+        private Length lengthField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private string idField;
 
-        private string indexField;
-
         private FormalParameterMode modeField;
+
+        private string nameField;
+
+        private bool readOnlyField;
+
+        private bool requiredField;
+
+        private bool isArrayField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         public FormalParameter()
         {
             this.modeField = FormalParameterMode.IN;
+            this.readOnlyField = false;
+            this.requiredField = false;
+            this.isArrayField = false;
         }
 
         /// <uwagi/>
@@ -39,7 +56,20 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Description
+        public ExpressionType InitialValue
+        {
+            get
+            {
+                return this.initialValueField;
+            }
+            set
+            {
+                this.initialValueField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Description Description
         {
             get
             {
@@ -48,6 +78,33 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.descriptionField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Length Length
+        {
+            get
+            {
+                return this.lengthField;
+            }
+            set
+            {
+                this.lengthField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -66,20 +123,6 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
-        public string Index
-        {
-            get
-            {
-                return this.indexField;
-            }
-            set
-            {
-                this.indexField = value;
-            }
-        }
-
-        /// <uwagi/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(FormalParameterMode.IN)]
         public FormalParameterMode Mode
@@ -91,6 +134,79 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.modeField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool ReadOnly
+        {
+            get
+            {
+                return this.readOnlyField;
+            }
+            set
+            {
+                this.readOnlyField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Required
+        {
+            get
+            {
+                return this.requiredField;
+            }
+            set
+            {
+                this.requiredField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool IsArray
+        {
+            get
+            {
+                return this.isArrayField;
+            }
+            set
+            {
+                this.isArrayField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

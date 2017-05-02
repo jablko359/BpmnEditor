@@ -24,9 +24,9 @@ namespace BPMNEditor.ViewModels.Converters
                 Visibility result = itemVisibility ? Visibility.Collapsed : Visibility.Visible;
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new IncorrectConverterValueException(value, targetType);
+                throw ex;
             }
 
         }

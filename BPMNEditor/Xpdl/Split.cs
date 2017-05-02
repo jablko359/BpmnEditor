@@ -5,20 +5,32 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class Split
     {
 
-        private TransitionRef[] transitionRefsField;
+        private TransitionRefs transitionRefsField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private SplitType typeField;
 
         private bool typeFieldSpecified;
 
+        private SplitExclusiveType exclusiveTypeField;
+
+        private string outgoingConditionField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
+
+        public Split()
+        {
+            this.exclusiveTypeField = SplitExclusiveType.Data;
+        }
+
         /// <uwagi/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("TransitionRef", IsNullable = false)]
-        public TransitionRef[] TransitionRefs
+        public TransitionRefs TransitionRefs
         {
             get
             {
@@ -27,6 +39,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.transitionRefsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -55,6 +81,49 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.typeFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(SplitExclusiveType.Data)]
+        public SplitExclusiveType ExclusiveType
+        {
+            get
+            {
+                return this.exclusiveTypeField;
+            }
+            set
+            {
+                this.exclusiveTypeField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string OutgoingCondition
+        {
+            get
+            {
+                return this.outgoingConditionField;
+            }
+            set
+            {
+                this.outgoingConditionField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

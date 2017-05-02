@@ -5,8 +5,8 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class ArrayType
     {
 
@@ -15,6 +15,8 @@ namespace BPMNEditor.Xpdl
         private string lowerIndexField;
 
         private string upperIndexField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
@@ -63,6 +65,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.upperIndexField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

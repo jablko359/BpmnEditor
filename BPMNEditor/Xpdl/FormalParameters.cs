@@ -5,24 +5,57 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class FormalParameters
     {
 
-        private FormalParameter[] formalParameterField;
+        private FormalParameter[] itemsField;
+
+        private object[] items1Field;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlElementAttribute("FormalParameter")]
-        public FormalParameter[] FormalParameter
+        public FormalParameter[] Items
         {
             get
             {
-                return this.formalParameterField;
+                return this.itemsField;
             }
             set
             {
-                this.formalParameterField = value;
+                this.itemsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("Extensions", typeof(object))]
+        public object[] Items1
+        {
+            get
+            {
+                return this.items1Field;
+            }
+            set
+            {
+                this.items1Field = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

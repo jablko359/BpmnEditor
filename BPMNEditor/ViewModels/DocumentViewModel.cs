@@ -27,11 +27,14 @@ namespace BPMNEditor.ViewModels
         private ConnectorViewModel _currentConnetor;
         private readonly DrawingConnectionViewModel _drawingConnectionViewModel;
 
+        private readonly Document _document;
 
 
         #endregion
 
         #region Properties
+
+        public IList<BaseElementViewModel> Items => BaseElements;
 
         public TrackerViewModel Tracker { get; }
         public SelectionViewModel Selection { get; }
@@ -41,26 +44,32 @@ namespace BPMNEditor.ViewModels
         public ObservableDropoutStack<IAction> RedoActions { get; } = new ObservableDropoutStack<IAction>();
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
 
-
-        private string _name;
-
+        
         public string Name
         {
-            get { return _name; }
+            get { return _document.Name; }
             set
             {
-                _name = value;
+                _document.Name = value;
                 NotifyOfPropertyChange(nameof(Name));
             }
         }
 
+        public Document Document { get { return _document; } }
+
         public bool CanSelect => true;
         #endregion
 
+        #region Events
+
         public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 
+        #endregion
+
+        #region Contructor
         public DocumentViewModel()
         {
+            _document = new Document();
             BaseElements = new ObservableCollection<BaseElementViewModel>();
             BaseElements.CollectionChanged += BaseElements_CollectionChanged;
             Tracker = new TrackerViewModel(this);
@@ -69,8 +78,12 @@ namespace BPMNEditor.ViewModels
             BaseElements.Add(Tracker);
             BaseElements.Add(Selection);
             BaseElements.Add(_drawingConnectionViewModel);
-            _name = "Graph";
+            Name = "Graph";
         }
+
+        #endregion
+
+        #region Handlers
 
         private void BaseElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -79,6 +92,8 @@ namespace BPMNEditor.ViewModels
                 foreach (object item in e.NewItems)
                 {
                     var baseElementViewModel = item as BaseElementViewModel;
+                    var baseElement = baseElementViewModel.BaseElement;
+                    _document.BaseElements.Add(baseElement);
                     baseElementViewModel.ActionPerformed += ViewModel_ActionPerformed;
                 }
             }
@@ -87,12 +102,15 @@ namespace BPMNEditor.ViewModels
                 foreach (object item in e.OldItems)
                 {
                     var baseElementViewModel = item as BaseElementViewModel;
+                    var baseElement = baseElementViewModel.BaseElement;
+                    _document.BaseElements.Remove(baseElement);
                     baseElementViewModel.ActionPerformed -= ViewModel_ActionPerformed;
                 }
             }
 
         }
 
+        #endregion
 
         #region IDropable
         public Type DataType => typeof(IDocumentElement);
@@ -339,13 +357,10 @@ namespace BPMNEditor.ViewModels
             RedoActions.Clear();
         }
 
-        public IList<BaseElementViewModel> Items => BaseElements;
+
 
 
         #endregion
-
-
-
 
     }
 }

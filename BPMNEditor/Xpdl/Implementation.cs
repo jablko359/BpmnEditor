@@ -5,26 +5,44 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class Implementation
     {
 
-        private object[] itemsField;
+        private object itemField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
+        [System.Xml.Serialization.XmlElementAttribute("GlobalActivityReference", typeof(GlobalActivityReference))]
         [System.Xml.Serialization.XmlElementAttribute("No", typeof(No))]
+        [System.Xml.Serialization.XmlElementAttribute("Reference", typeof(Reference))]
         [System.Xml.Serialization.XmlElementAttribute("SubFlow", typeof(SubFlow))]
-        [System.Xml.Serialization.XmlElementAttribute("Tool", typeof(Tool))]
-        public object[] Items
+        [System.Xml.Serialization.XmlElementAttribute("Task", typeof(Task))]
+        public object Item
         {
             get
             {
-                return this.itemsField;
+                return this.itemField;
             }
             set
             {
-                this.itemsField = value;
+                this.itemField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

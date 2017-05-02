@@ -5,30 +5,40 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class DataField
     {
 
         private DataType dataTypeField;
 
-        private string initialValueField;
+        private ExpressionType initialValueField;
 
-        private string lengthField;
+        private Length lengthField;
 
-        private string descriptionField;
+        private Description descriptionField;
 
         private ExtendedAttribute[] extendedAttributesField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private string idField;
 
         private string nameField;
 
-        private DataFieldIsArray isArrayField;
+        private bool readOnlyField;
+
+        private bool isArrayField;
+
+        private bool correlationField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         public DataField()
         {
-            this.isArrayField = DataFieldIsArray.FALSE;
+            this.readOnlyField = false;
+            this.isArrayField = false;
+            this.correlationField = false;
         }
 
         /// <uwagi/>
@@ -45,7 +55,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string InitialValue
+        public ExpressionType InitialValue
         {
             get
             {
@@ -58,7 +68,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Length
+        public Length Length
         {
             get
             {
@@ -71,7 +81,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Description
+        public Description Description
         {
             get
             {
@@ -94,6 +104,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.extendedAttributesField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -127,8 +151,23 @@ namespace BPMNEditor.Xpdl
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(DataFieldIsArray.FALSE)]
-        public DataFieldIsArray IsArray
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool ReadOnly
+        {
+            get
+            {
+                return this.readOnlyField;
+            }
+            set
+            {
+                this.readOnlyField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool IsArray
         {
             get
             {
@@ -137,6 +176,35 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.isArrayField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Correlation
+        {
+            get
+            {
+                return this.correlationField;
+            }
+            set
+            {
+                this.correlationField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

@@ -9,6 +9,7 @@ using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels.Command;
 
+
 namespace BPMNEditor.ViewModels
 {
     public class GatewayViewModel : PoolElementViewModel

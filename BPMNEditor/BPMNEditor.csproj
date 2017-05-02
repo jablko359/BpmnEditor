@@ -35,22 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -115,18 +99,19 @@
     <Compile Include="Actions\PropertyMemento.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Document.cs" />
+    <Compile Include="Models\Elements\IdElement.cs" />
     <Compile Include="Models\Elements\Lane.cs" />
     <Compile Include="Models\Elements\Pool.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\PackageBuilder.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
     <Compile Include="Tools\Categories.cs" />
     <Compile Include="Tools\DraggableAttribute.cs" />
     <Compile Include="Tools\Events.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
-    <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Event.cs" />
     <Compile Include="Models\Elements\Gateway.cs" />
     <Compile Include="Models\Elements\IBaseElement.cs" />
@@ -201,85 +186,270 @@
     <Compile Include="WindowStyle\ToolWindow.cs" />
     <Compile Include="WindowStyle\StyledWindow.cs" />
     <Compile Include="Xpdl\Activity.cs" />
+    <Compile Include="Xpdl\ActivityFinishMode.cs" />
     <Compile Include="Xpdl\ActivitySet.cs" />
+    <Compile Include="Xpdl\ActivitySetAdHocOrdering.cs" />
     <Compile Include="Xpdl\ActivitySets.cs" />
+    <Compile Include="Xpdl\ActivityStartMode.cs" />
+    <Compile Include="Xpdl\ActivityStatus.cs" />
+    <Compile Include="Xpdl\ActualParameter.cs" />
     <Compile Include="Xpdl\ActualParameters.cs" />
     <Compile Include="Xpdl\Application.cs" />
     <Compile Include="Xpdl\Applications.cs" />
+    <Compile Include="Xpdl\ApplicationType.cs" />
+    <Compile Include="Xpdl\ApplicationTypeBusinessRule.cs" />
+    <Compile Include="Xpdl\ApplicationTypeBusinessRuleLocation.cs" />
+    <Compile Include="Xpdl\ApplicationTypeBusinessRuleRuleName.cs" />
+    <Compile Include="Xpdl\ApplicationTypeEjb.cs" />
+    <Compile Include="Xpdl\ApplicationTypeEjbHomeClass.cs" />
+    <Compile Include="Xpdl\ApplicationTypeEjbJndiName.cs" />
+    <Compile Include="Xpdl\ApplicationTypeEjbMethod.cs" />
+    <Compile Include="Xpdl\ApplicationTypeForm.cs" />
+    <Compile Include="Xpdl\ApplicationTypeFormFormLayout.cs" />
+    <Compile Include="Xpdl\ApplicationTypePojo.cs" />
+    <Compile Include="Xpdl\ApplicationTypePojoClass.cs" />
+    <Compile Include="Xpdl\ApplicationTypePojoMethod.cs" />
+    <Compile Include="Xpdl\ApplicationTypeScript.cs" />
+    <Compile Include="Xpdl\ApplicationTypeWebService.cs" />
+    <Compile Include="Xpdl\ApplicationTypeXslt.cs" />
     <Compile Include="Xpdl\ArrayType.cs" />
-    <Compile Include="Xpdl\Automatic.cs" />
+    <Compile Include="Xpdl\Artifact.cs" />
+    <Compile Include="Xpdl\ArtifactArtifactType.cs" />
+    <Compile Include="Xpdl\ArtifactInput.cs" />
+    <Compile Include="Xpdl\Artifacts.cs" />
+    <Compile Include="Xpdl\Assignment.cs" />
+    <Compile Include="Xpdl\AssignmentAssignTime.cs" />
+    <Compile Include="Xpdl\Assignments.cs" />
+    <Compile Include="Xpdl\Association.cs" />
+    <Compile Include="Xpdl\AssociationAssociationDirection.cs" />
+    <Compile Include="Xpdl\Associations.cs" />
+    <Compile Include="Xpdl\Author.cs" />
     <Compile Include="Xpdl\BasicType.cs" />
     <Compile Include="Xpdl\BasicTypeType.cs" />
     <Compile Include="Xpdl\BlockActivity.cs" />
+    <Compile Include="Xpdl\BlockActivityView.cs" />
+    <Compile Include="Xpdl\Categories.cs" />
+    <Compile Include="Xpdl\Category.cs" />
     <Compile Include="Xpdl\Activities.cs" />
+    <Compile Include="Xpdl\Codepage.cs" />
     <Compile Include="Xpdl\Condition.cs" />
     <Compile Include="Xpdl\ConditionType.cs" />
     <Compile Include="Xpdl\ConformanceClass.cs" />
+    <Compile Include="Xpdl\ConformanceClassBPMNModelPortabilityConformance.cs" />
     <Compile Include="Xpdl\ConformanceClassGraphConformance.cs" />
+    <Compile Include="Xpdl\ConnectorGraphicsInfo.cs" />
+    <Compile Include="Xpdl\ConnectorGraphicsInfos.cs" />
+    <Compile Include="Xpdl\Coordinates.cs" />
+    <Compile Include="Xpdl\Cost.cs" />
+    <Compile Include="Xpdl\CostStructure.cs" />
+    <Compile Include="Xpdl\CostUnit.cs" />
+    <Compile Include="Xpdl\Countrykey.cs" />
+    <Compile Include="Xpdl\Created.cs" />
+    <Compile Include="Xpdl\DataAssociation.cs" />
+    <Compile Include="Xpdl\DataAssociations.cs" />
     <Compile Include="Xpdl\DataField.cs" />
-    <Compile Include="Xpdl\DataFieldIsArray.cs" />
     <Compile Include="Xpdl\DataFields.cs" />
+    <Compile Include="Xpdl\DataInputOutput.cs" />
+    <Compile Include="Xpdl\DataInputOutputFormalParameterRef.cs" />
+    <Compile Include="Xpdl\DataInputOutputs.cs" />
+    <Compile Include="Xpdl\DataMapping.cs" />
+    <Compile Include="Xpdl\DataMappingDirection.cs" />
+    <Compile Include="Xpdl\DataMappings.cs" />
+    <Compile Include="Xpdl\DataObject.cs" />
+    <Compile Include="Xpdl\DataObjectDataFieldRef.cs" />
+    <Compile Include="Xpdl\DataObjects.cs" />
+    <Compile Include="Xpdl\DataStore.cs" />
+    <Compile Include="Xpdl\DataStoreReference.cs" />
+    <Compile Include="Xpdl\DataStoreReferences.cs" />
+    <Compile Include="Xpdl\DataStores.cs" />
     <Compile Include="Xpdl\DataType.cs" />
     <Compile Include="Xpdl\Deadline.cs" />
+    <Compile Include="Xpdl\DeadlineExceptionName.cs" />
     <Compile Include="Xpdl\DeadlineExecution.cs" />
     <Compile Include="Xpdl\DeclaredType.cs" />
+    <Compile Include="Xpdl\Description.cs" />
+    <Compile Include="Xpdl\Documentation.cs" />
+    <Compile Include="Xpdl\Duration.cs" />
+    <Compile Include="Xpdl\EndEvent.cs" />
+    <Compile Include="Xpdl\EndEventImplementation.cs" />
+    <Compile Include="Xpdl\EndEventResult.cs" />
+    <Compile Include="Xpdl\EndPoint.cs" />
+    <Compile Include="Xpdl\EndPointEndPointType.cs" />
     <Compile Include="Xpdl\EnumerationType.cs" />
     <Compile Include="Xpdl\EnumerationValue.cs" />
+    <Compile Include="Xpdl\Event.cs" />
+    <Compile Include="Xpdl\ExpressionType.cs" />
     <Compile Include="Xpdl\ExtendedAttribute.cs" />
     <Compile Include="Xpdl\ExtendedAttributes.cs" />
     <Compile Include="Xpdl\ExternalPackage.cs" />
     <Compile Include="Xpdl\ExternalPackages.cs" />
     <Compile Include="Xpdl\ExternalReference.cs" />
-    <Compile Include="Xpdl\FinishMode.cs" />
     <Compile Include="Xpdl\FormalParameter.cs" />
     <Compile Include="Xpdl\FormalParameterMode.cs" />
     <Compile Include="Xpdl\FormalParameters.cs" />
+    <Compile Include="Xpdl\GlobalActivities.cs" />
+    <Compile Include="Xpdl\GlobalActivityReference.cs" />
+    <Compile Include="Xpdl\Group.cs" />
+    <Compile Include="Xpdl\GroupObject.cs" />
+    <Compile Include="Xpdl\Icon.cs" />
+    <Compile Include="Xpdl\IconSHAPE.cs" />
     <Compile Include="Xpdl\Implementation.cs" />
+    <Compile Include="Xpdl\Input.cs" />
+    <Compile Include="Xpdl\InputSet.cs" />
+    <Compile Include="Xpdl\InputSets.cs" />
+    <Compile Include="Xpdl\IntermediateEvent.cs" />
+    <Compile Include="Xpdl\IntermediateEventImplementation.cs" />
+    <Compile Include="Xpdl\IntermediateEventTrigger.cs" />
+    <Compile Include="Xpdl\IORules.cs" />
     <Compile Include="Xpdl\ItemChoiceType.cs" />
+    <Compile Include="Xpdl\ItemChoiceType1.cs" />
     <Compile Include="Xpdl\Join.cs" />
+    <Compile Include="Xpdl\JoinExclusiveType.cs" />
     <Compile Include="Xpdl\JoinType.cs" />
+    <Compile Include="Xpdl\Lane.cs" />
+    <Compile Include="Xpdl\LaneNestedLane.cs" />
+    <Compile Include="Xpdl\LaneOrientation.cs" />
+    <Compile Include="Xpdl\Lanes.cs" />
+    <Compile Include="Xpdl\LayoutInfo.cs" />
+    <Compile Include="Xpdl\Length.cs" />
+    <Compile Include="Xpdl\Limit.cs" />
     <Compile Include="Xpdl\ListType.cs" />
-    <Compile Include="Xpdl\Manual.cs" />
+    <Compile Include="Xpdl\Loop.cs" />
+    <Compile Include="Xpdl\LoopLoopType.cs" />
+    <Compile Include="Xpdl\LoopMultiInstance.cs" />
+    <Compile Include="Xpdl\LoopMultiInstanceMI_FlowCondition.cs" />
+    <Compile Include="Xpdl\LoopMultiInstanceMI_Ordering.cs" />
+    <Compile Include="Xpdl\LoopStandard.cs" />
+    <Compile Include="Xpdl\LoopStandardTestTime.cs" />
     <Compile Include="Xpdl\Member.cs" />
+    <Compile Include="Xpdl\MessageFlow.cs" />
+    <Compile Include="Xpdl\MessageFlowMarkerVisible.cs" />
+    <Compile Include="Xpdl\MessageFlows.cs" />
+    <Compile Include="Xpdl\MessageType.cs" />
+    <Compile Include="Xpdl\ModificationDate.cs" />
     <Compile Include="Xpdl\No.cs" />
-    <Compile Include="Xpdl\Package.cs" />
+    <Compile Include="Xpdl\NodeGraphicsInfo.cs" />
+    <Compile Include="Xpdl\NodeGraphicsInfos.cs" />
+    <Compile Include="Xpdl\Object.cs" />
+    <Compile Include="Xpdl\Output.cs" />
+    <Compile Include="Xpdl\OutputSet.cs" />
+    <Compile Include="Xpdl\OutputSets.cs" />
     <Compile Include="Xpdl\PackageHeader.cs" />
+    <Compile Include="Xpdl\PackageType.cs" />
+    <Compile Include="Xpdl\Page.cs" />
+    <Compile Include="Xpdl\Pages.cs" />
     <Compile Include="Xpdl\Participant.cs" />
     <Compile Include="Xpdl\Participants.cs" />
     <Compile Include="Xpdl\ParticipantType.cs" />
     <Compile Include="Xpdl\ParticipantTypeType.cs" />
+    <Compile Include="Xpdl\PartnerLink.cs" />
+    <Compile Include="Xpdl\PartnerLinkMyRole.cs" />
+    <Compile Include="Xpdl\PartnerLinkPartnerRole.cs" />
+    <Compile Include="Xpdl\PartnerLinks.cs" />
+    <Compile Include="Xpdl\PartnerLinkType.cs" />
+    <Compile Include="Xpdl\PartnerLinkTypeRole.cs" />
+    <Compile Include="Xpdl\PartnerLinkTypes.cs" />
+    <Compile Include="Xpdl\Performer.cs" />
+    <Compile Include="Xpdl\Performers.cs" />
+    <Compile Include="Xpdl\Pool.cs" />
+    <Compile Include="Xpdl\PoolOrientation.cs" />
+    <Compile Include="Xpdl\Pools.cs" />
+    <Compile Include="Xpdl\Precision.cs" />
+    <Compile Include="Xpdl\Priority.cs" />
+    <Compile Include="Xpdl\PriorityUnit.cs" />
     <Compile Include="Xpdl\ProcessHeader.cs" />
     <Compile Include="Xpdl\ProcessHeaderDurationUnit.cs" />
+    <Compile Include="Xpdl\ProcessType.cs" />
+    <Compile Include="Xpdl\ProcessTypeAccessLevel.cs" />
+    <Compile Include="Xpdl\ProcessTypeAdHocOrdering.cs" />
+    <Compile Include="Xpdl\ProcessTypeProcessType.cs" />
+    <Compile Include="Xpdl\ProcessTypeStatus.cs" />
+    <Compile Include="Xpdl\PropertyInput.cs" />
     <Compile Include="Xpdl\RecordType.cs" />
     <Compile Include="Xpdl\RedefinableHeader.cs" />
     <Compile Include="Xpdl\RedefinableHeaderPublicationStatus.cs" />
+    <Compile Include="Xpdl\Reference.cs" />
+    <Compile Include="Xpdl\ResourceCosts.cs" />
+    <Compile Include="Xpdl\ResourceCostsCostUnitOfTime.cs" />
+    <Compile Include="Xpdl\Responsible.cs" />
     <Compile Include="Xpdl\Responsibles.cs" />
+    <Compile Include="Xpdl\ResultError.cs" />
+    <Compile Include="Xpdl\ResultMultiple.cs" />
     <Compile Include="Xpdl\Route.cs" />
+    <Compile Include="Xpdl\RouteExclusiveType.cs" />
+    <Compile Include="Xpdl\RouteGatewayDirection.cs" />
+    <Compile Include="Xpdl\RouteGatewayType.cs" />
+    <Compile Include="Xpdl\RouteXORType.cs" />
+    <Compile Include="Xpdl\Rule.cs" />
+    <Compile Include="Xpdl\Scale.cs" />
     <Compile Include="Xpdl\SchemaType.cs" />
     <Compile Include="Xpdl\Script.cs" />
     <Compile Include="Xpdl\SimulationInformation.cs" />
     <Compile Include="Xpdl\SimulationInformationInstantiation.cs" />
     <Compile Include="Xpdl\Split.cs" />
+    <Compile Include="Xpdl\SplitExclusiveType.cs" />
     <Compile Include="Xpdl\SplitType.cs" />
-    <Compile Include="Xpdl\StartMode.cs" />
+    <Compile Include="Xpdl\StartEvent.cs" />
+    <Compile Include="Xpdl\StartEventImplementation.cs" />
+    <Compile Include="Xpdl\StartEventTrigger.cs" />
     <Compile Include="Xpdl\SubFlow.cs" />
     <Compile Include="Xpdl\SubFlowExecution.cs" />
+    <Compile Include="Xpdl\SubFlowView.cs" />
+    <Compile Include="Xpdl\Task.cs" />
+    <Compile Include="Xpdl\TaskApplication.cs" />
+    <Compile Include="Xpdl\TaskBusinessRule.cs" />
+    <Compile Include="Xpdl\TaskBusinessRuleBusinessRuleTaskImplementation.cs" />
+    <Compile Include="Xpdl\TaskManual.cs" />
+    <Compile Include="Xpdl\TaskReceive.cs" />
+    <Compile Include="Xpdl\TaskReceiveImplementation.cs" />
+    <Compile Include="Xpdl\TaskReference.cs" />
+    <Compile Include="Xpdl\TaskScript.cs" />
+    <Compile Include="Xpdl\TaskSend.cs" />
+    <Compile Include="Xpdl\TaskSendImplementation.cs" />
+    <Compile Include="Xpdl\TaskService.cs" />
+    <Compile Include="Xpdl\TaskServiceImplementation.cs" />
+    <Compile Include="Xpdl\TaskUser.cs" />
+    <Compile Include="Xpdl\TaskUserImplementation.cs" />
     <Compile Include="Xpdl\TimeEstimation.cs" />
-    <Compile Include="Xpdl\Tool.cs" />
-    <Compile Include="Xpdl\ToolType.cs" />
+    <Compile Include="Xpdl\Transaction.cs" />
+    <Compile Include="Xpdl\TransactionTransactionMethod.cs" />
     <Compile Include="Xpdl\Transition.cs" />
     <Compile Include="Xpdl\TransitionRef.cs" />
     <Compile Include="Xpdl\TransitionRefs.cs" />
     <Compile Include="Xpdl\TransitionRestriction.cs" />
     <Compile Include="Xpdl\TransitionRestrictions.cs" />
     <Compile Include="Xpdl\Transitions.cs" />
+    <Compile Include="Xpdl\TriggerConditional.cs" />
+    <Compile Include="Xpdl\TriggerEscalation.cs" />
+    <Compile Include="Xpdl\TriggerIntermediateMultiple.cs" />
+    <Compile Include="Xpdl\TriggerMultiple.cs" />
+    <Compile Include="Xpdl\TriggerResultCompensation.cs" />
+    <Compile Include="Xpdl\TriggerResultLink.cs" />
+    <Compile Include="Xpdl\TriggerResultLinkCatchThrow.cs" />
+    <Compile Include="Xpdl\TriggerResultMessage.cs" />
+    <Compile Include="Xpdl\TriggerResultMessageCatchThrow.cs" />
+    <Compile Include="Xpdl\TriggerResultSignal.cs" />
+    <Compile Include="Xpdl\TriggerResultSignalCatchThrow.cs" />
+    <Compile Include="Xpdl\TriggerRule.cs" />
+    <Compile Include="Xpdl\TriggerTimer.cs" />
     <Compile Include="Xpdl\TypeDeclaration.cs" />
     <Compile Include="Xpdl\TypeDeclarations.cs" />
     <Compile Include="Xpdl\UnionType.cs" />
-    <Compile Include="Xpdl\WorkflowProcess.cs" />
-    <Compile Include="Xpdl\WorkflowProcessAccessLevel.cs" />
+    <Compile Include="Xpdl\ValidFrom.cs" />
+    <Compile Include="Xpdl\ValidTo.cs" />
+    <Compile Include="Xpdl\Vendor.cs" />
+    <Compile Include="Xpdl\VendorExtension.cs" />
+    <Compile Include="Xpdl\VendorExtensions.cs" />
+    <Compile Include="Xpdl\Version.cs" />
+    <Compile Include="Xpdl\WaitingTime.cs" />
+    <Compile Include="Xpdl\WebServiceFaultCatch.cs" />
+    <Compile Include="Xpdl\WebServiceOperation.cs" />
+    <Compile Include="Xpdl\WebServiceOperationPartner.cs" />
+    <Compile Include="Xpdl\WebServiceOperationPartnerRoleType.cs" />
+    <Compile Include="Xpdl\WebServiceOperationService.cs" />
     <Compile Include="Xpdl\WorkflowProcesses.cs" />
-    <Compile Include="Xpdl\Xpression.cs" />
+    <Compile Include="Xpdl\WorkingTime.cs" />
+    <Compile Include="Xpdl\XPDLVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -299,15 +469,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\Colors.xaml">

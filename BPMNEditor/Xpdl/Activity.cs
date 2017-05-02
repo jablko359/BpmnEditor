@@ -5,43 +5,98 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class Activity
     {
 
-        private string descriptionField;
+        private Description descriptionField;
 
-        private string limitField;
+        private Limit limitField;
 
         private object itemField;
 
-        private string performerField;
+        private Transaction transactionField;
 
-        private StartMode startModeField;
+        private Performers performersField;
 
-        private FinishMode finishModeField;
+        private Performer performerField;
 
-        private string priorityField;
+        private Priority priorityField;
 
-        private Deadline[] deadlineField;
+        private Deadline[] itemsField;
 
         private SimulationInformation simulationInformationField;
 
-        private string iconField;
+        private Icon iconField;
 
-        private string documentationField;
+        private Documentation documentationField;
 
-        private TransitionRestriction[] transitionRestrictionsField;
+        private TransitionRestrictions transitionRestrictionsField;
 
         private ExtendedAttribute[] extendedAttributesField;
 
+        private DataFields dataFieldsField;
+
+        private FormalParameters formalParametersField;
+
+        private ActualParameters actualParametersField;
+
+        private InputSets inputSetsField;
+
+        private OutputSets outputSetsField;
+
+        private IORules iORulesField;
+
+        private Loop loopField;
+
+        private Assignments assignmentsField;
+
+        private Object objectField;
+
+        private NodeGraphicsInfos nodeGraphicsInfosField;
+
+        private object[] items1Field;
+
         private string idField;
+
+        private bool isForCompensationField;
 
         private string nameField;
 
+        private bool startActivityField;
+
+        private bool startActivityFieldSpecified;
+
+        private ActivityStatus statusField;
+
+        private ActivityStartMode startModeField;
+
+        private bool startModeFieldSpecified;
+
+        private ActivityFinishMode finishModeField;
+
+        private bool finishModeFieldSpecified;
+
+        private string startQuantityField;
+
+        private string completionQuantityField;
+
+        private bool isATransactionField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
+
+        public Activity()
+        {
+            this.isForCompensationField = false;
+            this.statusField = ActivityStatus.None;
+            this.startQuantityField = "1";
+            this.completionQuantityField = "1";
+            this.isATransactionField = false;
+        }
+
         /// <uwagi/>
-        public string Description
+        public Description Description
         {
             get
             {
@@ -54,7 +109,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Limit
+        public Limit Limit
         {
             get
             {
@@ -68,6 +123,7 @@ namespace BPMNEditor.Xpdl
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlElementAttribute("BlockActivity", typeof(BlockActivity))]
+        [System.Xml.Serialization.XmlElementAttribute("Event", typeof(Event))]
         [System.Xml.Serialization.XmlElementAttribute("Implementation", typeof(Implementation))]
         [System.Xml.Serialization.XmlElementAttribute("Route", typeof(Route))]
         public object Item
@@ -83,7 +139,33 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Performer
+        public Transaction Transaction
+        {
+            get
+            {
+                return this.transactionField;
+            }
+            set
+            {
+                this.transactionField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Performers Performers
+        {
+            get
+            {
+                return this.performersField;
+            }
+            set
+            {
+                this.performersField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Performer Performer
         {
             get
             {
@@ -96,33 +178,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public StartMode StartMode
-        {
-            get
-            {
-                return this.startModeField;
-            }
-            set
-            {
-                this.startModeField = value;
-            }
-        }
-
-        /// <uwagi/>
-        public FinishMode FinishMode
-        {
-            get
-            {
-                return this.finishModeField;
-            }
-            set
-            {
-                this.finishModeField = value;
-            }
-        }
-
-        /// <uwagi/>
-        public string Priority
+        public Priority Priority
         {
             get
             {
@@ -136,15 +192,15 @@ namespace BPMNEditor.Xpdl
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlElementAttribute("Deadline")]
-        public Deadline[] Deadline
+        public Deadline[] Items
         {
             get
             {
-                return this.deadlineField;
+                return this.itemsField;
             }
             set
             {
-                this.deadlineField = value;
+                this.itemsField = value;
             }
         }
 
@@ -162,7 +218,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Icon
+        public Icon Icon
         {
             get
             {
@@ -175,7 +231,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Documentation
+        public Documentation Documentation
         {
             get
             {
@@ -188,8 +244,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("TransitionRestriction", IsNullable = false)]
-        public TransitionRestriction[] TransitionRestrictions
+        public TransitionRestrictions TransitionRestrictions
         {
             get
             {
@@ -216,6 +271,151 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
+        public DataFields DataFields
+        {
+            get
+            {
+                return this.dataFieldsField;
+            }
+            set
+            {
+                this.dataFieldsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public FormalParameters FormalParameters
+        {
+            get
+            {
+                return this.formalParametersField;
+            }
+            set
+            {
+                this.formalParametersField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public ActualParameters ActualParameters
+        {
+            get
+            {
+                return this.actualParametersField;
+            }
+            set
+            {
+                this.actualParametersField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public InputSets InputSets
+        {
+            get
+            {
+                return this.inputSetsField;
+            }
+            set
+            {
+                this.inputSetsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public OutputSets OutputSets
+        {
+            get
+            {
+                return this.outputSetsField;
+            }
+            set
+            {
+                this.outputSetsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public IORules IORules
+        {
+            get
+            {
+                return this.iORulesField;
+            }
+            set
+            {
+                this.iORulesField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Loop Loop
+        {
+            get
+            {
+                return this.loopField;
+            }
+            set
+            {
+                this.loopField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Assignments Assignments
+        {
+            get
+            {
+                return this.assignmentsField;
+            }
+            set
+            {
+                this.assignmentsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Object Object
+        {
+            get
+            {
+                return this.objectField;
+            }
+            set
+            {
+                this.objectField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public NodeGraphicsInfos NodeGraphicsInfos
+        {
+            get
+            {
+                return this.nodeGraphicsInfosField;
+            }
+            set
+            {
+                this.nodeGraphicsInfosField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("Extensions", typeof(object))]
+        public object[] Items1
+        {
+            get
+            {
+                return this.items1Field;
+            }
+            set
+            {
+                this.items1Field = value;
+            }
+        }
+
+        /// <uwagi/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType = "NMTOKEN")]
         public string Id
         {
@@ -231,6 +431,21 @@ namespace BPMNEditor.Xpdl
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool IsForCompensation
+        {
+            get
+            {
+                return this.isForCompensationField;
+            }
+            set
+            {
+                this.isForCompensationField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string Name
         {
             get
@@ -240,6 +455,164 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.nameField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool StartActivity
+        {
+            get
+            {
+                return this.startActivityField;
+            }
+            set
+            {
+                this.startActivityField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StartActivitySpecified
+        {
+            get
+            {
+                return this.startActivityFieldSpecified;
+            }
+            set
+            {
+                this.startActivityFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(ActivityStatus.None)]
+        public ActivityStatus Status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ActivityStartMode StartMode
+        {
+            get
+            {
+                return this.startModeField;
+            }
+            set
+            {
+                this.startModeField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool StartModeSpecified
+        {
+            get
+            {
+                return this.startModeFieldSpecified;
+            }
+            set
+            {
+                this.startModeFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ActivityFinishMode FinishMode
+        {
+            get
+            {
+                return this.finishModeField;
+            }
+            set
+            {
+                this.finishModeField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool FinishModeSpecified
+        {
+            get
+            {
+                return this.finishModeFieldSpecified;
+            }
+            set
+            {
+                this.finishModeFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
+        [System.ComponentModel.DefaultValueAttribute("1")]
+        public string StartQuantity
+        {
+            get
+            {
+                return this.startQuantityField;
+            }
+            set
+            {
+                this.startQuantityField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
+        [System.ComponentModel.DefaultValueAttribute("1")]
+        public string CompletionQuantity
+        {
+            get
+            {
+                return this.completionQuantityField;
+            }
+            set
+            {
+                this.completionQuantityField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool IsATransaction
+        {
+            get
+            {
+                return this.isATransactionField;
+            }
+            set
+            {
+                this.isATransactionField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

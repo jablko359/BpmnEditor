@@ -5,16 +5,24 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class Transition
     {
 
         private Condition conditionField;
 
-        private string descriptionField;
+        private Description descriptionField;
 
         private ExtendedAttribute[] extendedAttributesField;
+
+        private Assignments assignmentsField;
+
+        private Object objectField;
+
+        private ConnectorGraphicsInfos connectorGraphicsInfosField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private string idField;
 
@@ -23,6 +31,15 @@ namespace BPMNEditor.Xpdl
         private string toField;
 
         private string nameField;
+
+        private int quantityField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
+
+        public Transition()
+        {
+            this.quantityField = 1;
+        }
 
         /// <uwagi/>
         public Condition Condition
@@ -38,7 +55,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Description
+        public Description Description
         {
             get
             {
@@ -61,6 +78,59 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.extendedAttributesField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Assignments Assignments
+        {
+            get
+            {
+                return this.assignmentsField;
+            }
+            set
+            {
+                this.assignmentsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Object Object
+        {
+            get
+            {
+                return this.objectField;
+            }
+            set
+            {
+                this.objectField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public ConnectorGraphicsInfos ConnectorGraphicsInfos
+        {
+            get
+            {
+                return this.connectorGraphicsInfosField;
+            }
+            set
+            {
+                this.connectorGraphicsInfosField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -117,6 +187,35 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.nameField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(1)]
+        public int Quantity
+        {
+            get
+            {
+                return this.quantityField;
+            }
+            set
+            {
+                this.quantityField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

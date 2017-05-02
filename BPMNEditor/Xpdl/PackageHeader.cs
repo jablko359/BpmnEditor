@@ -5,27 +5,37 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class PackageHeader
     {
 
-        private string xPDLVersionField;
+        private XPDLVersion xPDLVersionField;
 
-        private string vendorField;
+        private Vendor vendorField;
 
-        private string createdField;
+        private Created createdField;
 
-        private string descriptionField;
+        private ModificationDate modificationDateField;
 
-        private string documentationField;
+        private Description descriptionField;
 
-        private string priorityUnitField;
+        private Documentation documentationField;
 
-        private string costUnitField;
+        private PriorityUnit priorityUnitField;
+
+        private CostUnit costUnitField;
+
+        private VendorExtensions vendorExtensionsField;
+
+        private LayoutInfo layoutInfoField;
+
+        private System.Xml.XmlElement[] anyField;
+
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
-        public string XPDLVersion
+        public XPDLVersion XPDLVersion
         {
             get
             {
@@ -38,7 +48,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Vendor
+        public Vendor Vendor
         {
             get
             {
@@ -51,7 +61,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Created
+        public Created Created
         {
             get
             {
@@ -64,7 +74,20 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Description
+        public ModificationDate ModificationDate
+        {
+            get
+            {
+                return this.modificationDateField;
+            }
+            set
+            {
+                this.modificationDateField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public Description Description
         {
             get
             {
@@ -77,7 +100,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string Documentation
+        public Documentation Documentation
         {
             get
             {
@@ -90,7 +113,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string PriorityUnit
+        public PriorityUnit PriorityUnit
         {
             get
             {
@@ -103,7 +126,7 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        public string CostUnit
+        public CostUnit CostUnit
         {
             get
             {
@@ -112,6 +135,60 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.costUnitField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public VendorExtensions VendorExtensions
+        {
+            get
+            {
+                return this.vendorExtensionsField;
+            }
+            set
+            {
+                this.vendorExtensionsField = value;
+            }
+        }
+
+        /// <uwagi/>
+        public LayoutInfo LayoutInfo
+        {
+            get
+            {
+                return this.layoutInfoField;
+            }
+            set
+            {
+                this.layoutInfoField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

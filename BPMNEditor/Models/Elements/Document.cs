@@ -9,11 +9,31 @@ namespace BPMNEditor.Models.Elements
 {
     public class Document
     {
-        protected Document() { }
-
-        public static Document FromViewModel(DocumentViewModel viewModel)
+        public List<IBaseElement> BaseElements
         {
-            return new Document();
+            get; set;
         }
+
+        public List<Pool> Pools { get; set; }
+
+        public string Name { get; set; }
+
+        public DateTime CreatedOn { get; private set; }
+
+        public Pool MainPool { get; set; }
+
+        public Guid MainProcessGuid { get; set; }
+
+        public Guid Guid { get; set; }
+
+        public Document()
+        {
+            BaseElements = new List<IBaseElement>();
+            Pools = new List<Pool>();
+            CreatedOn = DateTime.Now;
+            Guid = Guid.NewGuid();
+            MainPool = new Pool();
+        }
+
     }
 }

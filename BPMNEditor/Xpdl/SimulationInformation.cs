@@ -5,29 +5,35 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class SimulationInformation
     {
 
-        private string costField;
+        private object itemField;
 
         private TimeEstimation timeEstimationField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private SimulationInformationInstantiation instantiationField;
 
         private bool instantiationFieldSpecified;
 
+        private System.Xml.XmlAttribute[] anyAttrField;
+
         /// <uwagi/>
-        public string Cost
+        [System.Xml.Serialization.XmlElementAttribute("Cost", typeof(Cost))]
+        [System.Xml.Serialization.XmlElementAttribute("CostStructure", typeof(CostStructure))]
+        public object Item
         {
             get
             {
-                return this.costField;
+                return this.itemField;
             }
             set
             {
-                this.costField = value;
+                this.itemField = value;
             }
         }
 
@@ -41,6 +47,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.timeEstimationField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -69,6 +89,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.instantiationFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

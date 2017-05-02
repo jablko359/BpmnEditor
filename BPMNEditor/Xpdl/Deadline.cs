@@ -5,34 +5,38 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class Deadline
     {
 
-        private object deadlineConditionField;
+        private ExpressionType deadlineDurationField;
 
-        private object exceptionNameField;
+        private DeadlineExceptionName exceptionNameField;
+
+        private System.Xml.XmlElement[] anyField;
 
         private DeadlineExecution executionField;
 
         private bool executionFieldSpecified;
 
+        private System.Xml.XmlAttribute[] anyAttrField;
+
         /// <uwagi/>
-        public object DeadlineCondition
+        public ExpressionType DeadlineDuration
         {
             get
             {
-                return this.deadlineConditionField;
+                return this.deadlineDurationField;
             }
             set
             {
-                this.deadlineConditionField = value;
+                this.deadlineDurationField = value;
             }
         }
 
         /// <uwagi/>
-        public object ExceptionName
+        public DeadlineExceptionName ExceptionName
         {
             get
             {
@@ -41,6 +45,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.exceptionNameField = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any
+        {
+            get
+            {
+                return this.anyField;
+            }
+            set
+            {
+                this.anyField = value;
             }
         }
 
@@ -69,6 +87,20 @@ namespace BPMNEditor.Xpdl
             set
             {
                 this.executionFieldSpecified = value;
+            }
+        }
+
+        /// <uwagi/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get
+            {
+                return this.anyAttrField;
+            }
+            set
+            {
+                this.anyAttrField = value;
             }
         }
     }

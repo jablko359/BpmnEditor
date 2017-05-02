@@ -106,10 +106,12 @@ namespace BPMNEditor.ViewModels
                 PropertyEditElement = e.SelectedItem;
             }
         }
-
+        /// <summary>
+        /// Reads avaliable elements at start
+        /// </summary>
         private void ReadAvailableElements()
         {
-            ClassReader reader = new ClassReader(ElementsNamespace, type => typeof(IBaseElement).IsAssignableFrom(type));
+            ClassReader reader = new ClassReader(ElementsNamespace, type => typeof(IBaseElement).IsAssignableFrom(type) && !type.IsAbstract);
             var types = reader.GetTypes();
             foreach (Type type in types)
             {
@@ -163,10 +165,13 @@ namespace BPMNEditor.ViewModels
         private void Save()
         {
             SaveFileDialog file = new SaveFileDialog();
+            Document document = _activeDocument.Document;
+            file.FileName = document.Name;
+            file.Filter = XpdlInfo.GetFileFilter();
             if (file.ShowDialog() == DialogResult.OK)
             {
                 ISerializer serializer = new XpdlSerializer();
-                Document document = Document.FromViewModel(_activeDocument);
+                
                 using (var outputStream = file.OpenFile())
                 {
                     serializer.Serialize(document, outputStream);

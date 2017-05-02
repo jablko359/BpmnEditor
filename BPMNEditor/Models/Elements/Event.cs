@@ -10,7 +10,7 @@ namespace BPMNEditor.Models.Elements
 {
     [Draggable(typeof(IDocumentElement))]
     [ElementViewModel(typeof(EventViewModel),EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
-    public class Event : IBaseElement
+    public class Event : IdElement
     {
 
     }

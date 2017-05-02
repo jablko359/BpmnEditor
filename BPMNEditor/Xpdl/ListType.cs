@@ -5,14 +5,14 @@ namespace BPMNEditor.Xpdl
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2002/XPDL1.0")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2002/XPDL1.0", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.wfmc.org/2009/XPDL2.2")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.wfmc.org/2009/XPDL2.2", IsNullable = false)]
     public partial class ListType
     {
 
         private object itemField;
 
-        private ItemChoiceType itemElementNameField;
+        private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlElementAttribute("ArrayType", typeof(ArrayType))]
@@ -24,7 +24,6 @@ namespace BPMNEditor.Xpdl
         [System.Xml.Serialization.XmlElementAttribute("RecordType", typeof(RecordType))]
         [System.Xml.Serialization.XmlElementAttribute("SchemaType", typeof(SchemaType))]
         [System.Xml.Serialization.XmlElementAttribute("UnionType", typeof(UnionType))]
-        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
         public object Item
         {
             get
@@ -38,16 +37,16 @@ namespace BPMNEditor.Xpdl
         }
 
         /// <uwagi/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public ItemChoiceType ItemElementName
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
         {
             get
             {
-                return this.itemElementNameField;
+                return this.anyAttrField;
             }
             set
             {
-                this.itemElementNameField = value;
+                this.anyAttrField = value;
             }
         }
     }
