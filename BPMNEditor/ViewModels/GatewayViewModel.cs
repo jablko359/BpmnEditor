@@ -17,7 +17,7 @@ namespace BPMNEditor.ViewModels
         public const double InitialWidth = 50;
         public const double InitialHeight = 50;
 
-        private Gateway _gateway;
+        private GatewayElement _gatewayElement;
 
         private GatewayType _type;
 
@@ -41,14 +41,14 @@ namespace BPMNEditor.ViewModels
 
         public GatewayViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };
+            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
             ChangeTypeCommand = new RelayCommand(type => ChangeType((GatewayType)type));
         }
 
         protected override IBaseElement CreateElement()
         {
-           _gateway = new Gateway();
-            return _gateway;
+           _gatewayElement = new GatewayElement();
+            return _gatewayElement;
         }
 
         protected override HashSet<Type> ApplicableTypes { get; }

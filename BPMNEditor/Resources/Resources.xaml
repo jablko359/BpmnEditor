@@ -49,7 +49,7 @@
     <!--Dnd Trackers-->
     <Style x:Key="TrackerContentControl" TargetType="{x:Type ContentControl}">
         <Style.Triggers>
-            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Event}">
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:EventElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -59,7 +59,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Task}">
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:TaskElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -68,7 +68,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Gateway}">
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:GatewayElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -84,7 +84,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:Pool}">
+            <DataTrigger Binding="{Binding TransferType}" Value="{x:Type elements:PoolElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>

@@ -14,5 +14,10 @@ namespace BPMNEditor.Models.Elements
         {
             Guid = Guid.NewGuid();
         }
+
+        public string GetId()
+        {
+            return Guid.ToString();
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace BPMNEditor.ViewModels
         public const double InitialWidth = 128;
         public const double InitialHeight = 80;
 
-        private Task _task;
+        private TaskElement _taskElement;
 
         private string _name;
 
@@ -35,14 +35,14 @@ namespace BPMNEditor.ViewModels
 
         public TaskViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            Name = "Task";
-            ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };
+            Name = "TaskElement";
+            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
         }
 
         protected override IBaseElement CreateElement()
         {
-            _task = new Task();
-            return _task;
+            _taskElement = new TaskElement();
+            return _taskElement;
         }
 
         protected override HashSet<Type> ApplicableTypes { get; }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BPMNEditor.Models.Elements;
@@ -13,14 +15,11 @@ namespace BPMNEditor.ViewModels
     public class ElementCreatorViewModel : PropertyChangedBase, IDragable, ITypeProvider
     {
         private readonly Type _elementType;
+        private string _name;
 
         public string Name
         {
-            get
-            {
-                string elementName = _elementType.Name;
-                return elementName;
-            }
+            get { return _name; }
         }
 
         public Type ElementType
@@ -31,6 +30,7 @@ namespace BPMNEditor.ViewModels
         public ElementCreatorViewModel(Type elementType)
         {
             _elementType = elementType;
+            SetName();
             DataType = GetDataType(elementType);
         }
 
@@ -44,6 +44,20 @@ namespace BPMNEditor.ViewModels
                 return typeof(IDocumentElement);
             }
             return attribute.DataType;
+        }
+
+        private void SetName()
+        {
+            var attr = _elementType.GetCustomAttribute<DisplayNameAttribute>();
+            if (attr != null)
+            {
+                _name = attr.DisplayName;
+            }
+            else
+            {
+                _name = _elementType.Name;
+            }
+
         }
 
     }

@@ -16,7 +16,7 @@ namespace BPMNEditor.ViewModels
         public const double InitialWidth = 40;
         public const double InitialHeight = 40;
 
-        private Event _event;
+        private EventElement _eventElement;
 
         private EventType _type;
 
@@ -35,14 +35,14 @@ namespace BPMNEditor.ViewModels
 
         public EventViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            ApplicableTypes = new HashSet<Type>() { typeof(Event), typeof(Task), typeof(Gateway) };
+            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
             ChangeTypeCommand = new RelayCommand(type => ChangeType((EventType)type));
         }
 
         protected override IBaseElement CreateElement()
         {
-            _event = new Event();
-            return _event;
+            _eventElement = new EventElement();
+            return _eventElement;
         }
 
         protected override HashSet<Type> ApplicableTypes { get; }

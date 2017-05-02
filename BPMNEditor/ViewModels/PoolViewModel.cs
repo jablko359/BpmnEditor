@@ -21,7 +21,7 @@ namespace BPMNEditor.ViewModels
 
         #region Private members
 
-        private Pool _pool;
+        private PoolElement _poolElement;
         private string _name;
         private bool _isDragOver;
         private readonly List<PoolElementViewModel> _elements = new List<PoolElementViewModel>();
@@ -63,7 +63,7 @@ namespace BPMNEditor.ViewModels
         {
             ApplicableTypes = new HashSet<Type>();
             LocationChanged += PoolViewModel_LocationChanged;
-            _name = "Pool";
+            _name = "PoolElement";
         }
 
 
@@ -75,8 +75,8 @@ namespace BPMNEditor.ViewModels
         protected override HashSet<Type> ApplicableTypes { get; }
         protected override IBaseElement CreateElement()
         {
-            _pool = new Pool();
-            return _pool;
+            _poolElement = new PoolElement();
+            return _poolElement;
         }
 
         #endregion
@@ -89,7 +89,7 @@ namespace BPMNEditor.ViewModels
         {
             IsDragOver = false;
             ITypeProvider provider = data as ITypeProvider;
-            if (provider != null && provider.ElementType == typeof(Lane))
+            if (provider != null && provider.ElementType == typeof(LaneElement))
             {
                 AddNewLane();
             }

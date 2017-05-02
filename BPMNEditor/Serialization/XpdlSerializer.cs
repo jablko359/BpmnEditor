@@ -19,6 +19,7 @@ namespace BPMNEditor.Serialization
             PackageBuilder builder = new PackageBuilder();
             builder.FromDocument(document);
             builder.CreateHeader();
+            builder.SetPools();
             XmlSerializer serializer = new XmlSerializer(typeof(PackageType));
             serializer.Serialize(stream,builder.Package);
         }

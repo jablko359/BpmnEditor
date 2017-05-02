@@ -6,7 +6,7 @@
     <!--Toolbox elemens-->
     <Style x:Key="ElementPickerContentControl" TargetType="{x:Type ContentControl}">
         <Style.Triggers>
-            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Event}">
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:EventElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -21,7 +21,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Task}">
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:TaskElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate >
@@ -33,7 +33,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Gateway}">
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:GatewayElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -52,7 +52,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Pool}">
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:PoolElement}">
                 <Setter  Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -65,7 +65,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:Lane}">
+            <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:LaneElement}">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>

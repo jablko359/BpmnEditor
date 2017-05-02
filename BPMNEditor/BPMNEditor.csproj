@@ -103,8 +103,8 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Models\Elements\Document.cs" />
     <Compile Include="Models\Elements\IdElement.cs" />
-    <Compile Include="Models\Elements\Lane.cs" />
-    <Compile Include="Models\Elements\Pool.cs" />
+    <Compile Include="Models\Elements\LaneElement.cs" />
+    <Compile Include="Models\Elements\PoolElement.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\PackageBuilder.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
@@ -112,10 +112,10 @@
     <Compile Include="Tools\DraggableAttribute.cs" />
     <Compile Include="Tools\Events.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
-    <Compile Include="Models\Elements\Event.cs" />
-    <Compile Include="Models\Elements\Gateway.cs" />
+    <Compile Include="Models\Elements\EventElement.cs" />
+    <Compile Include="Models\Elements\GatewayElement.cs" />
     <Compile Include="Models\Elements\IBaseElement.cs" />
-    <Compile Include="Models\Elements\Task.cs" />
+    <Compile Include="Models\Elements\TaskElement.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Tools\BindingProxy.cs" />
     <Compile Include="Tools\GraphTools\Arrow.xaml.cs">

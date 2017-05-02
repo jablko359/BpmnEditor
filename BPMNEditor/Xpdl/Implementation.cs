@@ -19,7 +19,7 @@ namespace BPMNEditor.Xpdl
         [System.Xml.Serialization.XmlElementAttribute("No", typeof(No))]
         [System.Xml.Serialization.XmlElementAttribute("Reference", typeof(Reference))]
         [System.Xml.Serialization.XmlElementAttribute("SubFlow", typeof(SubFlow))]
-        [System.Xml.Serialization.XmlElementAttribute("Task", typeof(Task))]
+        [System.Xml.Serialization.XmlElementAttribute("TaskElement", typeof(Task))]
         public object Item
         {
             get

@@ -93,7 +93,14 @@ namespace BPMNEditor.ViewModels
                 {
                     var baseElementViewModel = item as BaseElementViewModel;
                     var baseElement = baseElementViewModel.BaseElement;
-                    _document.BaseElements.Add(baseElement);
+                    if (baseElement is PoolElement)
+                    {
+                        _document.Pools.Add(baseElement as PoolElement);
+                    }
+                    else
+                    {
+                        _document.BaseElements.Add(baseElement);
+                    }
                     baseElementViewModel.ActionPerformed += ViewModel_ActionPerformed;
                 }
             }
@@ -103,7 +110,14 @@ namespace BPMNEditor.ViewModels
                 {
                     var baseElementViewModel = item as BaseElementViewModel;
                     var baseElement = baseElementViewModel.BaseElement;
-                    _document.BaseElements.Remove(baseElement);
+                    if (baseElement is PoolElement)
+                    {
+                        _document.Pools.Remove(baseElement as PoolElement);
+                    }
+                    else
+                    {
+                        _document.BaseElements.Remove(baseElement);
+                    }
                     baseElementViewModel.ActionPerformed -= ViewModel_ActionPerformed;
                 }
             }

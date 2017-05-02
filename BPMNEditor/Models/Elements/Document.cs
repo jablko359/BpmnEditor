@@ -14,25 +14,24 @@ namespace BPMNEditor.Models.Elements
             get; set;
         }
 
-        public List<Pool> Pools { get; set; }
+        public List<PoolElement> Pools { get; set; }
 
         public string Name { get; set; }
 
         public DateTime CreatedOn { get; private set; }
 
-        public Pool MainPool { get; set; }
-
-        public Guid MainProcessGuid { get; set; }
+        public PoolElement MainPoolElement { get; set; }
+       
 
         public Guid Guid { get; set; }
 
         public Document()
         {
             BaseElements = new List<IBaseElement>();
-            Pools = new List<Pool>();
+            Pools = new List<PoolElement>();
             CreatedOn = DateTime.Now;
             Guid = Guid.NewGuid();
-            MainPool = new Pool();
+            MainPoolElement = new PoolElement();
         }
 
     }

@@ -53,16 +53,28 @@ namespace BPMNEditor.Serialization
         {
             Pools pools = new Pools();
             pools.Pool = new Pool[_document.Pools.Count + 1];
-            Pool mainPool = new Pool();
-            mainPool.BoundaryVisible = false;
-            mainPool.Id = _document.MainPool.Guid.ToString();
-            mainPool.Process = _document.MainProcessGuid.ToString();
-            pools.Pool[0] = mainPool;
+            pools.Pool[0] = CreatePool(_document.MainPoolElement, false);
             for (int i = 0; i < _document.Pools.Count; i++)
             {
-                
+                pools.Pool[i + 1] = CreatePool(_document.Pools[i]);
             }
+            Package.Pools = pools;
 
+        }
+        /// <summary>
+        /// Creates xpdl pool based on program pool
+        /// </summary>
+        /// <param name="poolElement"></param>
+        /// <param name="isVisible"></param>
+        /// <returns></returns>
+        private static Pool CreatePool(PoolElement poolElement, bool isVisible = true)
+        {
+            Pool result = new Pool();
+            result.BoundaryVisible = isVisible;
+            result.Id = poolElement.GetId();
+            result.Process = poolElement.ProcessGuid.ToString();
+            result.Lanes = new Lanes();
+            return result;
         }
     }
 }

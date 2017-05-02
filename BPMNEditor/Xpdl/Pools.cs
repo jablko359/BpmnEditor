@@ -17,7 +17,7 @@ namespace BPMNEditor.Xpdl
         private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
-        [System.Xml.Serialization.XmlElementAttribute("Pool")]
+        [System.Xml.Serialization.XmlElementAttribute("PoolElement")]
         public Pool[] Pool
         {
             get

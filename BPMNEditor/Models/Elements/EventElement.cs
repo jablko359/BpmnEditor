@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,10 @@ using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
 {
+    [DisplayName("Event")]
     [Draggable(typeof(IDocumentElement))]
     [ElementViewModel(typeof(EventViewModel),EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
-    public class Event : IdElement
+    public class EventElement : IdElement
     {
 
     }

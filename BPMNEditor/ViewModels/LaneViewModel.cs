@@ -59,7 +59,7 @@ namespace BPMNEditor.ViewModels
         public LaneViewModel(int index, PoolViewModel poolViewModel)
         {
             Index = index;
-            _name = "Lane";
+            _name = "LaneElement";
             Height = 150;
             Lane = new Lane();
             DeleteCommand = new RelayCommand(x => Delete());
