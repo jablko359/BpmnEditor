@@ -150,6 +150,7 @@ namespace BPMNEditor.Serialization
             {
                 var pool = _document.Pools[i];
                 ProcessType processType = new ProcessType();
+                processType.Id = pool.ProcessGuid.ToString();
                 processType.ProcessHeader = new ProcessHeader();
                 processType.ProcessHeader.Created = new Created()
                 {
