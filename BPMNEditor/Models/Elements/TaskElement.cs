@@ -12,7 +12,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Task")]
     [Draggable(typeof(IDocumentElement))]
     [ElementViewModel(typeof(TaskViewModel), TaskViewModel.InitialWidth, TaskViewModel.InitialHeight)]
-    public class TaskElement : IdElement
+    public class TaskElement : VisualElement
     {
     }
 }

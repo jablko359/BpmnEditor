@@ -22,7 +22,6 @@ namespace BPMNEditor.ViewModels
         #region Private members
 
         private PoolElement _poolElement;
-        private string _name;
         private bool _isDragOver;
         private readonly List<PoolElementViewModel> _elements = new List<PoolElementViewModel>();
 
@@ -45,10 +44,10 @@ namespace BPMNEditor.ViewModels
 
         public string Name
         {
-            get { return _name; }
+            get { return _poolElement.Name; }
             set
             {
-                _name = value;
+                _poolElement.Name = value;
                 NotifyOfPropertyChange(nameof(Name));
             }
         }
@@ -63,7 +62,7 @@ namespace BPMNEditor.ViewModels
         {
             ApplicableTypes = new HashSet<Type>();
             LocationChanged += PoolViewModel_LocationChanged;
-            _name = "PoolElement";
+            
         }
 
 
@@ -76,6 +75,7 @@ namespace BPMNEditor.ViewModels
         protected override IBaseElement CreateElement()
         {
             _poolElement = new PoolElement();
+            Name = "Pool";
             return _poolElement;
         }
 
@@ -126,6 +126,7 @@ namespace BPMNEditor.ViewModels
                 previousLane.Next = next;
             }
             Lanes.Remove(lane);
+            _poolElement.Lanes.Remove(lane.Lane);
             NotifyOfPropertyChange(nameof(Height));
 
             NotifyActionPerformed(new GenericDeletedAction<LaneViewModel>(this, lane));
@@ -161,7 +162,7 @@ namespace BPMNEditor.ViewModels
                 Height += laneViewModel.Height;
             }
             Lanes.Add(laneViewModel);
-
+            _poolElement.Lanes.Add(laneViewModel.Lane);
             GenericAddedAction<LaneViewModel> laneAddedAction = new GenericAddedAction<LaneViewModel>(this, laneViewModel);
             NotifyActionPerformed(laneAddedAction);
         }

@@ -105,6 +105,7 @@
     <Compile Include="Models\Elements\IdElement.cs" />
     <Compile Include="Models\Elements\LaneElement.cs" />
     <Compile Include="Models\Elements\PoolElement.cs" />
+    <Compile Include="Models\Elements\VisualElement.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\PackageBuilder.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="ViewModels\SelectionViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\TrackerViewModel.cs" />
+    <Compile Include="ViewModels\VisualElementViewModel.cs" />
     <Compile Include="Views\BaseElementView.xaml.cs">
       <DependentUpon>BaseElementView.xaml</DependentUpon>
     </Compile>

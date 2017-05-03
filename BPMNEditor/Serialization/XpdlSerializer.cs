@@ -21,7 +21,8 @@ namespace BPMNEditor.Serialization
             builder.CreateHeader();
             builder.SetPools();
             XmlSerializer serializer = new XmlSerializer(typeof(PackageType));
-            serializer.Serialize(stream,builder.Package);
+            StreamWriter writter = new StreamWriter(stream,Encoding.UTF8);
+            serializer.Serialize(writter, builder.Package);
         }
     }
 
@@ -30,6 +31,7 @@ namespace BPMNEditor.Serialization
         public const string Version = "2.2";
         public const string Format = "xpdl";
         public const string FormatInfo = "XML Process Definition Language";
+
 
         public static string GetFileFilter()
         {

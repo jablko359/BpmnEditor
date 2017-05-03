@@ -31,7 +31,10 @@ namespace BPMNEditor.Models.Elements
             Pools = new List<PoolElement>();
             CreatedOn = DateTime.Now;
             Guid = Guid.NewGuid();
-            MainPoolElement = new PoolElement();
+            MainPoolElement = new PoolElement()
+            {
+                Name = "Main Process"
+            };
         }
 
     }

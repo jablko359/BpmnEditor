@@ -12,41 +12,26 @@ using Lane = BPMNEditor.Xpdl.Lane;
 
 namespace BPMNEditor.ViewModels
 {
-    public class LaneViewModel : PropertyChangedBase, IInsertable
+    public class LaneViewModel : VisualElementViewModel, IInsertable
     {
         public const double MinHeight = 75;
-
-
-
-        private double _height;
-        private string _name;
+        
         private readonly PoolViewModel _pool;
 
         public LaneViewModel Next { get; set; }
 
         #region Properties
 
-        public Lane Lane { get; }
+        public LaneElement Lane { get; }
         public int Index { get; private set; }
 
         public string Name
         {
-            get { return _name; }
+            get { return Lane.Name; }
             set
             {
-                _name = value;
+                Lane.Name = value;
                 NotifyOfPropertyChange(nameof(Name));
-            }
-        }
-
-
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                NotifyOfPropertyChange(nameof(Height));
             }
         }
 
@@ -59,9 +44,9 @@ namespace BPMNEditor.ViewModels
         public LaneViewModel(int index, PoolViewModel poolViewModel)
         {
             Index = index;
-            _name = "LaneElement";
             Height = 150;
-            Lane = new Lane();
+            Lane = new LaneElement();
+            BaseElement = Lane;
             DeleteCommand = new RelayCommand(x => Delete());
             _pool = poolViewModel;
         }

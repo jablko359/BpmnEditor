@@ -33,16 +33,7 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
 
-    <Style x:Key="ElementPickerTextBlock" TargetType="{x:Type TextBlock}">
-        <Style.Setters>
-            <Setter Property="Visibility" Value="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Converter={StaticResource WidthToVisibilityConverter}, ConverterParameter=150}"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Text" Value="{Binding Name}"/>
-            <Setter Property="Padding" Value="2 0"></Setter>
-        </Style.Setters>
-    </Style>
+    
 
     
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Xpdl;
 using Pool = BPMNEditor.Xpdl.Pool;
@@ -73,8 +74,84 @@ namespace BPMNEditor.Serialization
             result.BoundaryVisible = isVisible;
             result.Id = poolElement.GetId();
             result.Process = poolElement.ProcessGuid.ToString();
-            result.Lanes = new Lanes();
+            result.Lanes = GetLanes(poolElement);
+            result.Name = poolElement.Name;
+            result.NodeGraphicsInfos = new NodeGraphicsInfos();
+            result.NodeGraphicsInfos.NodeGraphicsInfo = new NodeGraphicsInfo[1];
+            result.NodeGraphicsInfos.NodeGraphicsInfo[0] = CreateNodeGraphicsInfo(poolElement);
             return result;
+        }
+
+        /// <summary>
+        /// Creates NodeGraphicInfo (width,height and coordinates)
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        private static NodeGraphicsInfo CreateNodeGraphicsInfo(VisualElement element)
+        {
+            NodeGraphicsInfo info = new NodeGraphicsInfo();
+            info.SetSize(element);
+            info.ToolId = Assembly.GetExecutingAssembly().GetName().Name;
+            return info;
+        }
+
+        /// <summary>
+        /// Creates NodeGraphic info for lane based on parent position
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="parent"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private static NodeGraphicsInfo CreateNodeGraphicsInfo(LaneElement element, int index)
+        {
+            NodeGraphicsInfo info = new NodeGraphicsInfo();
+            info.Coordinates = new Coordinates();
+            info.Coordinates.YCoordinate = index;
+            info.Coordinates.YCoordinateSpecified = true;
+            info.Height = element.Height;
+            info.HeightSpecified = true;
+            info.ToolId = Assembly.GetExecutingAssembly().GetName().Name;
+            return info;
+        }
+
+        private static Lanes GetLanes(PoolElement poolElement)
+        {
+            Lanes lanes = new Lanes();
+            lanes.Lane = new Lane[poolElement.Lanes.Count];
+            for (int i = 0; i < poolElement.Lanes.Count; i++)
+            {
+                lanes.Lane[i] = new Lane();
+                var laneElement = poolElement.Lanes[i];
+                lanes.Lane[i].Id = laneElement.GetId();
+                lanes.Lane[i].Name = laneElement.Name;
+                lanes.Lane[i].ParentPool = poolElement.GetId();
+                lanes.Lane[i].NodeGraphicsInfos = new NodeGraphicsInfos();
+                lanes.Lane[i].NodeGraphicsInfos.NodeGraphicsInfo = new NodeGraphicsInfo[1];
+                lanes.Lane[i].NodeGraphicsInfos.NodeGraphicsInfo[0] = CreateNodeGraphicsInfo(laneElement, i);
+                 
+            }
+            return lanes;
+        }
+
+        
+    }
+
+    public static class XpdlExtensions
+    {
+        public static void SetSize(this NodeGraphicsInfo info, VisualElement element)
+        {
+            info.Height = element.Height;
+            info.HeightSpecified = true;
+            info.Width = element.Width;
+            info.WidthSpecified = true;
+            Coordinates coordinates = new Coordinates
+            {
+                XCoordinate = element.X,
+                XCoordinateSpecified = true,
+                YCoordinate = element.Y,
+                YCoordinateSpecified = true
+            };
+            info.Coordinates = coordinates;
         }
     }
 }

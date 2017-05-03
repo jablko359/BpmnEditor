@@ -1,3 +1,6 @@
+using System;
+using System.ComponentModel;
+
 namespace BPMNEditor.Xpdl
 {
     /// <uwagi/>
@@ -145,6 +148,7 @@ namespace BPMNEditor.Xpdl
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+  
         public double Height
         {
             get

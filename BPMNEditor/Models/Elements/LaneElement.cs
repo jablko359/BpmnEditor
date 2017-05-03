@@ -12,7 +12,13 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Lane")]
     [Draggable(typeof(IPoolElement))]
     [ElementViewModel(typeof(LaneViewModel), EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
-    public class LaneElement : IdElement
+    public class LaneElement : VisualElement
     {
+        public string Name { get; set; }
+
+        public LaneElement()
+        {
+            Name = "Lane";
+        }
     }
 }

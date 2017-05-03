@@ -57,6 +57,7 @@ namespace BPMNEditor.ViewModels
             {
                 _name = _elementType.Name;
             }
+            NotifyOfPropertyChange(nameof(Name));
 
         }
 

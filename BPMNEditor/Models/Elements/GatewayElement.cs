@@ -12,7 +12,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Gateway")]
     [Draggable(typeof(IDocumentElement))]
     [ElementViewModel(typeof(GatewayViewModel), GatewayViewModel.InitialWidth, GatewayViewModel.InitialHeight)]
-    public class GatewayElement : IdElement
+    public class GatewayElement : VisualElement
     {
         
     }

@@ -14,16 +14,13 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public abstract class BaseElementViewModel : PropertyChangedBase, IResizable, IMovable, IInsertable
+    public abstract class BaseElementViewModel : VisualElementViewModel, IResizable, IMovable, IInsertable
     {
         private static readonly HashSet<string> DimensionProperties = new HashSet<string>() { nameof(Width), nameof(Height), nameof(Top), nameof(Left) };
 
 
         #region Private members
-        private double _width;
-        private double _top;
-        private double _height;
-        private double _left;
+        
         private bool _isSelected;
         private int _itemZIndex;
         private bool _isConnectorVisible;
@@ -58,62 +55,6 @@ namespace BPMNEditor.ViewModels
         public ConnectorViewModel[] Connectors
         {
             get { return _connectors; }
-        }
-
-        [Category(Categories.LayoutCategory)]
-        public double Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                NotifyOfPropertyChange(nameof(Width));
-            }
-        }
-
-        [Category(Categories.LayoutCategory)]
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                NotifyOfPropertyChange(nameof(Height));
-            }
-        }
-
-        [Category(Categories.LayoutCategory)]
-        public double Left
-        {
-            get { return _left; }
-            set
-            {
-                if (value > 0)
-                {
-                    LocationChagnedEventArgs args = new LocationChagnedEventArgs(0, value - Left);
-                    _left = value;
-                    NotifyLocationChanged(args);
-                    NotifyOfPropertyChange(nameof(Left));
-                }
-
-            }
-        }
-
-        [Category(Categories.LayoutCategory)]
-        public double Top
-        {
-            get { return _top; }
-            set
-            {
-                if (value > 0)
-                {
-                    LocationChagnedEventArgs args = new LocationChagnedEventArgs(value - Top, 0);
-                    _top = value;
-                    NotifyLocationChanged(args);
-                    NotifyOfPropertyChange(nameof(Top));
-                }
-
-            }
         }
 
         [Browsable(false)]
@@ -163,15 +104,13 @@ namespace BPMNEditor.ViewModels
 
         [Browsable(false)]
         public virtual bool IsSelectableByUser { get { return true; } }
-
         [Browsable(false)]
         public double MinHeight { get; set; }
         [Browsable(false)]
         public double MinWidth { get; set; }
         [Browsable(false)]
         protected abstract HashSet<Type> ApplicableTypes { get; }
-        [Browsable(false)]
-        public IBaseElement BaseElement { get; private set; }
+        
         #endregion
 
         #region Abstract
@@ -179,17 +118,8 @@ namespace BPMNEditor.ViewModels
         #endregion
 
         #region Events
-
         public event EventHandler<ActionPerformedEventArgs> ActionPerformed;
         public event EventHandler<EventArgs> ElementDeleted;
-        public event EventHandler<LocationChagnedEventArgs> LocationChanged;
-
-        private void NotifyLocationChanged(LocationChagnedEventArgs args)
-        {
-            LocationChanged?.Invoke(this, args);
-        }
-
-
         #endregion
 
 
@@ -451,5 +381,7 @@ namespace BPMNEditor.ViewModels
             
         }
         #endregion
+
+       
     }
 }
