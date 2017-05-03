@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using BPMNEditor.Models.Elements;
+using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Xpdl;
 using Pool = BPMNEditor.Xpdl.Pool;
 
@@ -45,7 +46,7 @@ namespace BPMNEditor.Serialization
             //To Utc date time format
             header.Created = new Created()
             {
-                Value = _document.CreatedOn.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")
+                Value = XpdlInfo.GetUtcDateTime(_document.CreatedOn)
             };
             Package.PackageHeader = header;
         }
@@ -114,6 +115,11 @@ namespace BPMNEditor.Serialization
             return info;
         }
 
+        /// <summary>
+        /// Creates Xpdl Lanes based on LaneElements inside pool
+        /// </summary>
+        /// <param name="poolElement"></param>
+        /// <returns></returns>
         private static Lanes GetLanes(PoolElement poolElement)
         {
             Lanes lanes = new Lanes();
@@ -128,12 +134,48 @@ namespace BPMNEditor.Serialization
                 lanes.Lane[i].NodeGraphicsInfos = new NodeGraphicsInfos();
                 lanes.Lane[i].NodeGraphicsInfos.NodeGraphicsInfo = new NodeGraphicsInfo[1];
                 lanes.Lane[i].NodeGraphicsInfos.NodeGraphicsInfo[0] = CreateNodeGraphicsInfo(laneElement, i);
-                 
+
             }
             return lanes;
         }
 
-        
+        /// <summary>
+        /// Add WorkflowProcess based on pools
+        /// </summary>
+        public void SetProcesses()
+        {
+            WorkflowProcesses processes = new WorkflowProcesses();
+            processes.WorkflowProcess = new ProcessType[_document.Pools.Count];
+            for (int i = 0; i < _document.Pools.Count; i++)
+            {
+                var pool = _document.Pools[i];
+                ProcessType processType = new ProcessType();
+                processType.ProcessHeader = new ProcessHeader();
+                processType.ProcessHeader.Created = new Created()
+                {
+                    Value = XpdlInfo.GetUtcDateTime(pool.CreatedOn)
+                };
+                processType.Name = pool.Name;
+                processType.Activities = new Activities();
+                processType.Activities.Activity = new Activity[pool.Elements.Count];
+                int counter = 0;
+                foreach (IBaseElement poolElement in pool.Elements)
+                {
+                    Type type = poolElement.GetType();
+                    XpdlActivityFactoryAttribute factoryAttribute = type.GetCustomAttribute<XpdlActivityFactoryAttribute>();
+                    if (factoryAttribute != null)
+                    {
+                        IActivityFactory factory = factoryAttribute.Factory;
+                        Activity activity = factory.CreateActivity(poolElement);
+                        processType.Activities.Activity[counter] = activity;
+                        counter++;
+                    }
+                }
+                processes.WorkflowProcess[i] = processType;
+            }
+            Package.WorkflowProcesses = processes;
+        }
+
     }
 
     public static class XpdlExtensions

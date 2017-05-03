@@ -20,6 +20,7 @@ namespace BPMNEditor.Serialization
             builder.FromDocument(document);
             builder.CreateHeader();
             builder.SetPools();
+            builder.SetProcesses();
             XmlSerializer serializer = new XmlSerializer(typeof(PackageType));
             StreamWriter writter = new StreamWriter(stream,Encoding.UTF8);
             serializer.Serialize(writter, builder.Package);
@@ -36,6 +37,11 @@ namespace BPMNEditor.Serialization
         public static string GetFileFilter()
         {
             return string.Format("{0} | *.{1}", FormatInfo, Format);
+        }
+
+        public static string GetUtcDateTime(DateTime dateTime)
+        {
+            return dateTime.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
         }
     }
 

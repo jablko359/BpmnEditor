@@ -18,14 +18,12 @@ namespace BPMNEditor.ViewModels
 
         private EventElement _eventElement;
 
-        private EventType _type;
-
         public EventType Type
         {
-            get { return _type; }
+            get { return _eventElement.Type; }
             set
             {
-                _type = value;
+                _eventElement.Type = value;
                 NotifyOfPropertyChange(nameof(Type));
             }
         }

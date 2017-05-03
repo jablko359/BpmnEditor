@@ -19,16 +19,14 @@ namespace BPMNEditor.ViewModels
 
         private GatewayElement _gatewayElement;
 
-        private GatewayType _type;
-
         #region Properties
 
         public GatewayType Type
         {
-            get { return _type; }
+            get { return _gatewayElement.Type; }
             set
             {
-                _type = value;
+                _gatewayElement.Type = value;
                 NotifyOfPropertyChange(nameof(Type));
             }
         }

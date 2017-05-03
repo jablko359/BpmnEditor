@@ -108,6 +108,12 @@
     <Compile Include="Models\Elements\VisualElement.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\PackageBuilder.cs" />
+    <Compile Include="Serialization\XpdlActivities\BaseActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\EventActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\GatewayActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\IActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\TaskActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\XpdlActivityFactoryAttribute.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
     <Compile Include="Tools\Categories.cs" />
     <Compile Include="Tools\DraggableAttribute.cs" />
@@ -472,6 +478,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

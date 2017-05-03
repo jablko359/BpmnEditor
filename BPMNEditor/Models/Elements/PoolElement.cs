@@ -20,15 +20,23 @@ namespace BPMNEditor.Models.Elements
 
         public List<LaneElement> Lanes { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
+        public List<IBaseElement> Elements { get; set; }
+        
         public PoolElement()
         {
             Lanes = new List<LaneElement>();
+            Elements = new List<IBaseElement>();
             ProcessGuid = Guid.NewGuid();
+            CreatedOn = DateTime.Now;
         }
 
         public PoolElement(Guid processGuid)
         {
             Lanes = new List<LaneElement>();
+            Elements = new List<IBaseElement>();
+            CreatedOn = DateTime.Now;
             ProcessGuid = processGuid;
         }
 

@@ -176,11 +176,14 @@ namespace BPMNEditor.ViewModels
 
         public void RemoveElement(PoolElementViewModel poolElementViewModel)
         {
+            _poolElement.Elements.Remove(poolElementViewModel.BaseElement);
+            
             _elements.Remove(poolElementViewModel);
         }
 
         public void AddElement(PoolElementViewModel poolElementViewModel)
         {
+            _poolElement.Elements.Add(poolElementViewModel.BaseElement);
             _elements.Add(poolElementViewModel);
         }
 

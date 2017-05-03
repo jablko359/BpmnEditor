@@ -15,16 +15,14 @@ namespace BPMNEditor.ViewModels
 
         private TaskElement _taskElement;
 
-        private string _name;
-
         #region Properties
 
         public string Name
         {
-            get { return _name; }
+            get { return _taskElement.Name; }
             set
             {
-                _name = value;
+                _taskElement.Name = value;
                 NotifyOfPropertyChange(nameof(Name));
             }
         }
@@ -35,13 +33,14 @@ namespace BPMNEditor.ViewModels
 
         public TaskViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            Name = "TaskElement";
+           
             ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
         }
 
         protected override IBaseElement CreateElement()
         {
             _taskElement = new TaskElement();
+            Name = "Task";
             return _taskElement;
         }
 
