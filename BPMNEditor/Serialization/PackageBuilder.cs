@@ -145,56 +145,51 @@ namespace BPMNEditor.Serialization
         public void SetProcesses()
         {
             WorkflowProcesses processes = new WorkflowProcesses();
-            processes.WorkflowProcess = new ProcessType[_document.Pools.Count];
+            processes.WorkflowProcess = new ProcessType[_document.Pools.Count + 1];
+            processes.WorkflowProcess[0] = GetProcess(_document.MainPoolElement);
             for (int i = 0; i < _document.Pools.Count; i++)
             {
                 var pool = _document.Pools[i];
-                ProcessType processType = new ProcessType();
-                processType.Id = pool.ProcessGuid.ToString();
-                processType.ProcessHeader = new ProcessHeader();
-                processType.ProcessHeader.Created = new Created()
-                {
-                    Value = XpdlInfo.GetUtcDateTime(pool.CreatedOn)
-                };
-                processType.Name = pool.Name;
-                processType.Activities = new Activities();
-                processType.Activities.Activity = new Activity[pool.Elements.Count];
-                int counter = 0;
-                foreach (IBaseElement poolElement in pool.Elements)
-                {
-                    Type type = poolElement.GetType();
-                    XpdlActivityFactoryAttribute factoryAttribute = type.GetCustomAttribute<XpdlActivityFactoryAttribute>();
-                    if (factoryAttribute != null)
-                    {
-                        IActivityFactory factory = factoryAttribute.Factory;
-                        Activity activity = factory.CreateActivity(poolElement);
-                        processType.Activities.Activity[counter] = activity;
-                        counter++;
-                    }
-                }
-                processes.WorkflowProcess[i] = processType;
+                var processType = GetProcess(pool);
+                processes.WorkflowProcess[i + 1] = processType;
             }
             Package.WorkflowProcesses = processes;
         }
 
-    }
-
-    public static class XpdlExtensions
-    {
-        public static void SetSize(this NodeGraphicsInfo info, VisualElement element)
+        private ProcessType GetProcess(PoolElement poolElement)
         {
-            info.Height = element.Height;
-            info.HeightSpecified = true;
-            info.Width = element.Width;
-            info.WidthSpecified = true;
-            Coordinates coordinates = new Coordinates
+            ProcessType processType = new ProcessType();
+            processType.Id = poolElement.ProcessGuid.ToString();
+            processType.ProcessHeader = new ProcessHeader();
+            processType.ProcessHeader.Created = new Created()
             {
-                XCoordinate = element.X,
-                XCoordinateSpecified = true,
-                YCoordinate = element.Y,
-                YCoordinateSpecified = true
+                Value = XpdlInfo.GetUtcDateTime(poolElement.CreatedOn)
             };
-            info.Coordinates = coordinates;
+            processType.Name = poolElement.Name;
+            processType.Activities = GetActivities(poolElement.Elements);
+            return processType;
         }
+
+        private Activities GetActivities(IList<IBaseElement> baseElements)
+        {
+            Activities activities = new Activities();
+            activities.Activity = new Activity[baseElements.Count];
+            int counter = 0;
+            foreach (IBaseElement baseElement in baseElements)
+            {
+                Type type = baseElement.GetType();
+                XpdlActivityFactoryAttribute factoryAttribute = type.GetCustomAttribute<XpdlActivityFactoryAttribute>();
+                if (factoryAttribute != null)
+                {
+                    IActivityFactory factory = factoryAttribute.Factory;
+                    Activity activity = factory.CreateActivity(baseElement);
+                    activities.Activity[counter] = activity;
+                    counter++;
+                }
+            }
+            return activities;
+        }
+        
+
     }
 }

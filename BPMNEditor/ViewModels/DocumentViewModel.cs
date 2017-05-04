@@ -93,13 +93,21 @@ namespace BPMNEditor.ViewModels
                 {
                     var baseElementViewModel = item as BaseElementViewModel;
                     var baseElement = baseElementViewModel.BaseElement;
+                    if (baseElement == null)
+                    {
+                        continue;
+                    }
                     if (baseElement is PoolElement)
                     {
                         _document.Pools.Add(baseElement as PoolElement);
                     }
                     else
                     {
-                        _document.BaseElements.Add(baseElement);
+                        var poolElement = item as PoolElementViewModel;
+                        if (poolElement != null && poolElement.Pool == null)
+                        {
+                            _document.MainPoolElement.Elements.Add(baseElement);
+                        }
                     }
                     baseElementViewModel.ActionPerformed += ViewModel_ActionPerformed;
                 }
