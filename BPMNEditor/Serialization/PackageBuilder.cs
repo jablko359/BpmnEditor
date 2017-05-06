@@ -15,8 +15,11 @@ namespace BPMNEditor.Serialization
     class PackageBuilder
     {
         private Document _document;
+        private readonly List<string> _errorList = new List<string>();
 
         public PackageType Package { get; private set; }
+
+        public IReadOnlyList<string> Errors => _errorList;
 
         /// <summary>
         /// Initializes Package name based on document
@@ -167,10 +170,42 @@ namespace BPMNEditor.Serialization
             };
             processType.Name = poolElement.Name;
             processType.Activities = GetActivities(poolElement.Elements);
+            processType.Transitions = GetTransitions(poolElement);
             return processType;
         }
 
-        private Activities GetActivities(IList<IBaseElement> baseElements)
+        private Transitions GetTransitions(PoolElement poolElement)
+        {
+            Transitions transitions = new Transitions();
+            transitions.Transition = new Transition[poolElement.Connections.Count];
+            HashSet<Guid> guids = new HashSet<Guid>(poolElement.Elements.Select(item => item.Guid));
+            for (int i = 0; i < poolElement.Connections.Count; i++)
+            {
+                ConnectionElement connectionElement = poolElement.Connections[i];
+                bool containsFirst = guids.Contains(connectionElement.SourceElement.Guid);
+                if (!containsFirst)
+                {
+                    _errorList.Add(string.Format("Cannot create transition. Pool does not contains source element: {0}", connectionElement.SourceElement.Guid));
+                }
+                bool containsSecond = guids.Contains(connectionElement.TargetElement.Guid);
+                if (!containsSecond)
+                {
+                    _errorList.Add(string.Format("Cannot create transition. Pool does not contains target element: {0}", connectionElement.TargetElement.Guid));
+                }
+                if (containsSecond && containsFirst)
+                {
+                    Transition transition = new Transition();
+                    transition.Id = connectionElement.GetId();
+                    transition.From = connectionElement.SourceElement.GetId();
+                    transition.To = connectionElement.TargetElement.GetId();
+                    transitions.Transition[i] = transition;
+                    transition.ConnectorGraphicsInfos = CreateConnectorGraphicsInfos(connectionElement);
+                }
+            }
+            return transitions;
+        }
+
+        private static Activities GetActivities(IList<IBaseElement> baseElements)
         {
             Activities activities = new Activities();
             activities.Activity = new Activity[baseElements.Count];
@@ -189,7 +224,27 @@ namespace BPMNEditor.Serialization
             }
             return activities;
         }
-        
 
+        private static ConnectorGraphicsInfos CreateConnectorGraphicsInfos(ConnectionElement connectionElement)
+        {
+            ConnectorGraphicsInfos infos = new ConnectorGraphicsInfos();
+            infos.ConnectorGraphicsInfo = new ConnectorGraphicsInfo[1];
+            ConnectorGraphicsInfo info = new ConnectorGraphicsInfo();
+            infos.ConnectorGraphicsInfo[0] = info;
+            info.Coordinates = new Coordinates[connectionElement.Points.Count];
+            for (int i = 0; i < connectionElement.Points.Count; i++)
+            {
+                var point = connectionElement.Points[i];
+                info.Coordinates[i] = new Coordinates();
+                info.Coordinates[i].XCoordinate = point.X;
+                info.Coordinates[i].YCoordinate = point.Y;
+                info.Coordinates[i].XCoordinateSpecified = true;
+                info.Coordinates[i].YCoordinateSpecified = true;
+
+            }
+            return infos;
+        }
     }
+
+   
 }

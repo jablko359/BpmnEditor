@@ -123,7 +123,7 @@ namespace BPMNEditor.Xpdl
 
         /// <uwagi/>
         [System.Xml.Serialization.XmlElementAttribute("BlockActivity", typeof(BlockActivity))]
-        [System.Xml.Serialization.XmlElementAttribute("EventElement", typeof(Event))]
+        [System.Xml.Serialization.XmlElementAttribute("Event", typeof(Event))]
         [System.Xml.Serialization.XmlElementAttribute("Implementation", typeof(Implementation))]
         [System.Xml.Serialization.XmlElementAttribute("Route", typeof(Route))]
         public object Item

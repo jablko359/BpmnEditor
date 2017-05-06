@@ -13,6 +13,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Event")]
     [Draggable(typeof(IDocumentElement))]
     [XpdlActivityFactory(typeof(EventActivityFactory))]
+    [ToolboxVisibile]
     [ElementViewModel(typeof(EventViewModel),EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class EventElement : VisualElement
     {

@@ -17,7 +17,7 @@ namespace BPMNEditor.Xpdl
         private System.Xml.XmlAttribute[] anyAttrField;
 
         /// <uwagi/>
-        [System.Xml.Serialization.XmlElementAttribute("LaneElement")]
+        [System.Xml.Serialization.XmlElementAttribute("Lane")]
         public Lane[] Lane
         {
             get

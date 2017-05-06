@@ -11,6 +11,7 @@ namespace BPMNEditor.Models.Elements
 {
     [DisplayName("Pool")]
     [Draggable(typeof(IDocumentElement))]
+    [ToolboxVisibile]
     [ElementViewModel(typeof(PoolViewModel), PoolViewModel.InitialWidth, PoolViewModel.InitialHeight)]
     public class PoolElement : VisualElement
     {
@@ -23,6 +24,8 @@ namespace BPMNEditor.Models.Elements
         public DateTime CreatedOn { get; set; }
 
         public List<IBaseElement> Elements { get; set; }
+
+        public List<ConnectionElement> Connections { get; set; } = new List<ConnectionElement>();
         
         public PoolElement()
         {

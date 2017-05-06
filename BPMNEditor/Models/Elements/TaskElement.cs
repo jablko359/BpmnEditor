@@ -13,6 +13,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Task")]
     [Draggable(typeof(IDocumentElement))]
     [XpdlActivityFactory(typeof(TaskActivityFactory))]
+    [ToolboxVisibile]
     [ElementViewModel(typeof(TaskViewModel), TaskViewModel.InitialWidth, TaskViewModel.InitialHeight)]
     public class TaskElement : VisualElement
     {

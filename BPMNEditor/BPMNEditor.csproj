@@ -101,6 +101,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions.cs" />
+    <Compile Include="Models\Elements\ConnectionElement.cs" />
     <Compile Include="Models\Elements\Document.cs" />
     <Compile Include="Models\Elements\IdElement.cs" />
     <Compile Include="Models\Elements\LaneElement.cs" />
@@ -119,6 +120,8 @@
     <Compile Include="Tools\Categories.cs" />
     <Compile Include="Tools\DraggableAttribute.cs" />
     <Compile Include="Tools\Events.cs" />
+    <Compile Include="Tools\ModelHelper.cs" />
+    <Compile Include="Tools\ToolboxVisibileAttribute.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
     <Compile Include="Models\Elements\EventElement.cs" />
     <Compile Include="Models\Elements\GatewayElement.cs" />

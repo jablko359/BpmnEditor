@@ -44,7 +44,7 @@ namespace BPMNEditor.ViewModels
         public ObservableDropoutStack<IAction> RedoActions { get; } = new ObservableDropoutStack<IAction>();
         public ObservableCollection<BaseElementViewModel> BaseElements { get; }
 
-        
+
         public string Name
         {
             get { return _document.Name; }
@@ -121,6 +121,10 @@ namespace BPMNEditor.ViewModels
                     if (baseElement is PoolElement)
                     {
                         _document.Pools.Remove(baseElement as PoolElement);
+                    }
+                    else if (baseElementViewModel is ElementsConnectionViewModel)
+                    {
+                        ModelHelper.RemoveConnectionModel(baseElementViewModel as ElementsConnectionViewModel);
                     }
                     else
                     {
@@ -355,6 +359,8 @@ namespace BPMNEditor.ViewModels
             }
             _currentConnetor = null;
         }
+
+        
         #endregion
 
         #region PrivateMethods

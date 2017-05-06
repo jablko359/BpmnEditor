@@ -219,6 +219,8 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+       
+
         public override void StartMove()
         {
             base.StartMove();

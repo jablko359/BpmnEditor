@@ -13,6 +13,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Gateway")]
     [Draggable(typeof(IDocumentElement))]
     [XpdlActivityFactory(typeof(GatewayActivityFactory))]
+    [ToolboxVisibile]
     [ElementViewModel(typeof(GatewayViewModel), GatewayViewModel.InitialWidth, GatewayViewModel.InitialHeight)]
     public class GatewayElement : VisualElement
     {

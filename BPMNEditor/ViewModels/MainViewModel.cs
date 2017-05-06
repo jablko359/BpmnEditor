@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -111,7 +112,7 @@ namespace BPMNEditor.ViewModels
         /// </summary>
         private void ReadAvailableElements()
         {
-            ClassReader reader = new ClassReader(ElementsNamespace, type => typeof(IBaseElement).IsAssignableFrom(type) && !type.IsAbstract);
+            ClassReader reader = new ClassReader(ElementsNamespace, IsTypeToolboxVisible);
             var types = reader.GetTypes();
             foreach (Type type in types)
             {
@@ -120,7 +121,20 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        
+        public bool IsTypeToolboxVisible(Type type)
+        {
+            bool isVisible = typeof(IBaseElement).IsAssignableFrom(type) && !type.IsAbstract;
+            if (isVisible)
+            {
+                var attribute = type.GetCustomAttribute<ToolboxVisibileAttribute>();
+                if (attribute == null)
+                {
+                    isVisible = false;
+                }
+            }
+            return isVisible;
+
+        }
 
         #endregion
 

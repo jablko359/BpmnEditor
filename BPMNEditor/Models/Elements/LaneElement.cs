@@ -11,6 +11,7 @@ namespace BPMNEditor.Models.Elements
 {
     [DisplayName("Lane")]
     [Draggable(typeof(IPoolElement))]
+    [ToolboxVisibile]
     [ElementViewModel(typeof(LaneViewModel), EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class LaneElement : VisualElement
     {

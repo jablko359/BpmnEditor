@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using BPMNEditor.Models.Elements;
+using BPMNEditor.Tools;
 using BPMNEditor.Tools.GraphTools;
 
 namespace BPMNEditor.ViewModels
@@ -36,6 +38,8 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        public ConnectionElement Model { get; }
+
         public BaseElementViewModel From { get; private set; }
         public BaseElementViewModel To { get; private set; }
 
@@ -55,7 +59,10 @@ namespace BPMNEditor.ViewModels
             start.Parent.SetConnection(this);
             end.Parent.SetConnection(this);
             Hooks = new List<Hook>();
+            Model = new ConnectionElement(start.Parent.BaseElement, end.Parent.BaseElement);
+            ModelHelper.AddModelConnection(this);
             CalculatePath();
+            
         }
 
         private void ElementDeleted(object sender, EventArgs e)
@@ -98,7 +105,7 @@ namespace BPMNEditor.ViewModels
             CalculateHooks(points);
             points.Insert(0, StartPoint);
             Points = new PointCollection(points.GetRange(0, idx + 2));
-
+            Model.Points = new List<Point>() {StartPoint, EndPoint};
         }
 
         
