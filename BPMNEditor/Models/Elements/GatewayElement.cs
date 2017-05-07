@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels;
+using BPMNEditor.Xpdl;
 
 namespace BPMNEditor.Models.Elements
 {
     [DisplayName("Gateway")]
     [Draggable(typeof(IDocumentElement))]
-    [XpdlActivityFactory(typeof(GatewayActivityFactory))]
+    [XpdlActivityFactory(typeof(GatewayActivityMapper))]
+    [ActivityMapper(typeof(Route), typeof(GatewayActivityMapper))]
     [ToolboxVisibile]
     [ElementViewModel(typeof(GatewayViewModel), GatewayViewModel.InitialWidth, GatewayViewModel.InitialHeight)]
     public class GatewayElement : VisualElement

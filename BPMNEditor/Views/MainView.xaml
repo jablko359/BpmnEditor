@@ -39,7 +39,7 @@
                 <RibbonTab Header="Home" >
                     <RibbonGroup Header="File">
                         <RibbonButton LargeImageSource="../Icons/light/appbar.page.add.png" Command="{Binding AddDocumentCommand}" Label="New"/>
-                        <RibbonButton LargeImageSource="../Icons/light/appbar.folder.open.png" IsEnabled="False" Label="Load"/>
+                        <RibbonButton LargeImageSource="../Icons/light/appbar.folder.open.png" Command="{Binding OpenCommand}" Label="Load"/>
                         <RibbonButton LargeImageSource="../Icons/light/appbar.save.png" Command="{Binding SaveCommand}" Label="Save"/>
                     </RibbonGroup>
                     <RibbonGroup Header="Edit">

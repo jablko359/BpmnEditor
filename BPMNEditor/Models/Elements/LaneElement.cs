@@ -15,8 +15,6 @@ namespace BPMNEditor.Models.Elements
     [ElementViewModel(typeof(LaneViewModel), EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class LaneElement : VisualElement
     {
-        public string Name { get; set; }
-
         public LaneElement()
         {
             Name = "Lane";

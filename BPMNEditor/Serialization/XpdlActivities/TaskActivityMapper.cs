@@ -4,7 +4,7 @@ using BPMNEditor.Xpdl;
 
 namespace BPMNEditor.Serialization.XpdlActivities
 {
-    public class TaskActivityFactory : BaseActivityFactory
+    public class TaskActivityMapper : BaseActivityMapper
     {
         public override void ProcessActivity(Activity activity, IBaseElement baseElement)
         {
@@ -14,6 +14,12 @@ namespace BPMNEditor.Serialization.XpdlActivities
             Task task = new Task();
             implementation.Item = task;
             activity.Item = implementation;
+        }
+
+        protected override IBaseElement CreateElement(object xpdlItem)
+        {
+            Implementation task = GetXpdlType<Implementation>(xpdlItem);
+            return new TaskElement();
         }
     }
 }

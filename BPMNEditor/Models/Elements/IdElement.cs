@@ -8,7 +8,8 @@ namespace BPMNEditor.Models.Elements
 {
     public abstract class IdElement : IBaseElement
     {
-        public Guid Guid { get; }
+        public Guid Guid { get; set; }
+        public string Name { get; set; }
 
         protected IdElement()
         {
@@ -19,5 +20,7 @@ namespace BPMNEditor.Models.Elements
         {
             return Guid.ToString();
         }
+
+       
     }
 }

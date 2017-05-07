@@ -107,13 +107,15 @@
     <Compile Include="Models\Elements\LaneElement.cs" />
     <Compile Include="Models\Elements\PoolElement.cs" />
     <Compile Include="Models\Elements\VisualElement.cs" />
+    <Compile Include="Serialization\DocumentBuilder.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\PackageBuilder.cs" />
-    <Compile Include="Serialization\XpdlActivities\BaseActivityFactory.cs" />
-    <Compile Include="Serialization\XpdlActivities\EventActivityFactory.cs" />
-    <Compile Include="Serialization\XpdlActivities\GatewayActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\BaseActivityMapper.cs" />
+    <Compile Include="Serialization\XpdlActivities\ActivityMapperAttribute.cs" />
+    <Compile Include="Serialization\XpdlActivities\EventActivityMapper.cs" />
+    <Compile Include="Serialization\XpdlActivities\GatewayActivityMapper.cs" />
     <Compile Include="Serialization\XpdlActivities\IActivityFactory.cs" />
-    <Compile Include="Serialization\XpdlActivities\TaskActivityFactory.cs" />
+    <Compile Include="Serialization\XpdlActivities\TaskActivityMapper.cs" />
     <Compile Include="Serialization\XpdlActivities\XpdlActivityFactoryAttribute.cs" />
     <Compile Include="Serialization\XpdlExtensions.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
@@ -482,7 +484,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

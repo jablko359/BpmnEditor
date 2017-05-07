@@ -15,8 +15,6 @@ namespace BPMNEditor.Models.Elements
     [ElementViewModel(typeof(PoolViewModel), PoolViewModel.InitialWidth, PoolViewModel.InitialHeight)]
     public class PoolElement : VisualElement
     {
-        public string Name { get; set; }
-
         public Guid ProcessGuid { get; set; }
 
         public List<LaneElement> Lanes { get; set; }

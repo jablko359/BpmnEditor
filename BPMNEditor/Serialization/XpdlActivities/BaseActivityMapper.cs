@@ -8,7 +8,7 @@ using BPMNEditor.Xpdl;
 
 namespace BPMNEditor.Serialization.XpdlActivities
 {
-    public abstract class BaseActivityFactory : IActivityFactory
+    public abstract class BaseActivityMapper : IActivityFactory, IActivityMapper
     {
         public Activity CreateActivity(IBaseElement baseElement)
         {
@@ -38,10 +38,36 @@ namespace BPMNEditor.Serialization.XpdlActivities
             T result = element as T;
             if (result == null)
             {
-                throw new ArgumentException(string.Format("EventActivityFactory exception. Expected {0}, provided {1}", typeof(T), element.GetType()));
+                throw new ArgumentException(string.Format("BaseActivityMapper exception. Expected {0}, provided {1}", typeof(T), element.GetType()));
             }
             return result;
         }
+
+        protected T GetXpdlType<T>(object xpdlItem) where T : class
+        {
+            T result = xpdlItem as T;
+            if (result == null)
+            {
+                throw new ArgumentException(string.Format("BaseActivityMapper exception. Expected {0}, provided {1}", typeof(T), xpdlItem.GetType()));
+            }
+            return result;
+        }
+
+        public IBaseElement CreateElement(object xpdlItem, NodeGraphicsInfos graphicInfo)
+        {
+            IBaseElement baseElement = CreateElement(xpdlItem);
+            if (graphicInfo != null)
+            {
+                VisualElement visualElement = baseElement as VisualElement;
+                if (visualElement != null)
+                {
+                    DocumentBuilder.SetVisualElementInfo(graphicInfo, visualElement);
+                }
+            }
+            return baseElement;
+        }
+
+        protected abstract IBaseElement CreateElement(object xpdlItem);
 
         public abstract void ProcessActivity(Activity activity, IBaseElement baseElement);
     }

@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels;
+using BPMNEditor.Xpdl;
 
 namespace BPMNEditor.Models.Elements
 {
     [DisplayName("Event")]
     [Draggable(typeof(IDocumentElement))]
-    [XpdlActivityFactory(typeof(EventActivityFactory))]
+    [XpdlActivityFactory(typeof(EventActivityMapper))]
+    [ActivityMapper(typeof(Event), typeof(EventActivityMapper))]
     [ToolboxVisibile]
     [ElementViewModel(typeof(EventViewModel),EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class EventElement : VisualElement
@@ -22,6 +24,11 @@ namespace BPMNEditor.Models.Elements
 
     public enum EventType
     {
-        Start, Intermediate, End
+        [XpdlType(typeof(StartEvent))]
+        Start,
+        [XpdlType(typeof(IntermediateEvent))]
+        Intermediate,
+        [XpdlType(typeof(EndEvent))]
+        End
     }
 }

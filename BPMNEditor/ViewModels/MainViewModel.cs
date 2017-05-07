@@ -8,6 +8,7 @@ using System.Windows.Input;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Serialization;
+using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels.Command;
 using BPMNEditor.Views.Controls;
@@ -81,6 +82,7 @@ namespace BPMNEditor.ViewModels
         public ICommand RedoCommand { get; private set; }
         public ICommand RedoUntilCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
+        public ICommand OpenCommand { get; private set; }
 
         #endregion
 
@@ -98,6 +100,7 @@ namespace BPMNEditor.ViewModels
             RedoCommand = new RelayCommand(x => Redo());
             RedoUntilCommand = new RelayCommand(x => Redo(x as IAction));
             SaveCommand = new RelayCommand(x => Save());
+            OpenCommand = new RelayCommand(x => Open());
         }
 
         private void Document_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,6 +120,8 @@ namespace BPMNEditor.ViewModels
             foreach (Type type in types)
             {
                 ElementCreatorViewModel model = new ElementCreatorViewModel(type);
+                ActivityMapperAttribute activityMapperAttribute = type.GetCustomAttribute<ActivityMapperAttribute>();
+                activityMapperAttribute?.Register();
                 Elements.Add(model);
             }
         }
@@ -192,6 +197,21 @@ namespace BPMNEditor.ViewModels
                 }
             }
             
+        }
+
+        private void Open()
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = XpdlInfo.GetFileFilter();
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                ISerializer serialzier = new XpdlSerializer();
+
+                using (var inputStream = file.OpenFile())
+                {
+                    var document = serialzier.Deserialize(inputStream);
+                }
+            }
         }
         #endregion
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BPMNEditor.Serialization;
 using BPMNEditor.ViewModels;
 
 namespace BPMNEditor.Models.Elements
@@ -18,7 +19,7 @@ namespace BPMNEditor.Models.Elements
 
         public string Name { get; set; }
 
-        public DateTime CreatedOn { get; private set; }
+        public DateTime CreatedOn { get; set; }
 
         public PoolElement MainPoolElement { get; set; }
        
@@ -33,7 +34,7 @@ namespace BPMNEditor.Models.Elements
             Guid = Guid.NewGuid();
             MainPoolElement = new PoolElement()
             {
-                Name = "Main Process"
+                Name = XpdlInfo.MainPoolName
             };
         }
 

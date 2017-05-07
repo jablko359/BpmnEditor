@@ -8,7 +8,7 @@ using BPMNEditor.Xpdl;
 
 namespace BPMNEditor.Serialization.XpdlActivities
 {
-    public class GatewayActivityFactory : BaseActivityFactory
+    public class GatewayActivityMapper : BaseActivityMapper
     {
         public override void ProcessActivity(Activity activity, IBaseElement baseElement)
         {
@@ -27,6 +27,25 @@ namespace BPMNEditor.Serialization.XpdlActivities
                     break;
             }
             activity.Item = route;
+        }
+
+        protected override IBaseElement CreateElement(object xpdlItem)
+        {
+            Route route = GetXpdlType<Route>(xpdlItem);
+            GatewayElement element = new GatewayElement();
+            if (route.GatewayType == RouteGatewayType.XOR)
+            {
+                element.Type = GatewayType.Xor;
+            }
+            else if (route.GatewayType == RouteGatewayType.OR)
+            {
+                element.Type = GatewayType.Or;
+            }
+            else if (route.ExclusiveType == RouteExclusiveType.Event)
+            {
+                element.Type = GatewayType.EventBased;
+            }
+            return element;
         }
     }
 }

@@ -8,8 +8,9 @@ namespace BPMNEditor.Models.Elements
 {
     public interface IBaseElement
     {
-        Guid Guid { get; }
+        Guid Guid { get; set; }
         string GetId();
+        string Name { get; set; }
     }
     /// <summary>
     /// Elements that can be directly placed only into pool (ex. Line)
