@@ -15,6 +15,20 @@ namespace BPMNEditor.ViewModels
 
         protected PoolElementViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
+            this.ElementDeleted += PoolElementViewModel_ElementDeleted;
+        }
+
+        private void PoolElementViewModel_ElementDeleted(object sender, EventArgs e)
+        {
+            if (Pool != null)
+            {
+                Pool.RemoveElement(this);
+            }
+            else
+            {
+                this.Document.Document.MainPoolElement.Elements.Remove(BaseElement);
+            }
+            
         }
 
         protected override void DimensionChanged()
