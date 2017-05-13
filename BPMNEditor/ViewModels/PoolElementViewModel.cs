@@ -4,14 +4,44 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.GraphTools;
 
 namespace BPMNEditor.ViewModels
 {
     public abstract class PoolElementViewModel : BaseElementViewModel
     {
+        private PoolViewModel _pool;
+
         [Browsable(false)]
-        public PoolViewModel Pool { get; set; }
+        public PoolViewModel Pool
+        {
+            get { return _pool; }
+            set
+            {
+                PoolElement poolElement = null;
+                if (_pool == null)
+                {
+                    poolElement = Document.Document.MainPoolElement;
+                }
+                else
+                {
+                    poolElement = _pool.BaseElement as PoolElement;
+                }
+                poolElement?.Elements.Remove(BaseElement);
+                List<ConnectionElement> connections =
+                    poolElement.Connections.Where(
+                        item => item.SourceElement == BaseElement || item.TargetElement == BaseElement).ToList();
+                poolElement.Connections.RemoveAll(
+                    item => item.SourceElement == BaseElement || item.TargetElement == BaseElement);
+                if (value != null)
+                {
+                    var newPool = value.BaseElement as PoolElement;
+                    newPool.Connections.AddRange(connections);
+                }
+                _pool = value;
+            }
+        }
 
         protected PoolElementViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
@@ -28,7 +58,7 @@ namespace BPMNEditor.ViewModels
             {
                 this.Document.Document.MainPoolElement.Elements.Remove(BaseElement);
             }
-            
+
         }
 
         protected override void DimensionChanged()

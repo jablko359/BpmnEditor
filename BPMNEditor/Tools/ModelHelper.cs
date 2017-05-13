@@ -15,7 +15,16 @@ namespace BPMNEditor.Tools
             try
             {
                 PoolElementViewModel startElementViewModel = connection.From as PoolElementViewModel;
-                PoolElement pool = startElementViewModel.Pool.BaseElement as PoolElement;
+                PoolViewModel poolElementViewModel = startElementViewModel.Pool;
+                PoolElement pool = null;
+                if (poolElementViewModel != null)
+                {
+                    pool = startElementViewModel.Pool.BaseElement as PoolElement;
+                }
+                else
+                {
+                    pool = startElementViewModel.Document.Document.MainPoolElement;
+                }
                 pool.Connections.Add(connection.Model);
             }
             catch (NullReferenceException exception)
@@ -30,7 +39,16 @@ namespace BPMNEditor.Tools
             try
             {
                 PoolElementViewModel startElementViewModel = connection.From as PoolElementViewModel;
-                PoolElement pool = startElementViewModel.Pool.BaseElement as PoolElement;
+                PoolViewModel poolElementViewModel = startElementViewModel.Pool;
+                PoolElement pool = null;
+                if (poolElementViewModel != null)
+                {
+                    pool = startElementViewModel.Pool.BaseElement as PoolElement;
+                }
+                else
+                {
+                    pool = startElementViewModel.Document.Document.MainPoolElement;
+                }
                 pool.Connections.Remove(connection.Model);
             }
             catch (NullReferenceException exception)

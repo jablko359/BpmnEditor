@@ -14,6 +14,7 @@ namespace BPMNEditor.Serialization
     {
         public Document Document { get; } = new Document();
         private readonly Dictionary<Guid, PoolElement> _poolByProcessDictionary = new Dictionary<Guid, PoolElement>();
+        private readonly Dictionary<Guid, IBaseElement> _elements = new Dictionary<Guid, IBaseElement>();
 
         public void FromPackage(PackageType package)
         {
@@ -35,6 +36,39 @@ namespace BPMNEditor.Serialization
                     ReadHeader(processType.ProcessHeader, poolElement);
                     ReadActivities(processType.Activities, poolElement);
                 }
+                ReadTransitions(processType);
+            }
+        }
+
+        private void ReadTransitions(ProcessType processType)
+        {
+            if (processType.Transitions?.Transition == null)
+            {
+                return;
+            }
+            foreach (var transition in processType.Transitions.Transition)
+            {
+                var from = transition.From;
+                var to = transition.To;
+                PoolElement poolElement = null;
+                var guid = Guid.Parse(processType.Id);
+                if(_poolByProcessDictionary.TryGetValue(guid, out poolElement))
+                {
+                    try
+                    {
+                        IBaseElement fromElement = _elements[Guid.Parse(from)];
+                        IBaseElement toElement = _elements[Guid.Parse(to)];
+                        ConnectionElement connection = new ConnectionElement(fromElement, toElement);
+                        poolElement.Connections.Add(connection);
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        throw new BaseElementNotFoundException(ex);
+
+                    }
+                    
+
+                }
             }
         }
 
@@ -53,6 +87,7 @@ namespace BPMNEditor.Serialization
                             IBaseElement element = mapper.CreateElement(activityItem, activity.NodeGraphicsInfos);
                             element.Name = activity.Name;
                             element.Guid = Guid.Parse(activity.Id);
+                            _elements.Add(element.Guid, element);
                             poolElement.Elements.Add(element);
                         }
                         else
