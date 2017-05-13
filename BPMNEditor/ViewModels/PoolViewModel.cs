@@ -72,7 +72,7 @@ namespace BPMNEditor.ViewModels
         #region BaseElementViewModel
 
         protected override HashSet<Type> ApplicableTypes { get; }
-        protected override IBaseElement CreateElement()
+        protected override VisualElement CreateElement()
         {
             _poolElement = new PoolElement();
             Name = "Pool";

@@ -11,25 +11,18 @@ namespace BPMNEditor.ViewModels
 {
     public abstract class VisualElementViewModel : PropertyChangedBase
     {
-        private double _width;
-        private double _height;
-        private double _left;
-        private double _top;
-
-
         public event EventHandler<LocationChagnedEventArgs> LocationChanged;
 
         [Browsable(false)]
-        public IBaseElement BaseElement { get; protected set; }
+        public VisualElement BaseElement { get; protected set; }
 
         [Category(Categories.LayoutCategory)]
         public double Width
         {
-            get { return _width; }
+            get { return BaseElement.Width; }
             set
             {
-                _width = value;
-                UpdateModelPosition();
+                BaseElement.Width = value;
                 NotifyOfPropertyChange(nameof(Width));
             }
         }
@@ -37,25 +30,25 @@ namespace BPMNEditor.ViewModels
         [Category(Categories.LayoutCategory)]
         public double Height
         {
-            get { return _height; }
+            get { return BaseElement.Height; }
             set
             {
-                _height = value;
+                BaseElement.Height = value;
                 UpdateModelPosition();
                 NotifyOfPropertyChange(nameof(Height));
             }
-        }
+       } 
 
         [Category(Categories.LayoutCategory)]
         public double Left
         {
-            get { return _left; }
+            get { return BaseElement.X; }
             set
             {
                 if (value > 0)
                 {
                     LocationChagnedEventArgs args = new LocationChagnedEventArgs(0, value - Left);
-                    _left = value;
+                    BaseElement.X = value;
                     UpdateModelPosition();
                     NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Left));
@@ -67,13 +60,13 @@ namespace BPMNEditor.ViewModels
         [Category(Categories.LayoutCategory)]
         public double Top
         {
-            get { return _top; }
+            get { return BaseElement.Y; }
             set
             {
                 if (value > 0)
                 {
                     LocationChagnedEventArgs args = new LocationChagnedEventArgs(value - Top, 0);
-                    _top = value;
+                    BaseElement.Y = value;
                     UpdateModelPosition();
                     NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Top));

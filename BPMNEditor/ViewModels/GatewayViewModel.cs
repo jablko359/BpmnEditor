@@ -43,7 +43,7 @@ namespace BPMNEditor.ViewModels
             ChangeTypeCommand = new RelayCommand(type => ChangeType((GatewayType)type));
         }
 
-        protected override IBaseElement CreateElement()
+        protected override VisualElement CreateElement()
         {
            _gatewayElement = new GatewayElement();
             return _gatewayElement;
@@ -56,6 +56,13 @@ namespace BPMNEditor.ViewModels
             PropertyChangedAction action = new PropertyChangedAction(this, Type, type, nameof(Type));
             NotifyActionPerformed(action);
             Type = type;
+        }
+
+        protected override void SetElement(VisualElement element)
+        {
+            GatewayElement gateway = element as GatewayElement;
+            _gatewayElement = gateway; 
+            base.SetElement(element);
         }
     }
 }

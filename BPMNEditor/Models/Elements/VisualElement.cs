@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BPMNEditor.Models.Elements
 {
-    public abstract class VisualElement : IdElement
+    public class VisualElement : IdElement
     {
         public double Height { get; set; }
         public double Width { get; set; }

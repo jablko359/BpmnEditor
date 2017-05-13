@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.GraphTools;
 
 namespace BPMNEditor.ViewModels
@@ -20,6 +21,7 @@ namespace BPMNEditor.ViewModels
 
         public DrawingConnectionViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
+            BaseElement = new VisualElement();
         }
 
         public override void CalculatePath()

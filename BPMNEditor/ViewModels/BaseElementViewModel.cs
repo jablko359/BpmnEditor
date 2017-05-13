@@ -20,7 +20,7 @@ namespace BPMNEditor.ViewModels
 
 
         #region Private members
-        
+
         private bool _isSelected;
         private int _itemZIndex;
         private bool _isConnectorVisible;
@@ -110,11 +110,16 @@ namespace BPMNEditor.ViewModels
         public double MinWidth { get; set; }
         [Browsable(false)]
         protected abstract HashSet<Type> ApplicableTypes { get; }
-        
+
         #endregion
 
-        #region Abstract
-        protected abstract IBaseElement CreateElement();
+        #region Abstract and virtual
+        protected abstract VisualElement CreateElement();
+
+        protected virtual void SetElement(VisualElement element)
+        {
+            BaseElement = element;
+        }
         #endregion
 
         #region Events
@@ -248,6 +253,8 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+
+
         #endregion
 
         private void RemoveConnection(ElementsConnectionViewModel connection)
@@ -275,7 +282,7 @@ namespace BPMNEditor.ViewModels
 
         #region Factory
 
-        public static BaseElementViewModel GetViewModel(Type elementType, DocumentViewModel documentViewModel)
+        public static BaseElementViewModel GetViewModel(Type elementType, DocumentViewModel documentViewModel, bool setModelData = true)
         {
             ElementViewModelAttribute attribute =
                 (ElementViewModelAttribute)Attribute.GetCustomAttribute(elementType, typeof(ElementViewModelAttribute));
@@ -286,12 +293,21 @@ namespace BPMNEditor.ViewModels
             Type viewModelType = attribute.ViewModelType;
             BaseElementViewModel viewModel =
                 (BaseElementViewModel)Activator.CreateInstance(viewModelType, documentViewModel);
-            viewModel.BaseElement = viewModel.CreateElement();
-            viewModel.Height = attribute.InitialSize.Height;
-            viewModel.Width = attribute.InitialSize.Width;
+            if (setModelData)
+            {
+                viewModel.BaseElement = viewModel.CreateElement();
+                viewModel.Height = attribute.InitialSize.Height;
+                viewModel.Width = attribute.InitialSize.Width;
+            }
             return viewModel;
         }
 
+        internal static BaseElementViewModel GetViewModel(VisualElement baseElement, DocumentViewModel documentViewModel)
+        {
+            BaseElementViewModel viewModel = GetViewModel(baseElement.GetType(), documentViewModel, false);
+            viewModel.SetElement(baseElement);
+            return viewModel;
+        }
 
 
         #endregion
@@ -378,10 +394,10 @@ namespace BPMNEditor.ViewModels
 
         public void AfterDelete()
         {
-            
+
         }
         #endregion
 
-       
+
     }
 }

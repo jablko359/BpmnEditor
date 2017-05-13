@@ -210,6 +210,8 @@ namespace BPMNEditor.ViewModels
                 using (var inputStream = file.OpenFile())
                 {
                     var document = serialzier.Deserialize(inputStream);
+                    DocumentViewModel viewModel = DocumentViewModel.FromModel(document);
+                    Documents.Add(viewModel);
                 }
             }
         }

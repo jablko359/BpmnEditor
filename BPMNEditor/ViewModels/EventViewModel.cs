@@ -37,7 +37,7 @@ namespace BPMNEditor.ViewModels
             ChangeTypeCommand = new RelayCommand(type => ChangeType((EventType)type));
         }
 
-        protected override IBaseElement CreateElement()
+        protected override VisualElement CreateElement()
         {
             _eventElement = new EventElement();
             return _eventElement;
@@ -50,7 +50,13 @@ namespace BPMNEditor.ViewModels
             PropertyChangedAction action = new PropertyChangedAction(this, Type, type, nameof(Type));
             NotifyActionPerformed(action);
             Type = type;
+        }
 
+        protected override void SetElement(VisualElement element)
+        {
+            EventElement eventElement = element as EventElement;
+            _eventElement = eventElement;
+            base.SetElement(element);
         }
     }
 }

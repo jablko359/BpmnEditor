@@ -29,6 +29,7 @@ namespace BPMNEditor.ViewModels
 
         public SelectionViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
+            BaseElement = new VisualElement();
         }
 
         public void Start(Point startPoint)
@@ -84,9 +85,9 @@ namespace BPMNEditor.ViewModels
         #region BaseElementViewModel
         public override bool IsSelectableByUser => false;
         protected override HashSet<Type> ApplicableTypes => new HashSet<Type>();
-        protected override IBaseElement CreateElement()
+        protected override VisualElement CreateElement()
         {
-            return null;
+            return new VisualElement();
         }
 
         #endregion

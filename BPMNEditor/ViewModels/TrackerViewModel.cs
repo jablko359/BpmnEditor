@@ -15,6 +15,7 @@ namespace BPMNEditor.ViewModels
         public TrackerViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
             ApplicableTypes = new HashSet<Type>();
+            BaseElement = new VisualElement();
         }
 
         public bool IsTrackerVisible
@@ -37,7 +38,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        protected override IBaseElement CreateElement()
+        protected override VisualElement CreateElement()
         {
             return null;
         }

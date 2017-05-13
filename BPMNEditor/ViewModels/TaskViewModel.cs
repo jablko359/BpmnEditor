@@ -37,7 +37,7 @@ namespace BPMNEditor.ViewModels
             ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
         }
 
-        protected override IBaseElement CreateElement()
+        protected override VisualElement CreateElement()
         {
             _taskElement = new TaskElement();
             Name = "Task";
@@ -45,5 +45,12 @@ namespace BPMNEditor.ViewModels
         }
 
         protected override HashSet<Type> ApplicableTypes { get; }
+
+        protected override void SetElement(VisualElement element)
+        {
+            TaskElement taskElement = element as TaskElement;
+            _taskElement = taskElement;
+            base.SetElement(element);
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace BPMNEditor.ViewModels
         private readonly DrawingConnectionViewModel _drawingConnectionViewModel;
 
         private readonly Document _document;
-
+        private ObservableCollection<BaseElementViewModel> _baseElements;
 
         #endregion
 
@@ -42,7 +42,21 @@ namespace BPMNEditor.ViewModels
 
         public ObservableDropoutStack<IAction> Actions { get; } = new ObservableDropoutStack<IAction>(10);
         public ObservableDropoutStack<IAction> RedoActions { get; } = new ObservableDropoutStack<IAction>();
-        public ObservableCollection<BaseElementViewModel> BaseElements { get; }
+
+        public ObservableCollection<BaseElementViewModel> BaseElements
+        {
+            get { return _baseElements; }
+            private set
+            {
+                if (_baseElements != null)
+                {
+                    _baseElements.CollectionChanged -= BaseElements_CollectionChanged;
+                }
+                _baseElements = value;
+                _baseElements.CollectionChanged += BaseElements_CollectionChanged;
+
+            }
+        }
 
 
         public string Name
@@ -71,7 +85,6 @@ namespace BPMNEditor.ViewModels
         {
             _document = new Document();
             BaseElements = new ObservableCollection<BaseElementViewModel>();
-            BaseElements.CollectionChanged += BaseElements_CollectionChanged;
             Tracker = new TrackerViewModel(this);
             Selection = new SelectionViewModel(this);
             _drawingConnectionViewModel = new DrawingConnectionViewModel(this);
@@ -81,6 +94,10 @@ namespace BPMNEditor.ViewModels
             Name = "Graph";
         }
 
+        public DocumentViewModel(Document document) : this()
+        {
+            _document = document;
+        }
         #endregion
 
         #region Handlers
@@ -203,6 +220,22 @@ namespace BPMNEditor.ViewModels
             IAction redoAction = lastAction.GetInverseAction();
             RedoActions.Push(redoAction);
             lastAction?.Revert();
+        }
+
+        internal static DocumentViewModel FromModel(Document document)
+        {
+            DocumentViewModel documentViewModel = new DocumentViewModel(document);
+            PoolElement mainPoolElement = document.MainPoolElement;
+            List<BaseElementViewModel> viewModels = new List<BaseElementViewModel>();
+            foreach (IBaseElement baseElement in mainPoolElement.Elements)
+            {
+                VisualElement visualElement = baseElement as VisualElement;
+                BaseElementViewModel baseViewModel = BaseElementViewModel.GetViewModel(visualElement, documentViewModel);
+                viewModels.Add(baseViewModel);
+            }
+            documentViewModel.BaseElements = new ObservableCollection<BaseElementViewModel>(viewModels);
+            return documentViewModel;
+
         }
 
         public void OnTrackerSizeChanged(Size newSize)
