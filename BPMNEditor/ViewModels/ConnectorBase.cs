@@ -16,6 +16,11 @@ namespace BPMNEditor.ViewModels
             get { return _position; }
             set
             {
+                if (_position == value)
+                {
+                    return;
+                }
+                //Console.WriteLine("Set position to {0}, placement {1}", value, Placemement);
                 _position = value;
                 NotifyOfPropertyChange(nameof(Position));
             }

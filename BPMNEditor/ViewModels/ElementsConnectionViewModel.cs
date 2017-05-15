@@ -43,9 +43,15 @@ namespace BPMNEditor.ViewModels
         public BaseElementViewModel From { get; private set; }
         public BaseElementViewModel To { get; private set; }
 
-
+        /// <summary>
+        /// Creates ElementsConnectionViewModel and add model connection
+        /// </summary>
+        /// <param name="documentViewModel"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         public ElementsConnectionViewModel(DocumentViewModel documentViewModel, ConnectorViewModel start, ConnectorViewModel end) : base(documentViewModel)
         {
+            BaseElement = new VisualElement();
             _start = start;
             _end = end;
             StartPoint = start.Position;
@@ -62,8 +68,31 @@ namespace BPMNEditor.ViewModels
             Model = new ConnectionElement(start.Parent.BaseElement, end.Parent.BaseElement);
             ModelHelper.AddModelConnection(this);
             CalculatePath();
-            
         }
+
+        public ElementsConnectionViewModel(DocumentViewModel documentViewModel, ConnectionElement model, BaseElementViewModel start, BaseElementViewModel end, Point startPoint, Point endPoint) : base(documentViewModel)
+        {
+            BaseElement = new VisualElement();
+            var startConenctor = start.GetNearestConnector(startPoint);
+            var endConnector = end.GetNearestConnector(endPoint);
+            _start = startConenctor;
+            _end = endConnector;
+            StartPoint = startConenctor.Position;
+            EndPoint = endConnector.Position;
+            From = startConenctor.Parent;
+            To = endConnector.Parent;
+            startConenctor.PropertyChanged += Start_PropertyChanged;
+            endConnector.PropertyChanged += End_PropertyChanged;
+            startConenctor.Parent.ElementDeleted += ElementDeleted;
+            endConnector.Parent.ElementDeleted += ElementDeleted;
+            startConenctor.Parent.SetConnection(this);
+            endConnector.Parent.SetConnection(this);
+            Hooks = new List<Hook>();
+            Model = model;
+            CalculatePath();
+        }
+
+
 
         private void ElementDeleted(object sender, EventArgs e)
         {

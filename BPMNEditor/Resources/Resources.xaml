@@ -26,7 +26,7 @@
     <converters:PlacementToHorizontalAligmentConverter x:Key="PlacementToHorizontalAligmentConverter"/>
     <converters:PlacementToVerticalAligmentConverter x:Key="PlacementToVerticalAligmentConverter"/>
     
-
+    
 
     <Style x:Key="ButtonTransparent" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>

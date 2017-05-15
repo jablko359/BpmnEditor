@@ -378,6 +378,27 @@ namespace BPMNEditor.ViewModels
             }
         }
 
+        /// <summary>
+        /// Finds connector that is nearest to the point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public ConnectorViewModel GetNearestConnector(Point point)
+        {
+            double distance = Double.MaxValue;
+            ConnectorViewModel result = null;
+            foreach (ConnectorViewModel connectorViewModel in Connectors)
+            {
+                var dist = connectorViewModel.Position - point;
+                if (dist.LengthSquared < distance)
+                {
+                    result = connectorViewModel;
+                    distance = dist.LengthSquared;
+                }
+            }
+            return result;
+        }
+
         #region IInsertable
 
         public void AfterInsert()

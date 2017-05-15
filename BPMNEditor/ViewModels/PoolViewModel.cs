@@ -23,7 +23,7 @@ namespace BPMNEditor.ViewModels
 
         private PoolElement _poolElement;
         private bool _isDragOver;
-        private readonly List<PoolElementViewModel> _elements = new List<PoolElementViewModel>();
+        private readonly HashSet<PoolElementViewModel> _elements = new HashSet<PoolElementViewModel>();
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        public IReadOnlyList<PoolElementViewModel> Elements => _elements;
+        public HashSet<PoolElementViewModel> Elements => _elements;
 
         #endregion
 
@@ -62,10 +62,26 @@ namespace BPMNEditor.ViewModels
         {
             ApplicableTypes = new HashSet<Type>();
             LocationChanged += PoolViewModel_LocationChanged;
-            
+
         }
 
-
+        public PoolViewModel(DocumentViewModel documentViewModel, PoolElement poolElement) : this(documentViewModel)
+        {
+            _poolElement = poolElement;
+            BaseElement = _poolElement;
+            int count = 0;
+            foreach (LaneElement lane in poolElement.Lanes)
+            {
+                LaneViewModel laneViewModel = new LaneViewModel(count, this, lane);
+                if (count == poolElement.Lanes.Count - 1)
+                {
+                    PropertyChanged += laneViewModel.PoolPropertyChanged;
+                }
+                Lanes.Add(laneViewModel);
+                count++;
+            }
+            MinHeight = CalculateMinHeight();
+        }
 
         #endregion
 
@@ -133,14 +149,14 @@ namespace BPMNEditor.ViewModels
         }
 
         #endregion
-
-
+       
 
         private void AddNewLane()
         {
             int index = Lanes.Count;
 
             LaneViewModel laneViewModel = new LaneViewModel(index, this);
+      
             if (index > 0)
             {
                 LaneViewModel previousLane = Lanes[index - 1];
@@ -177,7 +193,7 @@ namespace BPMNEditor.ViewModels
         public void RemoveElement(PoolElementViewModel poolElementViewModel)
         {
             _poolElement.Elements.Remove(poolElementViewModel.BaseElement);
-            
+
             _elements.Remove(poolElementViewModel);
         }
 
@@ -219,7 +235,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-       
+
 
         public override void StartMove()
         {
@@ -232,6 +248,6 @@ namespace BPMNEditor.ViewModels
         }
 
         public IList<LaneViewModel> Items => Lanes;
-       
+
     }
 }

@@ -227,11 +227,70 @@ namespace BPMNEditor.ViewModels
             DocumentViewModel documentViewModel = new DocumentViewModel(document);
             PoolElement mainPoolElement = document.MainPoolElement;
             List<BaseElementViewModel> viewModels = new List<BaseElementViewModel>();
+            Dictionary<Guid, BaseElementViewModel> viewModelDictionary = new Dictionary<Guid, BaseElementViewModel>();
+            Dictionary<Guid, PoolViewModel> poolViewModelsDictionary = new Dictionary<Guid, PoolViewModel>();
+            
             foreach (IBaseElement baseElement in mainPoolElement.Elements)
             {
                 VisualElement visualElement = baseElement as VisualElement;
                 BaseElementViewModel baseViewModel = BaseElementViewModel.GetViewModel(visualElement, documentViewModel);
+                viewModelDictionary.Add(visualElement.Guid, baseViewModel);
                 viewModels.Add(baseViewModel);
+            }
+            foreach (ConnectionElement connection in mainPoolElement.Connections)
+            {
+                BaseElementViewModel start = null;
+                BaseElementViewModel end = null;
+                if (viewModelDictionary.TryGetValue(connection.SourceElement.Guid, out start) &&
+                    viewModelDictionary.TryGetValue(connection.TargetElement.Guid, out end))
+                {
+                    Point startPoint = new Point();
+                    Point endPoint = new Point();
+                    if (connection.Points.Count >= 2)
+                    {
+                        startPoint = connection.Points[0];
+                        endPoint = connection.Points.Last();
+                    }
+
+                    ElementsConnectionViewModel connectionViewModel = new ElementsConnectionViewModel(
+                        documentViewModel, connection, start, end, startPoint, endPoint);
+                    viewModels.Add(connectionViewModel);
+                }
+            }
+            foreach (PoolElement poolElement in document.Pools)
+            {
+                PoolViewModel poolViewModel = new PoolViewModel(documentViewModel, poolElement);
+                poolViewModelsDictionary.Add(poolElement.Guid, poolViewModel);
+                viewModels.Add(poolViewModel);
+                foreach (IBaseElement baseElement in poolElement.Elements)
+                {
+                    VisualElement visualElement = baseElement as VisualElement;
+                    BaseElementViewModel baseViewModel = BaseElementViewModel.GetViewModel(visualElement, documentViewModel);
+                    PoolElementViewModel poolElementViewModel = baseViewModel as PoolElementViewModel;
+                    poolViewModel.Elements.Add(poolElementViewModel);
+                    viewModelDictionary.Add(visualElement.Guid, baseViewModel);
+                    viewModels.Add(baseViewModel);
+                }
+                foreach (ConnectionElement connection in poolElement.Connections)
+                {
+                    BaseElementViewModel start = null;
+                    BaseElementViewModel end = null;
+                    if (viewModelDictionary.TryGetValue(connection.SourceElement.Guid, out start) &&
+                        viewModelDictionary.TryGetValue(connection.TargetElement.Guid, out end))
+                    {
+                        Point startPoint = new Point();
+                        Point endPoint = new Point();
+                        if (connection.Points.Count >= 2)
+                        {
+                            startPoint = connection.Points[0];
+                            endPoint = connection.Points.Last();
+                        }
+
+                        ElementsConnectionViewModel connectionViewModel = new ElementsConnectionViewModel(
+                            documentViewModel, connection, start, end, startPoint, endPoint);
+                        viewModels.Add(connectionViewModel);
+                    }
+                }
             }
             documentViewModel.BaseElements = new ObservableCollection<BaseElementViewModel>(viewModels);
             return documentViewModel;
@@ -393,7 +452,7 @@ namespace BPMNEditor.ViewModels
             _currentConnetor = null;
         }
 
-        
+
         #endregion
 
         #region PrivateMethods

@@ -44,11 +44,19 @@ namespace BPMNEditor.ViewModels
         public LaneViewModel(int index, PoolViewModel poolViewModel)
         {
             Index = index;
-            Height = 150;
-            Lane = new LaneElement();
+            Lane = new LaneElement()
+            {
+                Height = 150
+            };
             BaseElement = Lane;
             DeleteCommand = new RelayCommand(x => Delete());
             _pool = poolViewModel;
+        }
+
+        public LaneViewModel(int index, PoolViewModel poolViewModel, LaneElement lane) : this(index,poolViewModel)
+        {
+            Lane = lane;
+            BaseElement = lane;
         }
 
         public void PoolPropertyChanged(object sender, PropertyChangedEventArgs e)

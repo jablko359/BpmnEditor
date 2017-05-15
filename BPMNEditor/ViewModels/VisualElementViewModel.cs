@@ -34,7 +34,7 @@ namespace BPMNEditor.ViewModels
             set
             {
                 BaseElement.Height = value;
-                UpdateModelPosition();
+        
                 NotifyOfPropertyChange(nameof(Height));
             }
        } 
@@ -49,7 +49,6 @@ namespace BPMNEditor.ViewModels
                 {
                     LocationChagnedEventArgs args = new LocationChagnedEventArgs(0, value - Left);
                     BaseElement.X = value;
-                    UpdateModelPosition();
                     NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Left));
                 }
@@ -67,7 +66,6 @@ namespace BPMNEditor.ViewModels
                 {
                     LocationChagnedEventArgs args = new LocationChagnedEventArgs(value - Top, 0);
                     BaseElement.Y = value;
-                    UpdateModelPosition();
                     NotifyLocationChanged(args);
                     NotifyOfPropertyChange(nameof(Top));
                 }
@@ -75,17 +73,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        protected void UpdateModelPosition()
-        {
-            VisualElement visualElement = BaseElement as VisualElement;
-            if (visualElement != null)
-            {
-                visualElement.Y = Top;
-                visualElement.X = Left;
-                visualElement.Height = Height;
-                visualElement.Width = Width;
-            }
-        }
+        
 
         private void NotifyLocationChanged(LocationChagnedEventArgs args)
         {

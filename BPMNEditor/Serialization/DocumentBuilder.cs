@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Xpdl;
@@ -52,13 +53,16 @@ namespace BPMNEditor.Serialization
                 var to = transition.To;
                 PoolElement poolElement = null;
                 var guid = Guid.Parse(processType.Id);
-                if(_poolByProcessDictionary.TryGetValue(guid, out poolElement))
+                if (_poolByProcessDictionary.TryGetValue(guid, out poolElement))
                 {
                     try
                     {
                         IBaseElement fromElement = _elements[Guid.Parse(from)];
                         IBaseElement toElement = _elements[Guid.Parse(to)];
                         ConnectionElement connection = new ConnectionElement(fromElement, toElement);
+                        connection.Guid = Guid.Parse(transition.Id);
+                        List<Point> points = GetPoints(transition.ConnectorGraphicsInfos);
+                        connection.Points = points;
                         poolElement.Connections.Add(connection);
                     }
                     catch (KeyNotFoundException ex)
@@ -66,10 +70,32 @@ namespace BPMNEditor.Serialization
                         throw new BaseElementNotFoundException(ex);
 
                     }
-                    
+
 
                 }
             }
+        }
+
+        private List<Point> GetPoints(ConnectorGraphicsInfos transitionConnectorGraphicsInfos)
+        {
+            List<Point> points = new List<Point>();
+            if (transitionConnectorGraphicsInfos?.ConnectorGraphicsInfo != null)
+            {
+                foreach (ConnectorGraphicsInfo connectorGraphicsInfo in transitionConnectorGraphicsInfos.ConnectorGraphicsInfo)
+                {
+                    if (connectorGraphicsInfo.Coordinates != null)
+                    {
+                        foreach (Coordinates coordinate in connectorGraphicsInfo.Coordinates)
+                        {
+                            if (coordinate.XCoordinateSpecified && coordinate.YCoordinateSpecified)
+                            {
+                                points.Add(new Point(coordinate.XCoordinate, coordinate.YCoordinate));
+                            }
+                        }
+                    }
+                }
+            }
+            return points;
         }
 
         private void ReadActivities(Activities processTypeActivities, PoolElement poolElement)
@@ -97,7 +123,7 @@ namespace BPMNEditor.Serialization
                     }
                 }
             }
-            
+
         }
 
 
@@ -110,6 +136,7 @@ namespace BPMNEditor.Serialization
                 PoolElement poolElement = new PoolElement(guid)
                 {
                     Name = pool.Name,
+                    Guid = guid,
                     ProcessGuid = processGuid
                 };
                 _poolByProcessDictionary.Add(processGuid, poolElement);
