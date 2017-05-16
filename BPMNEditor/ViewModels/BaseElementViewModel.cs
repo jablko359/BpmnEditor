@@ -389,6 +389,7 @@ namespace BPMNEditor.ViewModels
             ConnectorViewModel result = null;
             foreach (ConnectorViewModel connectorViewModel in Connectors)
             {
+                connectorViewModel.UpdatePosition();
                 var dist = connectorViewModel.Position - point;
                 if (dist.LengthSquared < distance)
                 {

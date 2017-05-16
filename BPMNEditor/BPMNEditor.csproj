@@ -128,6 +128,7 @@
     <Compile Include="Tools\Events.cs" />
     <Compile Include="Tools\ModelHelper.cs" />
     <Compile Include="Tools\ToolboxVisibileAttribute.cs" />
+    <Compile Include="ViewModels\DocumentViewModelBuilder.cs" />
     <Compile Include="ViewModels\ElementsConnectionViewModel.cs" />
     <Compile Include="Models\Elements\EventElement.cs" />
     <Compile Include="Models\Elements\GatewayElement.cs" />

@@ -82,7 +82,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Margin="5 1">
                             <Image Source="../../Icons/light/appbar.page.png"  Width="16"></Image>
-                            <TextBlock Text="Diagram" />
+                            <TextBlock Text="{Binding DocumentViewModel.Name}" />
                         </StackPanel>
                     </DataTemplate>
                 </xcad:DockingManager.DocumentHeaderTemplate>

@@ -25,7 +25,7 @@ namespace BPMNEditor.ViewModels
         private double _trackerCenterY;
 
         private ConnectorViewModel _currentConnetor;
-        private readonly DrawingConnectionViewModel _drawingConnectionViewModel;
+        private DrawingConnectionViewModel _drawingConnectionViewModel;
 
         private readonly Document _document;
         private ObservableCollection<BaseElementViewModel> _baseElements;
@@ -36,8 +36,8 @@ namespace BPMNEditor.ViewModels
 
         public IList<BaseElementViewModel> Items => BaseElements;
 
-        public TrackerViewModel Tracker { get; }
-        public SelectionViewModel Selection { get; }
+        public TrackerViewModel Tracker { get; private set; }
+        public SelectionViewModel Selection { get; private set; }
 
 
         public ObservableDropoutStack<IAction> Actions { get; } = new ObservableDropoutStack<IAction>(10);
@@ -46,13 +46,23 @@ namespace BPMNEditor.ViewModels
         public ObservableCollection<BaseElementViewModel> BaseElements
         {
             get { return _baseElements; }
-            private set
+            set
             {
                 if (_baseElements != null)
                 {
                     _baseElements.CollectionChanged -= BaseElements_CollectionChanged;
+                    foreach (BaseElementViewModel baseElementViewModel in _baseElements)
+                    {
+                        baseElementViewModel.ActionPerformed -= ViewModel_ActionPerformed;
+                    }
                 }
+
                 _baseElements = value;
+                foreach (BaseElementViewModel baseElementViewModel in _baseElements)
+                {
+                    baseElementViewModel.ActionPerformed += ViewModel_ActionPerformed;
+                }
+                AddDefaultElements();
                 _baseElements.CollectionChanged += BaseElements_CollectionChanged;
 
             }
@@ -85,16 +95,11 @@ namespace BPMNEditor.ViewModels
         {
             _document = new Document();
             BaseElements = new ObservableCollection<BaseElementViewModel>();
-            Tracker = new TrackerViewModel(this);
-            Selection = new SelectionViewModel(this);
-            _drawingConnectionViewModel = new DrawingConnectionViewModel(this);
-            BaseElements.Add(Tracker);
-            BaseElements.Add(Selection);
-            BaseElements.Add(_drawingConnectionViewModel);
+            AddDefaultElements();
             Name = "Graph";
         }
 
-        public DocumentViewModel(Document document) : this()
+        public DocumentViewModel(Document document) 
         {
             _document = document;
         }
@@ -169,20 +174,7 @@ namespace BPMNEditor.ViewModels
             PlaceElement(provider, x, y);
         }
 
-        public void Redo(IAction action)
-        {
-            var index = Actions.IndexOf(action);
-            if (index != -1)
-            {
-                for (var i = 0; i <= index; i++)
-                {
-                    IAction undoAction = Actions.Pop();
-                    var redoAction = undoAction.GetInverseAction();
-                    RedoActions.Push(redoAction);
-                    undoAction.Revert();
-                }
-            }
-        }
+        
 
         public void DragOver(double x, double y, object dragItem)
         {
@@ -204,6 +196,19 @@ namespace BPMNEditor.ViewModels
 
         #endregion
 
+        #region Static
+
+        internal static DocumentViewModel FromModel(Document document)
+        {
+            DocumentViewModel documentViewModel = new DocumentViewModel(document);
+            DocumentViewModelBuilder helperViewModelBuilder = new DocumentViewModelBuilder(documentViewModel);
+            helperViewModelBuilder.Fill();
+            return documentViewModel;
+        }
+
+
+        #endregion
+
         #region PublicMethods
 
         public void Redo()
@@ -222,79 +227,19 @@ namespace BPMNEditor.ViewModels
             lastAction?.Revert();
         }
 
-        internal static DocumentViewModel FromModel(Document document)
+        public void Redo(IAction action)
         {
-            DocumentViewModel documentViewModel = new DocumentViewModel(document);
-            PoolElement mainPoolElement = document.MainPoolElement;
-            List<BaseElementViewModel> viewModels = new List<BaseElementViewModel>();
-            Dictionary<Guid, BaseElementViewModel> viewModelDictionary = new Dictionary<Guid, BaseElementViewModel>();
-            Dictionary<Guid, PoolViewModel> poolViewModelsDictionary = new Dictionary<Guid, PoolViewModel>();
-            
-            foreach (IBaseElement baseElement in mainPoolElement.Elements)
+            var index = Actions.IndexOf(action);
+            if (index != -1)
             {
-                VisualElement visualElement = baseElement as VisualElement;
-                BaseElementViewModel baseViewModel = BaseElementViewModel.GetViewModel(visualElement, documentViewModel);
-                viewModelDictionary.Add(visualElement.Guid, baseViewModel);
-                viewModels.Add(baseViewModel);
-            }
-            foreach (ConnectionElement connection in mainPoolElement.Connections)
-            {
-                BaseElementViewModel start = null;
-                BaseElementViewModel end = null;
-                if (viewModelDictionary.TryGetValue(connection.SourceElement.Guid, out start) &&
-                    viewModelDictionary.TryGetValue(connection.TargetElement.Guid, out end))
+                for (var i = 0; i <= index; i++)
                 {
-                    Point startPoint = new Point();
-                    Point endPoint = new Point();
-                    if (connection.Points.Count >= 2)
-                    {
-                        startPoint = connection.Points[0];
-                        endPoint = connection.Points.Last();
-                    }
-
-                    ElementsConnectionViewModel connectionViewModel = new ElementsConnectionViewModel(
-                        documentViewModel, connection, start, end, startPoint, endPoint);
-                    viewModels.Add(connectionViewModel);
+                    IAction undoAction = Actions.Pop();
+                    var redoAction = undoAction.GetInverseAction();
+                    RedoActions.Push(redoAction);
+                    undoAction.Revert();
                 }
             }
-            foreach (PoolElement poolElement in document.Pools)
-            {
-                PoolViewModel poolViewModel = new PoolViewModel(documentViewModel, poolElement);
-                poolViewModelsDictionary.Add(poolElement.Guid, poolViewModel);
-                viewModels.Add(poolViewModel);
-                foreach (IBaseElement baseElement in poolElement.Elements)
-                {
-                    VisualElement visualElement = baseElement as VisualElement;
-                    BaseElementViewModel baseViewModel = BaseElementViewModel.GetViewModel(visualElement, documentViewModel);
-                    PoolElementViewModel poolElementViewModel = baseViewModel as PoolElementViewModel;
-                    poolViewModel.Elements.Add(poolElementViewModel);
-                    viewModelDictionary.Add(visualElement.Guid, baseViewModel);
-                    viewModels.Add(baseViewModel);
-                }
-                foreach (ConnectionElement connection in poolElement.Connections)
-                {
-                    BaseElementViewModel start = null;
-                    BaseElementViewModel end = null;
-                    if (viewModelDictionary.TryGetValue(connection.SourceElement.Guid, out start) &&
-                        viewModelDictionary.TryGetValue(connection.TargetElement.Guid, out end))
-                    {
-                        Point startPoint = new Point();
-                        Point endPoint = new Point();
-                        if (connection.Points.Count >= 2)
-                        {
-                            startPoint = connection.Points[0];
-                            endPoint = connection.Points.Last();
-                        }
-
-                        ElementsConnectionViewModel connectionViewModel = new ElementsConnectionViewModel(
-                            documentViewModel, connection, start, end, startPoint, endPoint);
-                        viewModels.Add(connectionViewModel);
-                    }
-                }
-            }
-            documentViewModel.BaseElements = new ObservableCollection<BaseElementViewModel>(viewModels);
-            return documentViewModel;
-
         }
 
         public void OnTrackerSizeChanged(Size newSize)
@@ -456,6 +401,20 @@ namespace BPMNEditor.ViewModels
         #endregion
 
         #region PrivateMethods
+
+        /// <summary>
+        /// Add tracker, selection and drawing connection view models
+        /// </summary>
+        private void AddDefaultElements()
+        {
+            
+            Tracker = new TrackerViewModel(this);
+            Selection = new SelectionViewModel(this);
+            _drawingConnectionViewModel = new DrawingConnectionViewModel(this);
+            BaseElements.Add(Tracker);
+            BaseElements.Add(Selection);
+            BaseElements.Add(_drawingConnectionViewModel);
+        }
 
         private void PlaceElement(ITypeProvider provider, double x, double y)
         {

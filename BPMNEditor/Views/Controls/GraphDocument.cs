@@ -13,11 +13,17 @@ namespace BPMNEditor.Views.Controls
 {
     public class GraphDocument : LayoutDocument
     {
+        public DocumentViewModel DocumentViewModel { get; private set; }
+        
         public GraphDocument(DocumentViewModel documentViewModel)
         {
             DocumentView documentView = new DocumentView {DataContext = documentViewModel};
             Content = documentView;
-            Title = documentView.Name;
+            Title = documentViewModel.Name;
+            DocumentViewModel = documentViewModel;
+
+
         }
+        
     }
 }

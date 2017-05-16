@@ -16,6 +16,7 @@ using BPMNEditor.Tools;
 using BPMNEditor.Tools.DragAndDrop;
 using BPMNEditor.Tools.GraphTools;
 using BPMNEditor.ViewModels;
+using Xceed.Wpf.Toolkit.Zoombox;
 
 namespace BPMNEditor.Views
 {
@@ -56,6 +57,10 @@ namespace BPMNEditor.Views
 
         private void DocumentView_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (Keyboard.IsKeyDown(Key.LeftAlt))
+            {
+                return;
+            }
             DocumentViewModel viewModel = DataContext as DocumentViewModel;
             FrameworkElement sourceControl = e.OriginalSource as FrameworkElement;
             if (sourceControl != null)
@@ -68,7 +73,7 @@ namespace BPMNEditor.Views
                     if (selectableContent?.CanSelect == true)
                     {
                         _isDragging = true;
-                        viewModel?.StartSelection(e.GetPosition(this));
+                        viewModel?.StartSelection(e.GetPosition(CanvasItemContainer));
                     }
 
                 }
@@ -83,7 +88,7 @@ namespace BPMNEditor.Views
         {
            
             var paths = VisualHelper.FindVisualChildren<Path>(this);
-            var mouseNeighbourhood = Helper.CreateCenteredRect(e.GetPosition(this), new Size(10, 10));
+            var mouseNeighbourhood = Helper.CreateCenteredRect(e.GetPosition(CanvasItemContainer), new Size(10, 10));
             foreach (Path path in paths)
             {
                 
@@ -129,8 +134,14 @@ namespace BPMNEditor.Views
             if (_isDragging)
             {
                 DocumentViewModel viewModel = DataContext as DocumentViewModel;
-                viewModel?.ChangeSelection(e.GetPosition(this));
+                viewModel?.ChangeSelection(e.GetPosition(CanvasItemContainer));
             }
+        }
+
+        private Point TransformPoint(Point currentPoint)
+        {
+            Zoombox zoombox = VisualHelper.FindParent<Zoombox>(this);
+            return new Point(zoombox.ZoomPercentage * currentPoint.X, zoombox.ZoomPercentage * currentPoint.Y);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace BPMNEditor.ViewModels
 {
     public class ConnectorViewModel : ConnectorBase
     {
-
+        public static double Offset = 10;
         private readonly BaseElementViewModel _parentViewModel;
 
         private bool _isVisible = true;
@@ -52,6 +52,46 @@ namespace BPMNEditor.ViewModels
         {
             PointToRectangleConverter converter = new PointToRectangleConverter();
             Rect result = (Rect)converter.Convert(Position, typeof(Rect), null, null);
+            return result;
+        }
+
+        public void UpdatePosition()
+        {
+            if (_parentViewModel == null)
+            {
+                return;
+            }
+            double left = _parentViewModel.Left;
+            double top = _parentViewModel.Top;
+            Point relative = CalculateRelativePoint(_parentViewModel); //this.TranslatePoint(new Point(0, 0), elementView);
+            left += relative.X;
+            top += relative.Y;
+            Point pt = new Point(left, top);
+            Position = pt;
+        }
+
+        private Point CalculateRelativePoint(VisualElementViewModel visualElementViewModel)
+        {
+            Point result = new Point();
+            switch (Placemement)
+            {
+                case Placemement.Bottom:
+                    result.X = visualElementViewModel.Width / 2;
+                    result.Y = visualElementViewModel.Height + Offset;
+                    break;
+                case Placemement.Left:
+                    result.X = -Offset;
+                    result.Y = visualElementViewModel.Height / 2;
+                    break;
+                case Placemement.Right:
+                    result.X = visualElementViewModel.Width + Offset;
+                    result.Y = visualElementViewModel.Height / 2;
+                    break;
+                case Placemement.Top:
+                    result.X = visualElementViewModel.Width / 2;
+                    result.Y = -Offset;
+                    break;
+            }
             return result;
         }
     }

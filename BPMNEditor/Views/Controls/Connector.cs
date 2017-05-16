@@ -16,7 +16,7 @@ namespace BPMNEditor.Views.Controls
         private DocumentView _documentView;
         private bool _isDragging;
 
-        public static double Offset = 10;
+       
 
         public Connector()
         {
@@ -68,57 +68,12 @@ namespace BPMNEditor.Views.Controls
 
         private void Connector_LayoutUpdated(object sender, EventArgs e)
         {
-            UpdatePosition();
-        }
-
-        private void UpdatePosition()
-        {
-            BaseElementView elementView = VisualHelper.FindParent<BaseElementView>(this);
-            var viewModel = this.DataContext as ConnectorViewModel;
-            if (elementView != null && viewModel != null)
-            {
-                BaseElementViewModel parentViewModel = elementView.DataContext as BaseElementViewModel;
-                if (parentViewModel == null)
-                {
-                    return;
-                }
-                double left = parentViewModel.Left;
-                double top = parentViewModel.Top;
-                Point relative = CalculateRelativePoint(parentViewModel); //this.TranslatePoint(new Point(0, 0), elementView);
-                left += relative.X;
-                top += relative.Y;
-                Point pt = new Point(left, top);
-                viewModel.Position = pt;
-            }
-        }
-
-        private Point CalculateRelativePoint(VisualElementViewModel visualElementViewModel)
-        {
-            Point result = new Point();
-            var viewModel = this.DataContext as ConnectorViewModel;
+            ConnectorViewModel viewModel = DataContext as ConnectorViewModel;
             if (viewModel != null)
             {
-                switch (viewModel.Placemement)
-                {
-                    case Placemement.Bottom:
-                        result.X = visualElementViewModel.Width / 2;
-                        result.Y = visualElementViewModel.Height + Offset;
-                        break;
-                    case Placemement.Left:
-                        result.X = -Offset;
-                        result.Y = visualElementViewModel.Height / 2;
-                        break;
-                    case Placemement.Right:
-                        result.X = visualElementViewModel.Width + Offset;
-                        result.Y = visualElementViewModel.Height / 2;
-                        break;
-                    case Placemement.Top:
-                        result.X = visualElementViewModel.Width / 2;
-                        result.Y = -Offset;
-                        break;
-                }
+                viewModel.UpdatePosition();
             }
-            return result;
+            
         }
     }
 }
