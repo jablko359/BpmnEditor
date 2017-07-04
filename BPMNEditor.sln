@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMNEditor", "BPMNEditor\BPMNEditor.csproj", "{B651EDDC-6765-487C-880C-0FE0FF4F10BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPDL", "XPDL\XPDL.csproj", "{8F18330C-D626-4A47-8918-5B366895A21C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMNCore", "BPMNCore\BPMNCore.csproj", "{DFCDB8B5-1F74-460E-9519-23884853A22C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B651EDDC-6765-487C-880C-0FE0FF4F10BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B651EDDC-6765-487C-880C-0FE0FF4F10BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B651EDDC-6765-487C-880C-0FE0FF4F10BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F18330C-D626-4A47-8918-5B366895A21C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F18330C-D626-4A47-8918-5B366895A21C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F18330C-D626-4A47-8918-5B366895A21C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F18330C-D626-4A47-8918-5B366895A21C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

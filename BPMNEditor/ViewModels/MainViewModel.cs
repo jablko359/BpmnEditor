@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using BPMNCore;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Serialization;

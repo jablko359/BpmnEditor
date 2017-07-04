@@ -1,5 +1,6 @@
+using BPMNCore;
 using BPMNEditor.Models.Elements;
-using BPMNEditor.Xpdl;
+using XPDL.Xpdl;
 
 namespace BPMNEditor.Serialization.XpdlActivities
 {

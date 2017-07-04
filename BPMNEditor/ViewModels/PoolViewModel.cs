@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using BPMNCore;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools.DragAndDrop;

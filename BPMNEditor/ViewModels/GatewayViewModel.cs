@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using BPMNCore;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;

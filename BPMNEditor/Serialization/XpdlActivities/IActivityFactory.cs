@@ -3,8 +3,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BPMNCore;
 using BPMNEditor.Models.Elements;
-using BPMNEditor.Xpdl;
+using XPDL.Xpdl;
 
 namespace BPMNEditor.Serialization.XpdlActivities
 {

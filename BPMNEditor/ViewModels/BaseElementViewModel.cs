@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using BPMNCore;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Tools;

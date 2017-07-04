@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BPMNCore;
 using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Tools;
 using BPMNEditor.ViewModels;
-using BPMNEditor.Xpdl;
+using XPDL.Xpdl;
 
 namespace BPMNEditor.Models.Elements
 {

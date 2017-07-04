@@ -5,10 +5,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BPMNCore;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Serialization.XpdlActivities;
-using BPMNEditor.Xpdl;
-using Pool = BPMNEditor.Xpdl.Pool;
+
+using XPDL.Xpdl;
+using Pool = XPDL.Xpdl.Pool;
 
 namespace BPMNEditor.Serialization
 {

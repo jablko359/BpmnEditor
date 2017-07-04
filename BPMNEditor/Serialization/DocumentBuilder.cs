@@ -5,9 +5,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BPMNCore;
 using BPMNEditor.Models.Elements;
 using BPMNEditor.Serialization.XpdlActivities;
-using BPMNEditor.Xpdl;
+using XPDL.Xpdl;
 
 namespace BPMNEditor.Serialization
 {
@@ -100,7 +101,7 @@ namespace BPMNEditor.Serialization
 
         private void ReadActivities(Activities processTypeActivities, PoolElement poolElement)
         {
-            if (processTypeActivities.Activity != null)
+            if (processTypeActivities!= null && processTypeActivities.Activity != null)
             {
                 foreach (Activity activity in processTypeActivities.Activity)
                 {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using BPMNEditor.Models.Elements;
-using BPMNEditor.Xpdl;
+using XPDL.Xpdl;
 
 namespace BPMNEditor.Serialization
 {
