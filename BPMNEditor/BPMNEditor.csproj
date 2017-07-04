@@ -156,6 +156,7 @@
     <Compile Include="ViewModels\ElementCreatorViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GatewayViewModel.cs" />
+    <Compile Include="ViewModels\GenericViewModelAdapter.cs" />
     <Compile Include="ViewModels\HookTempConnector.cs" />
     <Compile Include="ViewModels\LaneViewModel.cs" />
     <Compile Include="ViewModels\PoolElementViewModel.cs" />

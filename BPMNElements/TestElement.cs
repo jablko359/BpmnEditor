@@ -8,14 +8,11 @@ using BPMNEditor.Tools;
 
 namespace BPMNElements
 {
-    [ElementViewModel(typeof(TestViewModel), 50, 50)]
+    [CustomModel]
     [ToolboxVisibile]
     public class TestElement : VisualElement
     {
     }
 
-    public class TestViewModel
-    {
-        
-    }
+    
 }

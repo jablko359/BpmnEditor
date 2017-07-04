@@ -285,8 +285,43 @@ namespace BPMNEditor.ViewModels
 
         public static BaseElementViewModel GetViewModel(Type elementType, DocumentViewModel documentViewModel, bool setModelData = true)
         {
+            BaseElementViewModel resultViewModel = null;
+            CustomModelAttribute attribute =
+                (CustomModelAttribute) Attribute.GetCustomAttribute(elementType, typeof(CustomModelAttribute));
+            if (attribute == null)
+            {
+                resultViewModel = CreateStandardModel(elementType, documentViewModel, setModelData);
+            }
+            else
+            {
+                resultViewModel = CreateCustomModel(elementType, documentViewModel, setModelData);
+            }
+            return resultViewModel;
+        }
+
+        private static BaseElementViewModel CreateCustomModel(Type elementType, DocumentViewModel documentViewModel, bool setModelData)
+        {
+            BaseElementViewModel viewModel = new GenericViewModelAdapter(documentViewModel, elementType);
+            if (setModelData)
+            {
+                viewModel.BaseElement = viewModel.CreateElement();
+            }
+            return viewModel;
+        }
+
+        internal static BaseElementViewModel GetViewModel(VisualElement baseElement, DocumentViewModel documentViewModel)
+        {
+            BaseElementViewModel viewModel = GetViewModel(baseElement.GetType(), documentViewModel, false);
+            viewModel.SetElement(baseElement);
+            
+            return viewModel;
+        }
+
+        public static BaseElementViewModel CreateStandardModel(Type elementType, DocumentViewModel documentViewModel,
+            bool setModelData = true)
+        {
             ElementViewModelAttribute attribute =
-                (ElementViewModelAttribute)Attribute.GetCustomAttribute(elementType, typeof(ElementViewModelAttribute));
+               (ElementViewModelAttribute)Attribute.GetCustomAttribute(elementType, typeof(ElementViewModelAttribute));
             if (attribute == null)
             {
                 throw new NotSupportedException(string.Format("Not supported type {0}. Does not have ElementViewModelAttribute", elementType));
@@ -302,14 +337,6 @@ namespace BPMNEditor.ViewModels
             }
             return viewModel;
         }
-
-        internal static BaseElementViewModel GetViewModel(VisualElement baseElement, DocumentViewModel documentViewModel)
-        {
-            BaseElementViewModel viewModel = GetViewModel(baseElement.GetType(), documentViewModel, false);
-            viewModel.SetElement(baseElement);
-            return viewModel;
-        }
-
 
         #endregion
 
