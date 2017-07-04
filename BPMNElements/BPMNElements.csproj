@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DFCDB8B5-1F74-460E-9519-23884853A22C}</ProjectGuid>
+    <ProjectGuid>{721C1774-BF71-4F4F-99FF-C5DD21BE0E4A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BPMNCore</RootNamespace>
-    <AssemblyName>BPMNCore</AssemblyName>
+    <RootNamespace>BPMNElements</RootNamespace>
+    <AssemblyName>BPMNElements</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,17 +38,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElementViewModelAttribute.cs" />
-    <Compile Include="IBaseElement.cs" />
-    <Compile Include="IdElement.cs" />
-    <Compile Include="IDocumentElement.cs" />
-    <Compile Include="IPoolElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolboxVisibileAttribute.cs" />
-    <Compile Include="VisualElement.cs" />
+    <Compile Include="TestElement.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BPMNCore\BPMNCore.csproj">
+      <Project>{dfcdb8b5-1f74-460e-9519-23884853a22c}</Project>
+      <Name>BPMNCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

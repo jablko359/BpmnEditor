@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPDL", "XPDL\XPDL.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMNCore", "BPMNCore\BPMNCore.csproj", "{DFCDB8B5-1F74-460E-9519-23884853A22C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPMNElements", "BPMNElements\BPMNElements.csproj", "{721C1774-BF71-4F4F-99FF-C5DD21BE0E4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFCDB8B5-1F74-460E-9519-23884853A22C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721C1774-BF71-4F4F-99FF-C5DD21BE0E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721C1774-BF71-4F4F-99FF-C5DD21BE0E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721C1774-BF71-4F4F-99FF-C5DD21BE0E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721C1774-BF71-4F4F-99FF-C5DD21BE0E4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

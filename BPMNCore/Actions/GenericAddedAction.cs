@@ -1,0 +1,27 @@
+﻿namespace BPMNCore.Actions
+{
+    public class GenericAddedAction<T> : IAction where T : IInsertable
+    {
+        private readonly T _addedItem;
+        private readonly IElementsContainer<T> _container;
+
+        public GenericAddedAction(IElementsContainer<T> container, T addedItem)
+        {
+            _container = container;
+            _addedItem = addedItem;
+            Name = $"Element added to {_container.GetType()}";
+        }
+
+        public string Name { get; }
+        public void Revert()
+        {
+            _container.Items.Remove(_addedItem);
+            _addedItem.AfterDelete();
+        }
+
+        public IAction GetInverseAction()
+        {
+            return new GenericDeletedAction<T>(_container, _addedItem);
+        }
+    }
+}

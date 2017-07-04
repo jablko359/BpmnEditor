@@ -1,0 +1,84 @@
+﻿<dragAndDrop:DragableUserControl x:Class="BPMNCore.Views.PoolView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                                 xmlns:viewModels="clr-namespace:BPMNCore.ViewModels"
+                                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                                 xmlns:views="clr-namespace:BPMNCore.Views"
+                                 xmlns:dragAndDrop="clr-namespace:BPMNCore.DragAndDrop"
+                                 xmlns:viewModels1="clr-namespace:BPMNCore.ViewModels"
+                                 mc:Ignorable="d"  d:DataContext="{d:DesignInstance Type=viewModels1:PoolViewModel}"
+            
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid Width="{Binding Width}" Height="{Binding Height}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="TextArea" BorderThickness="1 1 0 1" BorderBrush="Black" Grid.Column="0" Background="Transparent" PreviewMouseDown="TextAreaOnPreviewMouseDown">
+                <TextBox x:Name="TextBox"   Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" 
+                         TextWrapping="Wrap" VerticalAlignment="Center" 
+                         HorizontalAlignment="Center" FontSize="14" 
+                         PreviewMouseDown="TextBox_OnPreviewMouseDown">
+                    <i:Interaction.Behaviors>
+                        <views:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"></views:RaisePropertyChangedActionBehavior>
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <!--Doesn't work-->
+                        <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>-->
+                        <MenuItem Header="Usuń" Command="{Binding DeleteCommand}"/>
+                    </ContextMenu>
+                </Border.ContextMenu>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1"  >
+                <ItemsControl ItemsSource="{Binding Lanes}" HorizontalContentAlignment="Stretch" MouseLeftButtonDown="ItemsClicked" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDragOver}" Value="True">
+                                                <Setter Property="Background" Value="LawnGreen"/>
+                                                <Setter Property="Opacity" Value="0.1"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDragOver}" Value="False">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:LaneViewModel}">
+                            <views:LaneView></views:LaneView>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <i:Interaction.Behaviors>
+                        <dragAndDrop:ElementDropBehavior/>
+                    </i:Interaction.Behaviors>
+                </ItemsControl>
+            </Border>
+        </Grid>
+        <Control Visibility="{Binding IsSelected , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ResizeDecoratorTemplate}"/>
+    </Grid>
+    <dragAndDrop:DragableUserControl.Style>
+        <Style TargetType="Control">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True" >
+                    <Setter Property="Cursor" Value="SizeAll"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </dragAndDrop:DragableUserControl.Style>
+    
+</dragAndDrop:DragableUserControl>
+
+
+

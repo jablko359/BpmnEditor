@@ -20,7 +20,6 @@ namespace BPMNEditor.ViewModels
     public class MainViewModel : PropertyChangedBase
     {
         #region Private members
-        private const string ElementsNamespace = "BPMNEditor.Models.Elements";
         private bool _isToolboxVisible = true;
         private DocumentViewModel _activeDocument;
         private BaseElementViewModel _propertyEditElement;
@@ -116,8 +115,10 @@ namespace BPMNEditor.ViewModels
         /// </summary>
         private void ReadAvailableElements()
         {
-            ClassReader reader = new ClassReader(ElementsNamespace, IsTypeToolboxVisible);
+            ClassReader reader = new ClassReader(null, IsTypeToolboxVisible);
             var types = reader.GetTypes();
+            ClassReader testReader = new ClassReader(@"C:\IC\project\BPMNElements\bin\Debug\BPMNElements.dll", IsTypeToolboxVisible);
+            types.AddRange(testReader.GetTypes());
             foreach (Type type in types)
             {
                 ElementCreatorViewModel model = new ElementCreatorViewModel(type);

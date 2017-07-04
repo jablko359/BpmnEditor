@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="BPMNCore.Views.ConnectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:BPMNCore.ViewModels"
+             xmlns:graphTools="clr-namespace:BPMNCore.GraphTools"
+             xmlns:tools="clr-namespace:BPMNCore.Tools"
+
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ElementsConnectionViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <tools:BindingProxy x:Key="Proxy" Data="{Binding}"></tools:BindingProxy>
+        <ContextMenu x:Key="Menu" IsOpen="{Binding Data.IsContextMenuOpened, Mode=TwoWay, Source={StaticResource Proxy}}" >
+            <MenuItem Header="Usuń" Command="{Binding Data.DeleteCommand, Source={StaticResource Proxy}}"></MenuItem>
+        </ContextMenu>
+    </UserControl.Resources>
+    <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Path x:Name="ConnectionPath" Stroke="Black" StrokeThickness="1" ContextMenu="{StaticResource Menu}">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="{Binding StartPoint}">
+                        <PolyLineSegment Points="{Binding Points}" IsSmoothJoin="True"  />
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+        <ItemsControl Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Hooks}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type graphTools:Hook}" >
+                    <Grid Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Path  Fill="YellowGreen" Stroke="Black" StrokeThickness="1" MouseLeftButtonDown="HookOnMouseLeftButtonDown" MouseLeftButtonUp="HookOnMouseLeftButtonUp" MouseMove="HookOnMouseMove">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Orientation}" Value="Horizontal">
+                                            <Setter Property="Cursor" Value="SizeWE"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Orientation}" Value="Vertical">
+                                            <Setter Property="Cursor" Value="SizeNS"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                            <Path.Data>
+                                <RectangleGeometry Rect="{Binding HookPoint, Converter={StaticResource PointToRectangleConverter}}" ></RectangleGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <graphTools:Arrow StartPoint="{Binding ArrowPoint}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
+    </Canvas>
+
+</UserControl>
+

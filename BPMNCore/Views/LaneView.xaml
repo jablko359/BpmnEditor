@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="BPMNCore.Views.LaneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
+             mc:Ignorable="d"  d:DataContext="{d:DesignInstance Type=viewModels:LaneViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel IsHitTestVisible="True">
+        <!--<Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="BorderThickness" Value="0 1 0 0"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Index}" Value="0">
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>-->
+
+        <Grid Height="{Binding Height, Mode=TwoWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="Transparent">
+                <TextBox Text="{Binding Name}" Style="{StaticResource RotatedTextBox}" TextWrapping="Wrap" VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" FontSize="14">
+                </TextBox>
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <!--Doesn't work-->
+                        <!--<MenuItem Header="Przenieś na wierzch" Command="{Binding BringToFrontCommand}"/>-->
+                        <MenuItem Header="Usuń" Command="{Binding DeleteCommand}" />
+                    </ContextMenu>
+                </Border.ContextMenu>
+            </Border>
+
+            <Border BorderThickness="1 0 0 0" Grid.Column="1" BorderBrush="Black">
+                <Grid></Grid>
+            </Border>
+        </Grid>
+        <Rectangle x:Name="ResizeRectangle"  HorizontalAlignment="Stretch" Fill="Black" Height="1" Cursor="SizeNS" PreviewMouseLeftButtonDown="BorderOnLeftButtonDown" PreviewMouseLeftButtonUp="BorderOnLeftButtonUp" PreviewMouseMove="BorderOnMouseMove"/>
+    </StackPanel>
+</UserControl>
