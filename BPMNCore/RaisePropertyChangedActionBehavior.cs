@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Interactivity;
-using BPMNEditor.ViewModels;
 
-namespace BPMNEditor.Views.Controls
+namespace BPMNCore
 {
     public class RaisePropertyChangedActionBehavior : Behavior<FrameworkElement>
     {
@@ -26,7 +19,7 @@ namespace BPMNEditor.Views.Controls
 
         private void AssociatedObject_LostFocus(object sender, RoutedEventArgs e)
         {
-            var viewModel = AssociatedObject.DataContext as BaseElementViewModel;
+            var viewModel = AssociatedObject.DataContext as IPropertyRemember;
             var data = AssociatedObject.GetType().GetProperty(ControlPropertyName);
             if (data != null)
             {
@@ -37,7 +30,7 @@ namespace BPMNEditor.Views.Controls
 
         private void AssociatedObject_GotFocus(object sender, RoutedEventArgs e)
         {
-            var viewModel = AssociatedObject.DataContext as BaseElementViewModel;
+            var viewModel = AssociatedObject.DataContext as IPropertyRemember;
             viewModel?.RememberProperty(UpdatePropertyName);
         }
     }

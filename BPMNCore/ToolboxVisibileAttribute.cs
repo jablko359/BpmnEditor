@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BPMNEditor.Tools
+namespace BPMNCore
 {
     /// <summary>
     /// Add this attribute to IBase Elements if should be visible in toolbox

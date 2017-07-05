@@ -119,7 +119,7 @@ namespace BPMNEditor.ViewModels
             ClassReader reader = new ClassReader(null, IsTypeToolboxVisible);
             var types = reader.GetTypes();
             ClassAssemblyReader classAssemblyReader = new ClassAssemblyReader(Settings.Default.Assemblies);
-            types.AddRange(classAssemblyReader.GetTypes());
+            types.AddRange(classAssemblyReader.GetTypes(IsTypeToolboxVisible));
             foreach (Type type in types)
             {
                 ElementCreatorViewModel model = new ElementCreatorViewModel(type);

@@ -364,7 +364,7 @@ namespace BPMNEditor.ViewModels
                     {
                         continue;
                     }
-                    if (source != baseElement && baseElement.IsTypeApplicable(baseElement.BaseElement.GetType()))
+                    if (source != baseElement)
                     {
                         Rect elementRect = Helper.GetRect(baseElement, 10);
                         Rect pointRect = new Rect(position, new Size(1, 1));

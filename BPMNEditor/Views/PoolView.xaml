@@ -8,6 +8,7 @@
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:bpmnCore="clr-namespace:BPMNCore;assembly=BPMNCore"
              mc:Ignorable="d"  d:DataContext="{d:DesignInstance Type=viewModels:PoolViewModel}"
             
              d:DesignHeight="300" d:DesignWidth="300">
@@ -23,7 +24,7 @@
                          HorizontalAlignment="Center" FontSize="14" 
                          PreviewMouseDown="TextBox_OnPreviewMouseDown">
                     <i:Interaction.Behaviors>
-                        <controls:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"></controls:RaisePropertyChangedActionBehavior>
+                        <bpmnCore:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"></bpmnCore:RaisePropertyChangedActionBehavior>
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <Border.ContextMenu>
@@ -79,6 +80,10 @@
     </dragAndDrop:DragableUserControl.Style>
     
 </dragAndDrop:DragableUserControl>
+
+
+
+
 
 
 

@@ -16,14 +16,15 @@ namespace BPMNEditor.Tools
             _assembliesPathCollection = assemliesPathCollection;
         }
 
-        public List<Type> GetTypes()
+        public List<Type> GetTypes(Func<Type, bool> conditionFunc)
         {
+
             List<Type> types = new List<Type>();
             if (_assembliesPathCollection != null)
             {
                 foreach (string path in _assembliesPathCollection)
                 {
-                    ClassReader reader = new ClassReader(path);
+                    ClassReader reader = new ClassReader(path, conditionFunc);
                     types.AddRange(reader.GetTypes());
                     reader.LoadResources();
                 }
@@ -31,6 +32,6 @@ namespace BPMNEditor.Tools
             return types;
         }
 
-       
+
     }
 }

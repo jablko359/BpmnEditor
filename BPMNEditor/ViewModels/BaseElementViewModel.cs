@@ -15,7 +15,7 @@ using BPMNEditor.ViewModels.Command;
 
 namespace BPMNEditor.ViewModels
 {
-    public abstract class BaseElementViewModel : VisualElementViewModel, IResizable, IMovable, IInsertable
+    public abstract class BaseElementViewModel : VisualElementViewModel, IResizable, IMovable, IInsertable, IPropertyRemember
     {
         private static readonly HashSet<string> DimensionProperties = new HashSet<string>() { nameof(Width), nameof(Height), nameof(Top), nameof(Left) };
 

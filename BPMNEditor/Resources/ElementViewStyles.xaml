@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:controls="clr-namespace:BPMNEditor.Views.Controls">
+                    xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
+                    xmlns:bpmnCore="clr-namespace:BPMNCore;assembly=BPMNCore">
     
     <DataTemplate DataType="{x:Type vm:GenericViewModelAdapter}">
         <Border Height="{Binding Height}" Width="{Binding Width}" BorderThickness="1" BorderBrush="#333333" Background="Lavender">
@@ -56,7 +57,7 @@
         <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="{StaticResource TaskBorderColor}"  BorderThickness="1" CornerRadius="10" Background="{StaticResource TaskBackgroundColor}" >
             <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" >
                 <i:Interaction.Behaviors>
-                    <controls:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
+                    <bpmnCore:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
                 </i:Interaction.Behaviors>
             </TextBox>
         </Border>
