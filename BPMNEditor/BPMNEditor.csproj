@@ -122,6 +122,7 @@
     <Compile Include="Serialization\XpdlExtensions.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
     <Compile Include="Tools\Categories.cs" />
+    <Compile Include="Tools\ClassAssemblyReader.cs" />
     <Compile Include="Tools\DraggableAttribute.cs" />
     <Compile Include="Tools\Events.cs" />
     <Compile Include="Tools\ModelHelper.cs" />
@@ -233,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Elements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ElementViewStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

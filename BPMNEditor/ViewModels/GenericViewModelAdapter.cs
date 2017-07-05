@@ -14,6 +14,7 @@ namespace BPMNEditor.ViewModels
 
         public GenericViewModelAdapter(DocumentViewModel documentViewModel, Type modelType) : base(documentViewModel)
         {
+            
             _modelType = modelType;
         }
 

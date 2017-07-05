@@ -8,6 +8,7 @@ using System.Windows.Input;
 using BPMNCore;
 using BPMNEditor.Actions;
 using BPMNEditor.Models.Elements;
+using BPMNEditor.Properties;
 using BPMNEditor.Serialization;
 using BPMNEditor.Serialization.XpdlActivities;
 using BPMNEditor.Tools;
@@ -117,8 +118,8 @@ namespace BPMNEditor.ViewModels
         {
             ClassReader reader = new ClassReader(null, IsTypeToolboxVisible);
             var types = reader.GetTypes();
-            ClassReader testReader = new ClassReader(@"C:\IC\project\BPMNElements\bin\Debug\BPMNElements.dll", IsTypeToolboxVisible);
-            types.AddRange(testReader.GetTypes());
+            ClassAssemblyReader classAssemblyReader = new ClassAssemblyReader(Settings.Default.Assemblies);
+            types.AddRange(classAssemblyReader.GetTypes());
             foreach (Type type in types)
             {
                 ElementCreatorViewModel model = new ElementCreatorViewModel(type);

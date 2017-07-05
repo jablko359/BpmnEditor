@@ -305,6 +305,7 @@ namespace BPMNEditor.ViewModels
             if (setModelData)
             {
                 viewModel.BaseElement = viewModel.CreateElement();
+                
             }
             return viewModel;
         }

@@ -12,107 +12,14 @@
              mc:Ignorable="d" Cursor="SizeAll" Grid.ZIndex="{Binding ItemZIndex}"
              d:DataContext="{d:DesignInstance Type=viewModels:BaseElementViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ContentControl>
+    <ContentControl x:Name="ContentControl">
         <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type viewModels:BaseElementViewModel}">
-                <Border Width="100" Height="100" BorderThickness="1" BorderBrush="#333333" Background="Lavender">
-                    <TextBlock Text="Unknow" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </Border>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:EventViewModel}" >
-                <Ellipse Height="{Binding Height}" Width="{Binding Width}">
-                    <Ellipse.Style>
-                        <Style TargetType="Ellipse">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Type}" Value="Start">
-                                    <Setter Property="Stroke" Value="{StaticResource StartEventBorderColor}"/>
-                                    <Setter Property="StrokeThickness" Value="1" />
-                                    <Setter Property="Fill" Value="{StaticResource StartEventBackgroundColor}"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Type}" Value="Intermediate">
-                                    <Setter Property="Stroke" Value="{StaticResource GatewayBorderColor}"/>
-                                    <Setter Property="StrokeThickness" Value="1" />
-                                    <Setter Property="Fill" Value="{StaticResource GatewayBackgroundColor}"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Type}" Value="End">
-                                    <Setter Property="Stroke" Value="{StaticResource EndEventBorderColor}"/>
-                                    <Setter Property="StrokeThickness" Value="3" />
-                                    <Setter Property="Fill" Value="{StaticResource EndEventBackgroundColor}"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Ellipse.Style>
-                    <Ellipse.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Change Type" ItemsSource="{Binding Source={StaticResource EventTypes}}">
-                                <MenuItem.ItemContainerStyle>
-                                    <Style TargetType="MenuItem">
-                                        <Setter Property="Command" Value="{Binding DataContext.ChangeTypeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}, AncestorLevel=1}}"/>
-                                        <Setter Property="CommandParameter" Value="{Binding}"></Setter>
-                                    </Style>
-                                </MenuItem.ItemContainerStyle>
-                            </MenuItem>
-                            <StaticResource ResourceKey="DeleteMenuItem"/>
-                        </ContextMenu>
-                    </Ellipse.ContextMenu>
-                </Ellipse>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:TaskViewModel}" >
-                <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="{StaticResource TaskBorderColor}"  BorderThickness="1" CornerRadius="10" Background="{StaticResource TaskBackgroundColor}" >
-                    <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" >
-                        <i:Interaction.Behaviors>
-                            <controls:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
-                        </i:Interaction.Behaviors>
-                    </TextBox>
-                </Border>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:GatewayViewModel}" >
-                <Viewbox  Height="{Binding Height}" Width="{Binding Width}"  Stretch="Uniform">
-                    <ContentControl DataContext="{Binding}">
-                        <ContentControl.Style>
-                            <Style TargetType="ContentControl">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Type}" Value="None">
-                                        <Setter Property="Content" Value="{StaticResource GatewayNone}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Type}" Value="Or">
-                                        <Setter Property="Content" Value="{StaticResource GatewayOr}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Type}" Value="Xor">
-                                        <Setter Property="Content" Value="{StaticResource GatewayXor}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Type}" Value="Parallel">
-                                        <Setter Property="Content" Value="{StaticResource GatewayParallel}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Type}" Value="EventBased">
-                                        <Setter Property="Content" Value="{StaticResource GatewayEventbased}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>
-                    <Viewbox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="ChangeType" ItemsSource="{Binding Source={StaticResource GatewayTypes}}">
-                                <MenuItem.ItemContainerStyle>
-                                    <Style TargetType="MenuItem">
-                                        <Setter Property="Command" Value="{Binding DataContext.ChangeTypeCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}, AncestorLevel=1}}"/>
-                                        <Setter Property="CommandParameter" Value="{Binding}"></Setter>
-                                    </Style>
-                                </MenuItem.ItemContainerStyle>
-                            </MenuItem>
-                            <StaticResource ResourceKey="DeleteMenuItem"/>
-                        </ContextMenu>
-                    </Viewbox.ContextMenu>
-                </Viewbox>
-
-                <!--<Border BorderThickness="1" Background="{StaticResource GatewayBackgroundColor}" BorderBrush="{StaticResource GatewayBorderColor}" >
-                        <Border.LayoutTransform>
-                            <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5"/>
-                        </Border.LayoutTransform>
-                    </Border>-->
-
-            </DataTemplate>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Resources/ElementViewStyles.xaml"></ResourceDictionary>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+            
         </ContentControl.Resources>
         <ContentControl>
             <Grid>

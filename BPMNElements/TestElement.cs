@@ -12,6 +12,11 @@ namespace BPMNElements
     [ToolboxVisibile]
     public class TestElement : VisualElement
     {
+        public TestElement()
+        {
+            Height = 200;
+            Width = 100;
+        }
     }
 
     
