@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BPMNEditor.Views"
+             xmlns:core="clr-namespace:BPMNCore;assembly=BPMNCore"
              xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:dnd="clr-namespace:BPMNEditor.Tools.DragAndDrop"
@@ -24,6 +25,15 @@
         </Style>
         <Style x:Key="ElementPickerContentControl" TargetType="{x:Type ContentControl}">
             <Style.Triggers>
+                <DataTrigger Binding="{Binding IsCustomType}" Value="True">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <local:CustomElementToolbox></local:CustomElementToolbox>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
                 <DataTrigger Binding="{Binding ElementType}" Value="{x:Type elements:EventElement}">
                     <Setter Property="ContentTemplate">
                         <Setter.Value>
@@ -99,6 +109,7 @@
     </UserControl.Resources>
     <StackPanel>
         <ContentControl HorizontalAlignment="Stretch"  Content="{Binding ElementType}" HorizontalContentAlignment="Stretch" Style="{StaticResource ElementPickerContentControl}" Height="35px" >
+            
             <ContentControl.ToolTip>
                 <ToolTip Content="{Binding Name}"/>
             </ContentControl.ToolTip>

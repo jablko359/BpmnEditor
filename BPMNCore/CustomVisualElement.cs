@@ -8,6 +8,5 @@ namespace BPMNCore
 {
     public abstract class CustomVisualElement : VisualElement
     {
-
     }
 }

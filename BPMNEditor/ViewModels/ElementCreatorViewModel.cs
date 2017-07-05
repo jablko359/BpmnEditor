@@ -28,9 +28,23 @@ namespace BPMNEditor.ViewModels
             get { return _elementType; }
         }
 
+        public bool IsCustomType { get; }
+
+        public object ViewProvider { get; set; }
+
         public ElementCreatorViewModel(Type elementType)
         {
             _elementType = elementType;
+            IsCustomType = elementType.Assembly != Assembly.GetExecutingAssembly();
+            if (IsCustomType)
+            {
+                var attr = _elementType.GetCustomAttribute<ToolboxPresenterAttribute>();
+                if (attr != null)
+                {
+                    ViewProvider = Activator.CreateInstance(attr.PresenterType);
+                }
+                
+            }
             SetName();
             DataType = GetDataType(elementType);
         }

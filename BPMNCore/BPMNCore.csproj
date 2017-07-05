@@ -55,6 +55,7 @@
     <Compile Include="IPropertyRemember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaisePropertyChangedActionBehavior.cs" />
+    <Compile Include="ToolboxPresenterAttribute.cs" />
     <Compile Include="ToolboxVisibileAttribute.cs" />
     <Compile Include="VisualElement.cs" />
   </ItemGroup>

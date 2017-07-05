@@ -12,6 +12,7 @@ namespace BPMNElements
 {
     [CustomModel]
     [ToolboxVisibile]
+    [ToolboxPresenter(typeof(TestElementViewProvider))]
     public class TestElement : CustomVisualElement, INotifyPropertyChanged
     {
         private string _test;
@@ -42,5 +43,10 @@ namespace BPMNElements
         }
     }
 
+
+    public class TestElementViewProvider
+    {
+        
+    }
     
 }

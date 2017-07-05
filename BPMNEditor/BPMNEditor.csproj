@@ -171,6 +171,9 @@
       <DependentUpon>BaseElementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\GraphDocument.cs" />
+    <Compile Include="Views\CustomElementToolbox.xaml.cs">
+      <DependentUpon>CustomElementToolbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DrawingConnectionView.xaml.cs">
       <DependentUpon>DrawingConnectionView.xaml</DependentUpon>
     </Compile>
@@ -253,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BaseElementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElementToolbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
