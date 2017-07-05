@@ -299,7 +299,7 @@ namespace BPMNEditor.ViewModels
                 source.HideOtherConnectors(connector);
                 foreach (BaseElementViewModel baseElement in BaseElements)
                 {
-                    if (source != baseElement && baseElement.IsTypeApplicable(connectorType))
+                    if (source != baseElement)
                     {
                         baseElement.IsConnectorVisible = true;
                     }
@@ -360,7 +360,7 @@ namespace BPMNEditor.ViewModels
                 List<BaseElementViewModel> tempList = new List<BaseElementViewModel>(BaseElements);
                 foreach (BaseElementViewModel baseElement in tempList)
                 {
-                    if (baseElement.BaseElement == null)
+                    if (baseElement.BaseElement == null || !baseElement.CanConnect)
                     {
                         continue;
                     }

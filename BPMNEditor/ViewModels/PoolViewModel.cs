@@ -61,7 +61,7 @@ namespace BPMNEditor.ViewModels
 
         public PoolViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            ApplicableTypes = new HashSet<Type>();
+            //ApplicableTypes = new HashSet<Type>();
             LocationChanged += PoolViewModel_LocationChanged;
 
         }
@@ -88,7 +88,7 @@ namespace BPMNEditor.ViewModels
 
         #region BaseElementViewModel
 
-        protected override HashSet<Type> ApplicableTypes { get; }
+   
         protected override VisualElement CreateElement()
         {
             _poolElement = new PoolElement();

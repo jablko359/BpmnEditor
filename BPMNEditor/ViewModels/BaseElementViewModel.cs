@@ -46,6 +46,10 @@ namespace BPMNEditor.ViewModels
         #endregion
 
         #region Properties
+
+        [Browsable(false)]
+        public virtual bool CanConnect => false;
+
         [Browsable(false)]
         public bool CanMove => IsSelected;
 
@@ -109,8 +113,6 @@ namespace BPMNEditor.ViewModels
         public double MinHeight { get; set; }
         [Browsable(false)]
         public double MinWidth { get; set; }
-        [Browsable(false)]
-        protected abstract HashSet<Type> ApplicableTypes { get; }
 
         #endregion
 
@@ -220,16 +222,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        /// <summary>
-        /// Checks if connectiom between items can be made
-        /// </summary>
-        /// <param name="objectType"></param>
-        /// <returns></returns>
-        public virtual bool IsTypeApplicable(Type objectType)
-        {
-            bool isApplicable = ApplicableTypes.Contains(objectType);
-            return isApplicable;
-        }
+        
 
         /// <summary>
         /// Hides all connectors expcept specified one

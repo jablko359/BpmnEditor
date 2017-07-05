@@ -12,7 +12,7 @@ namespace BPMNElements
 {
     [CustomModel]
     [ToolboxVisibile]
-    public class TestElement : VisualElement, INotifyPropertyChanged
+    public class TestElement : CustomVisualElement, INotifyPropertyChanged
     {
         private string _test;
 

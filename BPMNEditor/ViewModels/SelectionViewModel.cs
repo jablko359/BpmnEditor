@@ -85,7 +85,7 @@ namespace BPMNEditor.ViewModels
 
         #region BaseElementViewModel
         public override bool IsSelectableByUser => false;
-        protected override HashSet<Type> ApplicableTypes => new HashSet<Type>();
+ 
         protected override VisualElement CreateElement()
         {
             return new VisualElement();

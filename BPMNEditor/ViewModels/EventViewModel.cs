@@ -19,6 +19,8 @@ namespace BPMNEditor.ViewModels
 
         private EventElement _eventElement;
 
+        public override bool CanConnect => true;
+
         public EventType Type
         {
             get { return _eventElement.Type; }
@@ -34,7 +36,6 @@ namespace BPMNEditor.ViewModels
 
         public EventViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
             ChangeTypeCommand = new RelayCommand(type => ChangeType((EventType)type));
         }
 
@@ -44,7 +45,7 @@ namespace BPMNEditor.ViewModels
             return _eventElement;
         }
 
-        protected override HashSet<Type> ApplicableTypes { get; }
+        
 
         private void ChangeType(EventType type)
         {

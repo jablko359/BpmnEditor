@@ -9,18 +9,17 @@ using BPMNEditor.Models.Elements;
 
 namespace BPMNEditor.ViewModels
 {
-    public class GenericViewModelAdapter : BaseElementViewModel
+    public class GenericViewModelAdapter : PoolElementViewModel
     {
         private readonly Type _modelType;
         private VisualElement _visualElement;
 
         public GenericViewModelAdapter(DocumentViewModel documentViewModel, Type modelType) : base(documentViewModel)
         {
-            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
             _modelType = modelType;
         }
 
-        protected override HashSet<Type> ApplicableTypes { get; }
+        public override bool CanConnect => true;
         protected override VisualElement CreateElement()
         {
             _visualElement = Activator.CreateInstance(_modelType) as VisualElement;

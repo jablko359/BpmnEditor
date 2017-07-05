@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomModelAttribute.cs" />
+    <Compile Include="CustomVisualElement.cs" />
     <Compile Include="ElementViewModelAttribute.cs" />
     <Compile Include="IBaseElement.cs" />
     <Compile Include="IdElement.cs" />

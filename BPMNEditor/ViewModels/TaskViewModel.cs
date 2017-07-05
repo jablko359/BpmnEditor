@@ -18,6 +18,8 @@ namespace BPMNEditor.ViewModels
 
         #region Properties
 
+        public override bool CanConnect => true;
+
         public string Name
         {
             get { return _taskElement.Name; }
@@ -35,7 +37,7 @@ namespace BPMNEditor.ViewModels
         public TaskViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
            
-            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
+            //ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement), typeof(CustomVisualElement) };
         }
 
         protected override VisualElement CreateElement()
@@ -45,7 +47,7 @@ namespace BPMNEditor.ViewModels
             return _taskElement;
         }
 
-        protected override HashSet<Type> ApplicableTypes { get; }
+        
 
         protected override void SetElement(VisualElement element)
         {

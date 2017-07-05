@@ -22,6 +22,8 @@ namespace BPMNEditor.ViewModels
 
         #region Properties
 
+        public override bool CanConnect => true;
+
         public GatewayType Type
         {
             get { return _gatewayElement.Type; }
@@ -40,7 +42,6 @@ namespace BPMNEditor.ViewModels
 
         public GatewayViewModel(DocumentViewModel documentViewModel) : base(documentViewModel)
         {
-            ApplicableTypes = new HashSet<Type>() { typeof(EventElement), typeof(TaskElement), typeof(GatewayElement) };
             ChangeTypeCommand = new RelayCommand(type => ChangeType((GatewayType)type));
         }
 
@@ -49,8 +50,7 @@ namespace BPMNEditor.ViewModels
            _gatewayElement = new GatewayElement();
             return _gatewayElement;
         }
-
-        protected override HashSet<Type> ApplicableTypes { get; }
+      
 
         private void ChangeType(GatewayType type)
         {
