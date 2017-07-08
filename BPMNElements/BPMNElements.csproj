@@ -44,14 +44,92 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\CanBeNullAttribute.cs" />
+    <Compile Include="Properties\AspChildControlTypeAttribute.cs" />
+    <Compile Include="Properties\AspDataFieldAttribute.cs" />
+    <Compile Include="Properties\AspDataFieldsAttribute.cs" />
+    <Compile Include="Properties\AspMethodPropertyAttribute.cs" />
+    <Compile Include="Properties\AspMvcActionAttribute.cs" />
+    <Compile Include="Properties\AspMvcActionSelectorAttribute.cs" />
+    <Compile Include="Properties\AspMvcAreaAttribute.cs" />
+    <Compile Include="Properties\AspMvcAreaMasterLocationFormatAttribute.cs" />
+    <Compile Include="Properties\AspMvcAreaPartialViewLocationFormatAttribute.cs" />
+    <Compile Include="Properties\AspMvcAreaViewLocationFormatAttribute.cs" />
+    <Compile Include="Properties\AspMvcControllerAttribute.cs" />
+    <Compile Include="Properties\AspMvcDisplayTemplateAttribute.cs" />
+    <Compile Include="Properties\AspMvcEditorTemplateAttribute.cs" />
+    <Compile Include="Properties\AspMvcMasterAttribute.cs" />
+    <Compile Include="Properties\AspMvcMasterLocationFormatAttribute.cs" />
+    <Compile Include="Properties\AspMvcModelTypeAttribute.cs" />
+    <Compile Include="Properties\AspMvcPartialViewAttribute.cs" />
+    <Compile Include="Properties\AspMvcPartialViewLocationFormatAttribute.cs" />
+    <Compile Include="Properties\AspMvcSuppressViewErrorAttribute.cs" />
+    <Compile Include="Properties\AspMvcTemplateAttribute.cs" />
+    <Compile Include="Properties\AspMvcViewAttribute.cs" />
+    <Compile Include="Properties\AspMvcViewComponentAttribute.cs" />
+    <Compile Include="Properties\AspMvcViewComponentViewAttribute.cs" />
+    <Compile Include="Properties\AspMvcViewLocationFormatAttribute.cs" />
+    <Compile Include="Properties\AspRequiredAttributeAttribute.cs" />
+    <Compile Include="Properties\AspTypePropertyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssertionConditionAttribute.cs" />
+    <Compile Include="Properties\AssertionConditionType.cs" />
+    <Compile Include="Properties\AssertionMethodAttribute.cs" />
+    <Compile Include="Properties\BaseTypeRequiredAttribute.cs" />
+    <Compile Include="Properties\CannotApplyEqualityOperatorAttribute.cs" />
+    <Compile Include="Properties\CollectionAccessAttribute.cs" />
+    <Compile Include="Properties\CollectionAccessType.cs" />
+    <Compile Include="Properties\ContractAnnotationAttribute.cs" />
+    <Compile Include="Properties\HtmlAttributeValueAttribute.cs" />
+    <Compile Include="Properties\HtmlElementAttributesAttribute.cs" />
+    <Compile Include="Properties\ImplicitUseKindFlags.cs" />
+    <Compile Include="Properties\ImplicitUseTargetFlags.cs" />
+    <Compile Include="Properties\InstantHandleAttribute.cs" />
+    <Compile Include="Properties\InvokerParameterNameAttribute.cs" />
+    <Compile Include="Properties\ItemCanBeNullAttribute.cs" />
+    <Compile Include="Properties\ItemNotNullAttribute.cs" />
+    <Compile Include="Properties\LinqTunnelAttribute.cs" />
+    <Compile Include="Properties\LocalizationRequiredAttribute.cs" />
+    <Compile Include="Properties\MacroAttribute.cs" />
+    <Compile Include="Properties\MeansImplicitUseAttribute.cs" />
+    <Compile Include="Properties\MustUseReturnValueAttribute.cs" />
+    <Compile Include="Properties\NoEnumerationAttribute.cs" />
+    <Compile Include="Properties\NoReorderAttribute.cs" />
+    <Compile Include="Properties\NotifyPropertyChangedInvocatorAttribute.cs" />
+    <Compile Include="Properties\NotNullAttribute.cs" />
+    <Compile Include="Properties\PathReferenceAttribute.cs" />
+    <Compile Include="Properties\ProvidesContextAttribute.cs" />
+    <Compile Include="Properties\PublicAPIAttribute.cs" />
+    <Compile Include="Properties\PureAttribute.cs" />
+    <Compile Include="Properties\RazorDirectiveAttribute.cs" />
+    <Compile Include="Properties\RazorHelperCommonAttribute.cs" />
+    <Compile Include="Properties\RazorImportNamespaceAttribute.cs" />
+    <Compile Include="Properties\RazorInjectionAttribute.cs" />
+    <Compile Include="Properties\RazorLayoutAttribute.cs" />
+    <Compile Include="Properties\RazorSectionAttribute.cs" />
+    <Compile Include="Properties\RazorWriteLiteralMethodAttribute.cs" />
+    <Compile Include="Properties\RazorWriteMethodAttribute.cs" />
+    <Compile Include="Properties\RazorWriteMethodParameterAttribute.cs" />
+    <Compile Include="Properties\RegexPatternAttribute.cs" />
+    <Compile Include="Properties\SourceTemplateAttribute.cs" />
+    <Compile Include="Properties\StringFormatMethodAttribute.cs" />
+    <Compile Include="Properties\TerminatesProgramAttribute.cs" />
+    <Compile Include="Properties\UsedImplicitlyAttribute.cs" />
+    <Compile Include="Properties\ValueProviderAttribute.cs" />
+    <Compile Include="Properties\XamlItemBindingOfItemsControlAttribute.cs" />
+    <Compile Include="Properties\XamlItemsControlAttribute.cs" />
+    <Compile Include="TestActivityMapper.cs" />
     <Compile Include="TestElement.cs" />
+    <Compile Include="TestElementViewProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BPMNCore\BPMNCore.csproj">
       <Project>{dfcdb8b5-1f74-460e-9519-23884853a22c}</Project>
       <Name>BPMNCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XPDL\XPDL.csproj">
+      <Project>{8f18330c-d626-4a47-8918-5b366895a21c}</Project>
+      <Name>XPDL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

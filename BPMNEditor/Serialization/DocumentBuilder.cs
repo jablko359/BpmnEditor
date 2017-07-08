@@ -108,7 +108,11 @@ namespace BPMNEditor.Serialization
                     object activityItem = activity.Item;
                     if (activityItem != null)
                     {
-                        IActivityMapper mapper = ActivityMapperAttribute.GetMapper(activityItem.GetType());
+                        IActivityMapper mapper = ActivityMapperAttribute.GetMapper(activity.NodeGraphicsInfos);
+                        if (mapper == null)
+                        {
+                            mapper = ActivityMapperAttribute.GetMapper(activityItem.GetType());
+                        }
                         if (mapper != null)
                         {
                             IBaseElement element = mapper.CreateElement(activityItem, activity.NodeGraphicsInfos);
@@ -143,7 +147,7 @@ namespace BPMNEditor.Serialization
                 _poolByProcessDictionary.Add(processGuid, poolElement);
                 if (poolElement.Name != XpdlInfo.MainPoolName)
                 {
-                    SetVisualElementInfo(pool.NodeGraphicsInfos, poolElement);
+                    VisualElementTools.SetVisualElementInfo(pool.NodeGraphicsInfos, poolElement);
                     Document.Pools.Add(poolElement);
                 }
                 else
@@ -205,41 +209,7 @@ namespace BPMNEditor.Serialization
             }
         }
 
-        public static void SetVisualElementInfo(NodeGraphicsInfos infos, VisualElement element)
-        {
-            NodeGraphicsInfo info = null;
-            foreach (var nodeGraphicsInfo in infos.NodeGraphicsInfo)
-            {
-                info = nodeGraphicsInfo;
-                if (nodeGraphicsInfo.ToolId == Assembly.GetExecutingAssembly().GetName().Name)
-                {
-                    break;
-                }
-            }
-            if (info != null)
-            {
-                if (info.HeightSpecified)
-                {
-                    element.Height = info.Height;
-                }
-                if (info.WidthSpecified)
-                {
-                    element.Width = info.Width;
-                }
-                if (info.Coordinates != null)
-                {
-                    if (info.Coordinates.XCoordinateSpecified)
-                    {
-                        element.X = info.Coordinates.XCoordinate;
-                    }
-                    if (info.Coordinates.YCoordinateSpecified)
-                    {
-                        element.Y = info.Coordinates.YCoordinate;
-                    }
-                }
-            }
-
-        }
+        
 
 
 

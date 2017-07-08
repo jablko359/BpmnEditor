@@ -109,13 +109,11 @@
     <Compile Include="Serialization\Exceptions.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\PackageBuilder.cs" />
-    <Compile Include="Serialization\XpdlActivities\BaseActivityMapper.cs" />
     <Compile Include="Serialization\XpdlActivities\EnumNotFoundException.cs" />
     <Compile Include="Serialization\XpdlActivities\EventActivityMapper.cs" />
     <Compile Include="Serialization\XpdlActivities\GatewayActivityMapper.cs" />
     <Compile Include="Serialization\XpdlActivities\TaskActivityMapper.cs" />
     <Compile Include="Serialization\XpdlActivities\XpdlTypeAttribute.cs" />
-    <Compile Include="Serialization\XpdlExtensions.cs" />
     <Compile Include="Serialization\XpdlSerializer.cs" />
     <Compile Include="Tools\Categories.cs" />
     <Compile Include="Tools\ClassAssemblyReader.cs" />

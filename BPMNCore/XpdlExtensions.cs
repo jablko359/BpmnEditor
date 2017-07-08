@@ -1,8 +1,6 @@
-using BPMNCore;
-using BPMNEditor.Models.Elements;
 using XPDL.Xpdl;
 
-namespace BPMNEditor.Serialization
+namespace BPMNCore
 {
     public static class XpdlExtensions
     {

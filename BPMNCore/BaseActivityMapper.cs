@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BPMNCore;
-using BPMNEditor.Models.Elements;
 using XPDL.Xpdl;
 
-namespace BPMNEditor.Serialization.XpdlActivities
+namespace BPMNCore
 {
     public abstract class BaseActivityMapper : IActivityFactory, IActivityMapper
     {
@@ -27,6 +21,7 @@ namespace BPMNEditor.Serialization.XpdlActivities
                 result.NodeGraphicsInfos = new NodeGraphicsInfos();
                 result.NodeGraphicsInfos.NodeGraphicsInfo = new NodeGraphicsInfo[1];
                 NodeGraphicsInfo info = new NodeGraphicsInfo();
+                info.ToolId = VisualElementTools.GetToolId(visualElement);
                 info.SetSize(visualElement);
                 result.NodeGraphicsInfos.NodeGraphicsInfo[0] = info;
             }
@@ -62,7 +57,7 @@ namespace BPMNEditor.Serialization.XpdlActivities
                 VisualElement visualElement = baseElement as VisualElement;
                 if (visualElement != null)
                 {
-                    DocumentBuilder.SetVisualElementInfo(graphicInfo, visualElement);
+                    VisualElementTools.SetVisualElementInfo(graphicInfo, visualElement);
                 }
             }
             return baseElement;

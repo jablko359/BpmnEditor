@@ -16,7 +16,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Task")]
     [Draggable(typeof(IDocumentElement))]
     [XpdlActivityFactory(typeof(TaskActivityMapper))]
-    [ActivityMapper(typeof(Implementation), typeof(TaskActivityMapper))]
+    [ActivityMapper(typeof(Implementation), typeof(TaskActivityMapper), "TaskActivityMapper")]
     [ToolboxVisibile]
     [ElementViewModel(typeof(TaskViewModel), TaskViewModel.InitialWidth, TaskViewModel.InitialHeight)]
     public class TaskElement : VisualElement

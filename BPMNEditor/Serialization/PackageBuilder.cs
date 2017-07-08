@@ -97,7 +97,7 @@ namespace BPMNEditor.Serialization
         {
             NodeGraphicsInfo info = new NodeGraphicsInfo();
             info.SetSize(element);
-            info.ToolId = Assembly.GetExecutingAssembly().GetName().Name;
+            info.ToolId = VisualElementTools.GetToolId(element);
             return info;
         }
 

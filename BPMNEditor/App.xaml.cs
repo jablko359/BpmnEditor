@@ -24,7 +24,7 @@ namespace BPMNEditor
 
         private void AppGlobalDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            e.Handled = true;
+            
         }
     }
 }

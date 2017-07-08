@@ -15,7 +15,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Gateway")]
     [Draggable(typeof(IDocumentElement))]
     [XpdlActivityFactory(typeof(GatewayActivityMapper))]
-    [ActivityMapper(typeof(Route), typeof(GatewayActivityMapper))]
+    [ActivityMapper(typeof(Route), typeof(GatewayActivityMapper), "GatewayActivityMapper")]
     [ToolboxVisibile]
     [ElementViewModel(typeof(GatewayViewModel), GatewayViewModel.InitialWidth, GatewayViewModel.InitialHeight)]
     public class GatewayElement : VisualElement

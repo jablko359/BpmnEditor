@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityMapperAttribute.cs" />
+    <Compile Include="BaseActivityMapper.cs" />
     <Compile Include="CustomModelAttribute.cs" />
     <Compile Include="CustomVisualElement.cs" />
     <Compile Include="ElementViewModelAttribute.cs" />
@@ -61,7 +62,9 @@
     <Compile Include="ToolboxPresenterAttribute.cs" />
     <Compile Include="ToolboxVisibileAttribute.cs" />
     <Compile Include="VisualElement.cs" />
+    <Compile Include="VisualElementTools.cs" />
     <Compile Include="XpdlActivityFactoryAttribute.cs" />
+    <Compile Include="XpdlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XPDL\XPDL.csproj">

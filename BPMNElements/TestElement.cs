@@ -6,12 +6,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using BPMNCore;
-using BPMNElements.Annotations;
+using BPMNElements.Properties;
+using XPDL.Xpdl;
 
 namespace BPMNElements
 {
     [CustomModel]
     [ToolboxVisibile]
+    [ActivityMapper(typeof(Implementation), typeof(TestActivityMapper), "TestActivityMapper")]
+    [XpdlActivityFactory(typeof(TestActivityMapper))]
     [ToolboxPresenter(typeof(TestElementViewProvider))]
     public class TestElement : CustomVisualElement, INotifyPropertyChanged
     {
@@ -42,11 +45,4 @@ namespace BPMNElements
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-
-    public class TestElementViewProvider
-    {
-        
-    }
-    
 }

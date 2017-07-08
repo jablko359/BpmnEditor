@@ -15,7 +15,7 @@ namespace BPMNEditor.Models.Elements
     [DisplayName("Event")]
     [Draggable(typeof(IDocumentElement))]
     [XpdlActivityFactory(typeof(EventActivityMapper))]
-    [ActivityMapper(typeof(Event), typeof(EventActivityMapper))]
+    [ActivityMapper(typeof(Event), typeof(EventActivityMapper), "EventActivityMapper")]
     [ToolboxVisibile]
     [ElementViewModel(typeof(EventViewModel),EventViewModel.InitialWidth, EventViewModel.InitialWidth)]
     public class EventElement : VisualElement
