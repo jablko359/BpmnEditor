@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BPMNEditor.Serialization.XpdlActivities
+namespace BPMNCore
 {
     public class ActivityMapperAttribute : Attribute
     {

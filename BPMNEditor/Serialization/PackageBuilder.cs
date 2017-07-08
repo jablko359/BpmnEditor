@@ -223,6 +223,13 @@ namespace BPMNEditor.Serialization
                     activities.Activity[counter] = activity;
                     counter++;
                 }
+                else
+                {
+                    activities.Activity[counter] = new Activity()
+                    {
+                        Name = type.Name
+                    };
+                }
             }
             return activities;
         }

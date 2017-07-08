@@ -30,7 +30,7 @@ namespace BPMNEditor.ViewModels
 
         public bool IsCustomType { get; }
 
-        public object ViewProvider { get; set; }
+        public object ViewProvider { get;}
 
         public ElementCreatorViewModel(Type elementType)
         {

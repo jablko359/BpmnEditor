@@ -45,9 +45,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityMapperAttribute.cs" />
     <Compile Include="CustomModelAttribute.cs" />
     <Compile Include="CustomVisualElement.cs" />
     <Compile Include="ElementViewModelAttribute.cs" />
+    <Compile Include="IActivityFactory.cs" />
+    <Compile Include="IActivityMapper.cs" />
     <Compile Include="IBaseElement.cs" />
     <Compile Include="IdElement.cs" />
     <Compile Include="IDocumentElement.cs" />
@@ -58,6 +61,13 @@
     <Compile Include="ToolboxPresenterAttribute.cs" />
     <Compile Include="ToolboxVisibileAttribute.cs" />
     <Compile Include="VisualElement.cs" />
+    <Compile Include="XpdlActivityFactoryAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XPDL\XPDL.csproj">
+      <Project>{8f18330c-d626-4a47-8918-5b366895a21c}</Project>
+      <Name>XPDL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

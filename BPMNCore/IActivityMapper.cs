@@ -1,8 +1,6 @@
-using BPMNCore;
-using BPMNEditor.Models.Elements;
 using XPDL.Xpdl;
 
-namespace BPMNEditor.Serialization.XpdlActivities
+namespace BPMNCore
 {
     /// <summary>
     /// Creates model base element based on activity Item

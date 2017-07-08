@@ -1,6 +1,6 @@
 using System;
 
-namespace BPMNEditor.Serialization.XpdlActivities
+namespace BPMNCore
 {
     public class XpdlActivityFactoryAttribute : Attribute
     {

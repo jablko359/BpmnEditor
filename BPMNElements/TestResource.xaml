@@ -8,4 +8,16 @@
             <TextBox Text="{Binding Text}"></TextBox>
         </StackPanel>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:TestElementViewProvider}">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Canvas Width="25" Height="25">
+                <Ellipse Canvas.Right="0" Canvas.Top="0" Height="25" Width="25" StrokeThickness="1" 
+                                             Stroke="Azure" 
+                                             Fill="Red" >
+                </Ellipse>
+            </Canvas>
+
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

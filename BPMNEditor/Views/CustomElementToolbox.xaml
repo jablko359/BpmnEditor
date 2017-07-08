@@ -4,9 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BPMNEditor.Views"
-             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
+             xmlns:elements="clr-namespace:BPMNEditor.Models.Elements"
+             xmlns:converters="clr-namespace:BPMNEditor.ViewModels.Converters"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=vm:ElementCreatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBlock>Test text</TextBlock>
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <StackPanel.Resources>
+            <DataTemplate DataType="{x:Type elements:GatewayElement}">
+                <TextBlock>Gateway</TextBlock>
+            </DataTemplate>
+        </StackPanel.Resources>
+        <ContentPresenter Content="{Binding ViewProvider}"></ContentPresenter>
+    </StackPanel>
 </UserControl>

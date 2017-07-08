@@ -11,6 +11,7 @@
              xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
              mc:Ignorable="d" HorizontalAlignment="Stretch" 
              Margin="15 3" Cursor="Hand" Background="Transparent"
+             x:Name="UserControl"
              d:DataContext="{d:DesignInstance Type=vm:ElementCreatorViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -29,7 +30,7 @@
                     <Setter Property="ContentTemplate">
                         <Setter.Value>
                             <DataTemplate>
-                                <local:CustomElementToolbox></local:CustomElementToolbox>
+                                <local:CustomElementToolbox DataContext="{Binding ElementName=UserControl, Path=DataContext}"></local:CustomElementToolbox>
                             </DataTemplate>
                         </Setter.Value>
                     </Setter>

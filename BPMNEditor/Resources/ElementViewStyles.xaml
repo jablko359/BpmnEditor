@@ -3,8 +3,11 @@
                     xmlns:vm="clr-namespace:BPMNEditor.ViewModels"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:controls="clr-namespace:BPMNEditor.Views.Controls"
-                    xmlns:bpmnCore="clr-namespace:BPMNCore;assembly=BPMNCore">
-    
+                    xmlns:bpmnCore="clr-namespace:BPMNCore;assembly=BPMNCore"
+                    xmlns:elements="clr-namespace:BPMNEditor.Models.Elements">
+    <DataTemplate DataType="{x:Type elements:GatewayElement}">
+        <TextBlock>Gatway</TextBlock>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:GenericViewModelAdapter}">
         <Border Height="{Binding Height}" Width="{Binding Width}" BorderThickness="1" BorderBrush="#333333" Background="Lavender">
             <ContentPresenter Content="{Binding BaseElement}"></ContentPresenter>
