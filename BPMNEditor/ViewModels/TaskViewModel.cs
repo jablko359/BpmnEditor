@@ -19,16 +19,7 @@ namespace BPMNEditor.ViewModels
         #region Properties
 
         public override bool CanConnect => true;
-
-        public string Name
-        {
-            get { return _taskElement.Name; }
-            set
-            {
-                _taskElement.Name = value;
-                NotifyOfPropertyChange(nameof(Name));
-            }
-        }
+        
 
         #endregion
 
@@ -42,8 +33,7 @@ namespace BPMNEditor.ViewModels
 
         protected override VisualElement CreateElement()
         {
-            _taskElement = new TaskElement();
-            Name = "Task";
+            _taskElement = new TaskElement("Task");
             return _taskElement;
         }
 

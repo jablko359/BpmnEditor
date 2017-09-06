@@ -13,7 +13,7 @@ namespace BPMNElements.Properties
     /// class NoEquality { }
     /// 
     /// class UsesNoEquality {
-    ///   void Test() {
+    ///   void Example() {
     ///     var ca1 = new NoEquality();
     ///     var ca2 = new NoEquality();
     ///     if (ca1 != null) { // OK

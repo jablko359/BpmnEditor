@@ -13,25 +13,25 @@ namespace BPMNElements
 {
     [CustomModel]
     [ToolboxVisibile]
-    [ActivityMapper(typeof(Implementation), typeof(TestActivityMapper), "TestActivityMapper")]
-    [XpdlActivityFactory(typeof(TestActivityMapper))]
-    [ToolboxPresenter(typeof(TestElementViewProvider))]
-    public class TestElement : CustomVisualElement, INotifyPropertyChanged
+    [ActivityMapper(typeof(Implementation), typeof(ExampleActivityMapper), "ExampleActivityMapper")]
+    [XpdlActivityFactory(typeof(ExampleActivityMapper))]
+    [ToolboxPresenter(typeof(ExampleElementViewProvider))]
+    public class ExampleElement : CustomVisualElement, INotifyPropertyChanged
     {
-        private string _test;
+        private string _Example;
 
         public string Text
         {
-            get { return _test; }
+            get { return _Example; }
             set
             {
-                _test = value;
+                _Example = value;
                 OnPropertyChanged(nameof(Text));
             }
         }
 
 
-        public TestElement()
+        public ExampleElement()
         {
             Height = 200;
             Width = 100;

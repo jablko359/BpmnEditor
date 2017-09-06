@@ -37,10 +37,10 @@ namespace BPMNElements.Properties
   /// so the check for <c>null</c> is necessary before its usage.
   /// </summary>
   /// <example><code>
-  /// [CanBeNull] object Test() => null;
+  /// [CanBeNull] object Example() => null;
   /// 
-  /// void UseTest() {
-  ///   var p = Test();
+  /// void UseExample() {
+  ///   var p = Example();
   ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
   /// }
   /// </code></example>

@@ -23,8 +23,12 @@ namespace BPMNEditor.ViewModels
             get { return BaseElement.Width; }
             set
             {
-                BaseElement.Width = value;
-                NotifyOfPropertyChange(nameof(Width));
+                if (value > 0)
+                {
+                    BaseElement.Width = value;
+                    NotifyOfPropertyChange(nameof(Width));
+                }
+                
             }
         }
 
@@ -34,9 +38,12 @@ namespace BPMNEditor.ViewModels
             get { return BaseElement.Height; }
             set
             {
-                BaseElement.Height = value;
-        
-                NotifyOfPropertyChange(nameof(Height));
+                if (value > 0)
+                {
+                    BaseElement.Height = value;
+                    NotifyOfPropertyChange(nameof(Height));
+                }
+                
             }
        } 
 

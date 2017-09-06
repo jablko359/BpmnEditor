@@ -13,6 +13,20 @@ namespace BPMNEditor.ViewModels
     {
         private PoolViewModel _pool;
 
+        public string Name
+        {
+            get { return BaseElement?.Name; }
+            set
+            {
+                if (BaseElement != null)
+                {
+                    BaseElement.Name = value;
+                    NotifyOfPropertyChange(nameof(Name));
+                }
+            }
+        }
+
+
         [Browsable(false)]
         public PoolViewModel Pool
         {

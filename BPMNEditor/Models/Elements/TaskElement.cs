@@ -21,6 +21,14 @@ namespace BPMNEditor.Models.Elements
     [ElementViewModel(typeof(TaskViewModel), TaskViewModel.InitialWidth, TaskViewModel.InitialHeight)]
     public class TaskElement : VisualElement
     {
-       
+        public TaskElement() : base()
+        {
+            
+        }
+
+        public TaskElement(string name) : base(name)
+        {
+            
+        }
     }
 }

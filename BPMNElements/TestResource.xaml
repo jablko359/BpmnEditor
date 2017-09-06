@@ -3,13 +3,18 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                     xmlns:local="clr-namespace:BPMNElements"
                    >
-    <DataTemplate DataType="{x:Type local:TestElement}">
-        <StackPanel Background="Red">
-            <TextBox Text="{Binding Text}"></TextBox>
-        </StackPanel>
+    <DataTemplate DataType="{x:Type local:ExampleElement}">
+        <Viewbox>
+            <Canvas Width="25" Height="25">
+                <Ellipse Canvas.Right="0" Canvas.Top="0" Height="25" Width="25" StrokeThickness="1" 
+                                             Stroke="Azure" 
+                                             Fill="Red" >
+                </Ellipse>
+            </Canvas>
+        </Viewbox>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:TestElementViewProvider}">
+    <DataTemplate DataType="{x:Type local:ExampleElementViewProvider}">
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <Canvas Width="25" Height="25">
                 <Ellipse Canvas.Right="0" Canvas.Top="0" Height="25" Width="25" StrokeThickness="1" 

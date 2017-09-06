@@ -158,6 +158,7 @@
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\DrawingConnectionViewModel.cs" />
     <Compile Include="ViewModels\ElementCreatorViewModel.cs" />
+    <Compile Include="ViewModels\Converters\EmptyStringToVisibilityConverter.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\GatewayViewModel.cs" />
     <Compile Include="ViewModels\GenericViewModelAdapter.cs" />

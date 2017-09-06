@@ -1,6 +1,6 @@
 namespace BPMNElements
 {
-    public class TestElementViewProvider
+    public class ExampleElementViewProvider
     {
         
     }

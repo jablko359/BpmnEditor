@@ -368,7 +368,7 @@ namespace BPMNEditor.ViewModels
         public void NotifyActionPropertyChagned(string propertyName, object oldValue, object newValue)
         {
             var property = GetType().GetProperty(propertyName);
-            if (property.PropertyType == oldValue.GetType())
+            if (oldValue == null || property.PropertyType == oldValue.GetType())
             {
                 _lastProperty = new PropertyMemento(oldValue, propertyName);
             }

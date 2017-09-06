@@ -12,11 +12,17 @@ namespace BPMNCore
             Guid = Guid.NewGuid();
         }
 
+        public IdElement(string name) : this()
+        {
+            Name = name;
+        }
+
         public string GetId()
         {
             return Guid.ToString();
         }
 
+        
        
     }
 }

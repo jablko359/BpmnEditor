@@ -27,7 +27,7 @@
     <converters:IsCollectionEmpty x:Key="IsCollectionEmpty"/>
     <converters:PlacementToHorizontalAligmentConverter x:Key="PlacementToHorizontalAligmentConverter"/>
     <converters:PlacementToVerticalAligmentConverter x:Key="PlacementToVerticalAligmentConverter"/>
-    
+    <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" />
     
 
     <Style x:Key="ButtonTransparent" TargetType="Button">

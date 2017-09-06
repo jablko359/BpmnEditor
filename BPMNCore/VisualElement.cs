@@ -6,5 +6,14 @@
         public double Width { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
+
+        public VisualElement()
+        {
+        }
+
+        public VisualElement(string name) : base(name)
+        {
+            
+        }
     }
 }
