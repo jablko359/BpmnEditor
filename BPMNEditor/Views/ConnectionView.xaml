@@ -8,12 +8,14 @@
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
              xmlns:graphTools="clr-namespace:BPMNEditor.Tools.GraphTools"
              xmlns:bpmnEditor="clr-namespace:BPMNEditor"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:bpmnCore="clr-namespace:BPMNCore;assembly=BPMNCore"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=viewModels:ElementsConnectionViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <tools:BindingProxy x:Key="Proxy" Data="{Binding}"></tools:BindingProxy>
         <ContextMenu x:Key="Menu" IsOpen="{Binding Data.IsContextMenuOpened, Mode=TwoWay, Source={StaticResource Proxy}}" >
-            <MenuItem Header="Usuń" Command="{Binding Data.DeleteCommand, Source={StaticResource Proxy}}"></MenuItem>
+            <MenuItem Header="Delete" Command="{Binding Data.DeleteCommand, Source={StaticResource Proxy}}"></MenuItem>
         </ContextMenu>
     </UserControl.Resources>
     <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -56,7 +58,14 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
         <graphTools:Arrow StartPoint="{Binding ArrowPoint}" EndPoint="{Binding EndPoint}" HeadHeight="5" HeadWidth="5" ></graphTools:Arrow>
+        <TextBox Width="100" Visibility="{Binding Name, Converter={StaticResource EmptyStringToVisibilityConverter}}" Style="{StaticResource TransparentTextBox}" TextAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" Canvas.Top="{Binding LabelTop}" 
+                 Canvas.Left="{Binding LabelLeft}">
+            <i:Interaction.Behaviors>
+                <bpmnCore:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
+            </i:Interaction.Behaviors>
+        </TextBox>
     </Canvas>
 
 </UserControl>

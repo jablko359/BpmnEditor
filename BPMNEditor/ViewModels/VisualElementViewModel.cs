@@ -17,7 +17,7 @@ namespace BPMNEditor.ViewModels
         [Browsable(false)]
         public VisualElement BaseElement { get; protected set; }
 
-        [Category(Categories.LayoutCategory)]
+        [Browsable(false)]
         public double Width
         {
             get { return BaseElement.Width; }
@@ -32,7 +32,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        [Category(Categories.LayoutCategory)]
+        [Browsable(false)]
         public double Height
         {
             get { return BaseElement.Height; }
@@ -45,9 +45,9 @@ namespace BPMNEditor.ViewModels
                 }
                 
             }
-       } 
+       }
 
-        [Category(Categories.LayoutCategory)]
+        [Browsable(false)]
         public double Left
         {
             get { return BaseElement.X; }
@@ -64,7 +64,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-        [Category(Categories.LayoutCategory)]
+        [Browsable(false)]
         public double Top
         {
             get { return BaseElement.Y; }

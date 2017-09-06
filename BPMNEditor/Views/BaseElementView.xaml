@@ -9,6 +9,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:views="clr-namespace:BPMNEditor.Views" PreviewMouseDown="BaseElementView_OnPreviewMouseDown"
              xmlns:viewModels="clr-namespace:BPMNEditor.ViewModels"
+             xmlns:bpmnCore="clr-namespace:BPMNCore;assembly=BPMNCore"
              mc:Ignorable="d" Cursor="SizeAll" Grid.ZIndex="{Binding ItemZIndex}"
              d:DataContext="{d:DesignInstance Type=viewModels:BaseElementViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -22,11 +23,16 @@
             
         </ContentControl.Resources>
         <ContentControl>
-            <Grid>
-                <ContentPresenter  Content="{Binding}" />
-                <Control Visibility="{Binding IsConnectorVisible , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ConnectorDecoratorTemplate}"></Control>
-                <Control Visibility="{Binding IsSelected , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ResizeDecoratorTemplate}"/>
-            </Grid>
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <ContentPresenter  Content="{Binding}" />
+                    <Control Visibility="{Binding IsConnectorVisible , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ConnectorDecoratorTemplate}"></Control>
+                    <Control Visibility="{Binding IsSelected , Converter={StaticResource BooleanToVisibilityConverter}}" Template="{StaticResource ResizeDecoratorTemplate}"/>
+
+                </Grid>
+            </StackPanel>
+            
+            
         </ContentControl>
     </ContentControl>
     <dnd:DragableUserControl.ContextMenu>

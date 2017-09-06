@@ -197,6 +197,7 @@ namespace BPMNEditor.Serialization
                 if (containsSecond && containsFirst)
                 {
                     Transition transition = new Transition();
+                    transition.Name = connectionElement.Name;
                     transition.Id = connectionElement.GetId();
                     transition.From = connectionElement.SourceElement.GetId();
                     transition.To = connectionElement.TargetElement.GetId();

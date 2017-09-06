@@ -13,6 +13,7 @@ namespace BPMNCore
             IdElement idElement = baseElement as IdElement;
             if (idElement != null)
             {
+                result.Name = baseElement.Name;
                 result.Id = idElement.GetId();
             }
             VisualElement visualElement = baseElement as VisualElement;

@@ -214,6 +214,7 @@ namespace BPMNEditor.ViewModels
                 {
                     var document = serialzier.Deserialize(inputStream);
                     DocumentViewModel viewModel = DocumentViewModel.FromModel(document);
+                    viewModel.SelectionChanged += Document_SelectionChanged;
                     Documents.Add(viewModel);
                 }
             }

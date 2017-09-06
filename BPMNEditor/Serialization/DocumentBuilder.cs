@@ -61,6 +61,7 @@ namespace BPMNEditor.Serialization
                         IBaseElement fromElement = _elements[Guid.Parse(from)];
                         IBaseElement toElement = _elements[Guid.Parse(to)];
                         ConnectionElement connection = new ConnectionElement(fromElement, toElement);
+                        connection.Name = transition.Name;
                         connection.Guid = Guid.Parse(transition.Id);
                         List<Point> points = GetPoints(transition.ConnectorGraphicsInfos);
                         connection.Points = points;

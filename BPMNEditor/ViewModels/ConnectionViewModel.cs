@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace BPMNEditor.ViewModels
         #region Properties
 
         private Point _arrowPoint;
-        
+        [Browsable(false)]
         public Point ArrowPoint
         {
             get { return _arrowPoint; }
@@ -35,7 +36,7 @@ namespace BPMNEditor.ViewModels
             }
         }
 
-
+        [Browsable(false)]
         public Point StartPoint
         {
             get { return _startPoint; }
@@ -45,6 +46,7 @@ namespace BPMNEditor.ViewModels
                 NotifyOfPropertyChange(nameof(StartPoint));
             }
         }
+        [Browsable(false)]
         public Point EndPoint
         {
             get { return _endPoint; }
@@ -55,7 +57,7 @@ namespace BPMNEditor.ViewModels
                 NotifyOfPropertyChange(nameof(EndPoint));
             }
         }
-
+        [Browsable(false)]
         public PointCollection Points
         {
             get { return _points; }
@@ -66,6 +68,37 @@ namespace BPMNEditor.ViewModels
             }
 
         }
+
+        public virtual string Name { get; set; }
+
+        private double _labelTop;
+        [Browsable(false)]
+        public double LabelTop
+        {
+            get { return _labelTop; }
+            set
+            {
+                _labelTop = value;
+                NotifyOfPropertyChange(nameof(LabelTop));
+            }
+        }
+
+        private double _labelLeft;
+        [Browsable(false)]
+        public double LabelLeft
+        {
+            get { return _labelLeft; }
+            set
+            {
+                _labelLeft = value;
+                NotifyOfPropertyChange(nameof(LabelLeft));
+            }
+        }
+
+
+
+
+
 
         #endregion
 

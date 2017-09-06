@@ -56,7 +56,7 @@
                     </ContextMenu>
                 </Ellipse.ContextMenu>
             </Ellipse>
-            <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" Visibility="{Binding Name, Converter={StaticResource EmptyStringToVisibilityConverter}}" >
+            <TextBox MaxWidth="100" TextWrapping="Wrap" Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" Visibility="{Binding Name, Converter={StaticResource EmptyStringToVisibilityConverter}}" >
                 <i:Interaction.Behaviors>
                     <bpmnCore:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
                 </i:Interaction.Behaviors>
@@ -66,7 +66,7 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:TaskViewModel}" >
         <Border Height="{Binding Height}" Width="{Binding Width}" BorderBrush="{StaticResource TaskBorderColor}"  BorderThickness="1" CornerRadius="10" Background="{StaticResource TaskBackgroundColor}" >
-            <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" >
+            <TextBox TextWrapping="Wrap"  Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" >
                 <i:Interaction.Behaviors>
                     <bpmnCore:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
                 </i:Interaction.Behaviors>
@@ -113,7 +113,7 @@
                     </ContextMenu>
                 </Viewbox.ContextMenu>
             </Viewbox>
-            <TextBox Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" Visibility="{Binding Name, Converter={StaticResource EmptyStringToVisibilityConverter}}" >
+            <TextBox Width="{Binding Width}" TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding Name}" Style="{StaticResource TransparentTextBox}" Visibility="{Binding Name, Converter={StaticResource EmptyStringToVisibilityConverter}}" >
                 <i:Interaction.Behaviors>
                     <bpmnCore:RaisePropertyChangedActionBehavior ControlPropertyName="Text" UpdatePropertyName="Name"/>
                 </i:Interaction.Behaviors>

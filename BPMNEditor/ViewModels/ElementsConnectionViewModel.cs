@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,7 @@ namespace BPMNEditor.ViewModels
         private readonly ConnectorViewModel _end;
         private bool _isContextMenuOpened;
 
+        [Browsable(false)]
         public List<Hook> Hooks
         {
             get { return _hooks; }
@@ -28,7 +30,7 @@ namespace BPMNEditor.ViewModels
                 NotifyOfPropertyChange(nameof(Hooks));
             }
         }
-
+        [Browsable(false)]
         public bool IsContextMenuOpened
         {
             get { return _isContextMenuOpened; }
@@ -38,12 +40,25 @@ namespace BPMNEditor.ViewModels
                 NotifyOfPropertyChange(nameof(IsContextMenuOpened));
             }
         }
-
+        [Browsable(false)]
         public ConnectionElement Model { get; }
-
+        [Browsable(false)]
         public BaseElementViewModel From { get; private set; }
+        [Browsable(false)]
         public BaseElementViewModel To { get; private set; }
 
+        public override string Name
+        {
+            get { return Model.Name; }
+            set
+            {
+                Model.Name = value;
+                NotifyOfPropertyChange(nameof(Name));
+            }
+        }
+
+        private ConnectorViewModel _startViewModel;
+        private ConnectorViewModel _endViewModel;
         /// <summary>
         /// Creates ElementsConnectionViewModel and add model connection
         /// </summary>
@@ -68,6 +83,8 @@ namespace BPMNEditor.ViewModels
             Hooks = new List<Hook>();
             Model = new ConnectionElement(start.Parent.BaseElement, end.Parent.BaseElement);
             ModelHelper.AddModelConnection(this);
+            _startViewModel = start;
+            _endViewModel = end;
             CalculatePath();
         }
 
@@ -88,6 +105,8 @@ namespace BPMNEditor.ViewModels
             endConnector.Parent.ElementDeleted += ElementDeleted;
             startConenctor.Parent.SetConnection(this);
             endConnector.Parent.SetConnection(this);
+            _start = startConenctor;
+            _end = endConnector;
             Hooks = new List<Hook>();
             Model = model;
             CalculatePath();
@@ -133,12 +152,68 @@ namespace BPMNEditor.ViewModels
             int idx = GetArrowIndex(points, _end.Placemement);
             ArrowPoint = points[idx];
             CalculateHooks(points);
+            UpdateLabelPosition();
             points.Insert(0, StartPoint);
             Points = new PointCollection(points.GetRange(0, idx + 2));
-            Model.Points = new List<Point>() {StartPoint, EndPoint};
+            Model.Points = new List<Point>() { StartPoint, EndPoint };
         }
 
-        
+        private void UpdateLabelPosition()
+        {
+            var midIdx = Hooks.Count / 2;
+            Hook hook = null;
+            if (Hooks.Count > midIdx)
+            {
+                hook = Hooks[midIdx];
+            }
+            double top = 20;
+            double left;
+            if (hook != null)
+            {
+                switch (hook.Orientation)
+                {
+                    case Orientation.Horizontal:
+                        top += hook.StartPoint.Y > hook.EndPoint.Y ? hook.StartPoint.Y : hook.EndPoint.Y;
+                        break;
+                    case Orientation.Vertical:
+                        top += hook.HookPoint.Y;
+                        break;
+                }
+                left = hook.HookPoint.X - 50;
+            }
+            else
+            {
+                
+                //Draw near end
+                switch (_end.Placemement)
+                {
+                    case Placemement.Bottom:
+                        top = EndPoint.Y;
+                        left = EndPoint.X;
+                        break;
+                    case Placemement.Top:
+                        top = EndPoint.Y;
+                        left = EndPoint.X;
+                        break;
+                    case Placemement.Left:
+                        top = EndPoint.Y;
+                        left = EndPoint.X - 100;
+                        break;
+                    case Placemement.Right:
+                        top = EndPoint.Y;
+                        left = EndPoint.X ;
+                        break;
+                    default:
+                        throw new ArgumentException("Unknown placement");
+                }
+               
+            }
+            LabelLeft = left;
+            LabelTop = top;
+
+        }
+
+
 
         private void CalculateHooks(List<Point> points)
         {
